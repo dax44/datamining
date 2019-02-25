@@ -184,36 +184,36 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -0.9546709    0.1552327   -1.9070184           1.0976691  0.9381296
-## 2  0.2515073    1.5496371   -0.3919635          -0.8297448 -1.3222560
-## 3 -0.1100726   -0.5823125    2.2131383          -1.2403419 -1.9700163
+## 1 -0.9359515  -0.52570509   -2.2399620           0.7234131 -0.3558247
+## 2  1.2369371   0.02495332    0.4459859          -0.7651344  0.2588138
+## 3  1.2205769   1.30637952   -0.6499222           0.2127817 -1.1139170
 ##             
-## 1 -1.5336062
-## 2  1.3299777
-## 3 -0.8424698</code></pre>
+## 1  0.6307760
+## 2  0.0574160
+## 3 -0.8632866</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -0.9546709    0.1552327   -1.9070184            1.0976691  0.9381296
-## 2  0.2515073    1.5496371   -0.3919635           -0.8297448 -1.3222560
-## 3 -0.1100726   -0.5823125    2.2131383           -1.2403419 -1.9700163
+## 1 -0.9359515  -0.52570509   -2.2399620            0.7234131 -0.3558247
+## 2  1.2369371   0.02495332    0.4459859           -0.7651344  0.2588138
+## 3  1.2205769   1.30637952   -0.6499222            0.2127817 -1.1139170
 ##            X
-## 1 -1.5336062
-## 2  1.3299777
-## 3 -0.8424698</code></pre>
+## 1  0.6307760
+## 2  0.0574160
+## 3 -0.8632866</code></pre>
 <p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
 <pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -0.9546709    0.1552327     -1.9070184         1.0976691  0.9381296
-## 2  0.2515073    1.5496371     -0.3919635        -0.8297448 -1.3222560
-## 3 -0.1100726   -0.5823125      2.2131383        -1.2403419 -1.9700163
+## 1 -0.9359515  -0.52570509     -2.2399620         0.7234131 -0.3558247
+## 2  1.2369371   0.02495332      0.4459859        -0.7651344  0.2588138
+## 3  1.2205769   1.30637952     -0.6499222         0.2127817 -1.1139170
 ##            x
-## 1 -1.5336062
-## 2  1.3299777
-## 3 -0.8424698</code></pre>
+## 1  0.6307760
+## 2  0.0574160
+## 3 -0.8632866</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>
