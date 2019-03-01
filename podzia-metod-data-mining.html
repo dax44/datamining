@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Eksploracja danych</title>
+  <title>3 Podział metod data mining | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Eksploracja danych" />
+  <meta property="og:title" content="3 Podział metod data mining | Eksploracja danych" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Eksploracja danych" />
+  <meta name="twitter:title" content="3 Podział metod data mining | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="roz1.html">
+<link rel="prev" href="przygotowanie-danych.html">
+<link rel="next" href="bibliografia.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -174,114 +174,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Eksploracja danych</h1>
-<p class="author"><em>Dariusz Majerek</em></p>
-<address class="author_afil">
-<div class="line-block">Katedra Matematyki Stosowanej<br />
-Wydział Podstaw Techniki<br />
-Politechnika Lubelska</div><br><a class="author_email" href="mailto:#"><a href="mailto:d.majerek@pollub.pl" class="email">d.majerek@pollub.pl</a></a>
-</address>
-<p class="date"><em>2019-03-01</em></p>
+<div id="podzia-metod-data-mining" class="section level1">
+<h1><span class="header-section-number">3</span> Podział metod data mining</h1>
+<div id="rodzaje-wnioskowania" class="section level2">
+<h2><span class="header-section-number">3.1</span> Rodzaje wnioskowania</h2>
+<p><em>Data mining</em> to zestaw metod pozyskiwania wiedzy na podstawie danych. Ową wiedzę zdobywamy w procesie wnioskowania na podstawie modeli. Wnioskowanie możemy podzielić na dedukcyjne i indukcyjne. I tak z wnioskowaniem dedukcyjnym mamy do czynienia wówczas, gdy na podstawie obecnego stanu wiedzy potrafimy odpowiedzieć na postawione pytanie dotyczące nowej wiedzy, stosując reguły wnioskowania. O wnioskowaniem indukcyjnym powiemy, że jest to metoda pozyskiwania wiedzy na podstawie informacji ze zbioru uczącego. Znajduje ono szerokie zastosowanie w data mining i charakteryzuje się obylnością, ponieważ nawet najlepiej nauczony model na zbiorze uczącym nie zapewnia nam prawdziwości odpowiedzi w przypadku nowych danych, a jedynie je uprawdopodabnia. Esencją wnioskowania indukcyjnego w zakresie data mining, jest poszukiwanie na podstawie danych uczących modelu charakteryzującego się najlepszymi właściwościami predykcyjnymi i dającego się zastosować do zupełnie nowego zbioru danych.</p>
+<p>Każdy proces uczenia z wykorzystaniem wnioskowania indukcyjnego składa się z następujących elementów.</p>
+<div id="dziedzina" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Dziedzina</h3>
+<p><em>Dziedzina</em> to zbiór wszystkich obiektów pozostających w zainteresowaniu badacza, będących przedmiotem wnioskowania, oznaczana najczęsciej przez <span class="math inline">\(X\)</span>. Przykładowo mogą to być zbiory osób, transakcji, urządzeń, instytucji, itp.</p>
 </div>
-<div id="wstep" class="section level1 unnumbered">
-<h1>Wstęp</h1>
-<div id="o-ksiazce" class="section level2 unnumbered">
-<h2>O książce</h2>
-<p>Niniejsza książka powstała na bazie doświadczeń autora, a głównym jej celem jest przybliżenie czytelnikowi podstaw z dziedziny <em>Data mining</em> studentom kierunku <em>Matematyka</em> Politechniki Lubelskiej. Będzie łączyć w sobie zarówno treści teoretyczne związane z przedstawianymi etapami eksploracji danych i budową modeli, jak i praktyczne wskazówki dotczące budowy modeli w środowisku <strong>R</strong> <span class="citation">(R Core Team <a href="#ref-R-base">2018</a>)</span>. Podane zostaną również wskazówki, jak raportować wyniki analiz i jak dokonać właściwych ilustracji wyników. Bardzo użyteczny w napisaniu książki były pakiety programu R: <strong>bookdown</strong> <span class="citation">(Xie <a href="#ref-R-bookdown">2018</a><a href="#ref-R-bookdown">a</a>)</span>, <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-R-knitr">2018</a><a href="#ref-R-knitr">b</a>)</span> oraz pakiet <strong>rmarkdown</strong> <span class="citation">(Allaire et al. <a href="#ref-R-rmarkdown">2018</a>)</span>.</p>
+<div id="obserwacja" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Obserwacja</h3>
+<p>Każdy element dziedziny <span class="math inline">\(x\in X\)</span> nazywamy obserwacją. Obserwacją nazywać będziemy zarówno rekordy danych ze zbioru uczącego, jak i ze zbioru testowego.</p>
 </div>
-<div id="zakres-przedmiotu" class="section level2 unnumbered">
-<h2>Zakres przedmiotu</h2>
-<p>Przedmiot <em>Eksploracja danych</em> będzie obejmował swoim zakresem eksplorację i wizualizację danych oraz uczenie maszynowe. Eksploracja danych ma na celu pozyskiwanie i systematyzację wiedzy pochodzącej z danych. Odbywa się ona głównie przy użyciu technik statystycznych, rachunku prawdopodobieństwa i metod z zakresu baz danych. Natomiast uczenie maszynowe, to gałąź nauki (obejmuje nie tylko statystykę, choć to na niej się głównie opiera) dotyczącej budowy modeli zdolnych do rozpoznawania wzorców, przewidywania wartości i klasyfikacji obiektów. Data mining to szybko rosnaca grupa metod analizy danych rozwijana nie tylko przez statystyków ale również przez biologów, genetyków, cybernetyków, informatyków, ekonomistów, osoby pracujace nad rozpoznawaniem obrazów i wiele innych grup zawodowych. W dzisiejszych czasch trudno sobie wyobrazić życie bez sztucznej inteligencji. Towarzyszy ona nam w codziennym, życiu kiedy korzystamy z telefonów komórkowych, wyszukiwarek internetowych, robotów sprzątających, automatycznych samochodów, nawigacji czy gier komputerowych. Lista ta jest niepełna i stale się wydłuża 😄.</p>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-video">
-<p>
-href=“<a href="https://twitter.com/i/status/1091069356367200256" class="uri">https://twitter.com/i/status/1091069356367200256</a>”&gt;January 31, 2019
-</p>
-</blockquote>
+<div id="atrybuty" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Atrybuty</h3>
+<p>Każdy obiekt z dzidziny <span class="math inline">\(x\in X\)</span> można opisać zestawem cech (atrybutów), które w notacji matematycznej oznaczymy przez <span class="math inline">\(a:X\to A\)</span>, gdzie <span class="math inline">\(A\)</span> jest przestrzenią wartości atrybutów. Każda obserwacja <span class="math inline">\(x\)</span> posiadająca <span class="math inline">\(k\)</span> cech da się wyrazić wektorowo jako <span class="math inline">\((a_1(x), a_2(x), \ldots, a_k(x))\)</span>. Dla większości algorytmów uczenia maszynowego wyróżnia się trzy typy atrybutów:
+- <em>nominalne</em> - posiadające skończoną liczbę stanów, które posiadają porządku;
+- <em>porządkowe</em> - posiadające skończoną liczbę stanów z zachowaniem porządku;
+- <em>ciągłe</em> - przyjmujące wartości numeryczne.
+Często jeden z atrybutów spełnia specjalą rolę, ponieważ stanowi realizację cechy, którą traktujemy jako wyjściową (ang. <em>target value attribute</em>). W tym przypadku powiemy o <strong>nadzorowanym uczeniu maszynowym</strong>. Jeśli zmiennej wyjściowej nie ma dziedzinie, to mówimy o <strong>nienadzorowanym uczeniu maszynowym</strong>.</p>
 </div>
-<div id="zakres-technik-stosowanych-w-data-mining" class="section level2 unnumbered">
-<h2>Zakres technik stosowanych w data mining</h2>
-<ul>
-<li>statystyka opisowa</li>
-<li>wielowymiarowa analiza danych</li>
-<li>analiza szeregów czasowych</li>
-<li>analiza danych przestrzennych</li>
-<li>reguły asocjacji</li>
-<li>uczenie maszynowe<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, w tym:
-<ul>
-<li>klasyfikacja</li>
-<li>predykcja</li>
-<li>analiza skupień</li>
-<li><em>text mining</em></li>
-</ul></li>
-<li>i wiele innych 💹</li>
-</ul>
-<div class="figure"><span id="fig:cluster1"></span>
-<img src="images/cluster1.jpg" alt="Przykład nienadzorowanego uczenia maszynowego.\  *Źródło:*https://analyticstraining.com/cluster-analysis-for-business/"  />
-<p class="caption">
-Figure .: Przykład nienadzorowanego uczenia maszynowego.  <em>Źródło:</em><a href="https://analyticstraining.com/cluster-analysis-for-business/" class="uri">https://analyticstraining.com/cluster-analysis-for-business/</a>
-</p>
-</div>
-<blockquote class="twitter-video">
-<p>
-href=“<a href="https://twitter.com/i/status/1097199751072690176" class="uri">https://twitter.com/i/status/1097199751072690176</a>”&gt;Ferbruary 17, 2019
-</p>
-</blockquote>
-</div>
-<div id="etapy-eksploracji-danych" class="section level2 unnumbered">
-<h2>Etapy eksploracji danych</h2>
-<div class="figure"><span id="fig:unnamed-chunk-2"></span>
-<img src="images/dm_stages.jpg" alt="Etapy eksploracji danych [@KAVAKIOTIS2017]"  />
-<p class="caption">
-Figure .: Etapy eksploracji danych <span class="citation">(Kavakiotis et al. <a href="#ref-KAVAKIOTIS2017">2017</a>)</span>
-</p>
-</div>
-<ol style="list-style-type: decimal">
-<li>Czyszczenie danych - polega na usuwaniu braków danych, usuwaniu stałych zmiennych, imputacji braków danych oraz przygotowaniu danych do dalszych analiz.</li>
-<li>Integracja danych - łączenie danych pochodzących z różnych źródeł.</li>
-<li>Selekcja danych - wybór z bazy tych danych, które są potrzebne do dalszych analiz.</li>
-<li>Transformacja danych - przekształcenie i konsolidacja danych do postaci przydatnej do eksploracji.</li>
-<li>Eksploracja danych - zastosowanie technik wymienionych wcześniej w celu odnalezienia wzorców<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> i zależności.</li>
-<li>Ewaluacja modeli - ocena poprawności modeli oraz wzorców z nich uzyskanych.</li>
-<li>Wizualizacja wyników - graficzne przedstawienie odkrytych wzorców.</li>
-<li>Wdrażanie modeli - zastosowanie wyznaczonych wzorców.</li>
-</ol>
+<div id="zbior-uczacy" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Zbiór uczący</h3>
+<p>Zbiorem uczącym <span class="math inline">\(T\)</span> (ang. <em>training set</em>) nazywamy podzbiór <span class="math inline">\(D\)</span> dziedziny <span class="math inline">\(X\)</span> (czyli <span class="math inline">\(T\subseteq D\subseteq X\)</span>), gdzie zbiór <span class="math inline">\(D\)</span> stanowi ogół dostępnych obserwacji z dziedziny <span class="math inline">\(X\)</span>. Zbiór uczący zawiera informacje dotyczące badanego zjawiska, na podstwie których, dokonuje się doboru modelu, selekcji cech istotny z punktu widzenia własności predykcyjnych lub jakości klasyfikacji, budowy modelu oraz optymalizacji jego parametrów. W przypadku uczenia z nauczycielem (nadzorowanego) zbiór <span class="math inline">\(T\)</span> zawiera informację o wartościach atrybutów zmiennej wynikowej.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
+adver &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;../../../../R/Data mining/An Introduction to Statistical Learning with Applications in R/James2013/Data Sets/Advertising.csv&quot;</span>)
+<span class="kw">head</span>(adver)</code></pre>
+<pre><code>##   V1    TV Radio Newspaper Sales
+## 1  1 230.1  37.8      69.2  22.1
+## 2  2  44.5  39.3      45.1  10.4
+## 3  3  17.2  45.9      69.3   9.3
+## 4  4 151.5  41.3      58.5  18.5
+## 5  5 180.8  10.8      58.4  12.9
+## 6  6   8.7  48.9      75.0   7.2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">adver &lt;-<span class="st"> </span>adver[,<span class="op">-</span><span class="dv">1</span>]</code></pre>
 
 </div>
 </div>
-<h3>Bibliografia</h3>
-<div id="refs" class="references">
-<div id="ref-R-base">
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-<div id="ref-R-knitr">
-<p>Xie, Yihui. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
-</div>
-<div id="ref-R-rmarkdown">
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-</div>
-<div id="ref-KAVAKIOTIS2017">
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>ang. <em>machine learning</em><a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>ang. <em>patterns</em><a href="index.html#fnref2" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="roz1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="przygotowanie-danych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

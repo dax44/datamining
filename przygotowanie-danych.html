@@ -22,10 +22,9 @@
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
 
-<meta name="author" content="Dariusz Majerek">
 
 
-<meta name="date" content="2019-02-25">
+<meta name="date" content="2019-03-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +32,7 @@
   
   
 <link rel="prev" href="roz1.html">
-<link rel="next" href="methods.html">
+<link rel="next" href="podzia-metod-data-mining.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -146,12 +145,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#przykad"><i class="fa fa-check"></i><b>2.2</b> Przykład</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
-<li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a><ul>
-<li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
-<li class="chapter" data-level="4.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>4.2</b> Example two</a></li>
+<li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
+<li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
+<li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
+<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -184,36 +185,36 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -0.9359515  -0.52570509   -2.2399620           0.7234131 -0.3558247
-## 2  1.2369371   0.02495332    0.4459859          -0.7651344  0.2588138
-## 3  1.2205769   1.30637952   -0.6499222           0.2127817 -1.1139170
-##             
-## 1  0.6307760
-## 2  0.0574160
-## 3 -0.8632866</code></pre>
+## 1 -0.1338891   -0.3016148   -0.1763177           0.1044082 -0.9318606
+## 2 -1.5847182   -0.3824788    0.8901694          -0.4360327 -1.4492182
+## 3 -1.8774000    0.6109737    0.4335155          -0.4269808  1.3715628
+##               
+## 1 -0.137636859
+## 2  0.006173051
+## 3  1.351093917</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -0.9359515  -0.52570509   -2.2399620            0.7234131 -0.3558247
-## 2  1.2369371   0.02495332    0.4459859           -0.7651344  0.2588138
-## 3  1.2205769   1.30637952   -0.6499222            0.2127817 -1.1139170
-##            X
-## 1  0.6307760
-## 2  0.0574160
-## 3 -0.8632866</code></pre>
+## 1 -0.1338891   -0.3016148   -0.1763177            0.1044082 -0.9318606
+## 2 -1.5847182   -0.3824788    0.8901694           -0.4360327 -1.4492182
+## 3 -1.8774000    0.6109737    0.4335155           -0.4269808  1.3715628
+##              X
+## 1 -0.137636859
+## 2  0.006173051
+## 3  1.351093917</code></pre>
 <p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
 <pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -0.9359515  -0.52570509     -2.2399620         0.7234131 -0.3558247
-## 2  1.2369371   0.02495332      0.4459859        -0.7651344  0.2588138
-## 3  1.2205769   1.30637952     -0.6499222         0.2127817 -1.1139170
-##            x
-## 1  0.6307760
-## 2  0.0574160
-## 3 -0.8632866</code></pre>
+## 1 -0.1338891   -0.3016148     -0.1763177         0.1044082 -0.9318606
+## 2 -1.5847182   -0.3824788      0.8901694        -0.4360327 -1.4492182
+## 3 -1.8774000    0.6109737      0.4335155        -0.4269808  1.3715628
+##              x
+## 1 -0.137636859
+## 2  0.006173051
+## 3  1.351093917</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>
@@ -487,10 +488,12 @@ algae.uzup[<span class="dv">48</span>,]</code></pre>
 <li>Określić parametry startowe imputacji (liczbę iteracji, warunek zbieżności).</li>
 <li>Określić liczę imputowanych zbiorów.</li>
 </ol>
-<p>Ad 1. Wyróżniamy nastepujące rodzaje braków danych:
-- MCAR (ang. <em>Missing Completely At Random</em>) - z definicji to braki, których pojawienie się jest kompletnie losowe. Przykładowo gdy osoba poproszona o wypełnienie wieku w ankiecie będzie rzucać monetą czy wypełnić tą zmienną.
-- MAR - oznacza, że obserwowane wartości i wybrakowane mają inne rozkłady ale da się je oszacować na podstawie danych obserwowanych. Przykładowo ciśnienie tętnicze u osób, które nie wypełniły tej wartości jest wyższe niż u osób, które wpisały swoje ciśnienie. Okazuje się, że osoby starsze z nadciśnieniem nie wypełniały ankiety w tym punkcie.
-- MNAR - jeśli nie jest spełniony warunek MCAR i MAR, wówczas brak ma charakter nielosowy. Przykładowo respondenci osiągający wyższe zarobki sukcesywnie nie wypełniają pola “zarobki” i dodatkowo nie ma w ankiecie zmiennych, które pozwoliłyby nam ustalić, jakie to osoby.</p>
+<p>Ad 1. Wyróżniamy nastepujące rodzaje braków danych:</p>
+<ul>
+<li>MCAR (ang. <em>Missing Completely At Random</em>) - z definicji to braki, których pojawienie się jest kompletnie losowe. Przykładowo gdy osoba poproszona o wypełnienie wieku w ankiecie będzie rzucać monetą czy wypełnić tą zmienną.</li>
+<li>MAR - oznacza, że obserwowane wartości i wybrakowane mają inne rozkłady ale da się je oszacować na podstawie danych obserwowanych. Przykładowo ciśnienie tętnicze u osób, które nie wypełniły tej wartości jest wyższe niż u osób, które wpisały swoje ciśnienie. Okazuje się, że osoby starsze z nadciśnieniem nie wypełniały ankiety w tym punkcie.</li>
+<li>MNAR - jeśli nie jest spełniony warunek MCAR i MAR, wówczas brak ma charakter nielosowy. Przykładowo respondenci osiągający wyższe zarobki sukcesywnie nie wypełniają pola “zarobki” i dodatkowo nie ma w ankiecie zmiennych, które pozwoliłyby nam ustalić, jakie to osoby.</li>
+</ul>
 <p>Ad 2. Decyzja o algorytmie imputacji wynika bezpośrednio ze skali w jakiej jest mierzona dana zmienna. Ze względu na rodzaj cechy używać będziemy następujących metod:</p>
 <table>
 <caption><span id="tab:methods">Table 2.1: </span>Zestaw metod imputacji danych stosowanych w pakiecie <strong>mice</strong></caption>
@@ -629,20 +632,24 @@ algae.uzup[<span class="dv">48</span>,]</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Każdy z czterech typów danych ma swój domyślny algorytm przeznaczony do imputacji:
-- zmienna ilościowa - <code>pmm</code>
-- zmienna dychotomiczna (stany 0 lub 1) - <code>logreg</code>
-- zmienna typu wyliczeniowego (nieuporządkowana) - <code>polyreg</code>
-- zmienna typu wyliczeniowego (uporządkowana) - <code>polr</code></p>
+<p>Każdy z czterech typów danych ma swój domyślny algorytm przeznaczony do imputacji:</p>
+<ul>
+<li>zmienna ilościowa - <code>pmm</code></li>
+<li>zmienna dychotomiczna (stany 0 lub 1) - <code>logreg</code></li>
+<li>zmienna typu wyliczeniowego (nieuporządkowana) - <code>polyreg</code></li>
+<li>zmienna typu wyliczeniowego (uporządkowana) - <code>polr</code></li>
+</ul>
 <p>Niewątpliwą zaletą metody <code>pmm</code> jest to, że wartości imputowane są ograniczone jedynie do obserwowanych wartości. Metody <code>norm</code> i <code>norm.nob</code> uzupełniają brakujące wartości w oparciu o model liniowy. Są one szybkie i efektywne w przypadku gdy reszty modelu są zbliżone rozkładem do normalności. Druga z tych technik nie bierze pod uwagę niepewności związanej z modelem imputującym. Metoda <code>2L.norm</code> opiera się na dwupoziomowym heterogenicznym modelu liniowym (skupienia są włączone jako efekt do modelu). Technika <code>polyreg</code> korzysta z funkcji <code>multinom</code> pakietu <strong>nnet</strong> tworzącej model wielomianowy. <code>polr</code> opiera się o proporcjonalny model logitowy z pakietu <strong>MASS</strong>. <code>lda</code> to model dyskryminacyjny klasyfikujący obiekty na podstawie prawdopodobieństw <em>a posteriori</em>. Metoda <code>sample</code> zastępuje braki losowa wybranymi wartościami spośród wartości obserwowanych.</p>
 <p>Ad 3. Do ustalenia predyktorów w modelu <code>mice</code> służy funkcja <code>predictorMatrix</code>. Po pierwsze wyświetla ona domyślny układ predyktorów włączanych do modelu. Można go dowolnie zmienić i podstawić do modelu imputującego dane parametrem <code>predictorMatrix</code>. Zera występujące w kolejnych wierszach macierzy predyktorów oznaczają pominięcie tej zmiennej przy imputacji innej zmiennej. Jeśli dodatkowo chcemy by jakaś zmienna nie była imputowana, to oprócz usunięcia jej z listy predyktorów, należy wymazać ją z listy metod predykcji (<code>method</code>).</p>
 <p>Ogólne zalecenia co do tego jakie zmienne stosować jako predyktory jest takie, żeby brać ich jak najwięcej. Spowoduje to, że bardziej prawdopodobny staje się brak typu MAR a nie MNAR. Z drugiej jednak strony, nierzadko zbiory zawierają olbrzymią liczbę zmiennych i włączanie ich wszystkich do modelu imputującego nie będzie miało sensu.</p>
-<p>Zalecenia doboru zmiennych są następujące:
-- weź wszystkie te zmienne, które są włączane do modelu właściwego, czyli tego za pomocą którego chcesz poznać strukturę zależności;
-- czasem do modelu imputującego należy też włączyć interakcje zmiennych z modelu właściwego;
-- dodaj zmienne, które mogą mieć wpływ na wybrakowane cechy;
-- włącz zmienne istotnie podnoszące poziom wyjaśnionej wariancji modelu;
-- na koniec usuń te zmienne spośród predyktorów, które same zawierają zbyt wiele braków.</p>
+<p>Zalecenia doboru zmiennych są następujące:</p>
+<ul>
+<li>weź wszystkie te zmienne, które są włączane do modelu właściwego, czyli tego za pomocą którego chcesz poznać strukturę zależności;</li>
+<li>czasem do modelu imputującego należy też włączyć interakcje zmiennych z modelu właściwego;</li>
+<li>dodaj zmienne, które mogą mieć wpływ na wybrakowane cechy;</li>
+<li>włącz zmienne istotnie podnoszące poziom wyjaśnionej wariancji modelu;</li>
+<li>na koniec usuń te zmienne spośród predyktorów, które same zawierają zbyt wiele braków.</li>
+</ul>
 <p>Ad 4-7. Decyzje podejmowane w tych punktach zależą istotnie od analizowanego zbioru i będą przedmiotem oddzielnych analiz w kontekście rozważanych zbiorów i zadań.</p>
 </div>
 </div>
@@ -749,7 +756,7 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 ## 26 23 18  8 19 14
 ## 27 37 23 21  7  9
 ## 32 63 23  7 52 39</code></pre>
-<p>Ostatecznie imputacji dokonujemy wybierając jeden z zestawów danych uzupełniających (np. pierszy).</p>
+<p>Ostatecznie imputacji dokonujemy wybierając jeden z zestawów danych uzupełniających (np. pierwszy).</p>
 <pre class="sourceCode r"><code class="sourceCode r">completedData &lt;-<span class="st"> </span>mice<span class="op">::</span><span class="kw">complete</span>(tempData, <span class="dv">1</span>)
 <span class="kw">summary</span>(completedData)</code></pre>
 <pre><code>##      Ozone          Solar.R           Wind             Temp      
@@ -766,7 +773,7 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 ##  Mean   :6.993   Mean   :15.8  
 ##  3rd Qu.:8.000   3rd Qu.:23.0  
 ##  Max.   :9.000   Max.   :31.0</code></pre>
-<p>Za pomocą funkcji pakietu <code>mice</code> możemy również przedstawić graficznie gdzi jak zostały uzupełnione dane.</p>
+<p>Za pomocą funkcji pakietu <code>mice</code> możemy również przedstawić graficznie gdzie i jak zostały uzupełnione dane.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">densityplot</span>(tempData, <span class="op">~</span>Ozone<span class="op">+</span>Solar.R<span class="op">+</span>Wind<span class="op">+</span>Temp)</code></pre>
 <p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-9-1.png" width="1056" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stripplot</span>(tempData, Ozone<span class="op">+</span>Solar.R<span class="op">+</span>Wind<span class="op">+</span>Temp<span class="op">~</span>.imp, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>)</code></pre>
@@ -802,7 +809,7 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
         </div>
       </div>
 <a href="roz1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="podzia-metod-data-mining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
