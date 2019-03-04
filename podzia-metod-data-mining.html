@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-01">
+<meta name="date" content="2019-03-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="przygotowanie-danych.html">
-<link rel="next" href="bibliografia.html">
+<link rel="next" href="drzewa-decyzyjne.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -47,6 +47,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+        P: '{\\mathrm{P}}',
+        E: '{\\mathrm{E}}',
+        Var: '{\\mathrm{Var}}',
+        Cor: '{\\mathrm{Cor}}',
+        Cov: '{\\mathrm{Cov}}',
+        Tr: '{\\mathrm{Tr}}'
+    },
+}
+});
+</script>
 
 
 <style type="text/css">
@@ -149,8 +163,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
 <li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
-<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty</a></li>
+<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
 <li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
+<li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
+<li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
+<li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przykad-1"><i class="fa fa-check"></i><b>4.9</b> Przykład</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podzia-zbioru-na-probe-uczaca-i-testowa"><i class="fa fa-check"></i><b>4.9.1</b> Podział zbioru na próbę uczącą i testową</a></li>
+<li class="chapter" data-level="4.9.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#budowa-drzewa"><i class="fa fa-check"></i><b>4.9.2</b> Budowa drzewa</a></li>
+<li class="chapter" data-level="4.9.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa"><i class="fa fa-check"></i><b>4.9.3</b> Przycinanie drzewa</a></li>
+<li class="chapter" data-level="4.9.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#ocena-dopasowania-modelu"><i class="fa fa-check"></i><b>4.9.4</b> Ocena dopasowania modelu</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
@@ -178,40 +225,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Podział metod data mining</h1>
 <div id="rodzaje-wnioskowania" class="section level2">
 <h2><span class="header-section-number">3.1</span> Rodzaje wnioskowania</h2>
-<p><em>Data mining</em> to zestaw metod pozyskiwania wiedzy na podstawie danych. Ową wiedzę zdobywamy w procesie wnioskowania na podstawie modeli. Wnioskowanie możemy podzielić na dedukcyjne i indukcyjne. I tak z wnioskowaniem dedukcyjnym mamy do czynienia wówczas, gdy na podstawie obecnego stanu wiedzy potrafimy odpowiedzieć na postawione pytanie dotyczące nowej wiedzy, stosując reguły wnioskowania. O wnioskowaniem indukcyjnym powiemy, że jest to metoda pozyskiwania wiedzy na podstawie informacji ze zbioru uczącego. Znajduje ono szerokie zastosowanie w data mining i charakteryzuje się obylnością, ponieważ nawet najlepiej nauczony model na zbiorze uczącym nie zapewnia nam prawdziwości odpowiedzi w przypadku nowych danych, a jedynie je uprawdopodabnia. Esencją wnioskowania indukcyjnego w zakresie data mining, jest poszukiwanie na podstawie danych uczących modelu charakteryzującego się najlepszymi właściwościami predykcyjnymi i dającego się zastosować do zupełnie nowego zbioru danych.</p>
+<p><em>Data mining</em> to zestaw metod pozyskiwania wiedzy na podstawie danych. Ową wiedzę zdobywamy w procesie wnioskowania na podstawie modeli. Wnioskowanie możemy podzielić na dedukcyjne i indukcyjne. I tak z wnioskowaniem dedukcyjnym mamy do czynienia wówczas, gdy na podstawie obecnego stanu wiedzy potrafimy odpowiedzieć na postawione pytanie dotyczące nowej wiedzy, stosując reguły wnioskowania. O wnioskowaniem indukcyjnym powiemy, że jest to metoda pozyskiwania wiedzy na podstawie informacji ze zbioru uczącego. Znajduje ono szerokie zastosowanie w data mining i charakteryzuje się omylnością, ponieważ nawet najlepiej nauczony model na zbiorze uczącym nie zapewnia nam prawdziwości odpowiedzi w przypadku nowych danych, a jedynie je uprawdopodabnia. Esencją wnioskowania indukcyjnego w zakresie data mining, jest poszukiwanie na podstawie danych uczących modelu charakteryzującego się najlepszymi właściwościami predykcyjnymi i dającego się zastosować do zupełnie nowego zbioru danych.</p>
 <p>Każdy proces uczenia z wykorzystaniem wnioskowania indukcyjnego składa się z następujących elementów.</p>
 <div id="dziedzina" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Dziedzina</h3>
-<p><em>Dziedzina</em> to zbiór wszystkich obiektów pozostających w zainteresowaniu badacza, będących przedmiotem wnioskowania, oznaczana najczęsciej przez <span class="math inline">\(X\)</span>. Przykładowo mogą to być zbiory osób, transakcji, urządzeń, instytucji, itp.</p>
+<p><em>Dziedzina</em> to zbiór wszystkich obiektów pozostających w zainteresowaniu badacza, będących przedmiotem wnioskowania, oznaczana najczęściej przez <span class="math inline">\(X\)</span>. Przykładowo mogą to być zbiory osób, transakcji, urządzeń, instytucji, itp.</p>
 </div>
 <div id="obserwacja" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Obserwacja</h3>
 <p>Każdy element dziedziny <span class="math inline">\(x\in X\)</span> nazywamy obserwacją. Obserwacją nazywać będziemy zarówno rekordy danych ze zbioru uczącego, jak i ze zbioru testowego.</p>
 </div>
-<div id="atrybuty" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Atrybuty</h3>
-<p>Każdy obiekt z dzidziny <span class="math inline">\(x\in X\)</span> można opisać zestawem cech (atrybutów), które w notacji matematycznej oznaczymy przez <span class="math inline">\(a:X\to A\)</span>, gdzie <span class="math inline">\(A\)</span> jest przestrzenią wartości atrybutów. Każda obserwacja <span class="math inline">\(x\)</span> posiadająca <span class="math inline">\(k\)</span> cech da się wyrazić wektorowo jako <span class="math inline">\((a_1(x), a_2(x), \ldots, a_k(x))\)</span>. Dla większości algorytmów uczenia maszynowego wyróżnia się trzy typy atrybutów:
+<div id="atrybuty-obserwacji" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Atrybuty obserwacji</h3>
+<p>Każdy obiekt z dziedziny <span class="math inline">\(x\in X\)</span> można opisać zestawem cech (atrybutów), które w notacji matematycznej oznaczymy przez <span class="math inline">\(a:X\to A\)</span>, gdzie <span class="math inline">\(A\)</span> jest przestrzenią wartości atrybutów. Każda obserwacja <span class="math inline">\(x\)</span> posiadająca <span class="math inline">\(k\)</span> cech da się wyrazić wektorowo jako <span class="math inline">\((a_1(x), a_2(x), \ldots, a_k(x))\)</span>. Dla większości algorytmów uczenia maszynowego wyróżnia się trzy typy atrybutów:
 - <em>nominalne</em> - posiadające skończoną liczbę stanów, które posiadają porządku;
 - <em>porządkowe</em> - posiadające skończoną liczbę stanów z zachowaniem porządku;
 - <em>ciągłe</em> - przyjmujące wartości numeryczne.
-Często jeden z atrybutów spełnia specjalą rolę, ponieważ stanowi realizację cechy, którą traktujemy jako wyjściową (ang. <em>target value attribute</em>). W tym przypadku powiemy o <strong>nadzorowanym uczeniu maszynowym</strong>. Jeśli zmiennej wyjściowej nie ma dziedzinie, to mówimy o <strong>nienadzorowanym uczeniu maszynowym</strong>.</p>
+Często jeden z atrybutów spełnia specjalną rolę, ponieważ stanowi realizację cechy, którą traktujemy jako wyjściową (ang. <em>target value attribute</em>). W tym przypadku powiemy o <strong>nadzorowanym uczeniu maszynowym</strong>. Jeśli zmiennej wyjściowej nie ma dziedzinie, to mówimy o <strong>nienadzorowanym uczeniu maszynowym</strong>.</p>
 </div>
 <div id="zbior-uczacy" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Zbiór uczący</h3>
-<p>Zbiorem uczącym <span class="math inline">\(T\)</span> (ang. <em>training set</em>) nazywamy podzbiór <span class="math inline">\(D\)</span> dziedziny <span class="math inline">\(X\)</span> (czyli <span class="math inline">\(T\subseteq D\subseteq X\)</span>), gdzie zbiór <span class="math inline">\(D\)</span> stanowi ogół dostępnych obserwacji z dziedziny <span class="math inline">\(X\)</span>. Zbiór uczący zawiera informacje dotyczące badanego zjawiska, na podstwie których, dokonuje się doboru modelu, selekcji cech istotny z punktu widzenia własności predykcyjnych lub jakości klasyfikacji, budowy modelu oraz optymalizacji jego parametrów. W przypadku uczenia z nauczycielem (nadzorowanego) zbiór <span class="math inline">\(T\)</span> zawiera informację o wartościach atrybutów zmiennej wynikowej.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
-adver &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;../../../../R/Data mining/An Introduction to Statistical Learning with Applications in R/James2013/Data Sets/Advertising.csv&quot;</span>)
-<span class="kw">head</span>(adver)</code></pre>
-<pre><code>##   V1    TV Radio Newspaper Sales
-## 1  1 230.1  37.8      69.2  22.1
-## 2  2  44.5  39.3      45.1  10.4
-## 3  3  17.2  45.9      69.3   9.3
-## 4  4 151.5  41.3      58.5  18.5
-## 5  5 180.8  10.8      58.4  12.9
-## 6  6   8.7  48.9      75.0   7.2</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">adver &lt;-<span class="st"> </span>adver[,<span class="op">-</span><span class="dv">1</span>]</code></pre>
-
+<p>Zbiorem uczącym <span class="math inline">\(T\)</span> (ang. <em>training set</em>) nazywamy podzbiór <span class="math inline">\(D\)</span> dziedziny <span class="math inline">\(X\)</span> (czyli <span class="math inline">\(T\subseteq D\subseteq X\)</span>), gdzie zbiór <span class="math inline">\(D\)</span> stanowi ogół dostępnych obserwacji z dziedziny <span class="math inline">\(X\)</span>. Zbiór uczący zawiera informacje dotyczące badanego zjawiska, na podstawie których, dokonuje się doboru modelu, selekcji cech istotnych z punktu widzenia własności predykcyjnych lub jakości klasyfikacji, budowy modelu oraz optymalizacji jego parametrów. W przypadku uczenia z nauczycielem (nadzorowanego) zbiór <span class="math inline">\(T\)</span> zawiera informację o wartościach atrybutów zmiennej wynikowej.</p>
 </div>
+<div id="zbior-testowy" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> Zbiór testowy</h3>
+<p>Zbiór testowy <span class="math inline">\(T&#39;\)</span> (ang. <em>test set</em>) będący dopełnieniem zbioru uczącego do zbioru <span class="math inline">\(D\)</span>, czyli <span class="math inline">\(T&#39;=D\setminus T\)</span>, stanowi zestaw danych służący do oceny poprawności modelu nadzorowanego. W przypadku metod nienadzorowanych raczej nie stosuje się zbiorów testowych.</p>
+</div>
+<div id="model" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> Model</h3>
+<p>Model to narzędzie pozyskiwania wiedzy na podstawie zbioru uczącego. Nauczony model jest zbiorem reguł <span class="math inline">\(f\)</span>, którego zadaniem jest oszacowanie wielkości wartości wynikowej lub odpowiednia klasyfikacja obiektów. W zadaniu grupowania obiektów (ang. <em>clustering task</em>), celem modelu jest podanie grup możliwie najbardziej jednorodnych przy zadanym zestawie zmiennych oraz ustalonej liczbie skupień (czasami wyznaczenie liczby skupień jest również częścią zadania stawianego przed modelem).</p>
+</div>
+<div id="jakosc-dopasowania-modelu" class="section level3">
+<h3><span class="header-section-number">3.1.7</span> Jakość dopasowania modelu</h3>
+<p>Do oceny jakości dopasowania modelu wykorzystuje się, w zależności od zadania, wiele współczynników (np. dla zadań regresyjnych są to błąd średnio-kwadratowy - ang. <em>Mean Square Error</em> a dla zadań klasyfikacyjnych - trafność - ang. <em>Accuracy</em>). Możemy mówić dwóch rodzajach dopasowania modeli:</p>
+<ul>
+<li>poziom dopasowania na zbiorze uczącym</li>
+<li>poziom dopasowania na zbiorze testowym (oczywiście z punktu widzenia utylitarności modelu ten współczynnik jest ważniejszy).</li>
+</ul>
+<p>W sytuacji, w której model wykazuje dobre charakterystyki jakości dopasowania na zbiorze uczącym ale słabe na testowym, mówimy o zjawisku przeuczenia modelu (ang. <em>overfitting</em>). Oznacza to, że model wskazuje predykcję poprawnie jedynie dla zbioru treningowego ale ma słaba własności generalizacyjne nowe przypadki danych. Takie model nie przedstawiają znaczącej wartości w odkrywaniu wiedzy w sposób indukcyjny.</p>
+<p>Z drugiej strony parametry dopasowania modelu mogą pokazywać słabe dopasowanie, zarówno na zbiorze uczącym, jak i testowym. Wówczas również model nie jest użyteczny w pozyskiwaniu wiedzy na temat badanego zjawiska, a sytuację taką nazywamy niedouczeniem (ang. <em>underfitting</em>).</p>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="images/unde_over_fitting.JPG" alt="Przykłady niedoucznia (wykresy 1 i 4), poprawego modelu (2 i 5) i przeuczenia (3 i 6). Pierwszy wiersz wykresów pokazuje klasyfikację na podstawie modelu na zbiorze uczącym, a drugi na zbiorze testowym. Wykres na dole pokazuje związek pomiędzy złożonością modelu a wielkością błędu predykcji. *Źródło*: https://cambridgecoding.wordpress.com/2016/03/24/misleading-modelling-overfitting-cross-validation-and-the-bias-variance-trade-off/"  />
+<p class="caption">
+Figure 3.1: Przykłady niedoucznia (wykresy 1 i 4), poprawego modelu (2 i 5) i przeuczenia (3 i 6). Pierwszy wiersz wykresów pokazuje klasyfikację na podstawie modelu na zbiorze uczącym, a drugi na zbiorze testowym. Wykres na dole pokazuje związek pomiędzy złożonością modelu a wielkością błędu predykcji. <em>Źródło</em>: <a href="https://cambridgecoding.wordpress.com/2016/03/24/misleading-modelling-overfitting-cross-validation-and-the-bias-variance-trade-off/" class="uri">https://cambridgecoding.wordpress.com/2016/03/24/misleading-modelling-overfitting-cross-validation-and-the-bias-variance-trade-off/</a>
+</p>
+</div>
+</div>
+</div>
+<div id="modele-regresyjne" class="section level2">
+<h2><span class="header-section-number">3.2</span> Modele regresyjne</h2>
+<p>Jednym z rodzajów zadań bazującym na wnioskowaniu indukcyjnym jest model regresyjny. Należy on do grupy metod nadzorowanych, których celem jest oszacowanie wartości cechy wyjściowej (która jest ilościowa) na podstawie zestawu predyktorów, które mogą być ilościowe i jakościowe. Uczenie takich modeli odbywa się poprzez optymalizację funkcji celu (np. <span class="math inline">\(MSE\)</span>) na podstawie zbioru uczącego.</p>
+</div>
+<div id="modele-klasyfikacyjne" class="section level2">
+<h2><span class="header-section-number">3.3</span> Modele klasyfikacyjne</h2>
+<p>Podobnie jak modele regresyjne, modele klasyfikacyjne należą do grupy metod nadzorowanego uczenia maszynowego. Ich zadaniem jest właściwa klasyfikacja obiektów na podstawie wielkości predyktorów. Odpowiedzią modelu jest zawsze cecha typu jakościowego, natomiast predyktory mogą mieć dowolny typ. Wyróżnia się klasyfikację dwu i wielostanową. Lista modeli realizujących klasyfikację binarną jest nieco dłuższa niż w przypadku modeli z wielostanową cechą wynikową. Proces uczenia modelu klasyfikacyjnego również opiera się na optymalizacji funkcji celu. Tym razem są to zupełnie inne miary jakości dopasowania (np. trafność, czyli odsetek poprawnych klasyfikacji).</p>
+</div>
+<div id="modele-grupujace" class="section level2">
+<h2><span class="header-section-number">3.4</span> Modele grupujące</h2>
+<p>Bardzo szeroką gamę modeli nienadzorowanych stanowią metody analizy skupień. Ich zadaniem jest grupowanie obiektów w możliwie najbardziej jednorodne grupy, na podstawie wartości atrybutów poddanych analizie. Ponieważ są to metody “bez nauczyciela”, to ocena ich przydatności ma nieco inny charakter i choć istnieją różne wskaźniki jakości grupowania, to trudno tu o obiektywne wskazanie najlepszego rozwiązania.</p>
+
 </div>
 </div>
             </section>
@@ -220,7 +292,7 @@ adver &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="
         </div>
       </div>
 <a href="przygotowanie-danych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="drzewa-decyzyjne.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

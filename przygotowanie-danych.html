@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-01">
+<meta name="date" content="2019-03-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,6 +47,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+        P: '{\\mathrm{P}}',
+        E: '{\\mathrm{E}}',
+        Var: '{\\mathrm{Var}}',
+        Cor: '{\\mathrm{Cor}}',
+        Cov: '{\\mathrm{Cov}}',
+        Tr: '{\\mathrm{Tr}}'
+    },
+}
+});
+</script>
 
 
 <style type="text/css">
@@ -149,8 +163,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
 <li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
-<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty</a></li>
+<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
 <li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
+<li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
+<li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
+<li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przykad-1"><i class="fa fa-check"></i><b>4.9</b> Przykład</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podzia-zbioru-na-probe-uczaca-i-testowa"><i class="fa fa-check"></i><b>4.9.1</b> Podział zbioru na próbę uczącą i testową</a></li>
+<li class="chapter" data-level="4.9.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#budowa-drzewa"><i class="fa fa-check"></i><b>4.9.2</b> Budowa drzewa</a></li>
+<li class="chapter" data-level="4.9.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa"><i class="fa fa-check"></i><b>4.9.3</b> Przycinanie drzewa</a></li>
+<li class="chapter" data-level="4.9.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#ocena-dopasowania-modelu"><i class="fa fa-check"></i><b>4.9.4</b> Ocena dopasowania modelu</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
@@ -185,36 +232,36 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -0.1338891   -0.3016148   -0.1763177           0.1044082 -0.9318606
-## 2 -1.5847182   -0.3824788    0.8901694          -0.4360327 -1.4492182
-## 3 -1.8774000    0.6109737    0.4335155          -0.4269808  1.3715628
-##               
-## 1 -0.137636859
-## 2  0.006173051
-## 3  1.351093917</code></pre>
+## 1 -1.1693163   -1.3091785    0.2473195          -0.6224286 -0.1530779
+## 2  0.5538419    0.3305905   -0.4204336           1.8724094 -1.2612693
+## 3  1.3161568   -0.2766532    0.6783398          -1.4438942  0.2730345
+##             
+## 1 -0.7672703
+## 2  0.1413075
+## 3 -0.3313479</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -0.1338891   -0.3016148   -0.1763177            0.1044082 -0.9318606
-## 2 -1.5847182   -0.3824788    0.8901694           -0.4360327 -1.4492182
-## 3 -1.8774000    0.6109737    0.4335155           -0.4269808  1.3715628
-##              X
-## 1 -0.137636859
-## 2  0.006173051
-## 3  1.351093917</code></pre>
+## 1 -1.1693163   -1.3091785    0.2473195           -0.6224286 -0.1530779
+## 2  0.5538419    0.3305905   -0.4204336            1.8724094 -1.2612693
+## 3  1.3161568   -0.2766532    0.6783398           -1.4438942  0.2730345
+##            X
+## 1 -0.7672703
+## 2  0.1413075
+## 3 -0.3313479</code></pre>
 <p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
 <pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -0.1338891   -0.3016148     -0.1763177         0.1044082 -0.9318606
-## 2 -1.5847182   -0.3824788      0.8901694        -0.4360327 -1.4492182
-## 3 -1.8774000    0.6109737      0.4335155        -0.4269808  1.3715628
-##              x
-## 1 -0.137636859
-## 2  0.006173051
-## 3  1.351093917</code></pre>
+## 1 -1.1693163   -1.3091785      0.2473195        -0.6224286 -0.1530779
+## 2  0.5538419    0.3305905     -0.4204336         1.8724094 -1.2612693
+## 3  1.3161568   -0.2766532      0.6783398        -1.4438942  0.2730345
+##            x
+## 1 -0.7672703
+## 2  0.1413075
+## 3 -0.3313479</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>
@@ -320,7 +367,7 @@ algae[<span class="op">!</span><span class="kw">complete.cases</span>(algae),] <
 ##   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
 ## 199 200 
 ##   6   0</code></pre>
-<p>Wiele ciekawych funkcji do eksploracji danych znajduje się w pakiecie <strong>DMwR</strong> <span class="citation">(Torgo <a href="#ref-R-DMwR">2013</a>)</span>, który został przygotowany przy okacji publikacji książki <em>Data Mining with R</em>.</p>
+<p>Wiele ciekawych funkcji do eksploracji danych znajduje się w pakiecie <strong>DMwR</strong> <span class="citation">(Torgo <a href="#ref-R-DMwR">2013</a>)</span>, który został przygotowany przy okazji publikacji książki <em>Data Mining with R</em>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## poszukiwanie wierszy zawierających wiele braków</span>
 <span class="co">## w tym przypadku próg wyświetlania ustawiony jest na 0.2</span>
 <span class="co">## czyli 20% wszystkich kolumn</span>
@@ -398,11 +445,11 @@ Figure 2.1: Na czerwono zaznaczone są zmienne, które zwierają braki danych. L
 </div>
 <div id="zastepowanie-brakow-danych" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Zastępowanie braków danych</h3>
-<p>Zastępowanie braków danych (zwane także <em>imputacją danych</em>) jest kolejnym etapem procesu przygotowania danych do analiz. Nie można jednak wyróżnić uniwersalnego sposobu zastępowania braków dla wszystkich możliwych sytuacji. Wśród statystków panuje przekonanie, że w przypadku wystąpienia braków danych można zastosować trzy strategie:</p>
+<p>Zastępowanie braków danych (zwane także <em>imputacją danych</em>) jest kolejnym etapem procesu przygotowania danych do analiz. Nie można jednak wyróżnić uniwersalnego sposobu zastępowania braków dla wszystkich możliwych sytuacji. Wśród statystyków panuje przekonanie, że w przypadku wystąpienia braków danych można zastosować trzy strategie:</p>
 <ul>
 <li>nic nie robić z brakami - co wydaje się niedorzeczne ale wcale takie nie jest, ponieważ istnieje wiele modeli statystycznych (np. drzewa decyzyjne), które świetnie radzą sobie w sytuacji braków danych. Niestety nie jest to sposób, który można stosować zawsze, ponieważ są również modele wymagające kompletności danych jak na przykład sieci neuronowe.</li>
 <li>usuwać braki wierszami<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> - to metoda, która jest stosowana domyślnie w przypadku kiedy twórca modelu nie zadecyduje o innym sposobie obsługi luk. Metoda ta ma swoją niewątpliwą zaletę w postaci jasnej i prostej procedury, ale szczególnie w przypadku niewielkich zbiorów może skutkować obciążeniem estymatorów. Nie wiemy bowiem jaka wartość faktycznie jest przypisana danej cesze. Jeśli jest to wartość bliska np. średniej, to nie wpłynie znacząco na obciążenie estymatora wartości oczekiwanej. W przypadku, gdy różni się ona znacznie od średniej tej cechy, to estymator może już wykazywać obciążenie. Jego wielkość zależy również od liczby usuniętych elementów. Nie jest zalecane usuwanie wielu wierszy ze zbioru danych i na podstawie okrojonego zbioru wyciąganie wniosków o populacji, ponieważ próba jest wówczas znacząco inna niż populacja. Dodatkowo jeśli estymatory są wyznaczane na podstawie zbioru wyraźnie mniej licznego, to precyzja estymatorów wyrażona wariancją spada. Reasumując, jeśli liczba wierszy z brakującymi danymi jest niewielka w stosunku do całego zbioru, to usuwanie wierszy jest sensownym rozwiązaniem.</li>
-<li>uzupełnianie braków - to procedura polegająca na zastępowaniu braków różnymi technikami. Jej niewątpliwą zaletą jest fakt posiadania kompletnych danych bez koniczności usuwania wierszy. Niestety wiąże się to również z pewnymi wadami. Zbiór posiadający wiele braków uzupełninych nawet bardzo wyrafinowanymi metodami może cechować się zaniżoną wariancją poszczególnych cech oraz tzw. przeuczeniem<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</li>
+<li>uzupełnianie braków - to procedura polegająca na zastępowaniu braków różnymi technikami. Jej niewątpliwą zaletą jest fakt posiadania kompletnych danych bez konieczności usuwania wierszy. Niestety wiąże się to również z pewnymi wadami. Zbiór posiadający wiele braków uzupełnianych nawet bardzo wyrafinowanymi metodami może cechować się zaniżoną wariancją poszczególnych cech oraz tzw. przeuczeniem<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>Uzupełnianie średnią - braki w zakresie danej zmiennej uzupełniamy średnią tej zmiennej przypadków uzupełnionych.</li>
@@ -488,7 +535,7 @@ algae.uzup[<span class="dv">48</span>,]</code></pre>
 <li>Określić parametry startowe imputacji (liczbę iteracji, warunek zbieżności).</li>
 <li>Określić liczę imputowanych zbiorów.</li>
 </ol>
-<p>Ad 1. Wyróżniamy nastepujące rodzaje braków danych:</p>
+<p>Ad 1. Wyróżniamy następujące rodzaje braków danych:</p>
 <ul>
 <li>MCAR (ang. <em>Missing Completely At Random</em>) - z definicji to braki, których pojawienie się jest kompletnie losowe. Przykładowo gdy osoba poproszona o wypełnienie wieku w ankiecie będzie rzucać monetą czy wypełnić tą zmienną.</li>
 <li>MAR - oznacza, że obserwowane wartości i wybrakowane mają inne rozkłady ale da się je oszacować na podstawie danych obserwowanych. Przykładowo ciśnienie tętnicze u osób, które nie wypełniły tej wartości jest wyższe niż u osób, które wpisały swoje ciśnienie. Okazuje się, że osoby starsze z nadciśnieniem nie wypełniały ankiety w tym punkcie.</li>
@@ -747,7 +794,7 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 ## Temp        1       1    1    0     1   1
 ## Month       1       1    1    1     0   1
 ## Day         1       1    1    1     1   0</code></pre>
-<p>Ponieważ, funkcja <code>mice</code> domyślnie dokonuje 5 kompletnych imputacji, możmy się przekonać jak bardzo różnią się poszczególne imputacje i zdecydować się na jedną z nich.</p>
+<p>Ponieważ, funkcja <code>mice</code> domyślnie dokonuje 5 kompletnych imputacji, możemy się przekonać jak bardzo różnią się poszczególne imputacje i zdecydować się na jedną z nich.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tempData<span class="op">$</span>imp<span class="op">$</span>Ozone)</code></pre>
 <pre><code>##     1  2  3  4  5
 ## 5  21 20  7 36 13
@@ -800,7 +847,7 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 <hr />
 <ol start="11">
 <li id="fn11"><p>polega na usuwaniu wierszy zawierających braki<a href="przygotowanie-danych.html#fnref11" class="footnote-back">↩</a></p></li>
-<li id="fn12"><p>więcej o zjawisku przeuczneia w dalszej części książki<a href="przygotowanie-danych.html#fnref12" class="footnote-back">↩</a></p></li>
+<li id="fn12"><p>więcej o zjawisku przeuczenia w dalszej części książki<a href="przygotowanie-danych.html#fnref12" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
