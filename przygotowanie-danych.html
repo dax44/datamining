@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-04">
+<meta name="date" content="2019-03-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -232,36 +232,36 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -1.1693163   -1.3091785    0.2473195          -0.6224286 -0.1530779
-## 2  0.5538419    0.3305905   -0.4204336           1.8724094 -1.2612693
-## 3  1.3161568   -0.2766532    0.6783398          -1.4438942  0.2730345
+## 1 -0.7703985    0.2490118   -0.7119201           -2.233888  1.4074018
+## 2  0.5398222    1.0609303    1.2598396            2.319450 -1.4979809
+## 3  1.5944401    0.1659255   -0.5652379           -2.528340  0.5616012
 ##             
-## 1 -0.7672703
-## 2  0.1413075
-## 3 -0.3313479</code></pre>
+## 1 -0.3570916
+## 2  1.8584865
+## 3  0.8243253</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
 <pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -1.1693163   -1.3091785    0.2473195           -0.6224286 -0.1530779
-## 2  0.5538419    0.3305905   -0.4204336            1.8724094 -1.2612693
-## 3  1.3161568   -0.2766532    0.6783398           -1.4438942  0.2730345
+## 1 -0.7703985    0.2490118   -0.7119201            -2.233888  1.4074018
+## 2  0.5398222    1.0609303    1.2598396             2.319450 -1.4979809
+## 3  1.5944401    0.1659255   -0.5652379            -2.528340  0.5616012
 ##            X
-## 1 -0.7672703
-## 2  0.1413075
-## 3 -0.3313479</code></pre>
+## 1 -0.3570916
+## 2  1.8584865
+## 3  0.8243253</code></pre>
 <p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
 <pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -1.1693163   -1.3091785      0.2473195        -0.6224286 -0.1530779
-## 2  0.5538419    0.3305905     -0.4204336         1.8724094 -1.2612693
-## 3  1.3161568   -0.2766532      0.6783398        -1.4438942  0.2730345
+## 1 -0.7703985    0.2490118     -0.7119201         -2.233888  1.4074018
+## 2  0.5398222    1.0609303      1.2598396          2.319450 -1.4979809
+## 3  1.5944401    0.1659255     -0.5652379         -2.528340  0.5616012
 ##            x
-## 1 -0.7672703
-## 2  0.1413075
-## 3 -0.3313479</code></pre>
+## 1 -0.3570916
+## 2  1.8584865
+## 3  0.8243253</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>

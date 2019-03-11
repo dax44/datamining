@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-04">
+<meta name="date" content="2019-03-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -307,7 +307,7 @@ gdzie <span class="math inline">\(I_1,I_2,\ldots,I_k\subset A\)</span> stanowią
 </ol>
 <p>Sposób przypisywania wartości docelowej wiąże się ściśle z rodzajem drzewa. W drzewach regresyjnych chodzi o wyliczenie średniej lub mediany dla obserwacji ujętych w danym węźle. Natomiast w przypadku drzewa klasyfikacyjnego, wyznacza się wartości prawdopodobieństw przynależności obserwacji znajdującej się w danym węźle do poszczególnych klas
 <span class="math display">\[\begin{equation}
-    \P(d|\mathbf{n})=\P(T_\mathbf{n})(d)=\frac{|T_\mathbf{n}^d|}{|T_\mathbf{n}|},
+    \P(d|\mathbf{n})=\P_{T_\mathbf{n}}(d)=\frac{|T_\mathbf{n}^d|}{|T_\mathbf{n}|},
 \end{equation}\]</span>
 gdzie <span class="math inline">\(T_\mathbf{n}\)</span> oznaczają obserwacje zbioru uczącego znajdujące się w węźle <span class="math inline">\(\mathbf{n}\)</span>, a <span class="math inline">\(T_\mathbf{n}^d\)</span> oznacza dodatkowo podzbiór zbioru uczącego w <span class="math inline">\(\mathbf{n}\)</span> węźle, które należą do klasy <span class="math inline">\(d\)</span>. Oczywiście klasyfikacja na podstawie otrzymanych prawdopodobieństw w danym węźle jest dokonana przez wybór klasy charakteryzującej się najwyższym prawdopodobieństwem.</p>
 </div>
@@ -339,7 +339,7 @@ gdzie <span class="math inline">\(|\  |\)</span> oznacza moc zbioru, a <span cla
 <p>Miarą heterogeniczności węzłów ze względu na zmienną wynikową (ang. <em>impurity</em>) w drzewach klasyfikacyjnych, która pozwala na tworzenie kolejnych podziałów węzła, są najczęściej wskaźnik Gini’ego i entropia <span class="citation">(Breiman et al. <a href="#ref-Breiman1984">2017</a>)</span>.</p>
 <p>Entropią podzbioru uczącego w węźle <span class="math inline">\(\mathbf{n}\)</span>, wyznaczamy wg wzoru
 <span class="math display">\[\begin{equation}
-E_{T_{\mathbf{n}}(c|t)} = \sum_{x\in R_t} \frac{|T_{\mathbf{n}, t=r}|}{|T_{\mathbf{n}}|}E_{T_{\mathbf{n}, t=r}}(c),
+E_{T_{\mathbf{n}}}(c|t) = \sum_{x\in R_t} \frac{|T_{\mathbf{n}, t=r}|}{|T_{\mathbf{n}}|}E_{T_{\mathbf{n}, t=r}}(c),
 \end{equation}\]</span>
 gdzie <span class="math inline">\(t\)</span> jest podziałem (kandydatem), <span class="math inline">\(r\)</span> potencjalnym wynikiem podziału <span class="math inline">\(t\)</span>, <span class="math inline">\(c\)</span> jest oznaczeniem klasy zmiennej wynikowej, a
 <span class="math display">\[\begin{equation}
@@ -351,7 +351,7 @@ przy czym
 \end{equation}\]</span></p>
 <p>Podobnie definiuje się indeks Gini’ego
 <span class="math display">\[\begin{equation}
-Gi_{T_{\mathbf{n}}(c|t)} = \sum_{x\in R_t} \frac{|T_{\mathbf{n}, t=r}|}{|T_{\mathbf{n}}|}Gi_{T_{\mathbf{n}, t=r}}(c),
+Gi_{T_{\mathbf{n}}}(c|t) = \sum_{x\in R_t} \frac{|T_{\mathbf{n}, t=r}|}{|T_{\mathbf{n}}|}Gi_{T_{\mathbf{n}, t=r}}(c),
 \end{equation}\]</span>
 gdzie
 <span class="math display">\[\begin{equation}
@@ -359,7 +359,7 @@ gdzie
 \end{equation}\]</span>
 Dla tak zdefiniowanych miar “nieczystości” węzłów, podziału dokonujemy w taki sposób, aby zminimalizować współczynnik Gini’ego lub entropię. Im niższe miary nieczystości, tym bardziej obserwacje znajdujące się w węźle są monokulturą<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>. Nierzadko korzysta się również z współczynnika przyrostu informacji (ang. <em>information gain</em>)
 <span class="math display">\[\begin{equation}
-    \Delta E_{T_{\mathbf{n}, t=r}}(c|t)=E_{T_{\mathbf{n}, t=r}}(c)-E_{T_{\mathbf{n}, t=r}}(c|t).
+    \Delta E_{T_{\mathbf{n}}}(c|t)=E_{T_{\mathbf{n}}}(c)-E_{T_{\mathbf{n}}}(c|t).
 \end{equation}\]</span>
 Istnieje również jego odpowiednik dla indeksu Gini’ego. W obu przypadkach optymalnego podziału szukamy poprzez maksymalizację przyrostu informacji.</p>
 </div>
@@ -368,11 +368,11 @@ Istnieje również jego odpowiednik dla indeksu Gini’ego. W obu przypadkach op
 <p>Uczenie drzewa decyzyjnego wiąże się z ryzykiem przeuczenia modelu (podobnie jak to się ma w przypadku innych modeli predykcyjnych). Wcześniej przytoczone reguły zatrzymania (np. głębokość drzewa czy zatrzymanie przy osiągnięciu jednorodności na zadanym poziomie) pomagają kontrolować poziom generalizacji drzewa ale czasami będzie dodatkowo potrzebne przycięcie drzewa, czyli usunięcie pewnych podziałów, a co za tym idzie, również liści (węzłów).</p>
 <div id="przycinanie-redukujace-bad" class="section level3">
 <h3><span class="header-section-number">4.6.1</span> Przycinanie redukujące błąd</h3>
-<p>Jedną ze strategii przycinania drzewa jest przycinanie redukujące błąd (ang. <em>reduced error pruning</em>). Polega ono na porównaniu błędów (najczęściej używana jest miara odsetka błędnych klasyfikacji lub MSE) liścia <span class="math inline">\(\mathbf{l}\)</span> i węzła do którego drzewo przycinamy <span class="math inline">\(\mathbf{n}\)</span> na całkiem nowym zbiorze uczącym <span class="math inline">\(R\)</span>. Niech <span class="math inline">\(e_R(\mathbf{l})\)</span> i <span class="math inline">\(e_R(\mathbf{n})\)</span> oznaczają odpowiednio błędy na zbiorze <span class="math inline">\(R\)</span> liścia i węzła. Wówczas jeśli zachodzi warunek
+<p>Jedną ze strategii przycinania drzewa jest przycinanie redukujące błąd (ang. <em>reduced error pruning</em>). Polega ono na porównaniu błędów (najczęściej używana jest miara odsetka błędnych klasyfikacji lub MSE) liścia <span class="math inline">\(\mathbf{l}\)</span> i węzła do którego drzewo przycinamy <span class="math inline">\(\mathbf{n}\)</span> na całkiem nowym zbiorze uczącym <span class="math inline">\(R\)</span>. Niech <span class="math inline">\(e_R(\mathbf{l})\)</span> i <span class="math inline">\(e_R(\mathbf{n})\)</span> oznaczają odpowiednio błędy na zbiorze <span class="math inline">\(R\)</span> liścia i węzła. Przez błąd węzła rozumiemy błąd pod-drzewa o korzeniu <span class="math inline">\(\mathbf{n}\)</span>. Wówczas jeśli zachodzi warunek
 <span class="math display">\[\begin{equation}
     e_R(\mathbf{l})\leq e_R(\mathbf{n}), 
 \end{equation}\]</span>
-to zaleca się zastąpić węzeł <span class="math inline">\(\mathbf{n}\)</span> liściem <span class="math inline">\(\mathbf{l}\)</span>, czyli uczynić węzeł <span class="math inline">\(\mathbf{n}\)</span> węzłem terminalnym.</p>
+to zaleca się zastąpić węzeł <span class="math inline">\(\mathbf{n}\)</span> liściem <span class="math inline">\(\mathbf{l}\)</span>.</p>
 </div>
 <div id="przycinanie-minimalizujace-bad" class="section level3">
 <h3><span class="header-section-number">4.6.2</span> Przycinanie minimalizujące błąd</h3>
