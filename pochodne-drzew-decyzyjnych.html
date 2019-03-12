@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>5 Pochodne drzew decyzyjnych | Eksploracja danych</title>
+  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="5 Pochodne drzew decyzyjnych | Eksploracja danych" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Pochodne drzew decyzyjnych | Eksploracja danych" />
+  
+  <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  
+
+
+
+<meta name="date" content="2019-03-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="drzewa-decyzyjne.html">
+<link rel="next" href="bibliografia.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+        P: '{\\mathrm{P}}',
+        E: '{\\mathrm{E}}',
+        Var: '{\\mathrm{Var}}',
+        Cor: '{\\mathrm{Cor}}',
+        Cov: '{\\mathrm{Cov}}',
+        Tr: '{\\mathrm{Tr}}'
+    },
+}
+});
+</script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Eksploracja Danych</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-ksiazce"><i class="fa fa-check"></i>O książce</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-przedmiotu"><i class="fa fa-check"></i>Zakres przedmiotu</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-technik-stosowanych-w-data-mining"><i class="fa fa-check"></i>Zakres technik stosowanych w data mining</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#etapy-eksploracji-danych"><i class="fa fa-check"></i>Etapy eksploracji danych</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="roz1.html"><a href="roz1.html"><i class="fa fa-check"></i><b>1</b> Import danych</a><ul>
+<li class="chapter" data-level="1.1" data-path="roz1.html"><a href="roz1.html#przyk1"><i class="fa fa-check"></i><b>1.1</b> Przykład</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>2</b> Przygotowanie danych</a><ul>
+<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#korekta-zbioru-danych"><i class="fa fa-check"></i><b>2.1</b> Korekta zbioru danych</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-brakow-danych"><i class="fa fa-check"></i><b>2.1.1</b> Identyfikacja braków danych</a></li>
+<li class="chapter" data-level="2.1.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastepowanie-brakow-danych"><i class="fa fa-check"></i><b>2.1.2</b> Zastępowanie braków danych</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#przyk21"><i class="fa fa-check"></i><b>2.2</b> Przykład</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
+<li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
+<li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
+<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
+<li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
+<li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
+<li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przyk41"><i class="fa fa-check"></i><b>4.9</b> Przykład</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podzia-zbioru-na-probe-uczaca-i-testowa"><i class="fa fa-check"></i><b>4.9.1</b> Podział zbioru na próbę uczącą i testową</a></li>
+<li class="chapter" data-level="4.9.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#budowa-drzewa"><i class="fa fa-check"></i><b>4.9.2</b> Budowa drzewa</a></li>
+<li class="chapter" data-level="4.9.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa"><i class="fa fa-check"></i><b>4.9.3</b> Przycinanie drzewa</a></li>
+<li class="chapter" data-level="4.9.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#ocena-dopasowania-modelu"><i class="fa fa-check"></i><b>4.9.4</b> Ocena dopasowania modelu</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#inne-algorytmy-budowy-drzew-decyzyjnych-implementowane-w-r"><i class="fa fa-check"></i><b>4.10</b> Inne algorytmy budowy drzew decyzyjnych implementowane w <strong>R</strong></a></li>
+<li class="chapter" data-level="4.11" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przyk42"><i class="fa fa-check"></i><b>4.11</b> Przykład</a><ul>
+<li class="chapter" data-level="4.11.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#ctree"><i class="fa fa-check"></i><b>4.11.1</b> <code>ctree</code></a></li>
+<li class="chapter" data-level="4.11.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#j48"><i class="fa fa-check"></i><b>4.11.2</b> <code>J48</code></a></li>
+<li class="chapter" data-level="4.11.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#c50"><i class="fa fa-check"></i><b>4.11.3</b> <code>C50</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html"><i class="fa fa-check"></i><b>5</b> Pochodne drzew decyzyjnych</a><ul>
+<li class="chapter" data-level="5.1" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#bagging"><i class="fa fa-check"></i><b>5.1</b> Bagging</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#przyk51"><i class="fa fa-check"></i><b>5.1.1</b> Przykład</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#lasy-losowe"><i class="fa fa-check"></i><b>5.2</b> Lasy losowe</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#przyk52"><i class="fa fa-check"></i><b>5.2.1</b> Przykład</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#boosting"><i class="fa fa-check"></i><b>5.3</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Eksploracja danych</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pochodne-drzew-decyzyjnych" class="section level1">
+<h1><span class="header-section-number">5</span> Pochodne drzew decyzyjnych</h1>
+<p>Przykład zastosowania drzew decyzyjnych na zbiorze <code>iris</code> w poprzednich <a href="drzewa-decyzyjne.html#przyk41">przykładach</a> może skłaniać do przypuszczenia, że drzewa decyzyjne zawsze dobrze radzą sobie z predykcją wartości wynikowej. Niestety w przykładach nieco bardziej skomplikowanych, gdzie chociażby klasy zmiennej wynikowej nie są tak wyraźnie separowalne, drzewa decyzjne wypadają gorzej w prównaniu z innymi modelami nadzorowanego uczenia maszynowego.</p>
+<p>I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody <em>bagging</em>, <em>random forest</em> i <em>boosting</em><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.</p>
+<div id="bagging" class="section level2">
+<h2><span class="header-section-number">5.1</span> Bagging</h2>
+<p>Technika ta zostala wprowadzona przez <span class="citation">Breiman (<a href="#ref-Breiman1996">1996</a>)</span> i ma na celu zmniejszenie wariancji modelu pojedynczego drzewa. Podobnie jak technika <em>bootstrap</em>, w której statystyki są wyliczane na wielu próbach pobranych z tego samego rozkładu (próby), w metodzie bagging losuje się wiele prób ze zbioru uczącego (najczęściej poprzez wielokrotne losowanie próby o rozmiarze zbioru uczącego ze zwracaniem), a następnie dla każdej próby bootstrapowej buduje się drzewo. W ten sposób otrzymujemy <span class="math inline">\(B\)</span> drzew decyzyjnych <span class="math inline">\(\hat{f}^1(x), \hat{f}^2(x),\ldots, \hat{f}^B(x)\)</span>. Na koniec poprzez uśrednienie otrzymujemy model charakteryzujący się większą precyzją
+<span class="math display">\[\begin{equation}
+    \hat{f}_{bag}(x)=\frac1B\sum_{b=1}^B\hat{f}^b(x).
+\end{equation}\]</span></p>
+<p>Ponieważ podczas budowy drzew na podstawie prób bootstrapowych nie kontrolujemy złożoności, to w rezultacie każde z drzew może charakteryzować się dużą wariancją. Poprzez uśrednianie wyników pojedynczych drzew otrzymujemy mniejsze obciążenie ale również przy dostatecznie dużej liczbie prób (<span class="math inline">\(B\)</span> często liczy się w setkach, czy tysiącach) zmniejszamy wariancję “średniej” predykcji z drzew. Oczywiście metodę tą trzeba dostosować do zadań klasyfikacyjnych, ponieważ nie istnieje średnia klasyfikacji z wielu drzew. W miejsce śreniej stosuje się modę, czyli wartość dominującą.</p>
+<p>Przyjrzyjmy się jak maszyna losuje obserwacje ze zwracaniem</p>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="ot">NULL</span>
+m &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){
+    x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>, <span class="dt">size =</span> <span class="dv">500</span>, <span class="dt">replace =</span> T)
+    y &lt;-<span class="st"> </span><span class="kw">setdiff</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>, x)
+    z &lt;-<span class="st"> </span><span class="kw">unique</span>(x)
+    n[i] &lt;-<span class="st"> </span><span class="kw">length</span>(z)
+    m[i] &lt;-<span class="st"> </span><span class="kw">length</span>(y)
+}
+<span class="kw">mean</span>(n)<span class="op">/</span><span class="dv">500</span><span class="op">*</span><span class="dv">100</span></code></pre>
+<pre><code>## [1] 63.2574</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(m)<span class="op">/</span><span class="dv">500</span><span class="op">*</span><span class="dv">100</span></code></pre>
+<pre><code>## [1] 36.7426</code></pre>
+<p>Faktycznie uczenie modelu metodą bagging odbywa się średnio na 2/3 obserwacji zbioru uczącego wylosowanych do prób bootstrapowych, a pozostała 1/3 (ang. <em>out-of-bag</em>) jest wykorzystana do oceny jakości predykcji.</p>
+<p>Niewątpliwą zaletą drzew decyzyjnych była ich łatwa interpretacja. W przypadku metody bagging jest ona znacznie utrudniona, ponieważ jej wynik składa się z agregacji wielu drzew. Można natomiast ocenić ważność predyktorów (ang. <em>variable importance</em>). I tak, przez obserwację spadku <span class="math inline">\(RSS\)</span> dla baggingu regresyjnego przy zastosowaniu danego predyktora w podziałach drzewa i uśrednieniu wyniku otrzymamy wskaźnik ważności predyktora dużo lepszy niż dla pojedynczego drzewa. W przypadku baggingu klasyfikacyjnego w miejsce <span class="math inline">\(RSS\)</span> stosujemy indeks Gini’ego.</p>
+<p>Implementacja R-owa metody bagging znajduje się w pakiecie <strong>ipred</strong>, a funkcja do budowy modelu nazywa się <code>bagging</code> <span class="citation">(Peters and Hothorn <a href="#ref-R-ipred">2018</a>)</span>. Można również stosować funkcję <code>randomForest</code> pakietu <strong>randomForest</strong> <span class="citation">(Liaw and Wiener <a href="#ref-R-las">2002</a>)</span> - powody takiego działania wyjaśnią się w rodziale <a href="pochodne-drzew-decyzyjnych.html#lasy-losowe">Lasy losowe</a>.</p>
+<div id="przyk51" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Przykład</h3>
+<p>Tym razem cel zadania jest regresyjny i polega na ustaleniu miary tendencji centralnej ceny mieszkań w Bostonie na podstwie zmiennych umieszczonych w zbiorze <code>Boston</code> pakietu <strong>MASS</strong> <span class="citation">(Venables and Ripley <a href="#ref-R-MASS">2002</a>)</span>. Zmienną zależną będzie mediana cen mieszkań na przedmieściach Bostonu (<code>medv</code>).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+<span class="kw">head</span>(Boston)</code></pre>
+<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
+## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## 4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## 5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## 6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##   lstat medv
+## 1  4.98 24.0
+## 2  9.14 21.6
+## 3  4.03 34.7
+## 4  2.94 33.4
+## 5  5.33 36.2
+## 6  5.21 28.7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2019</span>)
+boston.train &lt;-<span class="st"> </span>Boston <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">sample_frac</span>(<span class="dt">size =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)
+boston.test &lt;-<span class="st"> </span><span class="kw">setdiff</span>(Boston, boston.train)</code></pre>
+<p>Aby móc porównać wyniki predykcji z metody bagging, najpierw zostanie zbudowane jedno drzewo decyzyjne w oparciu o algorytm CART.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
+<span class="kw">library</span>(rpart.plot)
+boston.rpart &lt;-<span class="st"> </span><span class="kw">rpart</span>(medv<span class="op">~</span>., <span class="dt">data =</span> boston.train)
+x &lt;-<span class="st"> </span><span class="kw">summary</span>(boston.rpart)</code></pre>
+<pre><code>## Call:
+## rpart(formula = medv ~ ., data = boston.train)
+##   n= 337 
+## 
+##            CP nsplit rel error    xerror       xstd
+## 1  0.43506104      0 1.0000000 1.0037495 0.10496568
+## 2  0.21114710      1 0.5649390 0.6856438 0.07732133
+## 3  0.05641774      2 0.3537919 0.4393220 0.05974589
+## 4  0.04154842      3 0.2973741 0.3726563 0.05716622
+## 5  0.02707678      4 0.2558257 0.3520312 0.05569786
+## 6  0.01489117      5 0.2287489 0.3238915 0.05681943
+## 7  0.01202564      6 0.2138578 0.2922610 0.05311293
+## 8  0.01057622      7 0.2018321 0.2889364 0.05318206
+## 9  0.01031677      8 0.1912559 0.2838433 0.05152251
+## 10 0.01006729      9 0.1809391 0.2838187 0.05152098
+## 11 0.01000000     10 0.1708718 0.2815210 0.05152993
+## 
+## Variable importance
+##   lstat     nox   indus    crim     tax      rm     age     dis ptratio 
+##      24      13      13      13      11      10      10       2       2 
+##     rad   black 
+##       1       1 
+## 
+## Node number 1: 337 observations,    complexity param=0.435061
+##   mean=22.61157, MSE=79.33004 
+##   left son=2 (186 obs) right son=3 (151 obs)
+##   Primary splits:
+##       lstat   &lt; 10.02    to the right, improve=0.4350610, (0 missing)
+##       rm      &lt; 6.8375   to the left,  improve=0.4305766, (0 missing)
+##       indus   &lt; 6.66     to the right, improve=0.2914821, (0 missing)
+##       ptratio &lt; 19.15    to the right, improve=0.2608119, (0 missing)
+##       nox     &lt; 0.5125   to the right, improve=0.2169607, (0 missing)
+##   Surrogate splits:
+##       indus &lt; 7.625    to the right, agree=0.846, adj=0.656, (0 split)
+##       nox   &lt; 0.519    to the right, agree=0.828, adj=0.616, (0 split)
+##       crim  &lt; 0.12995  to the right, agree=0.786, adj=0.523, (0 split)
+##       age   &lt; 63.9     to the right, agree=0.777, adj=0.503, (0 split)
+##       tax   &lt; 377      to the right, agree=0.769, adj=0.483, (0 split)
+## 
+## Node number 2: 186 observations,    complexity param=0.05641774
+##   mean=17.31828, MSE=19.86042 
+##   left son=4 (58 obs) right son=5 (128 obs)
+##   Primary splits:
+##       crim  &lt; 5.84803  to the right, improve=0.4083024, (0 missing)
+##       dis   &lt; 2.0754   to the left,  improve=0.3684093, (0 missing)
+##       lstat &lt; 14.405   to the right, improve=0.3516672, (0 missing)
+##       nox   &lt; 0.657    to the right, improve=0.3255969, (0 missing)
+##       age   &lt; 84.9     to the right, improve=0.2247741, (0 missing)
+##   Surrogate splits:
+##       rad   &lt; 16       to the right, agree=0.855, adj=0.534, (0 split)
+##       tax   &lt; 551.5    to the right, agree=0.839, adj=0.483, (0 split)
+##       nox   &lt; 0.657    to the right, agree=0.828, adj=0.448, (0 split)
+##       dis   &lt; 2.0754   to the left,  agree=0.801, adj=0.362, (0 split)
+##       lstat &lt; 19.055   to the right, agree=0.796, adj=0.345, (0 split)
+## 
+## Node number 3: 151 observations,    complexity param=0.2111471
+##   mean=29.13179, MSE=75.5574 
+##   left son=6 (120 obs) right son=7 (31 obs)
+##   Primary splits:
+##       rm      &lt; 7.127    to the left,  improve=0.4947648, (0 missing)
+##       lstat   &lt; 4.495    to the right, improve=0.4054324, (0 missing)
+##       nox     &lt; 0.574    to the left,  improve=0.1389706, (0 missing)
+##       ptratio &lt; 14.75    to the right, improve=0.1349232, (0 missing)
+##       age     &lt; 89.45    to the left,  improve=0.1133301, (0 missing)
+##   Surrogate splits:
+##       lstat   &lt; 3.21     to the right, agree=0.841, adj=0.226, (0 split)
+##       ptratio &lt; 14.15    to the right, agree=0.828, adj=0.161, (0 split)
+##       tax     &lt; 207      to the right, agree=0.808, adj=0.065, (0 split)
+##       nox     &lt; 0.639    to the left,  agree=0.801, adj=0.032, (0 split)
+## 
+## Node number 4: 58 observations
+##   mean=13.08793, MSE=14.14485 
+## 
+## Node number 5: 128 observations,    complexity param=0.01489117
+##   mean=19.23516, MSE=10.66681 
+##   left son=10 (61 obs) right son=11 (67 obs)
+##   Primary splits:
+##       lstat   &lt; 14.405   to the right, improve=0.2915760, (0 missing)
+##       dis     &lt; 1.99235  to the left,  improve=0.2280873, (0 missing)
+##       age     &lt; 84.15    to the right, improve=0.1950219, (0 missing)
+##       ptratio &lt; 20.95    to the right, improve=0.1349341, (0 missing)
+##       rm      &lt; 5.706    to the left,  improve=0.1194638, (0 missing)
+##   Surrogate splits:
+##       age   &lt; 91.15    to the right, agree=0.758, adj=0.492, (0 split)
+##       dis   &lt; 2.0418   to the left,  agree=0.664, adj=0.295, (0 split)
+##       nox   &lt; 0.607    to the right, agree=0.633, adj=0.230, (0 split)
+##       indus &lt; 18.84    to the right, agree=0.625, adj=0.213, (0 split)
+##       rm    &lt; 5.703    to the left,  agree=0.617, adj=0.197, (0 split)
+## 
+## Node number 6: 120 observations,    complexity param=0.04154842
+##   mean=26.02417, MSE=34.39883 
+##   left son=12 (98 obs) right son=13 (22 obs)
+##   Primary splits:
+##       lstat &lt; 5.145    to the right, improve=0.2690898, (0 missing)
+##       dis   &lt; 2.0891   to the right, improve=0.2163813, (0 missing)
+##       rm    &lt; 6.543    to the left,  improve=0.2036454, (0 missing)
+##       age   &lt; 89.45    to the left,  improve=0.1796977, (0 missing)
+##       tax   &lt; 548      to the left,  improve=0.1751322, (0 missing)
+##   Surrogate splits:
+##       zn    &lt; 92.5     to the left,  agree=0.833, adj=0.091, (0 split)
+##       nox   &lt; 0.4035   to the right, agree=0.833, adj=0.091, (0 split)
+##       indus &lt; 1.495    to the right, agree=0.825, adj=0.045, (0 split)
+##       dis   &lt; 1.48495  to the right, agree=0.825, adj=0.045, (0 split)
+## 
+## Node number 7: 31 observations,    complexity param=0.02707678
+##   mean=41.16129, MSE=52.78882 
+##   left son=14 (11 obs) right son=15 (20 obs)
+##   Primary splits:
+##       rm      &lt; 7.437    to the left,  improve=0.4423448, (0 missing)
+##       lstat   &lt; 5.185    to the right, improve=0.3125696, (0 missing)
+##       ptratio &lt; 15.05    to the right, improve=0.1896089, (0 missing)
+##       black   &lt; 392.715  to the right, improve=0.1133472, (0 missing)
+##       age     &lt; 37.6     to the right, improve=0.0737298, (0 missing)
+##   Surrogate splits:
+##       lstat &lt; 4.635    to the right, agree=0.774, adj=0.364, (0 split)
+##       indus &lt; 2.32     to the left,  agree=0.742, adj=0.273, (0 split)
+##       dis   &lt; 5.9736   to the right, agree=0.710, adj=0.182, (0 split)
+##       black &lt; 390.095  to the right, agree=0.710, adj=0.182, (0 split)
+##       crim  &lt; 0.10593  to the left,  agree=0.677, adj=0.091, (0 split)
+## 
+## Node number 10: 61 observations
+##   mean=17.38689, MSE=8.122779 
+## 
+## Node number 11: 67 observations
+##   mean=20.91791, MSE=7.041172 
+## 
+## Node number 12: 98 observations,    complexity param=0.01202564
+##   mean=24.58265, MSE=20.9745 
+##   left son=24 (64 obs) right son=25 (34 obs)
+##   Primary splits:
+##       rm    &lt; 6.543    to the left,  improve=0.1564077, (0 missing)
+##       black &lt; 364.385  to the right, improve=0.1331323, (0 missing)
+##       age   &lt; 89.45    to the left,  improve=0.1241124, (0 missing)
+##       tax   &lt; 223.5    to the right, improve=0.1204819, (0 missing)
+##       dis   &lt; 4.46815  to the right, improve=0.1048755, (0 missing)
+##   Surrogate splits:
+##       dis   &lt; 3.6589   to the right, agree=0.704, adj=0.147, (0 split)
+##       rad   &lt; 6.5      to the left,  agree=0.704, adj=0.147, (0 split)
+##       age   &lt; 68.9     to the left,  agree=0.694, adj=0.118, (0 split)
+##       indus &lt; 1.605    to the right, agree=0.673, adj=0.059, (0 split)
+##       nox   &lt; 0.4045   to the right, agree=0.673, adj=0.059, (0 split)
+## 
+## Node number 13: 22 observations,    complexity param=0.01031677
+##   mean=32.44545, MSE=43.70884 
+##   left son=26 (15 obs) right son=27 (7 obs)
+##   Primary splits:
+##       tax   &lt; 364      to the left,  improve=0.2868266, (0 missing)
+##       lstat &lt; 3.855    to the right, improve=0.2413545, (0 missing)
+##       age   &lt; 31.85    to the left,  improve=0.1598075, (0 missing)
+##       dis   &lt; 5.4085   to the right, improve=0.1258591, (0 missing)
+##       black &lt; 381.59   to the right, improve=0.1052855, (0 missing)
+##   Surrogate splits:
+##       crim  &lt; 2.6956   to the left,  agree=0.773, adj=0.286, (0 split)
+##       indus &lt; 14       to the left,  agree=0.773, adj=0.286, (0 split)
+##       nox   &lt; 0.5875   to the left,  agree=0.773, adj=0.286, (0 split)
+##       age   &lt; 89.65    to the left,  agree=0.773, adj=0.286, (0 split)
+##       dis   &lt; 2.3371   to the right, agree=0.773, adj=0.286, (0 split)
+## 
+## Node number 14: 11 observations
+##   mean=34.64545, MSE=3.304298 
+## 
+## Node number 15: 20 observations,    complexity param=0.01057622
+##   mean=44.745, MSE=43.81147 
+##   left son=30 (12 obs) right son=31 (8 obs)
+##   Primary splits:
+##       ptratio &lt; 15.4     to the right, improve=0.3226860, (0 missing)
+##       rad     &lt; 6        to the right, improve=0.2170243, (0 missing)
+##       tax     &lt; 270      to the right, improve=0.1545997, (0 missing)
+##       age     &lt; 71.85    to the right, improve=0.1331209, (0 missing)
+##       zn      &lt; 10       to the left,  improve=0.1328727, (0 missing)
+##   Surrogate splits:
+##       zn   &lt; 10       to the left,  agree=0.80, adj=0.500, (0 split)
+##       nox  &lt; 0.541    to the left,  agree=0.80, adj=0.500, (0 split)
+##       age  &lt; 86.7     to the left,  agree=0.80, adj=0.500, (0 split)
+##       dis  &lt; 2.5813   to the right, agree=0.80, adj=0.500, (0 split)
+##       crim &lt; 0.45114  to the left,  agree=0.75, adj=0.375, (0 split)
+## 
+## Node number 24: 64 observations,    complexity param=0.01006729
+##   mean=23.2625, MSE=21.96891 
+##   left son=48 (57 obs) right son=49 (7 obs)
+##   Primary splits:
+##       indus &lt; 14.48    to the left,  improve=0.19142190, (0 missing)
+##       crim  &lt; 0.841845 to the left,  improve=0.17407590, (0 missing)
+##       black &lt; 374.635  to the right, improve=0.14590640, (0 missing)
+##       dis   &lt; 2.6499   to the right, improve=0.13374910, (0 missing)
+##       age   &lt; 79.85    to the left,  improve=0.08856433, (0 missing)
+##   Surrogate splits:
+##       crim  &lt; 1.163695 to the left,  agree=0.984, adj=0.857, (0 split)
+##       nox   &lt; 0.589    to the left,  agree=0.984, adj=0.857, (0 split)
+##       age   &lt; 84.35    to the left,  agree=0.984, adj=0.857, (0 split)
+##       dis   &lt; 2.28545  to the right, agree=0.969, adj=0.714, (0 split)
+##       black &lt; 361.635  to the right, agree=0.969, adj=0.714, (0 split)
+## 
+## Node number 25: 34 observations
+##   mean=27.06765, MSE=9.646894 
+## 
+## Node number 26: 15 observations
+##   mean=30.02667, MSE=14.56062 
+## 
+## Node number 27: 7 observations
+##   mean=37.62857, MSE=66.76776 
+## 
+## Node number 30: 12 observations
+##   mean=41.675, MSE=48.28521 
+## 
+## Node number 31: 8 observations
+##   mean=49.35, MSE=1.7575 
+## 
+## Node number 48: 57 observations
+##   mean=22.54386, MSE=10.87053 
+## 
+## Node number 49: 7 observations
+##   mean=29.11429, MSE=73.89265</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(boston.rpart)</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-32"></span>
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-32-1.png" alt="Drzewo regresyjne pełne" width="1056" />
+<p class="caption">
+Figure 5.1: Drzewo regresyjne pełne
+</p>
+</div>
+<p>Przycinamy drzewo…</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(boston.rpart)</code></pre>
+<pre><code>## 
+## Regression tree:
+## rpart(formula = medv ~ ., data = boston.train)
+## 
+## Variables actually used in tree construction:
+## [1] crim    indus   lstat   ptratio rm      tax    
+## 
+## Root node error: 26734/337 = 79.33
+## 
+## n= 337 
+## 
+##          CP nsplit rel error  xerror     xstd
+## 1  0.435061      0   1.00000 1.00375 0.104966
+## 2  0.211147      1   0.56494 0.68564 0.077321
+## 3  0.056418      2   0.35379 0.43932 0.059746
+## 4  0.041548      3   0.29737 0.37266 0.057166
+## 5  0.027077      4   0.25583 0.35203 0.055698
+## 6  0.014891      5   0.22875 0.32389 0.056819
+## 7  0.012026      6   0.21386 0.29226 0.053113
+## 8  0.010576      7   0.20183 0.28894 0.053182
+## 9  0.010317      8   0.19126 0.28384 0.051523
+## 10 0.010067      9   0.18094 0.28382 0.051521
+## 11 0.010000     10   0.17087 0.28152 0.051530</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(boston.rpart)</code></pre>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-33-1.png" width="1056" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.rpart2 &lt;-<span class="st"> </span><span class="kw">prune</span>(boston.rpart, <span class="dt">cp =</span> <span class="fl">0.012026</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(boston.rpart2)</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-34"></span>
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-34-1.png" alt="Drzewo regresyjne przycięte" width="1056" />
+<p class="caption">
+Figure 5.2: Drzewo regresyjne przycięte
+</p>
+</div>
+<p>Predykcja na podstawie drzewa na zbiorze testowym.</p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.rpart2, <span class="dt">newdata =</span> boston.test)
+rmse &lt;-<span class="st"> </span><span class="cf">function</span>(pred, obs) <span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">length</span>(pred)<span class="op">*</span><span class="kw">sum</span>((pred<span class="op">-</span>obs)<span class="op">^</span><span class="dv">2</span>))
+<span class="kw">rmse</span>(boston.pred, boston.test<span class="op">$</span>medv)</code></pre>
+<pre><code>## [1] 4.825862</code></pre>
+<p>Teraz zbudujemy model metodą bagging.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+boston.bag &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv<span class="op">~</span>., <span class="dt">data =</span> boston.train, 
+                           <span class="dt">mtry =</span> <span class="kw">ncol</span>(boston.train)<span class="op">-</span><span class="dv">1</span>)
+boston.bag</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = medv ~ ., data = boston.train, mtry = ncol(boston.train) -      1) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 13
+## 
+##           Mean of squared residuals: 13.06701
+##                     % Var explained: 83.53</code></pre>
+<p>Predykcja na podstawie modelu</p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.bag, <span class="dt">newdata =</span> boston.test)
+<span class="kw">rmse</span>(boston.pred2, boston.test<span class="op">$</span>medv)</code></pre>
+<pre><code>## [1] 3.039308</code></pre>
+<p>Zatem predykcja na podstwie modelu bagging jest nico lepsza niż z pojedynczego drzewa. Dodatkowo możemy ocenić ważność zmiennych użytych w budowie drzew.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(boston.bag)</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-38"></span>
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-38-1.png" alt="Wykres ważności predyktorów" width="1056" />
+<p class="caption">
+Figure 5.3: Wykres ważności predyktorów
+</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">importance</span>(boston.bag)</code></pre>
+<pre><code>##         IncNodePurity
+## crim       1200.11828
+## zn           24.17836
+## indus       262.33396
+## chas         22.27133
+## nox         417.32236
+## rm         9102.58339
+## age         416.48170
+## dis        1494.79734
+## rad         171.92103
+## tax         403.66309
+## ptratio     411.88528
+## black       331.58495
+## lstat     12137.38999</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>variable.importance</code></pre>
+<pre><code>##      lstat        nox      indus       crim        tax         rm 
+## 15197.8587  8683.8225  8325.2431  8074.7200  6991.0756  6768.5423 
+##        age        dis    ptratio        rad      black         zn 
+##  6538.5039  1305.3786  1193.2073   853.4309   323.8576   242.3521</code></pre>
+<p>W porównaniu do ważności zmiennych dla pojedynczego drzewa widać pewne rożnice.</p>
+</div>
+</div>
+<div id="lasy-losowe" class="section level2">
+<h2><span class="header-section-number">5.2</span> Lasy losowe</h2>
+<p>Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu <span class="math inline">\(m\)</span> predyktorów spośród <span class="math inline">\(p\)</span> dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy <span class="math inline">\(m=\sqrt{p}\)</span>). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji.</p>
+<div id="przyk52" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Przykład</h3>
+<p>Kontynuując poprzedni <a href="pochodne-drzew-decyzyjnych.html#przyk51">przykład</a> możemy zbudować las losowy aby przekonać się czy nastąpi poprawa predykcji zmiennej wynikowej.</p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv<span class="op">~</span>., <span class="dt">data =</span> boston.train)
+boston.rf</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = medv ~ ., data = boston.train) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 4
+## 
+##           Mean of squared residuals: 13.09902
+##                     % Var explained: 83.49</code></pre>
+<p>Porownanie MSE na próbach uczących pomiędzy lasem losowym i modelem bagging wypada nieco na korzyść bagging.</p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.rf, <span class="dt">newdata =</span> boston.test)
+<span class="kw">rmse</span>(boston.pred3, boston.test<span class="op">$</span>medv)</code></pre>
+<pre><code>## [1] 3.418302</code></pre>
+<p>Ważność zmiennych również się nieco różni.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(boston.rf)</code></pre>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-41-1.png" width="1056" /></p>
+</div>
+</div>
+<div id="boosting" class="section level2">
+<h2><span class="header-section-number">5.3</span> Boosting</h2>
+
+</div>
+</div>
+<h3>Bibliografia</h3>
+<div id="refs" class="references">
+<div id="ref-Breiman1996">
+<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
+</div>
+<div id="ref-R-ipred">
+<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
+</div>
+<div id="ref-R-las">
+<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
+</div>
+<div id="ref-R-MASS">
+<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>hyba tylko dla drógiej metody istniej dobre polskie tłumaczenie nazwy - las losowy<a href="pochodne-drzew-decyzyjnych.html#fnref19" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="drzewa-decyzyjne.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
