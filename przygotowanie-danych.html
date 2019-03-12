@@ -246,37 +246,37 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hIgHlo&quot;</span>, <span class="st">&quot;REPEAT VALUE&quot;</span>, <span class="st">&quot;REPEAT VALUE&quot;</span>,
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
-<pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -1.2211372   -0.6033492   -2.0602098          2.15285648  1.0724092
-## 2  1.3349400    0.2124177    0.3538446          0.04294549 -0.8068062
-## 3 -0.2024948   -0.4783536   -0.7907359          0.81428059 -0.3088754
+<pre><code>##        hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
+## 1 -1.01948294    0.3111544    0.1998960          -0.8374255 -0.7964253
+## 2 -0.06231244   -1.9826314    0.7877297           0.7068321 -0.2133311
+## 3 -0.29639672   -0.3823991   -0.7434986          -0.4473128  0.9807102
 ##             
-## 1  3.3197530
-## 2  2.1011019
-## 3 -0.1794731</code></pre>
+## 1  0.1752873
+## 2 -1.4079947
+## 3  0.1554663</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
-<pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -1.2211372   -0.6033492   -2.0602098           2.15285648  1.0724092
-## 2  1.3349400    0.2124177    0.3538446           0.04294549 -0.8068062
-## 3 -0.2024948   -0.4783536   -0.7907359           0.81428059 -0.3088754
+<pre><code>##        hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
+## 1 -1.01948294    0.3111544    0.1998960           -0.8374255 -0.7964253
+## 2 -0.06231244   -1.9826314    0.7877297            0.7068321 -0.2133311
+## 3 -0.29639672   -0.3823991   -0.7434986           -0.4473128  0.9807102
 ##            X
-## 1  3.3197530
-## 2  2.1011019
-## 3 -0.1794731</code></pre>
+## 1  0.1752873
+## 2 -1.4079947
+## 3  0.1554663</code></pre>
 <p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
-<pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -1.2211372   -0.6033492     -2.0602098        2.15285648  1.0724092
-## 2  1.3349400    0.2124177      0.3538446        0.04294549 -0.8068062
-## 3 -0.2024948   -0.4783536     -0.7907359        0.81428059 -0.3088754
+<pre><code>##      h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
+## 1 -1.01948294    0.3111544      0.1998960        -0.8374255 -0.7964253
+## 2 -0.06231244   -1.9826314      0.7877297         0.7068321 -0.2133311
+## 3 -0.29639672   -0.3823991     -0.7434986        -0.4473128  0.9807102
 ##            x
-## 1  3.3197530
-## 2  2.1011019
-## 3 -0.1794731</code></pre>
+## 1  0.1752873
+## 2 -1.4079947
+## 3  0.1554663</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>

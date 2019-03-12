@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pochodne-drzew-decyzyjnych" class="section level1">
 <h1><span class="header-section-number">5</span> Pochodne drzew decyzyjnych</h1>
 <p>Przykład zastosowania drzew decyzyjnych na zbiorze <code>iris</code> w poprzednich <a href="drzewa-decyzyjne.html#przyk41">przykładach</a> może skłaniać do przypuszczenia, że drzewa decyzyjne zawsze dobrze radzą sobie z predykcją wartości wynikowej. Niestety w przykładach nieco bardziej skomplikowanych, gdzie chociażby klasy zmiennej wynikowej nie są tak wyraźnie separowalne, drzewa decyzjne wypadają gorzej w prównaniu z innymi modelami nadzorowanego uczenia maszynowego.</p>
-<p>I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody <em>bagging</em>, <em>random forest</em> i <em>boosting</em><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.</p>
+<p>I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody <em>bagging</em>, <em>random forest</em> i <em>boosting</em><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>. Należy zaznaczyć, że metody zanjdują swoje zastosowanie również w innych modelach nadzorowanego ucznienia maszynowego.</p>
 <div id="bagging" class="section level2">
 <h2><span class="header-section-number">5.1</span> Bagging</h2>
 <p>Technika ta zostala wprowadzona przez <span class="citation">Breiman (<a href="#ref-Breiman1996">1996</a>)</span> i ma na celu zmniejszenie wariancji modelu pojedynczego drzewa. Podobnie jak technika <em>bootstrap</em>, w której statystyki są wyliczane na wielu próbach pobranych z tego samego rozkładu (próby), w metodzie bagging losuje się wiele prób ze zbioru uczącego (najczęściej poprzez wielokrotne losowanie próby o rozmiarze zbioru uczącego ze zwracaniem), a następnie dla każdej próby bootstrapowej buduje się drzewo. W ten sposób otrzymujemy <span class="math inline">\(B\)</span> drzew decyzyjnych <span class="math inline">\(\hat{f}^1(x), \hat{f}^2(x),\ldots, \hat{f}^B(x)\)</span>. Na koniec poprzez uśrednienie otrzymujemy model charakteryzujący się większą precyzją
@@ -263,7 +263,7 @@ m &lt;-<span class="st"> </span><span class="ot">NULL</span>
 <pre><code>## [1] 36.7426</code></pre>
 <p>Faktycznie uczenie modelu metodą bagging odbywa się średnio na 2/3 obserwacji zbioru uczącego wylosowanych do prób bootstrapowych, a pozostała 1/3 (ang. <em>out-of-bag</em>) jest wykorzystana do oceny jakości predykcji.</p>
 <p>Niewątpliwą zaletą drzew decyzyjnych była ich łatwa interpretacja. W przypadku metody bagging jest ona znacznie utrudniona, ponieważ jej wynik składa się z agregacji wielu drzew. Można natomiast ocenić ważność predyktorów (ang. <em>variable importance</em>). I tak, przez obserwację spadku <span class="math inline">\(RSS\)</span> dla baggingu regresyjnego przy zastosowaniu danego predyktora w podziałach drzewa i uśrednieniu wyniku otrzymamy wskaźnik ważności predyktora dużo lepszy niż dla pojedynczego drzewa. W przypadku baggingu klasyfikacyjnego w miejsce <span class="math inline">\(RSS\)</span> stosujemy indeks Gini’ego.</p>
-<p>Implementacja R-owa metody bagging znajduje się w pakiecie <strong>ipred</strong>, a funkcja do budowy modelu nazywa się <code>bagging</code> <span class="citation">(Peters and Hothorn <a href="#ref-R-ipred">2018</a>)</span>. Można również stosować funkcję <code>randomForest</code> pakietu <strong>randomForest</strong> <span class="citation">(Liaw and Wiener <a href="#ref-R-las">2002</a>)</span> - powody takiego działania wyjaśnią się w rodziale <a href="pochodne-drzew-decyzyjnych.html#lasy-losowe">Lasy losowe</a>.</p>
+<p>Implementacja R-owa metody bagging znajduje się w pakiecie <strong>ipred</strong>, a funkcja do budowy modelu nazywa się <code>bagging</code> <span class="citation">(Peters and Hothorn <a href="#ref-R-ipred">2018</a>)</span>. Można również stosować funkcję <code>randomForest</code> pakietu <strong>randomForest</strong> <span class="citation">(Liaw and Wiener <a href="#ref-R-las">2002</a>)</span> - powody takiego działania wyjaśnią się w podrodziale <a href="pochodne-drzew-decyzyjnych.html#lasy-losowe">Lasy losowe</a>.</p>
 <div id="przyk51" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Przykład</h3>
 <p>Tym razem cel zadania jest regresyjny i polega na ustaleniu miary tendencji centralnej ceny mieszkań w Bostonie na podstwie zmiennych umieszczonych w zbiorze <code>Boston</code> pakietu <strong>MASS</strong> <span class="citation">(Venables and Ripley <a href="#ref-R-MASS">2002</a>)</span>. Zmienną zależną będzie mediana cen mieszkań na przedmieściach Bostonu (<code>medv</code>).</p>
@@ -603,7 +603,7 @@ Figure 5.3: Wykres ważności predyktorów
 </div>
 <div id="lasy-losowe" class="section level2">
 <h2><span class="header-section-number">5.2</span> Lasy losowe</h2>
-<p>Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu <span class="math inline">\(m\)</span> predyktorów spośród <span class="math inline">\(p\)</span> dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy <span class="math inline">\(m=\sqrt{p}\)</span>). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji.</p>
+<p>Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu <span class="math inline">\(m\)</span> predyktorów spośród <span class="math inline">\(p\)</span> dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów <span class="citation">(Ho <a href="#ref-ho1995">1995</a>)</span>. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy <span class="math inline">\(m=\sqrt{p}\)</span>). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji. Implementacja tej metody znajduje się w pakiecie <strong>randomForest</strong>.</p>
 <div id="przyk52" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Przykład</h3>
 <p>Kontynuując poprzedni <a href="pochodne-drzew-decyzyjnych.html#przyk51">przykład</a> możemy zbudować las losowy aby przekonać się czy nastąpi poprawa predykcji zmiennej wynikowej.</p>
@@ -629,6 +629,67 @@ boston.rf</code></pre>
 </div>
 <div id="boosting" class="section level2">
 <h2><span class="header-section-number">5.3</span> Boosting</h2>
+<p>Rozważania na temat metody <em>boosting</em> zaczeły się od pytań postawionych w publikacji <span class="citation">Kearns and Valiant (<a href="#ref-Kearns1989">1989</a>)</span>, czy da się na podstawie na podstawie zbioru słabych modeli stworzyć jeden dobry? Odpowiedzi pozytywnej na nie udzielili, najpierw <span class="citation">Schapire (<a href="#ref-Schapire1990">1990</a>)</span>, a potem <span class="citation">Breiman (<a href="#ref-breiman1998">1998</a>)</span>. W metodzie boosting nie stosuje się prób bootstrapowych ale odpowiednio modyfikuje się drzewo wyjściowe w kolejnych krokach na tym samym zbiorze uczącym. Algorytm dla drzewa regresyjnego jest następujący:</p>
+<ol style="list-style-type: decimal">
+<li>Ustal <span class="math inline">\(\hat{f}(x)=0\)</span> i <span class="math inline">\(r_i=y_i\)</span> dla każdego <span class="math inline">\(i\)</span> w zbiorze uczącym.</li>
+<li>Dla <span class="math inline">\(b=1,2,\ldots, B\)</span> powtarzaj:
+<ol style="list-style-type: lower-alpha">
+<li>naucz drzewo <span class="math inline">\(\hat{f}^b\)</span> o <span class="math inline">\(d\)</span> regułach podziału (czyli <span class="math inline">\(d+1\)</span> liściach) na zbiorze $(X_i, r_i),</li>
+<li>zakutalizuj drzewo do nowej “skurczonej” wersji
+<span class="math display">\[\begin{equation}
+ \hat{f}(x)\leftarrow \hat{f}(x)+\lambda\hat{h}^b(x),
+\end{equation}\]</span></li>
+<li>zaktualizuj reszty
+<span class="math display">\[\begin{equation}
+ r_i\leftarrow r_i-\lambda\hat{f}^b(x_i).
+\end{equation}\]</span></li>
+</ol></li>
+<li>Wyznacz boosted model
+<span class="math display">\[\begin{equation}
+  \hat{f}(x) = \sum_{b=1}^B\lambda\hat{f}^b(x)
+\end{equation}\]</span></li>
+</ol>
+<p>Uczenie drzew klasyfikacyjnego metoda boosting przebiega w podobny sposób. Wynik uczenia drzew metodą boosting zależy od trzech paramtrów:</p>
+<ol style="list-style-type: decimal">
+<li>Liczby drzew <span class="math inline">\(B\)</span>. W przeciwieństwie do metody bagging i lasów losowych, zbyt duże <span class="math inline">\(B\)</span> może doprowadzić do przeuczenia modelu. <span class="math inline">\(B\)</span> ustala się najczęściej na podstawie walidacji krzyżowej.</li>
+<li>Parametru “kurczenia” (ang. <em>shrinkage</em>) <span class="math inline">\(\lambda\)</span>. Kontroluje on szybkość uczenia się kolejnych drzew. Typowe wartości <span class="math inline">\(\lambda\)</span> to 0.01 lub 0.001. Bardzo małe <span class="math inline">\(\lambda\)</span> może wymagać dobrania większego <span class="math inline">\(B\)</span>, aby zapewnić dobrą jakość predykcyjną modelu.</li>
+<li>Liczby podziałów w drzewach <span class="math inline">\(d\)</span>, która decyduje o złożoności drzewa. Bywa, że nawet <span class="math inline">\(d=1\)</span> daje dobre rezultaty, ponieważ model wówczas uczy się powoli.</li>
+</ol>
+<p>Implementację metody boosting można znaleźć w pakiecie <strong>gbm</strong> <span class="citation">(Greenwell et al. <a href="#ref-R-gbm">2019</a>)</span></p>
+<p>Metodę boosting zastosujemy do zadania predykcji ceny mieszkań na przedmieściach Bostonu. Dobór parametrów modelu będzie arbitralny, więc niekoniecznie model będzie najlepiej dopasowany.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gbm)
+boston.boost &lt;-<span class="st"> </span><span class="kw">gbm</span>(medv<span class="op">~</span>., <span class="dt">data =</span> boston.train,
+                    <span class="dt">distribution =</span> <span class="st">&quot;gaussian&quot;</span>, 
+                    <span class="dt">n.trees =</span> <span class="dv">5000</span>,
+                    <span class="dt">interaction.depth =</span> <span class="dv">2</span>,
+                    <span class="dt">shrinkage =</span> <span class="fl">0.01</span>)
+boston.boost</code></pre>
+<pre><code>## gbm(formula = medv ~ ., distribution = &quot;gaussian&quot;, data = boston.train, 
+##     n.trees = 5000, interaction.depth = 2, shrinkage = 0.01)
+## A gradient boosted model with gaussian loss function.
+## 5000 iterations were performed.
+## There were 13 predictors of which 13 had non-zero influence.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(boston.boost)</code></pre>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-43-1.png" width="1056" /></p>
+<pre><code>##             var     rel.inf
+## lstat     lstat 37.72235740
+## rm           rm 28.25340805
+## dis         dis  9.04378958
+## crim       crim  6.95484787
+## nox         nox  3.97210067
+## black     black  3.16250916
+## ptratio ptratio  3.03202030
+## age         age  2.35790500
+## chas       chas  1.97366108
+## tax         tax  1.67544858
+## indus     indus  1.22537648
+## rad         rad  0.57329299
+## zn           zn  0.05328283</code></pre>
+<p>Predykcja na podstawie metody boosting</p>
+<pre class="sourceCode r"><code class="sourceCode r">boston.pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.boost, <span class="dt">newdata =</span> boston.test, <span class="dt">n.trees =</span> <span class="dv">5000</span>)
+<span class="kw">rmse</span>(boston.pred4, boston.test<span class="op">$</span>medv)</code></pre>
+<pre><code>## [1] 3.06509</code></pre>
+<p><span class="math inline">\(RMSE\)</span> jest w tym przypadku mniejsze niż w lasach losowych ale nieco większe niż w metodzie bagging. Wszsystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.</p>
 
 </div>
 </div>
@@ -645,6 +706,21 @@ boston.rf</code></pre>
 </div>
 <div id="ref-R-MASS">
 <p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
+</div>
+<div id="ref-ho1995">
+<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
+</div>
+<div id="ref-Kearns1989">
+<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
+</div>
+<div id="ref-Schapire1990">
+<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
+</div>
+<div id="ref-breiman1998">
+<p>Breiman, Leo. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3). The Institute of Mathematical Statistics: 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
+</div>
+<div id="ref-R-gbm">
+<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
 </div>
 </div>
 <div class="footnotes">

@@ -470,7 +470,7 @@ Zapisując obiekty jako oddzielne pliki, można przy wczytywaniu nadawać im naz
 ## # ... with 140 more rows, and 1 more variable: Gatunki <chr>
 \end{verbatim}
 
-Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą \texttt{R}. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tego poroblemu 😄
+Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą \texttt{R}. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tego poroblemu 😃
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -744,13 +744,13 @@ Dane, które importujemy z zewnętrznego źródła najczęściej nie spełniają
 
 \begin{verbatim}
 ##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1  0.5766562   -1.0119405   -2.2283192           0.9983100  0.4401545
-## 2 -1.0209955   -1.9974551    0.5367048          -0.2359354 -0.7866444
-## 3 -1.1346090    0.9599928    0.5118476          -1.1698186 -0.1328684
-##             
-## 1  1.2451586
-## 2 -0.2748401
-## 3 -1.0657506
+## 1 -0.1834474  -0.04911401   -0.7611087          -0.6148353 -0.2381648
+## 2  0.5731620  -1.19190572   -0.2526333          -0.0871343 -1.2182395
+## 3 -0.8269735   1.38788226    0.5258345          -1.4137135 -0.7305826
+##            
+## 1 0.4477863
+## 2 0.1775162
+## 3 0.7414897
 \end{verbatim}
 
 \begin{Shaded}
@@ -763,13 +763,13 @@ Dane, które importujemy z zewnętrznego źródła najczęściej nie spełniają
 
 \begin{verbatim}
 ##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1  0.5766562   -1.0119405   -2.2283192            0.9983100  0.4401545
-## 2 -1.0209955   -1.9974551    0.5367048           -0.2359354 -0.7866444
-## 3 -1.1346090    0.9599928    0.5118476           -1.1698186 -0.1328684
-##            X
-## 1  1.2451586
-## 2 -0.2748401
-## 3 -1.0657506
+## 1 -0.1834474  -0.04911401   -0.7611087           -0.6148353 -0.2381648
+## 2  0.5731620  -1.19190572   -0.2526333           -0.0871343 -1.2182395
+## 3 -0.8269735   1.38788226    0.5258345           -1.4137135 -0.7305826
+##           X
+## 1 0.4477863
+## 2 0.1775162
+## 3 0.7414897
 \end{verbatim}
 
 Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję \texttt{clean\_names} pakietu \textbf{janitor} \citep{R-janitor}. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.
@@ -784,13 +784,13 @@ Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmien
 
 \begin{verbatim}
 ##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1  0.5766562   -1.0119405     -2.2283192         0.9983100  0.4401545
-## 2 -1.0209955   -1.9974551      0.5367048        -0.2359354 -0.7866444
-## 3 -1.1346090    0.9599928      0.5118476        -1.1698186 -0.1328684
-##            x
-## 1  1.2451586
-## 2 -0.2748401
-## 3 -1.0657506
+## 1 -0.1834474  -0.04911401     -0.7611087        -0.6148353 -0.2381648
+## 2  0.5731620  -1.19190572     -0.2526333        -0.0871343 -1.2182395
+## 3 -0.8269735   1.38788226      0.5258345        -1.4137135 -0.7305826
+##           x
+## 1 0.4477863
+## 2 0.1775162
+## 3 0.7414897
 \end{verbatim}
 
 \begin{Shaded}
@@ -2579,7 +2579,7 @@ Tym razem również nie trzeba ustawiać parametrów drzewa, ponieważ algorytm 
 ## C5.0.formula(formula = Species ~ ., data = dt.train)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Tue Mar 12 19:23:48 2019
+## C5.0 [Release 2.07 GPL Edition]      Tue Mar 12 23:42:32 2019
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -2658,7 +2658,7 @@ Dla pewności przeprowadzimy sprawdzenie na zbiorze testowym.
 
 Przykład zastosowania drzew decyzyjnych na zbiorze \texttt{iris} w poprzednich \protect\hyperlink{przyk41}{przykładach} może skłaniać do przypuszczenia, że drzewa decyzyjne zawsze dobrze radzą sobie z predykcją wartości wynikowej. Niestety w przykładach nieco bardziej skomplikowanych, gdzie chociażby klasy zmiennej wynikowej nie są tak wyraźnie separowalne, drzewa decyzjne wypadają gorzej w prównaniu z innymi modelami nadzorowanego uczenia maszynowego.
 
-I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody \emph{bagging}, \emph{random forest} i \emph{boosting}\footnote{hyba tylko dla drógiej metody istniej dobre polskie tłumaczenie nazwy - las losowy}.
+I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody \emph{bagging}, \emph{random forest} i \emph{boosting}\footnote{hyba tylko dla drógiej metody istniej dobre polskie tłumaczenie nazwy - las losowy}. Należy zaznaczyć, że metody zanjdują swoje zastosowanie również w innych modelach nadzorowanego ucznienia maszynowego.
 
 \hypertarget{bagging}{%
 \section{Bagging}\label{bagging}}
@@ -2705,7 +2705,7 @@ Faktycznie uczenie modelu metodą bagging odbywa się średnio na 2/3 obserwacji
 
 Niewątpliwą zaletą drzew decyzyjnych była ich łatwa interpretacja. W przypadku metody bagging jest ona znacznie utrudniona, ponieważ jej wynik składa się z agregacji wielu drzew. Można natomiast ocenić ważność predyktorów (ang. \emph{variable importance}). I tak, przez obserwację spadku \(RSS\) dla baggingu regresyjnego przy zastosowaniu danego predyktora w podziałach drzewa i uśrednieniu wyniku otrzymamy wskaźnik ważności predyktora dużo lepszy niż dla pojedynczego drzewa. W przypadku baggingu klasyfikacyjnego w miejsce \(RSS\) stosujemy indeks Gini'ego.
 
-Implementacja R-owa metody bagging znajduje się w pakiecie \textbf{ipred}, a funkcja do budowy modelu nazywa się \texttt{bagging} \citep{R-ipred}. Można również stosować funkcję \texttt{randomForest} pakietu \textbf{randomForest} \citep{R-las} - powody takiego działania wyjaśnią się w rodziale \protect\hyperlink{lasy-losowe}{Lasy losowe}.
+Implementacja R-owa metody bagging znajduje się w pakiecie \textbf{ipred}, a funkcja do budowy modelu nazywa się \texttt{bagging} \citep{R-ipred}. Można również stosować funkcję \texttt{randomForest} pakietu \textbf{randomForest} \citep{R-las} - powody takiego działania wyjaśnią się w podrodziale \protect\hyperlink{lasy-losowe}{Lasy losowe}.
 
 \hypertarget{przyk51}{%
 \subsection{Przykład}\label{przyk51}}
@@ -3149,7 +3149,7 @@ W porównaniu do ważności zmiennych dla pojedynczego drzewa widać pewne rożn
 \hypertarget{lasy-losowe}{%
 \section{Lasy losowe}\label{lasy-losowe}}
 
-Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu \(m\) predyktorów spośród \(p\) dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy \(m=\sqrt{p}\)). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji.
+Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu \(m\) predyktorów spośród \(p\) dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów \citep{ho1995}. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy \(m=\sqrt{p}\)). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji. Implementacja tej metody znajduje się w pakiecie \textbf{randomForest}.
 
 \hypertarget{przyk52}{%
 \subsection{Przykład}\label{przyk52}}
@@ -3200,6 +3200,116 @@ Ważność zmiennych również się nieco różni.
 
 \hypertarget{boosting}{%
 \section{Boosting}\label{boosting}}
+
+Rozważania na temat metody \emph{boosting} zaczeły się od pytań postawionych w publikacji \citet{Kearns1989}, czy da się na podstawie na podstawie zbioru słabych modeli stworzyć jeden dobry? Odpowiedzi pozytywnej na nie udzielili, najpierw \citet{Schapire1990}, a potem \citet{breiman1998}. W metodzie boosting nie stosuje się prób bootstrapowych ale odpowiednio modyfikuje się drzewo wyjściowe w kolejnych krokach na tym samym zbiorze uczącym. Algorytm dla drzewa regresyjnego jest następujący:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ustal \(\hat{f}(x)=0\) i \(r_i=y_i\) dla każdego \(i\) w zbiorze uczącym.
+\item
+  Dla \(b=1,2,\ldots, B\) powtarzaj:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii})}
+  \tightlist
+  \item
+    naucz drzewo \(\hat{f}^b\) o \(d\) regułach podziału (czyli \(d+1\) liściach) na zbiorze \$(X\_i, r\_i),
+  \item
+    zakutalizuj drzewo do nowej ``skurczonej'' wersji
+    \begin{equation}
+     \hat{f}(x)\leftarrow \hat{f}(x)+\lambda\hat{h}^b(x),
+    \end{equation}
+  \item
+    zaktualizuj reszty
+    \begin{equation}
+     r_i\leftarrow r_i-\lambda\hat{f}^b(x_i).
+    \end{equation}
+  \end{enumerate}
+\item
+  Wyznacz boosted model
+  \begin{equation}
+    \hat{f}(x) = \sum_{b=1}^B\lambda\hat{f}^b(x)
+  \end{equation}
+\end{enumerate}
+
+Uczenie drzew klasyfikacyjnego metoda boosting przebiega w podobny sposób. Wynik uczenia drzew metodą boosting zależy od trzech paramtrów:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Liczby drzew \(B\). W przeciwieństwie do metody bagging i lasów losowych, zbyt duże \(B\) może doprowadzić do przeuczenia modelu. \(B\) ustala się najczęściej na podstawie walidacji krzyżowej.
+\item
+  Parametru ``kurczenia'' (ang. \emph{shrinkage}) \(\lambda\). Kontroluje on szybkość uczenia się kolejnych drzew. Typowe wartości \(\lambda\) to 0.01 lub 0.001. Bardzo małe \(\lambda\) może wymagać dobrania większego \(B\), aby zapewnić dobrą jakość predykcyjną modelu.
+\item
+  Liczby podziałów w drzewach \(d\), która decyduje o złożoności drzewa. Bywa, że nawet \(d=1\) daje dobre rezultaty, ponieważ model wówczas uczy się powoli.
+\end{enumerate}
+
+Implementację metody boosting można znaleźć w pakiecie \textbf{gbm} \citep{R-gbm}
+
+Metodę boosting zastosujemy do zadania predykcji ceny mieszkań na przedmieściach Bostonu. Dobór parametrów modelu będzie arbitralny, więc niekoniecznie model będzie najlepiej dopasowany.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gbm)}
+\NormalTok{boston.boost <-}\StringTok{ }\KeywordTok{gbm}\NormalTok{(medv}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ boston.train,}
+                    \DataTypeTok{distribution =} \StringTok{"gaussian"}\NormalTok{, }
+                    \DataTypeTok{n.trees =} \DecValTok{5000}\NormalTok{,}
+                    \DataTypeTok{interaction.depth =} \DecValTok{2}\NormalTok{,}
+                    \DataTypeTok{shrinkage =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{boston.boost}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## gbm(formula = medv ~ ., distribution = "gaussian", data = boston.train, 
+##     n.trees = 5000, interaction.depth = 2, shrinkage = 0.01)
+## A gradient boosted model with gaussian loss function.
+## 5000 iterations were performed.
+## There were 13 predictors of which 13 had non-zero influence.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(boston.boost)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EksploracjaDanych_files/figure-latex/unnamed-chunk-43-1.pdf}
+
+\begin{verbatim}
+##             var     rel.inf
+## lstat     lstat 37.72235740
+## rm           rm 28.25340805
+## dis         dis  9.04378958
+## crim       crim  6.95484787
+## nox         nox  3.97210067
+## black     black  3.16250916
+## ptratio ptratio  3.03202030
+## age         age  2.35790500
+## chas       chas  1.97366108
+## tax         tax  1.67544858
+## indus     indus  1.22537648
+## rad         rad  0.57329299
+## zn           zn  0.05328283
+\end{verbatim}
+
+Predykcja na podstawie metody boosting
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boston.pred4 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(boston.boost, }\DataTypeTok{newdata =}\NormalTok{ boston.test, }\DataTypeTok{n.trees =} \DecValTok{5000}\NormalTok{)}
+\KeywordTok{rmse}\NormalTok{(boston.pred4, boston.test}\OperatorTok{$}\NormalTok{medv)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.06509
+\end{verbatim}
+
+\(RMSE\) jest w tym przypadku mniejsze niż w lasach losowych ale nieco większe niż w metodzie bagging. Wszsystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.
 
 \bibliography{book.bib,packages.bib}
 
