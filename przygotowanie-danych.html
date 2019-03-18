@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-12">
+<meta name="date" content="2019-03-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -247,36 +247,36 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
 <pre><code>##        hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -1.01948294    0.3111544    0.1998960          -0.8374255 -0.7964253
-## 2 -0.06231244   -1.9826314    0.7877297           0.7068321 -0.2133311
-## 3 -0.29639672   -0.3823991   -0.7434986          -0.4473128  0.9807102
+## 1 -0.91568727   0.94358503   -0.3298327           0.1231096  1.3310554
+## 2  0.58630870  -0.08130841    0.4823939           1.2356726  0.8775492
+## 3 -0.01833307  -0.44070983    0.3883307          -0.2601607 -0.1207310
 ##             
-## 1  0.1752873
-## 2 -1.4079947
-## 3  0.1554663</code></pre>
+## 1  0.1019994
+## 2 -0.9256033
+## 3 -0.5369316</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
 <pre><code>##        hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -1.01948294    0.3111544    0.1998960           -0.8374255 -0.7964253
-## 2 -0.06231244   -1.9826314    0.7877297            0.7068321 -0.2133311
-## 3 -0.29639672   -0.3823991   -0.7434986           -0.4473128  0.9807102
+## 1 -0.91568727   0.94358503   -0.3298327            0.1231096  1.3310554
+## 2  0.58630870  -0.08130841    0.4823939            1.2356726  0.8775492
+## 3 -0.01833307  -0.44070983    0.3883307           -0.2601607 -0.1207310
 ##            X
-## 1  0.1752873
-## 2 -1.4079947
-## 3  0.1554663</code></pre>
-<p>Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
+## 1  0.1019994
+## 2 -0.9256033
+## 3 -0.5369316</code></pre>
+<p>Efekt końcowy choć skuteczny, to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
 <pre><code>##      h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -1.01948294    0.3111544      0.1998960        -0.8374255 -0.7964253
-## 2 -0.06231244   -1.9826314      0.7877297         0.7068321 -0.2133311
-## 3 -0.29639672   -0.3823991     -0.7434986        -0.4473128  0.9807102
+## 1 -0.91568727   0.94358503     -0.3298327         0.1231096  1.3310554
+## 2  0.58630870  -0.08130841      0.4823939         1.2356726  0.8775492
+## 3 -0.01833307  -0.44070983      0.3883307        -0.2601607 -0.1207310
 ##            x
-## 1  0.1752873
-## 2 -1.4079947
-## 3  0.1554663</code></pre>
+## 1  0.1019994
+## 2 -0.9256033
+## 3 -0.5369316</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>
@@ -463,8 +463,8 @@ Figure 2.1: Na czerwono zaznaczone są zmienne, które zwierają braki danych. L
 <p>Zastępowanie braków danych (zwane także <em>imputacją danych</em>) jest kolejnym etapem procesu przygotowania danych do analiz. Nie można jednak wyróżnić uniwersalnego sposobu zastępowania braków dla wszystkich możliwych sytuacji. Wśród statystyków panuje przekonanie, że w przypadku wystąpienia braków danych można zastosować trzy strategie:</p>
 <ul>
 <li>nic nie robić z brakami - co wydaje się niedorzeczne ale wcale takie nie jest, ponieważ istnieje wiele modeli statystycznych (np. drzewa decyzyjne), które świetnie radzą sobie w sytuacji braków danych. Niestety nie jest to sposób, który można stosować zawsze, ponieważ są również modele wymagające kompletności danych jak na przykład sieci neuronowe.</li>
-<li>usuwać braki wierszami<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> - to metoda, która jest stosowana domyślnie w przypadku kiedy twórca modelu nie zadecyduje o innym sposobie obsługi luk. Metoda ta ma swoją niewątpliwą zaletę w postaci jasnej i prostej procedury, ale szczególnie w przypadku niewielkich zbiorów może skutkować obciążeniem estymatorów. Nie wiemy bowiem jaka wartość faktycznie jest przypisana danej cesze. Jeśli jest to wartość bliska np. średniej, to nie wpłynie znacząco na obciążenie estymatora wartości oczekiwanej. W przypadku, gdy różni się ona znacznie od średniej tej cechy, to estymator może już wykazywać obciążenie. Jego wielkość zależy również od liczby usuniętych elementów. Nie jest zalecane usuwanie wielu wierszy ze zbioru danych i na podstawie okrojonego zbioru wyciąganie wniosków o populacji, ponieważ próba jest wówczas znacząco inna niż populacja. Dodatkowo jeśli estymatory są wyznaczane na podstawie zbioru wyraźnie mniej licznego, to precyzja estymatorów wyrażona wariancją spada. Reasumując, jeśli liczba wierszy z brakującymi danymi jest niewielka w stosunku do całego zbioru, to usuwanie wierszy jest sensownym rozwiązaniem.</li>
-<li>uzupełnianie braków - to procedura polegająca na zastępowaniu braków różnymi technikami. Jej niewątpliwą zaletą jest fakt posiadania kompletnych danych bez konieczności usuwania wierszy. Niestety wiąże się to również z pewnymi wadami. Zbiór posiadający wiele braków uzupełnianych nawet bardzo wyrafinowanymi metodami może cechować się zaniżoną wariancją poszczególnych cech oraz tzw. przeuczeniem<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</li>
+<li>usuwać braki wierszami<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> - to metoda, która jest stosowana domyślnie w przypadku kiedy twórca modelu nie zadecyduje o innym sposobie obsługi luk. Metoda ta ma swoją niewątpliwą zaletę w postaci jasnej i prostej procedury, ale szczególnie w przypadku niewielkich zbiorów może skutkować obciążeniem estymatorów. Nie wiemy bowiem jaka wartość faktycznie jest przypisana danej cesze. Jeśli jest to wartość bliska np. średniej, to nie wpłynie znacząco na obciążenie estymatora wartości oczekiwanej. W przypadku, gdy różni się ona znacznie od średniej tej cechy, to estymator może już wykazywać obciążenie. Jego wielkość zależy również od liczby usuniętych elementów. Nie jest zalecane usuwanie wielu wierszy ze zbioru danych i na podstawie okrojonego zbioru wyciąganie wniosków o populacji, ponieważ próba jest wówczas znacząco inna niż populacja. Dodatkowo jeśli estymatory są wyznaczane na podstawie zbioru wyraźnie mniej licznego, to precyzja estymatorów wyrażona wariancją spada. Reasumując, jeśli liczba wierszy z brakującymi danymi jest niewielka w stosunku do całego zbioru, to usuwanie wierszy jest sensownym rozwiązaniem.</li>
+<li>uzupełnianie braków - to procedura polegająca na zastępowaniu braków różnymi technikami. Jej niewątpliwą zaletą jest fakt posiadania kompletnych danych bez konieczności usuwania wierszy. Niestety wiąże się to również z pewnymi wadami. Zbiór posiadający wiele braków uzupełnianych nawet bardzo wyrafinowanymi metodami może cechować się zaniżoną wariancją poszczególnych cech oraz tzw. przeuczeniem<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>Uzupełnianie średnią - braki w zakresie danej zmiennej uzupełniamy średnią tej zmiennej przypadków uzupełnionych.</li>
@@ -860,9 +860,9 @@ data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="11">
-<li id="fn11"><p>polega na usuwaniu wierszy zawierających braki<a href="przygotowanie-danych.html#fnref11" class="footnote-back">↩</a></p></li>
-<li id="fn12"><p>więcej o zjawisku przeuczenia w dalszej części książki<a href="przygotowanie-danych.html#fnref12" class="footnote-back">↩</a></p></li>
+<ol start="9">
+<li id="fn9"><p>polega na usuwaniu wierszy zawierających braki<a href="przygotowanie-danych.html#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p>więcej o zjawisku przeuczenia w dalszej części książki<a href="przygotowanie-danych.html#fnref10" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

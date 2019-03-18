@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-12">
+<meta name="date" content="2019-03-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -238,13 +238,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="drzewa-decyzyjne" class="section level1">
 <h1><span class="header-section-number">4</span> Drzewa decyzyjne</h1>
-<p><em>Drzewo decyzyjne</em><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> jest strukturą hierarchiczną przedstawiającą model klasyfikacyjny lub regresyjny. Stosowane są szczególnie często wówczas, gdy funkcyjna postać związku pomiędzy predyktorami a zmienną wynikową jest nieznana lub ciężka do ustalenia.
+<p><em>Drzewo decyzyjne</em><a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> jest strukturą hierarchiczną przedstawiającą model klasyfikacyjny lub regresyjny. Stosowane są szczególnie często wówczas, gdy funkcyjna postać związku pomiędzy predyktorami a zmienną wynikową jest nieznana lub ciężka do ustalenia.
 Każde drzewo decyzyjne składa się z korzenia (ang. <em>root</em>), węzłów (ang. <em>nodes</em>) i liści (ang. <em>leaves</em>). Korzeniem nazywamy początkowy węzeł drzewa, z którego poprzez podziały (ang. <em>splits</em>) powstają kolejne węzły potomne. Końcowe węzły, które nie podlegają podziałom nazywamy liśćmi, a linie łączące węzły nazywamy gałęziami (ang. <em>branches</em>).</p>
-<p>Jeśli drzewo służy do zadań klasyfikacyjnych, to liście zawierają informację o tym, która klasa w danym ciągu podziałów jest najbardziej prawdopodobna. Natomiast jeśli drzewo jest regresyjne, to liście zawierają warunkowe miary tendencji centralnej (najczęściej średnią) wartości zmiennej wynikowej. Warunek stanowi szereg podziałów doprowadzający do danego węzła terminalnego (liścia). W obu przypadkach (klasyfikacji i regresji) drzewo “dąży” do takiego podziału by kolejne węzły, a co za tym idzie również liście, były ja najbardziej jednorodne ze względu na zmienną wynikową.</p>
+<p>Jeśli drzewo służy do zadań klasyfikacyjnych, to liście zawierają informację o tym, która klasa w danym ciągu podziałów jest najbardziej prawdopodobna. Natomiast, jeśli drzewo jest regresyjne, to liście zawierają warunkowe miary tendencji centralnej (najczęściej średnią) wartości zmiennej wynikowej. Warunek stanowi szereg podziałów doprowadzający do danego węzła terminalnego (liścia). W obu przypadkach (klasyfikacji i regresji) drzewo “dąży” do takiego podziału by kolejne węzły, a co za tym idzie również liście, były ja najbardziej jednorodne ze względu na zmienną wynikową.</p>
 <div class="figure"><span id="fig:unnamed-chunk-11"></span>
-<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-11-1.png" alt="Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, a za razem sposób jego działania." width="1056" />
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-11-1.png" alt="Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, czyli sposób jego działania." width="1056" />
 <p class="caption">
-Figure 4.1: Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, a za razem sposób jego działania.
+Figure 4.1: Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, czyli sposób jego działania.
 </p>
 </div>
 <div id="wezy-i-gaezie" class="section level2">
@@ -285,7 +285,7 @@ gdzie <span class="math inline">\(\nu\in A\)</span> i <span class="math inline">
 <span class="math display">\[\begin{equation}
 t(x) = \begin{cases}
   1, &amp;\text{ gdy }a(x)\leq \nu\\
-  0, &amp; \text{w przeciwnym przypadku}
+  0, &amp; \text{w przeciwnym przypadku},
   \end{cases}
 \end{equation}\]</span>
 gdzie <span class="math inline">\(\nu\in A\)</span>;</li>
@@ -372,7 +372,7 @@ gdzie
 <span class="math display">\[\begin{equation}
     Gi_{T_{\mathbf{n}, t=r}}(c) = \sum_{d\in C}\P_{T_{\mathbf{n}, t=r}}(c=d)\cdot(1-\P_{T_{\mathbf{n}, t=r}}(c=d))= 1-\sum_{d\in C}\P^2_{T_{\mathbf{n}, t=r}}(c=d).
 \end{equation}\]</span>
-Dla tak zdefiniowanych miar “nieczystości” węzłów, podziału dokonujemy w taki sposób, aby zminimalizować współczynnik Gini’ego lub entropię. Im niższe miary nieczystości, tym bardziej obserwacje znajdujące się w węźle są monokulturą<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>. Nierzadko korzysta się również z współczynnika przyrostu informacji (ang. <em>information gain</em>)
+Dla tak zdefiniowanych miar “nieczystości” węzłów, podziału dokonujemy w taki sposób, aby zminimalizować współczynnik Gini’ego lub entropię. Im niższe miary nieczystości, tym bardziej obserwacje znajdujące się w węźle są monokulturą<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>. Nierzadko korzysta się również z współczynnika przyrostu informacji (ang. <em>information gain</em>)
 <span class="math display">\[\begin{equation}
     \Delta E_{T_{\mathbf{n}}}(c|t)=E_{T_{\mathbf{n}}}(c)-E_{T_{\mathbf{n}}}(c|t).
 \end{equation}\]</span>
@@ -766,10 +766,10 @@ tab2</code></pre>
 <h2><span class="header-section-number">4.10</span> Inne algorytmy budowy drzew decyzyjnych implementowane w <strong>R</strong></h2>
 <p>Oprócz najbardziej znanego algorytmu CART implementowanego w postaci funkcji pakietu <strong>rpart</strong>, istnieją również inne algorytmy, które znalzały swoje implementacje w R. Są to:</p>
 <ul>
-<li><em>CHAID</em><a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> - algorytm przeznaczony do budowy drzew klafyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności <span class="math inline">\(\chi^2\)</span> Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki <span class="math inline">\(\chi^2\)</span> jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie <strong>CHAID</strong><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> (funkcja do tworzenia drzewa o tej samej nazwie <code>chaid</code>) <span class="citation">(Team <a href="#ref-R-CHAID">2015</a>)</span>.</li>
-<li><em>Ctree</em><a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> - algorytm zbliżony zasadą dzialania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu. Implementację R-ową można znaleźć w pakietach <strong>party</strong> <span class="citation">(Hothorn, Hornik, and Zeileis <a href="#ref-R-party">2006</a>)</span> lub <strong>partykit</strong> <span class="citation">(Hothorn and Zeileis <a href="#ref-R-partykit">2015</a>)</span> - funkcją do tworzenia modelu jest <code>ctree</code>.</li>
-<li><em>C4.5</em> - algorytm stworzony przez <span class="citation">Quinlan (<a href="#ref-quinlan1993">1993</a>)</span> w oparciu, o również jego autorstwa, algorytm ID3. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz <a href="drzewa-decyzyjne.html#reguy-podziau">Reguły podziału</a>). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie <strong>RWeka</strong> <span class="citation">(Hornik, Buchta, and Zeileis <a href="#ref-R-Rweka">2009</a>)</span> - funkcja do budowy drzewa to <code>J48</code>.</li>
-<li><em>C5.0</em> - kolejny algorytm autorstwa <span class="citation">Kuhn and Quinlan (<a href="#ref-R-C50">2018</a>)</span> jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożności drzewa. Jest szybszy od poprzednika i pozwala na zastosowanie metody <em>boosting</em><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>. Implementacja R-owa znajduje się w pakiecie <em>C50</em>, a funkcja do budowy drzewa to <code>C5.0</code>.</li>
+<li><em>CHAID</em><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> - algorytm przeznaczony do budowy drzew klafyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności <span class="math inline">\(\chi^2\)</span> Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki <span class="math inline">\(\chi^2\)</span> jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie <strong>CHAID</strong><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> (funkcja do tworzenia drzewa o tej samej nazwie <code>chaid</code>) <span class="citation">(Team <a href="#ref-R-CHAID">2015</a>)</span>.</li>
+<li><em>Ctree</em><a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> - algorytm zbliżony zasadą dzialania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu oraz tym, że może być zarowno drzewem klasyfikacyjnym jak i regresyjnym. Implementację R-ową można znaleźć w pakietach <strong>party</strong> <span class="citation">(Hothorn, Hornik, and Zeileis <a href="#ref-R-party">2006</a>)</span> lub <strong>partykit</strong> <span class="citation">(Hothorn and Zeileis <a href="#ref-R-partykit">2015</a>)</span> - funkcją do tworzenia modelu jest <code>ctree</code>.</li>
+<li><em>C4.5</em> - algorytm stworzony przez <span class="citation">Quinlan (<a href="#ref-quinlan1993">1993</a>)</span> w oparciu, o również jego autorstwa, algorytm ID3. Służy jedynie do zadań klasyfikacyjnych. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz <a href="drzewa-decyzyjne.html#reguy-podziau">Reguły podziału</a>). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie <strong>RWeka</strong> <span class="citation">(Hornik, Buchta, and Zeileis <a href="#ref-R-Rweka">2009</a>)</span> - funkcja do budowy drzewa to <code>J48</code>.</li>
+<li><em>C5.0</em> - kolejny algorytm autorstwa <span class="citation">Kuhn and Quinlan (<a href="#ref-R-C50">2018</a>)</span> jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożności drzewa. Służy jedynie do zadań klasyfikacyjnych. Jest szybszy od poprzednika i pozwala na zastosowanie metody <em>boosting</em><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Implementacja R-owa znajduje się w pakiecie <em>C50</em>, a funkcja do budowy drzewa to <code>C5.0</code>.</li>
 </ul>
 </div>
 <div id="przyk42" class="section level2">
@@ -887,7 +887,7 @@ tree4 &lt;-<span class="st"> </span><span class="kw">C5.0</span>(Species<span cl
 ## C5.0.formula(formula = Species ~ ., data = dt.train)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Tue Mar 12 23:38:30 2019
+## C5.0 [Release 2.07 GPL Edition]      Sat Mar 16 19:27:58 2019
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome&#39;
@@ -977,13 +977,13 @@ tab</code></pre>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="13">
-<li id="fn13"><p>wyglądem przypomina odwrócone drzewo, stąd nazwa<a href="drzewa-decyzyjne.html#fnref13" class="footnote-back">↩</a></p></li>
-<li id="fn14"><p>prawie wszystkie są w jednej klasie<a href="drzewa-decyzyjne.html#fnref14" class="footnote-back">↩</a></p></li>
-<li id="fn15"><p>Chi-square automatic interaction detection<a href="drzewa-decyzyjne.html#fnref15" class="footnote-back">↩</a></p></li>
-<li id="fn16"><p>brak w oficjalnej dystrybucji CRAN<a href="drzewa-decyzyjne.html#fnref16" class="footnote-back">↩</a></p></li>
-<li id="fn17"><p>Conditional Inference Trees<a href="drzewa-decyzyjne.html#fnref17" class="footnote-back">↩</a></p></li>
-<li id="fn18"><p>budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować “trudne” przypadki<a href="drzewa-decyzyjne.html#fnref18" class="footnote-back">↩</a></p></li>
+<ol start="11">
+<li id="fn11"><p>wyglądem przypomina odwrócone drzewo, stąd nazwa<a href="drzewa-decyzyjne.html#fnref11" class="footnote-back">↩</a></p></li>
+<li id="fn12"><p>prawie wszystkie są w jednej klasie<a href="drzewa-decyzyjne.html#fnref12" class="footnote-back">↩</a></p></li>
+<li id="fn13"><p>Chi-square automatic interaction detection<a href="drzewa-decyzyjne.html#fnref13" class="footnote-back">↩</a></p></li>
+<li id="fn14"><p>brak w oficjalnej dystrybucji CRAN<a href="drzewa-decyzyjne.html#fnref14" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>Conditional Inference Trees<a href="drzewa-decyzyjne.html#fnref15" class="footnote-back">↩</a></p></li>
+<li id="fn16"><p>budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować “trudne” przypadki<a href="drzewa-decyzyjne.html#fnref16" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
