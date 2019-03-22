@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bibliografia | Eksploracja danych</title>
+  <title>6 Klasyfikatory liniowe | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bibliografia | Eksploracja danych" />
+  <meta property="og:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografia | Eksploracja danych" />
+  <meta name="twitter:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="klasyfikatory-bayesowskie.html">
-
+<link rel="prev" href="pochodne-drzew-decyzyjnych.html">
+<link rel="next" href="klasyfikatory-bayesowskie.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -227,129 +227,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografia" class="section level1 unnumbered">
-<h1>Bibliografia</h1>
+<div id="klasyfikatory-liniowe" class="section level1">
+<h1><span class="header-section-number">6</span> Klasyfikatory liniowe</h1>
+<p>Obszerną rodzinę klasyfikatorów stanowią modele liniowe (ang. <em>linear classification models</em>). Klasyfikacji w tej rodzinie technik dokonuje się na podstawie modeli funkcji kombinacji liniowej predyktorów. Jest to ujęcie parametryczne, w którym klasyfikacji nowej wartości dokonujemy na podstawie atrybutów obserwacji i wektora parametrów. Uczenie na podstawie zestawu treningowego polega na oszacowaniu paramtrów modelu. W odróżnieniu od metod nieparametrycznych postać modelu tym razem jest znana. Każdy klasyfikator liniowy skład się z funkcji wewnętrzenj (ang. <em>inner representation function</em>) i funkcji zewnętrzenej (ang. <em>outer representation function</em>).
+Pierwsza jest funkcją rzeczywistą paramterów modelu i wartości atrybutów obserwacji
+<span class="math display">\[\begin{equation}
+    g(x) = F(\mathbf{a}(x),\mathbf{w})=\sum_{i=0}^pw_ia_i(x)=\mathbf{w}\circ \mathbf{a}(x),
+\end{equation}\]</span>
+przyjmując, że <span class="math inline">\(a_0(x)=1\)</span>.</p>
+<p>Funkcja zewnętrzna przyporządkowuje binarnie klasy na podstawie wartości funkcji wewenętrznej. Istnieją dwa główne typy tych klasyfikacji:</p>
+<ul>
+<li>brzegowa - przyjmujemy, że funkcje wewnętrzne tworzą granice zbiorów obserwacji różnych klas,</li>
+<li>probabilistyczna - bazująca na tym, że funkcje wewnętrzne mogą pośrednio wkazywać prawdopodobieństwo przynależności do danej klasy.</li>
+</ul>
+<p>Pierwsza dzieli przestrzeń obserwacji za pomocą hiperpłaszczyzn na obszary jednorodne pod względem przynależności do klas. Druga jest próbą parametrycznej reprezentacji prawdopodobieństw przynależności do klas. Klasyfikacji na podstawie prawdopodobieństw można dokonać na różne sposoby, stosując:</p>
+<ul>
+<li>największe prawdopodobieństwo,</li>
+<li>funkcję najmniejszego kosztu błędnej klasyfikacji,</li>
+<li>krzywych ROC (ang. <em>Receiver Operating Characteristic</em> - o tym później).</li>
+</ul>
+<p>Podejście brzegowe lub probabilistyczne prowadzi najczęściej do dwóch typów reprezentacji funkcji zewnętrzenej:</p>
+<ul>
+<li>reprezentacji progowej (ang. <em>threshold representation</em>) - najczęściej przy podejściu brzegowym,</li>
+<li>reprezentacji logistycznej (ang. <em>logit representation</em>) - przy podejściu probabilistycznym.</li>
+</ul>
+<div id="reprezentacja-progowa" class="section level2">
+<h2><span class="header-section-number">6.1</span> Reprezentacja progowa</h2>
+<p>W przypadku klasyfikacji dwustanowej, dziedzina jest dzielona na dwa regiony (pozytywny i negatywny) poprzez porównanie funkcji zewnętrzenej z wartością progową. Bez straty ogólności można sprawić, że będzie to wartość 0
+<span class="math display">\[\begin{equation}
+    h(x)=H(g(x))= \begin{cases}
+        1, &amp;\text{ jeśli } g(x)\geq 0\\
+        0, &amp;\text{ w przeciwnym przypadku.}
+    \end{cases}
+\end{equation}\]</span>
+Czasami używa się parametryzacji <span class="math inline">\(\{-1,1\}\)</span>.
+Przez porównianie <span class="math inline">\(g(x)\)</span> z 0 definiuje się hiperpłaszczyznę w <span class="math inline">\(p\)</span> wymiarowej przestrzeni, która rozdziela dziedzinę na regiony pozytywne i negatywne. W tym ujęciu mówimy o liniowej separowalności obserwacji różnych klas, jeśli istnieje hiperpłaszczyzna je rozdzielająca.</p>
+</div>
+<div id="reprezentacja-logitowa" class="section level2">
+<h2><span class="header-section-number">6.2</span> Reprezentacja logitowa</h2>
+<p>Najbardziej popularną reprezentacją parametryczną stosowaną w klasyfikacji jest reprezentacja logitowa
+<span class="math display">\[\begin{equation}
+    \P(y=1|x)=\frac{e^{g(x)}}{e^{g(x)}+1}.
+\end{equation}\]</span>
+Wówczas <span class="math inline">\(g(x)\)</span> nie reprezentuje bezpośrednio <span class="math inline">\(\P(y=1|x)\)</span> ale jego logit
+<span class="math display">\[\begin{equation}
+    g(x)=logit(\P(y=1|x)),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(logit(p)=\ln\frac{p}{1-p}\)</span>. Dlatego właściwa postać reprezentacji jest następująca
+<span class="math display">\[\begin{equation}
+    \P(y=1|x)=logit^{-1}(g(x)).
+\end{equation}\]</span>
+W ten sposób reprezentacja logitowa jest równoważna reprezentacji progowej, ponieważ
+<span class="math display">\[\begin{equation}
+    g(x)=\ln\frac{\P(y=1|x)}{1-\P(y=1|x)}=\ln\frac{\P(y=1|x)}{\P(y=0|x)}&gt;0.
+\end{equation}\]</span>
+Jednak zaletą reprezentacji logitowej, w porównaniu do progowej, jest to, że można wyznaczyć prawdopodobieństwa przynależności do obu klas. W przypadku klasyfikacji wielostanowej uczymy tyle funkcji <span class="math inline">\(h\)</span> ile jest klas.</p>
+</div>
+<div id="wady-klasyfikatorow-liniowych" class="section level2">
+<h2><span class="header-section-number">6.3</span> Wady klasyfikatorów liniowych</h2>
+<ul>
+<li>tylko w przypadku prostych funkcji wewnętrznych jesteśmy w stanie ocenić wpływ poszczególnych predykorów na klasyfikację,</li>
+<li>jakość predykcji zależy od doboru funkcji wewnętrzenej (liniowa w ścisłym sensie jest najczęsciej niewystarczająca),</li>
+<li>nie jest w stanie klasyfikować poprawnie stanów (nie jest liniowo separowalna) w zagadnieniach typu XOR.</li>
+</ul>
 
-<div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
-</div>
-<div>
-<p>———. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3): 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo, J. H. Friedman, Richard A. Olshen, and Charles J. Stone. 2017. <em>Classification and Regression Trees.</em> Routledge. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edsebk&amp;AN=1619230&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edsebk&amp;AN=1619230&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
-</div>
-<div>
-<p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
-</div>
-<div>
-<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
-</div>
-<div>
-<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
-</div>
-<div>
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3): 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
-</div>
-<div>
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-<div>
-<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
-</div>
-<div>
-<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div>
-<p>Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. <em>E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien</em>. <a href="https://CRAN.R-project.org/package=e1071">https://CRAN.R-project.org/package=e1071</a>.</p>
-</div>
-<div>
-<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
-</div>
-<div>
-<p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
-</div>
-<div>
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
-</div>
-<div>
-<p>Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. <em>VIM: Visualization and Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=VIM">https://CRAN.R-project.org/package=VIM</a>.</p>
-</div>
-<div>
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div>
-<p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for "Data Mining with R"</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
-</div>
-<div>
-<p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. “KlaR Analyzing German Business Cycles.” In <em>Data Analysis and Decision Support</em>, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335–43. Berlin: Springer-Verlag.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-<div>
-<p>———. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
 </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="klasyfikatory-bayesowskie.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="pochodne-drzew-decyzyjnych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="klasyfikatory-bayesowskie.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

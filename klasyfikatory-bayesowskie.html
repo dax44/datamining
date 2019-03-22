@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bibliografia | Eksploracja danych</title>
+  <title>7 Klasyfikatory bayesowskie | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bibliografia | Eksploracja danych" />
+  <meta property="og:title" content="7 Klasyfikatory bayesowskie | Eksploracja danych" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografia | Eksploracja danych" />
+  <meta name="twitter:title" content="7 Klasyfikatory bayesowskie | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="klasyfikatory-bayesowskie.html">
-
+<link rel="prev" href="klasyfikatory-liniowe.html">
+<link rel="next" href="bibliografia.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -227,129 +227,274 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografia" class="section level1 unnumbered">
-<h1>Bibliografia</h1>
+<div id="klasyfikatory-bayesowskie" class="section level1">
+<h1><span class="header-section-number">7</span> Klasyfikatory bayesowskie</h1>
+<p>Całą gamę klasyfikatorów opartych na twierdzeniu Bayesa nazywać będziemy bayesowskimi.
+<span class="math display">\[\begin{equation}\label{bayes}
+        P(A|B)=\frac{P(A)P(B|A)}{P(B)},
+\end{equation}\]</span>
+gdzie <span class="math inline">\(P(B)&gt;0\)</span>.</p>
+<p>Bayesowskie reguły podejmowania decyzji dały podstawy takich metod jak:</p>
+<ul>
+<li>liniowa analiza dyskryminacyjna;</li>
+<li>kwadratowa analiza dyskryminacyjna;</li>
+</ul>
+<p>W ustaleniu klasyfikatora bayesowskiego będzie nam przyświecała cały czas ta sama reguła: <em>jeśli znam wartości cech charakteryzujących badane obiekty oraz klasy do których należą (w próbie uczącej), to na ich podstawie mogę wyznaczyć miary prawdopodobieństw a posteriori, które pomogą mi w ustaleniu klasy do której należy nowy testowy element.</em></p>
+<p>W dalszej części będziemy przyjmowali następujące oznaczenia:</p>
+<ul>
+<li><span class="math inline">\(T\)</span> - zbiór danych uczących (treningowych),</li>
+<li><span class="math inline">\(T^j\)</span> - zbiór danych uczących dla których przyjęliśmy decyzję o przynależności do <span class="math inline">\(j\)</span>-tej klasy,</li>
+<li><span class="math inline">\(T^j_{a_i=v}\)</span> - zbiór danych uczących o wartości atrybutu <span class="math inline">\(a_i\)</span> równej <span class="math inline">\(v\)</span> i klasy <span class="math inline">\(j\)</span>-tej,</li>
+<li><span class="math inline">\(\mathbb{H}\)</span> - przestrzeń hipotez,</li>
+<li><span class="math inline">\(P(h|a_1=v_1, a_2=v_2,\ldots,a_p=v_p)\)</span> - prawdopodobieństwo a posteriori, że prawdziwa jest hipoteza <span class="math inline">\(h\in \mathbb{H}\)</span>, jeśli znamy atrybuty obiektu,</li>
+<li><span class="math inline">\(P(h)\)</span> - prawdopodobieństwo a priori zajścia hipotezy <span class="math inline">\(h\in \mathbb{H}\)</span>,</li>
+<li><span class="math inline">\(c\)</span> - prawdziwy stan obiektu.</li>
+</ul>
+<div id="klasyfikator-maximum-a-posteriori-map" class="section level2">
+<h2><span class="header-section-number">7.1</span> Klasyfikator maximum a posteriori (MAP)</h2>
+<p>Na podstawie wiedzy o atrybutach obiektu <span class="math inline">\(x\)</span> podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą <span class="math inline">\(h_{MAP}\in \mathbb{H}\)</span>, która przyjmuje postać
+<span class="math display">\[\begin{align}\label{MAP}
+        h_{MAP}=&amp;\operatorname{arg}\max_{h\in \mathbb{H}}P(h|a_1=v_1, a_2=v_2,\ldots,a_p=v_p)\\
+            =&amp; \operatorname{arg}\max_{h\in \mathbb{H}}P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h)\cdot P(h),
+\end{align}\]</span>
+gdzie ostatnia równość wynika z twierdzenia Bayesa oraz faktu, że dla konkretnego obiektu <span class="math inline">\(x\)</span> wielkości atrybutów nie zależą od postawionej hipotezy.</p>
+</div>
+<div id="klasyfikator-najwiekszej-warogodnosci-ml" class="section level2">
+<h2><span class="header-section-number">7.2</span> Klasyfikator największej warogodności (ML)</h2>
+<p>Na podstawie wiedzy o atrybutach obiektu <span class="math inline">\(x\)</span> podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą <span class="math inline">\(h_{ML}\in \mathbb{H}\)</span>, która przyjmuje postać
+<span class="math display">\[\begin{equation}\label{ML}
+        h_{ML}=\operatorname{arg}\max_{h\in \mathbb{H}}P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h).
+\end{equation}\]</span></p>
 
+<div class="remark">
+ <span class="remark"><em>Uwaga. </em></span> Obie wspomniane metody wymagają znajomości prawdopodobieństwa <span class="math inline">\(P(a_1=v_1,a_2=v_2,\ldots,a_p=v_p|h)\)</span>, ale różnią się podejściem do wiedzy o prawdopodobieństwach a priori. W metodzie MAP brana pod uwagę jest wiedza o prawdopodobieństwie przynależności do poszczególnych klas, a w ML nie. Dla klasyfikacji, w których prawdopodobieństwa przynależności do klas są takie same, klasyfikatory MAP i ML są równoważne.
+</div>
+
+</div>
+<div id="naiwny-klasyfikator-bayesa-nb" class="section level2">
+<h2><span class="header-section-number">7.3</span> Naiwny klasyfikator Bayesa (NB)<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></h2>
+<p>Największy problem w wyznaczeniu klasyfikatorów MAP i ML stanowi wyznaczenie rozkładu łącznego <span class="math inline">\(P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h)\)</span>. W naiwnym klasyfikatorze Bayesa zakłada się niezależność warunkową poszczególnych atrybutów względem klasy do której ma należeń wg hipotezy obiekt. Założenie to często nie jest spełnione i stąd nazwa przymiotnik “naiwny”.</p>
+<p>Definicja naiwnego klasyfikatora bayesowskiego różni się od klasyfikatora MAP tylko podejściem do prawdopodobieństwa a posteriori.
+<span class="math display">\[\begin{equation}\label{naiwny_bayes}
+        h_{NB}=\operatorname{arg}\max_{h_j\in \mathbb{H}}P(h_j)\prod_{i=1}^{p}P(a_i=v_i|h_j),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(h_j\)</span> oznacza hipotezę (decyzję), że badany obiekt należy do <span class="math inline">\(j\)</span>-tej klasy.</p>
+<p>Oczywiście zarówno prawdopodobieństwo a priori jak i a posteriori są wyznaczane na podstawie próby, i tak prawdopodobieństwo a priori wynosi
+<span class="math display">\[\begin{equation}\label{apriori}
+        P(h_j)=P_T(h_j)=\frac{|T^j|}{|T|}, 
+\end{equation}\]</span>
+gdzie <span class="math inline">\(|A|\)</span> oznacza moc zbioru <span class="math inline">\(A\)</span>.</p>
+<p>Natomiast prawdopodobieństwo a posteriori dla <span class="math inline">\(i\)</span>-tego atrybutu wynosi
+<span class="math display">\[\begin{equation}\label{aposteriori}
+        P(a_i=v_i|h_j)=P_{T^j}(a_i=v_i)=\frac{|T^j_{a_i=v_i}|}{|T^j|}.
+\end{equation}\]</span>
+Na mocy powyższego możemy zauważyć, że jeżeli założenie o warunkowej niezależności jest spełnione, to klasyfikatory NB i MAP są równoważne.</p>
+<p>Chcąc przypisać klasę nowemu obiektowi powstaje problem praktyczny, polegający na tym, że dla pewnych konfiguracji atrybutów nie ma odpowiedników w nauczonym modelu. Powodem takiego stanu rzeczy jest fakt, że takie kombinacje nie wystąpiły w próbie uczącej.</p>
+<p>Istnieją dwa sposoby predykcji w takiej sytuacji:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math display">\[\begin{equation}\label{pred1}
+         P(a_i=v_i|h_j)=
+         \begin{cases}
+             \frac{|T^j_{a_i=v_i}|}{|T^j|}, &amp; T^j_{a_i=v_i}\neq \emptyset\\
+             \epsilon, &amp; \text{w przeciwnym przypadku.}
+         \end{cases}
+ \end{equation}\]</span>
+W tym przypadku przyjmuje się, że <span class="math inline">\(\epsilon \ll 1/|T_j|\)</span>.</li>
+<li>Drugi sposób wykorzystuje estymację z poprawką
+<span class="math display">\[\begin{equation}\label{pred2}
+     P(a_i=v_i|h_j)=\frac{|T^j_{a_i=v_i}|+mp}{|T^j|+mp},
+\end{equation}\]</span>
+gdzie <span class="math inline">\(p\)</span> oznacza prawdopodobieństwo a priori przyjęcia przez atrybut <span class="math inline">\(a\)</span> wartości <span class="math inline">\(v\)</span> (najczęściej <span class="math inline">\(p=1/|A|\)</span>, <span class="math inline">\(A\)</span> - zbiór wszystkich możliwych wartości atrybutu <span class="math inline">\(a\)</span>), <span class="math inline">\(m\)</span> - waga (najczęściej <span class="math inline">\(m=|A|\)</span>).</li>
+</ol>
+<p>W przypadku gdy atrybuty są mierzone na skali ciągłej najczęściej stosuje się dyskretyzację ich do zmiennych ze skali przedziałowej. Inna metoda stosowana w przypadku ciągłych atrybutów, to użycie gęstości <span class="math inline">\(g_i^j\)</span> o rozkładzie normalnym w miejsce <span class="math inline">\(P(a_i=v_i|h_j)\)</span>. Przy czym do obliczenia parametrów rozkładu stosujemy wzory
+<span class="math display">\[\begin{equation}\label{sred}
+        m_i^j=\frac{1}{|T^j|}\sum_{x\in T^j}a_i(x),
+\end{equation}\]</span>
+oraz
+<span class="math display">\[\begin{equation}\label{odch}
+        (s_i^j)^2=\frac{1}{|T^j|-1}\sum_{x\in T^j}(a_i(x)-m_i^j)^2.
+\end{equation}\]</span></p>
+<p>Obsługa braków danych przez naiwny klasyfikator Bayesa jest dość prosta i opiera się na liczeniu prawdopodobieństw a posteriori wyłącznie dla obiektów, których wartości atrybutów są znane. Dlatego prawdopodobieństwa warunkowe liczy się wg wzoru
+<span class="math display">\[\begin{equation}\label{pr_war}
+        P(a_i=v_i|h_j)=\frac{|T^j_{a_i=v_i}|}{|T^j|-|T^j_{a_i=NA}|}.
+\end{equation}\]</span>
+Jeśli brakujące dane nie niosą w sobie istotnych informacji dotyczących klasyfikacji obiektów, to naiwny klasyfikator Bayesa będzie działał poprawnie.</p>
+<p>Naiwny klasyfikator Bayesa jest implementowany w pakietach <strong>e1071</strong> <span class="citation">(Meyer et al. <a href="#ref-R-e1071">2019</a>)</span> i <strong>klaR</strong> <span class="citation">(Weihs et al. <a href="#ref-R-klaR">2005</a>)</span>.</p>
+
+<div class="example">
+<span id="exm:unnamed-chunk-46" class="example"><strong>Przykład 7.1  </strong></span>Przeprowadzimy klasyfikację dla zbioru <code>Titanic</code>. W przypadku funkcji z pakietu <code>e1071</code> nie potrzeba zamieniać tabeli na przypadki. W pakiecie <code>klaR</code> istnieje inna funkcja budująca klasyfikator Bayesa <code>NaiveBayes</code>, ale w tym przypadku jeśli zbiór jest w formie tabeli, to należy go zamienić na ramkę danych z oddzielnymi przypadkami.
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
+Titanic</code></pre>
+<pre><code>## , , Age = Child, Survived = No
+## 
+##       Sex
+## Class  Male Female
+##   1st     0      0
+##   2nd     0      0
+##   3rd    35     17
+##   Crew    0      0
+## 
+## , , Age = Adult, Survived = No
+## 
+##       Sex
+## Class  Male Female
+##   1st   118      4
+##   2nd   154     13
+##   3rd   387     89
+##   Crew  670      3
+## 
+## , , Age = Child, Survived = Yes
+## 
+##       Sex
+## Class  Male Female
+##   1st     5      1
+##   2nd    11     13
+##   3rd    13     14
+##   Crew    0      0
+## 
+## , , Age = Adult, Survived = Yes
+## 
+##       Sex
+## Class  Male Female
+##   1st    57    140
+##   2nd    14     80
+##   3rd    75     76
+##   Crew  192     20</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">nb &lt;-<span class="st"> </span><span class="kw">naiveBayes</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Titanic)
+nb<span class="op">$</span>apriori</code></pre>
+<pre><code>## Survived
+##   No  Yes 
+## 1490  711</code></pre>
+<p>Poniższe tabele zawierają warunkowe prawdopodobieństwa przynależności do poszczólnych klas.</p>
+<pre class="sourceCode r"><code class="sourceCode r">nb<span class="op">$</span>tables</code></pre>
+<pre><code>## $Class
+##         Class
+## Survived        1st        2nd        3rd       Crew
+##      No  0.08187919 0.11208054 0.35436242 0.45167785
+##      Yes 0.28551336 0.16596343 0.25035162 0.29817159
+## 
+## $Sex
+##         Sex
+## Survived       Male     Female
+##      No  0.91543624 0.08456376
+##      Yes 0.51617440 0.48382560
+## 
+## $Age
+##         Age
+## Survived      Child      Adult
+##      No  0.03489933 0.96510067
+##      Yes 0.08016878 0.91983122</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">dane &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(Titanic)
+pred &lt;-<span class="st"> </span><span class="kw">predict</span>(nb, dane)
+pred</code></pre>
+<pre><code>##  [1] Yes No  No  No  Yes Yes Yes Yes No  No  No  No  Yes Yes Yes Yes Yes
+## [18] No  No  No  Yes Yes Yes Yes No  No  No  No  Yes Yes Yes Yes
+## Levels: No Yes</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred, dane<span class="op">$</span>Survived)
+tab</code></pre>
+<pre><code>##      
+## pred  No Yes
+##   No   7   7
+##   Yes  9   9</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<p>Naiwny klasyfikator spisał się bardzo słabo, ponieważ klasyfikacja na poziomie 0.5 jest taka jak przy rzucie monetą.</p>
+
+<div class="example">
+<span id="exm:unnamed-chunk-50" class="example"><strong>Przykład 7.2  </strong></span>Przeprowadzimy klasyfikację gatunków irysów na podstawie szerokości i długości kielicha i płatka.
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(klaR)
+<span class="kw">set.seed</span>(<span class="dv">2019</span>)
+uczaca &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(iris), <span class="dv">2</span><span class="op">*</span><span class="kw">nrow</span>(iris)<span class="op">/</span><span class="dv">3</span>)
+pr.ucz &lt;-<span class="st"> </span>iris[uczaca,]
+pr.test &lt;-<span class="st"> </span>iris[<span class="op">-</span>uczaca,]
+nb2 &lt;-<span class="st"> </span><span class="kw">NaiveBayes</span>(Species<span class="op">~</span>., <span class="dt">data =</span> pr.ucz)
+nb2<span class="op">$</span>apriori</code></pre>
+<pre><code>## grouping
+##     setosa versicolor  virginica 
+##       0.36       0.31       0.33</code></pre>
+<p>Prawdopodobieństwa a priori zostały oszacowane na podstawie próby uczącej. Poniższe tabele zawierają średnie i odchylenia standardowe zmiennych w poszczególnych klasach.</p>
+<pre class="sourceCode r"><code class="sourceCode r">nb2<span class="op">$</span>tables</code></pre>
+<pre><code>## $Sepal.Length
+##                [,1]      [,2]
+## setosa     4.994444 0.3438807
+## versicolor 5.977419 0.5613731
+## virginica  6.603030 0.7359029
+## 
+## $Sepal.Width
+##                [,1]      [,2]
+## setosa     3.436111 0.3586903
+## versicolor 2.838710 0.2996414
+## virginica  2.942424 0.3211603
+## 
+## $Petal.Length
+##                [,1]      [,2]
+## setosa     1.472222 0.1782632
+## versicolor 4.316129 0.4576001
+## virginica  5.606061 0.6269666
+## 
+## $Petal.Width
+##                 [,1]       [,2]
+## setosa     0.2444444 0.09394358
+## versicolor 1.3354839 0.18537959
+## virginica  2.0000000 0.25860201</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(nb2, <span class="dt">newdata =</span> pr.test)
+tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred<span class="op">$</span>class, pr.test<span class="op">$</span>Species)
+tab</code></pre>
+<pre><code>##             
+##              setosa versicolor virginica
+##   setosa         14          0         0
+##   versicolor      0         18         1
+##   virginica       0          1        16</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
+<pre><code>## [1] 0.96</code></pre>
+<p>Klasyfikacja na podstawie modelu jest badzo do dobra (96%).</p>
+</div>
+<div id="zalety-i-wady-1" class="section level2">
+<h2><span class="header-section-number">7.4</span> Zalety i wady</h2>
+<ul>
+<li>Zalety:
+<ul>
+<li>prostota konstrukcji i prosty algorytm;</li>
+<li>jeśli jest spełnione założenie warunkowej niezależności, to ten klasyfikator działa szybciej i czasem lepiej niż inne metody klasyfikacji;</li>
+<li>nie potrzebuje dużych zbiorów danych do estymacji parametrów;</li>
+</ul></li>
+<li>Wady:
+<ul>
+<li>często nie spełnione założenie o warunkowej niezależności powoduje obciążenie wyników;</li>
+<li>brak możliwości wprowadzania interakcji efektów kilku zmiennych;</li>
+<li>potrzebuje założenia normalności warunkowych gęstości w przypadku ciągłych atrybutów;</li>
+<li>często istnieją lepsze klasyfikatory.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+<h3>Bibliografia</h3>
 <div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
-</div>
-<div>
-<p>———. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3): 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo, J. H. Friedman, Richard A. Olshen, and Charles J. Stone. 2017. <em>Classification and Regression Trees.</em> Routledge. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edsebk&amp;AN=1619230&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edsebk&amp;AN=1619230&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
-</div>
-<div>
-<p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
-</div>
-<div>
-<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
-</div>
-<div>
-<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
-</div>
-<div>
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3): 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
-</div>
-<div>
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-<div>
-<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
-</div>
-<div>
-<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div>
+<div id="ref-R-e1071">
 <p>Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. <em>E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien</em>. <a href="https://CRAN.R-project.org/package=e1071">https://CRAN.R-project.org/package=e1071</a>.</p>
 </div>
-<div>
-<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
-</div>
-<div>
-<p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
-</div>
-<div>
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
-</div>
-<div>
-<p>Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. <em>VIM: Visualization and Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=VIM">https://CRAN.R-project.org/package=VIM</a>.</p>
-</div>
-<div>
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div>
-<p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for "Data Mining with R"</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
-</div>
-<div>
-<p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
+<div id="ref-R-klaR">
 <p>Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. “KlaR Analyzing German Business Cycles.” In <em>Data Analysis and Decision Support</em>, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335–43. Berlin: Springer-Verlag.</p>
 </div>
-<div>
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
-<div>
-<p>———. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
+<div class="footnotes">
+<hr />
+<ol start="18">
+<li id="fn18"><p>ang. <em>Naive Bayes Classifier</em><a href="klasyfikatory-bayesowskie.html#fnref18" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="klasyfikatory-bayesowskie.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="klasyfikatory-liniowe.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
