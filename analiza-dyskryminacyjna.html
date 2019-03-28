@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>8 Analiza dyskryminacyjna | Eksploracja danych</title>
+  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="8 Analiza dyskryminacyjna | Eksploracja danych" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://dax44.github.io/datamining/" />
+  
+  <meta property="og:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  <meta name="github-repo" content="dax44/datamining" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Analiza dyskryminacyjna | Eksploracja danych" />
+  
+  <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  
+
+
+
+<meta name="date" content="2019-03-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="regresja-logistyczna.html">
+<link rel="next" href="bayes.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+        P: '{\\mathrm{P}}',
+        E: '{\\mathrm{E}}',
+        Var: '{\\mathrm{Var}}',
+        Cor: '{\\mathrm{Cor}}',
+        Cov: '{\\mathrm{Cov}}',
+        Tr: '{\\mathrm{Tr}}'
+    },
+}
+});
+</script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Eksploracja Danych</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-ksiazce"><i class="fa fa-check"></i>O książce</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-przedmiotu"><i class="fa fa-check"></i>Zakres przedmiotu</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-technik-stosowanych-w-data-mining"><i class="fa fa-check"></i>Zakres technik stosowanych w data mining</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#etapy-eksploracji-danych"><i class="fa fa-check"></i>Etapy eksploracji danych</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="roz1.html"><a href="roz1.html"><i class="fa fa-check"></i><b>1</b> Import danych</a></li>
+<li class="chapter" data-level="2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>2</b> Przygotowanie danych</a><ul>
+<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-brakow-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
+<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastepowanie-brakow-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
+<li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
+<li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
+<li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
+<li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
+<li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
+<li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#inne-algorytmy-budowy-drzew-decyzyjnych-implementowane-w-r"><i class="fa fa-check"></i><b>4.9</b> Inne algorytmy budowy drzew decyzyjnych implementowane w <strong>R</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html"><i class="fa fa-check"></i><b>5</b> Pochodne drzew decyzyjnych</a><ul>
+<li class="chapter" data-level="5.1" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#bagging"><i class="fa fa-check"></i><b>5.1</b> Bagging</a></li>
+<li class="chapter" data-level="5.2" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#lasy-losowe"><i class="fa fa-check"></i><b>5.2</b> Lasy losowe</a></li>
+<li class="chapter" data-level="5.3" data-path="pochodne-drzew-decyzyjnych.html"><a href="pochodne-drzew-decyzyjnych.html#boosting"><i class="fa fa-check"></i><b>5.3</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html"><i class="fa fa-check"></i><b>6</b> Klasyfikatory liniowe</a><ul>
+<li class="chapter" data-level="6.1" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-progowa"><i class="fa fa-check"></i><b>6.1</b> Reprezentacja progowa</a></li>
+<li class="chapter" data-level="6.2" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-logitowa"><i class="fa fa-check"></i><b>6.2</b> Reprezentacja logitowa</a></li>
+<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorow-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html"><i class="fa fa-check"></i><b>7</b> Regresja logistyczna</a><ul>
+<li class="chapter" data-level="7.1" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#model-1"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
+<li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
+<li class="chapter" data-level="8.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#dwie-kategorie-zmiennj-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennj grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
+<li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
+<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-warogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej warogodności (ML)</a></li>
+<li class="chapter" data-level="9.3" data-path="bayes.html"><a href="bayes.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>9.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
+<li class="chapter" data-level="9.4" data-path="bayes.html"><a href="bayes.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>9.4</b> Zalety i wady</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Eksploracja danych</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="analiza-dyskryminacyjna" class="section level1">
+<h1><span class="header-section-number">8</span> Analiza dyskryminacyjna</h1>
+<p>Analiza dyskryminacyjna (ang. <em>discriminant analysis</em>) jest grupą technik dyskryminacji obserwacji względem przynależności do klas. Część z nich należy do klasyfikatorów liniowych (choć nie zawsze w ścisłym sensie). Za autorów tej metody uważa się Fisher’a <span class="citation">(<a href="#ref-fisher1936">1936</a>)</span> i Welch’a <span class="citation">(<a href="#ref-welch1939">1939</a>)</span>. Kazdy z nich prezentował nieco inne podejscie do tematu klasyfikacji. Welch poszukiwał klasyfikacji minimalizującej prawdopodobieństwo błędnej klasyfikacji, znane jako <a href="bayes.html#bayes">klasyfikatory bayesowskie</a>. Podejście Fisher’a skupiało się raczej na porównaniu zmienności miedzygrupowej do zmienności wewnątrzgrupowej. Wychodząc z założenia, że iloraz tych wariancji powinien być stosunkowo duży przy różnych klasach, jeśli do ich opisu użyjemy odpowiednich zmiennych niezależnych. W istocie chodzi o znalezienie takiego wektora, w kierunku którego wspomniany iloraz wariancji jest największy.</p>
+<div id="liniowa-analiza-dyskryminacyjna-fishera" class="section level2">
+<h2><span class="header-section-number">8.1</span> Liniowa analiza dyskryminacyjna Fisher’a</h2>
+<div id="dwie-kategorie-zmiennj-grupujacej" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Dwie kategorie zmiennj grupującej</h3>
+<p>Niech <span class="math inline">\(\boldsymbol D\)</span> będzie zbiorem zawierającym <span class="math inline">\(n\)</span> punktów <span class="math inline">\(\{\boldsymbol x_i, y_i\}\)</span>, gdzie <span class="math inline">\(\boldsymbol x_i\in \mathbb{R}^d\)</span>, a <span class="math inline">\(y_i\in \{c_1,\ldots,c_k\}\)</span>. Niech <span class="math inline">\(\boldsymbol D_i\)</span> oznacza podzbiór punktów zbioru <span class="math inline">\(\boldsymbol D\)</span>, które należą do klasy <span class="math inline">\(c_i\)</span>, czyli <span class="math inline">\(\boldsymbol D_i=\{\boldsymbol x_i|y_i=c_i\}\)</span> i niech <span class="math inline">\(|\boldsymbol D_i|=n_i\)</span>. Na początek załóżmy, że <span class="math inline">\(\boldsymbol D\)</span> składa się tylko z <span class="math inline">\(\boldsymbol D_1\)</span> i <span class="math inline">\(\boldsymbol D_2\)</span>.</p>
+<p>Niech <span class="math inline">\(\boldsymbol w\)</span> będzie wektorem jednostkowym (<span class="math inline">\(\boldsymbol w&#39;\boldsymbol w=1\)</span>), wówczas rzut ortogonalny punku <span class="math inline">\(\boldsymbol x_i\)</span> na wektor <span class="math inline">\(\boldsymbol w\)</span> można zapisać następująco
+<span class="math display">\[\begin{equation}
+    \tilde{\boldsymbol x}_i=\left(\frac{\boldsymbol w&#39;\boldsymbol x_i}{\boldsymbol w&#39;\boldsymbol w}\right)\boldsymbol w=(\boldsymbol w&#39;\boldsymbol x_i)\boldsymbol w = a_i\boldsymbol w,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(a_i\)</span> jest współrzędną punktu <span class="math inline">\(\tilde{\boldsymbol x}_i\)</span> w kierunku wektora <span class="math inline">\(\boldsymbol w\)</span>, czyli
+<span class="math display">\[\begin{equation}
+    a_i=\boldsymbol w&#39;\boldsymbol x_i.
+\end{equation}\]</span>
+Zatem <span class="math inline">\((a_1,\ldots,a_n)\)</span> reprezentują odwzorowanie <span class="math inline">\(\mathbb{R}^d\)</span> w <span class="math inline">\(\mathbb{R}\)</span>, czyli z <span class="math inline">\(d\)</span>-wymiarowej przestrzeni w przestrzeń generowaną przez <span class="math inline">\(\boldsymbol w\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:rzut"></span>
+<img src="images/rzut.png" alt="Rzut ortogonalny punktów w kierunku wektora $\boldsymbol w$" width="560" />
+<p class="caption">
+Rysunek 8.1: Rzut ortogonalny punktów w kierunku wektora <span class="math inline">\(\boldsymbol w\)</span>
+</p>
+</div>
+<p>Każdy punkt należy do pewnej klasy, dlatego możemy wyliczyć
+<span class="math display" id="eq:m">\[\begin{align}
+    \boldsymbol m_1=&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1}a_i=\\
+    =&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol w&#39; \boldsymbol x_i=\\
+    =&amp; \boldsymbol w&#39;\left(\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol x_i \right)=\\
+    =&amp; \boldsymbol w&#39; \boldsymbol{\mu}_1,
+    \tag{8.1}
+\end{align}\]</span>
+gdzie <span class="math inline">\(\boldsymbol \mu_1\)</span> jest wektorem średnich punktów z <span class="math inline">\(\boldsymbol D_1\)</span>. W podobny sposób można policzyć <span class="math inline">\(m_2 = \boldsymbol w&#39; \boldsymbol \mu_2\)</span>. Oznacza to, że średnia projekcji jest projekcją średnich.</p>
+<p>Rozsądnym wydaje się teraz poszukać takiego wektora, aby <span class="math inline">\(|m_1-m_2|\)</span> była maksymalnie duża przy zachowaniu niezbyt dużej zmienności wewnątrz grup. Dlatego kryterium Fisher’a przyjmuje postać
+<span class="math display" id="eq:condFisher">\[\begin{equation}
+    \max_{ \boldsymbol w}J(\boldsymbol w)=\frac{(m_1-M_2)^2}{ss_1^2+ss_2^2},
+    \tag{8.2}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(ss_j^2=\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=n_j\sigma_j^2.\)</span>$</p>
+<p>Zauważmy, że licznik w <a href="analiza-dyskryminacyjna.html#eq:condFisher">(8.2)</a> da się zapisać jako
+<span class="math display">\[\begin{align}
+    (m_1-m_2)^2=&amp; ( \boldsymbol w&#39;( \boldsymbol \mu_1- \boldsymbol \mu_2))^2=\\
+    =&amp; \boldsymbol w&#39;((\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)&#39;) \boldsymbol w=\\
+    =&amp; \boldsymbol w&#39; \boldsymbol B \boldsymbol w
+\end{align}\]</span>
+gdzie <span class="math inline">\(\boldsymbol B=(\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)&#39;\)</span> jest macierzą <span class="math inline">\(d\times d\)</span>.</p>
+<p>Ponadto
+<span class="math display" id="eq:Sj">\[\begin{align}
+    ss_j^2=&amp;\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=\\
+    =&amp;\sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol w&#39; \boldsymbol x_i- \boldsymbol w&#39; \boldsymbol\mu_j)^2=\\
+    =&amp; \sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol{w}&#39;( \boldsymbol{x}_i- \boldsymbol{\mu}_j))^2=\\
+    =&amp; \boldsymbol{w}&#39;\left(\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(\boldsymbol{x}_i-\boldsymbol \mu_j)(\boldsymbol x_i- \boldsymbol \mu_j)&#39;\right) \boldsymbol{w}=\\
+    =&amp; \boldsymbol{w}&#39; \boldsymbol{S}_j \boldsymbol{w},
+    \tag{8.3}
+\end{align}\]</span>
+gdzie <span class="math inline">\(\boldsymbol{S}_j=n_j \boldsymbol{\Sigma}_j\)</span>.
+Zatem mianowinik <a href="analiza-dyskryminacyjna.html#eq:condFisher">(8.2)</a> możemy zapisać jako
+<span class="math display">\[\begin{equation}
+    ss_1^2+ss_2^2= \boldsymbol{w}&#39;(\boldsymbol{S}_1+ \boldsymbol{S}_2) \boldsymbol{w}= \boldsymbol{w}&#39; \boldsymbol{S} \boldsymbol{w},
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\boldsymbol{S}=\boldsymbol{S}_1+\boldsymbol{S}_2\)</span>.
+Ostatecznie warunek Fisher’a przyjmuje postać
+<span class="math display" id="eq:condFisher2">\[\begin{equation}
+    \max_{ \boldsymbol{w}}J( \boldsymbol{w})=\frac{ \boldsymbol{w}&#39; \boldsymbol{B} \boldsymbol{w}}{ \boldsymbol{w}&#39; \boldsymbol{S} \boldsymbol{w}}.
+    \tag{8.4}
+\end{equation}\]</span></p>
+<p>Różniczkując <a href="analiza-dyskryminacyjna.html#eq:condFisher2">(8.4)</a> po <span class="math inline">\(\boldsymbol{w}\)</span> otrzymamy warunek
+<span class="math display" id="eq:condFisher3">\[\begin{equation}
+    \boldsymbol{B} \boldsymbol{w} = \lambda \boldsymbol{S} \boldsymbol{w},
+    \tag{8.5}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\lambda=J(\boldsymbol{w})\)</span>. Maksimum <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> jest osiągane dla wektora <span class="math inline">\(\boldsymbol{w}\)</span> równego wektrowi własnemu odpowiadającemu największej wartości własnej macierzy <span class="math inline">\(\boldsymbol{S}\)</span>. Jeśli <span class="math inline">\(\boldsymbol{S}\)</span> nie jest osobliwa, to rozwiązanie <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> można przedstawić bez wykorzystania wartości i wektorów własnych.</p>
+<p>Poniważ <span class="math inline">\(\boldsymbol{B}=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}\)</span> jest macierzą <span class="math inline">\(d \times d\)</span> rzędu 1, to <span class="math inline">\(\boldsymbol{B}\boldsymbol{w}\)</span> jest punktem na kierunku wyznaczonym przez wektor <span class="math inline">\(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\)</span>, bo
+<span class="math display">\[\begin{align}
+    \boldsymbol{B}\boldsymbol{w}=&amp; \left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
+    =&amp;(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
+    =&amp; b(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2),
+\end{align}\]</span>
+gdzie <span class="math inline">\(b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\boldsymbol{w}\)</span> jest skalarem.</p>
+<p>Wówczas <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> zapiszemy jako
+<span class="math display">\[\begin{gather}
+    b(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2) = \lambda\boldsymbol{S}\boldsymbol{w}\\
+    \boldsymbol{w}= \frac{b}{\lambda}\boldsymbol{S}^{-1}(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)
+\end{gather}\]</span></p>
+<p>A ponieważ <span class="math inline">\(b/\lambda\)</span> jest liczbą, to kierunek najlepszej dyskryminacji grup wyznacza wektor
+<span class="math display">\[\begin{equation}
+    \boldsymbol{w}=\boldsymbol{S}^{-1}(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2).
+\end{equation}\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:rzut2"></span>
+<img src="images/rzut2.JPG" alt="Rzut ortogonalny w kierunku wektora $\boldsymbol{w}$, będącego najlepiej dyskryminującym obie grupy obserwacji"  />
+<p class="caption">
+Rysunek 8.2: Rzut ortogonalny w kierunku wektora <span class="math inline">\(\boldsymbol{w}\)</span>, będącego najlepiej dyskryminującym obie grupy obserwacji
+</p>
+</div>
+</div>
+<div id="k-kategorii-zmiennej-grupujacej" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</h3>
+<p>Uogólnieniem tej teorii na przypadek <span class="math inline">\(k\)</span> klas jest uwzględnienie <span class="math inline">\(k-1\)</span> funkcji dyskryminacyjnych. Zmienność wewnątrzgrupowa przyjmuje wówczas postać
+<span class="math display">\[\begin{equation}
+    \boldsymbol{S}_W=\sum_{i=1}^k\boldsymbol{S}_i,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\boldsymbol{S}\)</span> jest zdefiniowane jak w <a href="analiza-dyskryminacyjna.html#eq:Sj">(8.3)</a>.
+Niech średnia i rozrzut globalny będą dane wzorami
+<span class="math display">\[\begin{equation}
+    \boldsymbol{m}=\frac{1}{n}\sum_{i=1}^kn_i\boldsymbol{m}_i,
+\end{equation}\]</span>
+<span class="math display">\[\begin{equation}
+    \boldsymbol{S}_T=\sum_{j=1}^k\sum_{\boldsymbol{x}\in D_j}(\boldsymbol{x}-\boldsymbol{m})(\boldsymbol{x}-\boldsymbol{m})&#39;
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\boldsymbol{m}_i\)</span> jest określone jak w <a href="analiza-dyskryminacyjna.html#eq:m">(8.1)</a>. Wtedy zmienność międzygrupową możemy wyrazić jako
+<span class="math display">\[\begin{equation}
+    \boldsymbol{S}_B=\sum_{i=1}^kn_i(\boldsymbol{m}_i-\boldsymbol{m})(\boldsymbol{m}_i-\boldsymbol{m})&#39;,
+\end{equation}\]</span>
+bo <span class="math inline">\(\boldsymbol{S}_T=\boldsymbol{S}_W+\boldsymbol{S}_B.\)</span>
+Określamy projekcję <span class="math inline">\(d\)</span>-wymiarowej przestrzeni na <span class="math inline">\(k-1\)</span>-wymiarową przestrzeń za pomocą <span class="math inline">\(k-1\)</span> funkcji dyskryminacyjnych postaci
+<span class="math display">\[\begin{equation}
+    \boldsymbol{a}_j=\boldsymbol{w}_j&#39;\boldsymbol{x}, \quad j=1,\ldots,k-1.
+\end{equation}\]</span>
+Połączone wszystkie <span class="math inline">\(k-1\)</span> rzutów możemy zapisać jako
+<span class="math display">\[\begin{equation}
+    \boldsymbol{a}=\boldsymbol{W}&#39;\boldsymbol{x}.
+\end{equation}\]</span></p>
+<p>W nowej przestrzeni <span class="math inline">\(k-1\)</span>-wymirowej możemy zdefiniować
+<span class="math display">\[\begin{equation}
+    \tilde{\boldsymbol{m}}=\frac{1}{n}\sum_{i=1}^kn_i\tilde{\boldsymbol{m}}_i,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\tilde{\boldsymbol{m}}_i= \frac{1}{n_i}\sum_{\boldsymbol{a}\in A_i}\boldsymbol{a}\)</span>, a <span class="math inline">\(A_i\)</span> jest projekcją obiektów z <span class="math inline">\(i\)</span>-tej klasy w kierunku wektora <span class="math inline">\(\boldsymbol{W}\)</span>.
+Dalej możemy zdefiniować zmienności miedzy- i wewnątrzgrupowe dla obiektów przekształconych przez <span class="math inline">\(\boldsymbol{W}\)</span>
+<span class="math display">\[\begin{align}
+    \tilde{\boldsymbol{S}}_W=&amp;\sum_{i=1}^k\sum_{\boldsymbol{a}\in A_i}(\boldsymbol{a}-\tilde{\boldsymbol{m}})(\boldsymbol{a}-\tilde{\boldsymbol{m}})&#39;\\
+    \tilde{\boldsymbol{S}}_B=&amp;\sum_{i=1}^kn_i(\tilde{\boldsymbol{m}}_i-\tilde{\boldsymbol{m}})(\tilde{\boldsymbol{m}}_i-\tilde{\boldsymbol{m}})&#39;.
+\end{align}\]</span>
+Łatwo można zatem pokazać, że
+<span class="math display">\[\begin{align}
+    \tilde{\boldsymbol{S}}_W = &amp; \boldsymbol{W}&#39;\boldsymbol{S}_W\boldsymbol{W}\\
+    \tilde{\boldsymbol{S}}_B = &amp; \boldsymbol{W}&#39;\boldsymbol{S}_B\boldsymbol{W}.
+\end{align}\]</span>
+Ostatecznie warunek <a href="analiza-dyskryminacyjna.html#eq:condFisher">(8.2)</a> w <span class="math inline">\(k\)</span>-wymiarowym ujęciu można przedstawić jako
+<span class="math display">\[\begin{equation}
+    \max_{\boldsymbol{W}}J(\boldsymbol{W})=\frac{\tilde{\boldsymbol{S}}_W}{\tilde{\boldsymbol{S}}_B}=\frac{\boldsymbol{W}&#39;\boldsymbol{S}_W\boldsymbol{W}}{\boldsymbol{W}&#39;\boldsymbol{S}_B\boldsymbol{W}}.
+\end{equation}\]</span>
+Maksimum można znaleźć poprzez rozwiązanie równania charakterystycznego <span class="math display">\[\begin{equation}
+    |\boldsymbol{S}_B-\lambda_i\boldsymbol{S}_W|=0
+\end{equation}\]</span>
+dla każdego <span class="math inline">\(i\)</span>.</p>
+
+<div class="example">
+<span id="exm:unnamed-chunk-50" class="example"><strong>Przykład 8.1  </strong></span>Dla danych ze zbioru <code>iris</code> przeprowadzimy analizę dyskryminacji. Implementację metody LDA znajdziemy w pakiecie <code>MASS</code> w postaci funkcji <code>lda</code>.
+</div>
+
+<p>Zaczynamy od standaryzacji zmiennych i podziału próby na uczącą i tesetową.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+<span class="kw">library</span>(tidyverse)
+iris.std &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, scale)
+<span class="kw">set.seed</span>(<span class="dv">2019</span>)
+ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(iris.std), <span class="dt">size =</span> <span class="dv">100</span>)
+dt.ucz &lt;-<span class="st"> </span>iris.std[ind,]
+dt.test &lt;-<span class="st"> </span>iris.std[<span class="op">-</span>ind,]</code></pre>
+<p>Budowa modelu</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.ucz)
+mod.lda<span class="op">$</span>prior</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##       0.36       0.31       0.33</code></pre>
+<p>Prawdopodobieństwa <em>a priori</em> przynależności do klas przyjęto na podstawie próby uczącej.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>means</code></pre>
+<pre><code>##            Sepal.Length Sepal.Width Petal.Length Petal.Width
+## setosa       -1.0251463   0.8690229    -1.294839  -1.2527443
+## versicolor    0.1619267  -0.5015842     0.316167   0.1786195
+## virginica     0.9174351  -0.2636338     1.046883   1.0504160</code></pre>
+<p>W części <code>means</code> wyświetlone są średnie poszczególnych zmiennych niezależnych w podziale na grupy. Dzięki temu można określić położenia środków ciężkości poszczególnych klas w oryginalnej przestrzeni.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>scaling</code></pre>
+<pre><code>##                     LD1       LD2
+## Sepal.Length  1.0073378  0.211252
+## Sepal.Width   0.4701094 -1.053135
+## Petal.Length -4.0746585  1.488372
+## Petal.Width  -2.5146178 -2.312201</code></pre>
+<p>Powyższa tabel zawiera współrzędne wektrów wyznaczających funkcje dyskryminacyjne. Na ich podstawie możemy określić, która z nich wpływa najmocniej na tworzenie się nowej przestrzeni.</p>
+<p>Obiekt <code>svd</code> przechowuje pierwiastki z <span class="math inline">\(\lambda_i\)</span>, dlatego podnosząc je do kwadratu i dzieląc przez ich sumę otrzymamy udział poszczególnych zmiennych w dyskryminacji przypadków. Jak widać pierwsza funkcja dyskryminacyjna w zupełności by wystarczyła.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="kw">sum</span>(mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span>)</code></pre>
+<pre><code>## [1] 0.994875091 0.005124909</code></pre>
+<p>Klasyfikacja na podstawie modelu</p>
+<pre class="sourceCode r"><code class="sourceCode r">pred.lda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda, dt.test)</code></pre>
+<p>Wynik predykcji przechowuje trzy rodzaje obiektów:</p>
+<ul>
+<li>klasy, które przypisał obiektom model (<code>class</code>);</li>
+<li>prawdopodobieństwa <em>a posteriori</em> przynależności do klas na podstawie modelu (<code>posterior</code>);</li>
+<li>współrzędne w nowej przestrzeni LD1, LD2 (<code>x</code>).</li>
+</ul>
+<p>Sprawdzenie jakości klasyfikacji</p>
+<pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> pred.lda<span class="op">$</span>class, <span class="dt">obs =</span> dt.test<span class="op">$</span>Species)
+tab</code></pre>
+<pre><code>##             obs
+## pred         setosa versicolor virginica
+##   setosa         14          0         0
+##   versicolor      0         18         0
+##   virginica       0          1        17</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
+<pre><code>## [1] 0.98</code></pre>
+<p>Jak widać z powyższej tabeli model dobrze sobie radzi z klasyfikacją obiektów. Odsetek poprawnych klasyfikacji wynosi 98%.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cbind.data.frame</span>(<span class="dt">obs =</span> dt.test<span class="op">$</span>Species,
+                 pred.lda<span class="op">$</span>x, 
+                 <span class="dt">pred =</span> pred.lda<span class="op">$</span>class) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2))<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> pred, <span class="dt">shape =</span> obs))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-58"></span>
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-58-1.png" alt="Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda" width="1056" />
+<p class="caption">
+Rysunek 8.3: Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<h3>Bibliografia</h3>
+<div id="refs" class="references">
+<div id="ref-fisher1936">
+<p>Fisher, R. A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” <em>Annals of Eugenics</em> 7 (2): 179–88. <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</a>.</p>
+</div>
+<div id="ref-welch1939">
+<p>Welch, B. L. 1939. “Note on Discriminant Functions.” <em>Biometrika</em> 31 (1/2): 218–20. <a href="https://doi.org/10.2307/2334985">https://doi.org/10.2307/2334985</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regresja-logistyczna.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

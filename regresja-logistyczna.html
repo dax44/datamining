@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bibliografia | Eksploracja danych</title>
+  <title>7 Regresja logistyczna | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bibliografia | Eksploracja danych" />
+  <meta property="og:title" content="7 Regresja logistyczna | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografia | Eksploracja danych" />
+  <meta name="twitter:title" content="7 Regresja logistyczna | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="bayes.html">
-
+<link rel="prev" href="klasyfikatory-liniowe.html">
+<link rel="next" href="analiza-dyskryminacyjna.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -238,132 +238,169 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografia" class="section level1 unnumbered">
-<h1>Bibliografia</h1>
+<div id="regresja-logistyczna" class="section level1">
+<h1><span class="header-section-number">7</span> Regresja logistyczna</h1>
+<div id="model-1" class="section level2">
+<h2><span class="header-section-number">7.1</span> Model</h2>
+<p>Regresja logisticzna (ang. <em>logistic regression</em>) jest techniką z rodziny klasyfikatorów liniowych z reprezentacją logistyczną, a formalnie należy do rodziny ugogólnionych modeli liniowych (GLM). Stosowana jest wówczas, gdy zmienna wynikowa posiada dwa stany (sukces i porażka), kodowane najczęściej za pomocą 1 i 0. W tej metodzie modelowane jest warunkowe prawdopobieństwo sukcesu za pomocą kombinacji liniowej predyktorów <span class="math inline">\(X\)</span>.</p>
+<p>Ogólna postać modelu
+<span class="math display">\[\begin{align}
+    Y\sim &amp;B(1, p)\\
+    p(X)=&amp;\E(Y|X)=\frac{\exp(\beta X)}{1+\exp(\beta X)},
+\end{align}\]</span>
+gdzie <span class="math inline">\(B(1,p)\)</span> jest rozkładem dwumianowym o prawdopodobieństwie sukcesu <span class="math inline">\(p\)</span>, a <span class="math inline">\(\beta X\)</span> oznacza kombinację liniową parametrów modelu i wartości zmiennych niezależnych, przyjmując, że <span class="math inline">\(x_0=1\)</span>. Jako funkcji łączącej (czyli opisującej zwiazek między kombinacją liniową predyktorów i prawdopodobieństwem sukcesu) użyto <em>logitu</em>. Pozwala on na wygodną interpretację wyników w terminach szans.</p>
+<p>Szansą (ang. <em>odds</em>) nazywamy stosunek prawdopodobieństwa sukcesu do prawdopodobieństwa porażki
+<span class="math display">\[\begin{equation}
+    o = \frac{p}{1-p}.
+\end{equation}\]</span></p>
+<p>Ponieważ będziemy przyjmowali, że <span class="math inline">\(p\in (0,1)\)</span>, to <span class="math inline">\(o\in (0,\infty)\)</span>, a jej logartym należy do przedziału <span class="math inline">\((-\infty, \infty)\)</span>.</p>
+<p>Zatem logarytm szansy jest kombinacją liniową predyktorów
+<span class="math display">\[\begin{equation}
+    \log\left[\frac{p(X)}{1-p(X)}\right]=\beta_0+\beta_1x_1+\ldots+\beta_kx_k.
+\end{equation}\]</span></p>
+</div>
+<div id="estymacja-parametrow-modelu" class="section level2">
+<h2><span class="header-section-number">7.2</span> Estymacja parametrów modelu</h2>
+<p>Estymacji parametrów modelu logistycznego dokonujemy za pomocą metody największej wiarogodności. Funkcja wiarogodności w tym przypadku przyjmuje postać
+<span class="math display">\[\begin{equation}
+    L(X_1,\ldots,X_n,\beta)=\prod_{i=1}^{n}p(X_i)^Y_i[1-p(X_i)]^(1-Y_i),
+\end{equation}\]</span>
+gdzie wektor <span class="math inline">\(\beta\)</span> jest uwikłany w funkcji <span class="math inline">\(p(X_i)\)</span>. Maksymalizacji dokonujemy raczej po nałożeniu na funkcję wiarogodności logarytmu, bo to ułatwia szukanie ekstremum.
+<span class="math display">\[\begin{equation}
+    \log L(X_1,\ldots,X_n,\beta) = \sum_{i=1}^n(Y_i\log p(X_i)+(1-Y_i)\log(1-p(X_i))).
+\end{equation}\]</span></p>
+</div>
+<div id="interpretacja" class="section level2">
+<h2><span class="header-section-number">7.3</span> Interpretacja</h2>
+<p>Interpretacja (lat. <em>ceteris paribus</em> - “inne takie samo”) poszczególnych parametrów modelu jest następująca:</p>
+<ul>
+<li>jeśli <span class="math inline">\(b_i&gt;0\)</span> - to zmienna <span class="math inline">\(x_i\)</span> ma wpływ stymulujący pojawienie się sukcesu,</li>
+<li>jeśli <span class="math inline">\(b_i&lt;0\)</span> - to zmienna <span class="math inline">\(x_i\)</span> ma wpływ ograniczający pojawienie się sukcesu,</li>
+<li>jeśli <span class="math inline">\(b_i=0\)</span> - to zmienna <span class="math inline">\(x_i\)</span> nie ma wpływu na pojawienie się sukcesu.</li>
+</ul>
+<p>Iloraz szans (ang. <em>odds ratio</em>) stosuje się w przypadku porównywania dwóch klas obserwacji. Jest on jak sama nazwa wskazuje ilorazem szans zajścia sukcesu w obu klasach
+<span class="math display">\[\begin{equation}
+    OR = \frac{p_1}{1-p_1}\frac{1-p_2}{p_2},
+\end{equation}\]</span>
+gdzie <span class="math inline">\(p_i\)</span> oznacza zajście sukcesu w <span class="math inline">\(i\)</span>-tej klasie.</p>
+<p>Interpretujemy go nastepująco:</p>
+<ul>
+<li>jeśli <span class="math inline">\(OR&gt;1\)</span> - to w pierwszej grupie zajście sukcesu jest bardziej prawdopodobne,</li>
+<li>jeśli <span class="math inline">\(OR&lt;1\)</span> - to w drugiej grupie zajście sukcesu jest bardziej prawdopodobne,</li>
+<li>jeśli <span class="math inline">\(OR=1\)</span> - to w obu grupach zajście sukcesu jest jednakowo prawdopodobne.</li>
+</ul>
 
-<div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
-</div>
-<div>
-<p>———. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3). The Institute of Mathematical Statistics: 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
-</div>
-<div>
-<p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
-</div>
-<div>
-<p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
-</div>
-<div>
-<p>Fisher, R. A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” <em>Annals of Eugenics</em> 7 (2): 179–88. <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</a>.</p>
-</div>
-<div>
-<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
-</div>
-<div>
-<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
-</div>
-<div>
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3). Taylor &amp; Francis: 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
-</div>
-<div>
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-<div>
-<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
-</div>
-<div>
-<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div>
-<p>Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. <em>E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien</em>. <a href="https://CRAN.R-project.org/package=e1071">https://CRAN.R-project.org/package=e1071</a>.</p>
-</div>
-<div>
-<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
-</div>
-<div>
-<p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
-</div>
-<div>
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
-</div>
-<div>
-<p>Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. <em>VIM: Visualization and Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=VIM">https://CRAN.R-project.org/package=VIM</a>.</p>
-</div>
-<div>
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div>
-<p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for &quot;Data Mining with R&quot;</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
-</div>
-<div>
-<p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. “KlaR Analyzing German Business Cycles.” In <em>Data Analysis and Decision Support</em>, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335–43. Berlin: Springer-Verlag.</p>
-</div>
-<div>
-<p>Welch, B. L. 1939. “Note on Discriminant Functions.” <em>Biometrika</em> 31 (1/2): 218–20. <a href="https://doi.org/10.2307/2334985">https://doi.org/10.2307/2334985</a>.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-<div>
-<p>———. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
-</div>
-</div>
+<div class="example">
+<span id="exm:logit" class="example"><strong>Przykład 7.1  </strong></span>Jako ilustrację działania regresji logistycznej użyjemy modelu dla danych ze zbioru <code>Default</code> pakietu <code>ISLR</code>.
 </div>
 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ISLR)
+<span class="kw">head</span>(Default)</code></pre>
+<pre><code>##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559</code></pre>
+<p>Zmienną zależną jest <code>default</code>, a pozostałe są predyktorami. najpierw dokonamy podziału próby na ucząca i testową, a następnie zbudujemy model.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2019</span>)
+ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Default), <span class="dt">size =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span><span class="kw">nrow</span>(Default))
+dt.ucz &lt;-<span class="st"> </span>Default[ind,]
+dt.test &lt;-<span class="st"> </span>Default[<span class="op">-</span>ind,]
+mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span class="op">~</span>., dt.ucz, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))
+<span class="kw">summary</span>(mod.logit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = default ~ ., family = binomial(&quot;logit&quot;), data = dt.ucz)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4481  -0.1470  -0.0597  -0.0226   3.6966  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.085e+01  5.896e-01 -18.409   &lt;2e-16 ***
+## studentYes  -4.970e-01  2.851e-01  -1.744   0.0812 .  
+## balance      5.604e-03  2.809e-04  19.949   &lt;2e-16 ***
+## income       7.933e-06  9.652e-06   0.822   0.4112    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1906.5  on 6665  degrees of freedom
+## Residual deviance: 1059.8  on 6662  degrees of freedom
+## AIC: 1067.8
+## 
+## Number of Fisher Scoring iterations: 8</code></pre>
+<p>Tylko <code>income</code> nie ma żadnego wpływu na prawdopodobieństwo stanu <code>Yes</code> zmiennej <code>default</code>. Zmienna <code>balance</code> wpływa stymulująco na prawdopodobieństwo pojawienia się sukcesu. Natomiast jeśli badania osoba jest studentem (<code>studentYes</code>), to ma wpływ ograniczający na pojawienie się sukcesu. Chcąc porównać dwie grupy obserwacji, przykładowo studentów z niestudentami, możemy wykorzystać iloraz szans.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">cbind</span>(<span class="dt">OR =</span> <span class="kw">coef</span>(mod.logit), <span class="kw">confint</span>(mod.logit))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">4</span>)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">OR</th>
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="even">
+<td>studentYes</td>
+<td align="right">0.6083</td>
+<td align="right">0.3485</td>
+<td align="right">1.0668</td>
+</tr>
+<tr class="odd">
+<td>balance</td>
+<td align="right">1.0056</td>
+<td align="right">1.0051</td>
+<td align="right">1.0062</td>
+</tr>
+<tr class="even">
+<td>income</td>
+<td align="right">1.0000</td>
+<td align="right">1.0000</td>
+<td align="right">1.0000</td>
+</tr>
+</tbody>
+</table>
+<p>Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na <code>Yes</code> w zmiennej <code>default</code> o około 40% (w stosunku do niestudentów). Natomiast wzrost zmiennej <code>balance</code> przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na <code>Yes</code> o około 0.6%.</p>
+<p>Chcąc przeprowadzić predykcję na podstwie modelu dla ustalonych wartości cech (np. <code>student = Yes</code>, <code>balance = $1000</code> i <code>income = $40000</code>) postępujemy następująco</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">student =</span> <span class="st">&quot;Yes&quot;</span>, <span class="dt">balance =</span> <span class="dv">1000</span>, <span class="dt">income =</span> <span class="dv">40000</span>)
+<span class="kw">predict</span>(mod.logit, <span class="dt">newdata =</span> dt.new, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre>
+<pre><code>##           1 
+## 0.004367692</code></pre>
+<p>Otrzymany wynik jest oszacowanym prawdopodobieństwem warunkowym wystąpienia sukcesu (<code>default = Yes</code>). Widać zatem, że poziomy badanych cech sprzyjają raczej porażce.</p>
+<p>Jeśli chcemy sprawdzić jakość klasyfikacji na zbiorze testowym, to musimy ustalić na jakim poziomie prawdopodobieństwa będziemy uznawać obserwację za sukces. W zależności od tego, na predykcji jakiego stanu zależy nam bardziej możemy różnie dobierać ten próg (bez żadnych dodatkowych przesłanek najczęściej jest to 0.5).</p>
+<pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.logit, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+pred.class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>)
+(tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.class, dt.test<span class="op">$</span>default))</code></pre>
+<pre><code>##           
+## pred.class   No  Yes
+##        No  3204   76
+##        Yes   13   41</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(acc &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab))))</code></pre>
+<pre><code>## [1] 0.9733053</code></pre>
+<p>Klasyfikacja na poziomie 97% wskazuje na dobre dopasowanie modelu.</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="bayes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="klasyfikatory-liniowe.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analiza-dyskryminacyjna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

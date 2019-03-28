@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>7 Klasyfikatory bayesowskie | Eksploracja danych</title>
+  <title>8 Klasyfikatory bayesowskie | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="7 Klasyfikatory bayesowskie | Eksploracja danych" />
+  <meta property="og:title" content="8 Klasyfikatory bayesowskie | Eksploracja danych" />
   <meta property="og:type" content="book" />
   
   
@@ -17,21 +17,21 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Klasyfikatory bayesowskie | Eksploracja danych" />
+  <meta name="twitter:title" content="8 Klasyfikatory bayesowskie | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
 
 
 
-<meta name="date" content="2019-03-22">
+<meta name="date" content="2019-03-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="klasyfikatory-liniowe.html">
+<link rel="prev" href="regresja-logistyczna.html">
 <link rel="next" href="bibliografia.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -81,7 +81,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -200,11 +200,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-logitowa"><i class="fa fa-check"></i><b>6.2</b> Reprezentacja logitowa</a></li>
 <li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorow-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html"><i class="fa fa-check"></i><b>7</b> Klasyfikatory bayesowskie</a><ul>
-<li class="chapter" data-level="7.1" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>7.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
-<li class="chapter" data-level="7.2" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#klasyfikator-najwiekszej-warogodnosci-ml"><i class="fa fa-check"></i><b>7.2</b> Klasyfikator największej warogodności (ML)</a></li>
-<li class="chapter" data-level="7.3" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>7.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
-<li class="chapter" data-level="7.4" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>7.4</b> Zalety i wady</a></li>
+<li class="chapter" data-level="7" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html"><i class="fa fa-check"></i><b>7</b> Regresja logistyczna</a><ul>
+<li class="chapter" data-level="7.1" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#model-1"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
+<li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html"><i class="fa fa-check"></i><b>8</b> Klasyfikatory bayesowskie</a><ul>
+<li class="chapter" data-level="8.1" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>8.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
+<li class="chapter" data-level="8.2" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#klasyfikator-najwiekszej-warogodnosci-ml"><i class="fa fa-check"></i><b>8.2</b> Klasyfikator największej warogodności (ML)</a></li>
+<li class="chapter" data-level="8.3" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>8.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
+<li class="chapter" data-level="8.4" data-path="klasyfikatory-bayesowskie.html"><a href="klasyfikatory-bayesowskie.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>8.4</b> Zalety i wady</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
@@ -228,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="klasyfikatory-bayesowskie" class="section level1">
-<h1><span class="header-section-number">7</span> Klasyfikatory bayesowskie</h1>
+<h1><span class="header-section-number">8</span> Klasyfikatory bayesowskie</h1>
 <p>Całą gamę klasyfikatorów opartych na twierdzeniu Bayesa nazywać będziemy bayesowskimi.
 <span class="math display">\[\begin{equation}\label{bayes}
         P(A|B)=\frac{P(A)P(B|A)}{P(B)},
@@ -251,7 +256,7 @@ gdzie <span class="math inline">\(P(B)&gt;0\)</span>.</p>
 <li><span class="math inline">\(c\)</span> - prawdziwy stan obiektu.</li>
 </ul>
 <div id="klasyfikator-maximum-a-posteriori-map" class="section level2">
-<h2><span class="header-section-number">7.1</span> Klasyfikator maximum a posteriori (MAP)</h2>
+<h2><span class="header-section-number">8.1</span> Klasyfikator maximum a posteriori (MAP)</h2>
 <p>Na podstawie wiedzy o atrybutach obiektu <span class="math inline">\(x\)</span> podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą <span class="math inline">\(h_{MAP}\in \mathbb{H}\)</span>, która przyjmuje postać
 <span class="math display">\[\begin{align}\label{MAP}
         h_{MAP}=&amp;\operatorname{arg}\max_{h\in \mathbb{H}}P(h|a_1=v_1, a_2=v_2,\ldots,a_p=v_p)\\
@@ -260,7 +265,7 @@ gdzie <span class="math inline">\(P(B)&gt;0\)</span>.</p>
 gdzie ostatnia równość wynika z twierdzenia Bayesa oraz faktu, że dla konkretnego obiektu <span class="math inline">\(x\)</span> wielkości atrybutów nie zależą od postawionej hipotezy.</p>
 </div>
 <div id="klasyfikator-najwiekszej-warogodnosci-ml" class="section level2">
-<h2><span class="header-section-number">7.2</span> Klasyfikator największej warogodności (ML)</h2>
+<h2><span class="header-section-number">8.2</span> Klasyfikator największej warogodności (ML)</h2>
 <p>Na podstawie wiedzy o atrybutach obiektu <span class="math inline">\(x\)</span> podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą <span class="math inline">\(h_{ML}\in \mathbb{H}\)</span>, która przyjmuje postać
 <span class="math display">\[\begin{equation}\label{ML}
         h_{ML}=\operatorname{arg}\max_{h\in \mathbb{H}}P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h).
@@ -272,7 +277,7 @@ gdzie ostatnia równość wynika z twierdzenia Bayesa oraz faktu, że dla konkre
 
 </div>
 <div id="naiwny-klasyfikator-bayesa-nb" class="section level2">
-<h2><span class="header-section-number">7.3</span> Naiwny klasyfikator Bayesa (NB)<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></h2>
+<h2><span class="header-section-number">8.3</span> Naiwny klasyfikator Bayesa (NB)<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></h2>
 <p>Największy problem w wyznaczeniu klasyfikatorów MAP i ML stanowi wyznaczenie rozkładu łącznego <span class="math inline">\(P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h)\)</span>. W naiwnym klasyfikatorze Bayesa zakłada się niezależność warunkową poszczególnych atrybutów względem klasy do której ma należeń wg hipotezy obiekt. Założenie to często nie jest spełnione i stąd nazwa przymiotnik “naiwny”.</p>
 <p>Definicja naiwnego klasyfikatora bayesowskiego różni się od klasyfikatora MAP tylko podejściem do prawdopodobieństwa a posteriori.
 <span class="math display">\[\begin{equation}\label{naiwny_bayes}
@@ -322,7 +327,7 @@ Jeśli brakujące dane nie niosą w sobie istotnych informacji dotyczących klas
 <p>Naiwny klasyfikator Bayesa jest implementowany w pakietach <strong>e1071</strong> <span class="citation">(Meyer et al. <a href="#ref-R-e1071">2019</a>)</span> i <strong>klaR</strong> <span class="citation">(Weihs et al. <a href="#ref-R-klaR">2005</a>)</span>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-46" class="example"><strong>Przykład 7.1  </strong></span>Przeprowadzimy klasyfikację dla zbioru <code>Titanic</code>. W przypadku funkcji z pakietu <code>e1071</code> nie potrzeba zamieniać tabeli na przypadki. W pakiecie <code>klaR</code> istnieje inna funkcja budująca klasyfikator Bayesa <code>NaiveBayes</code>, ale w tym przypadku jeśli zbiór jest w formie tabeli, to należy go zamienić na ramkę danych z oddzielnymi przypadkami.
+<span id="exm:unnamed-chunk-51" class="example"><strong>Przykład 8.1  </strong></span>Przeprowadzimy klasyfikację dla zbioru <code>Titanic</code>. W przypadku funkcji z pakietu <code>e1071</code> nie potrzeba zamieniać tabeli na przypadki. W pakiecie <code>klaR</code> istnieje inna funkcja budująca klasyfikator Bayesa <code>NaiveBayes</code>, ale w tym przypadku jeśli zbiór jest w formie tabeli, to należy go zamienić na ramkę danych z oddzielnymi przypadkami.
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
@@ -403,7 +408,7 @@ tab</code></pre>
 <p>Naiwny klasyfikator spisał się bardzo słabo, ponieważ klasyfikacja na poziomie 0.5 jest taka jak przy rzucie monetą.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-50" class="example"><strong>Przykład 7.2  </strong></span>Przeprowadzimy klasyfikację gatunków irysów na podstawie szerokości i długości kielicha i płatka.
+<span id="exm:unnamed-chunk-55" class="example"><strong>Przykład 8.2  </strong></span>Przeprowadzimy klasyfikację gatunków irysów na podstawie szerokości i długości kielicha i płatka.
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(klaR)
@@ -454,7 +459,7 @@ tab</code></pre>
 <p>Klasyfikacja na podstawie modelu jest badzo do dobra (96%).</p>
 </div>
 <div id="zalety-i-wady-1" class="section level2">
-<h2><span class="header-section-number">7.4</span> Zalety i wady</h2>
+<h2><span class="header-section-number">8.4</span> Zalety i wady</h2>
 <ul>
 <li>Zalety:
 <ul>
@@ -493,7 +498,7 @@ tab</code></pre>
           </div>
         </div>
       </div>
-<a href="klasyfikatory-liniowe.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresja-logistyczna.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
