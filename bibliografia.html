@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-28">
+<meta name="date" content="2019-04-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -205,11 +205,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
 <li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
-<li class="chapter" data-level="8.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#dwie-kategorie-zmiennj-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennj grupującej</a></li>
-<li class="chapter" data-level="8.1.2" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+<li class="chapter" data-level="8" data-path="LDA.html"><a href="LDA.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
+<li class="chapter" data-level="8.1" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=I\)</span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
+<li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
+<li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
@@ -255,10 +264,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
 </div>
 <div>
+<p>Duda, Richard O., Peter E. Hart, and David G. Stork. 2001. <em>Pattern Classification</em>. Wiley.</p>
+</div>
+<div>
 <p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
 </div>
 <div>
 <p>Fisher, R. A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” <em>Annals of Eugenics</em> 7 (2): 179–88. <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</a>.</p>
+</div>
+<div>
+<p>Friedman, Jerome H. 1989. “Regularized Discriminant Analysis.” <em>Journal of the American Statistical Association</em> 84 (405): 165–75. <a href="https://doi.org/10.2307/2289860">https://doi.org/10.2307/2289860</a>.</p>
 </div>
 <div>
 <p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
@@ -274,6 +289,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
+</div>
+<div>
+<p>Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2018. <em>Caret: Classification and Regression Training</em>. <a href="https://CRAN.R-project.org/package=caret">https://CRAN.R-project.org/package=caret</a>.</p>
 </div>
 <div>
 <p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
@@ -313,6 +331,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for &quot;Data Mining with R&quot;</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
+</div>
+<div>
+<p>Trevor Hastie &amp; Robert Tibshirani. Original R port by Friedrich Leisch, S original by, Kurt Hornik, and Brian D. Ripley. 2017. <em>Mda: Mixture and Flexible Discriminant Analysis</em>. <a href="https://CRAN.R-project.org/package=mda">https://CRAN.R-project.org/package=mda</a>.</p>
 </div>
 <div>
 <p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>

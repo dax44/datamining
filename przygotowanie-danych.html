@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-28">
+<meta name="date" content="2019-04-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -205,11 +205,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
 <li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
-<li class="chapter" data-level="8.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#dwie-kategorie-zmiennj-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennj grupującej</a></li>
-<li class="chapter" data-level="8.1.2" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+<li class="chapter" data-level="8" data-path="LDA.html"><a href="LDA.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
+<li class="chapter" data-level="8.1" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=I\)</span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
+<li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
+<li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
@@ -246,37 +255,37 @@ test_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<spa
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hIgHlo&quot;</span>, <span class="st">&quot;REPEAT VALUE&quot;</span>, <span class="st">&quot;REPEAT VALUE&quot;</span>,
                     <span class="st">&quot;% successful (2009)&quot;</span>,  <span class="st">&quot;abc@!*&quot;</span>, <span class="st">&quot;&quot;</span>)
 test_df</code></pre>
-<pre><code>##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1  0.2194082   -0.8648468   -0.3777212           0.4468966 0.09660082
-## 2 -1.0676327   -0.6028824    0.6956628           1.2052258 0.56032344
-## 3  0.4828645    0.7749321   -1.3051041           0.4403668 1.09789483
+<pre><code>##      hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
+## 1 1.6790755    0.6661603   -0.8146708           0.4423675  0.9755845
+## 2 1.3229556   -0.9828055   -0.2940081          -0.6778910 -0.5879578
+## 3 0.4403683    1.1473081   -0.5402885           0.5296637 -0.4781025
 ##             
-## 1 -0.2710014
-## 2  0.4868941
-## 3 -0.9522451</code></pre>
+## 1 -0.6536868
+## 2  1.0560019
+## 3  0.7178906</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## do poprawy nazw zmiennych użyjemy funkcji make.names</span>
 <span class="kw">names</span>(test_df) &lt;-<span class="st"> </span><span class="kw">make.names</span>(<span class="kw">names</span>(test_df))
 test_df</code></pre>
-<pre><code>##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1  0.2194082   -0.8648468   -0.3777212            0.4468966 0.09660082
-## 2 -1.0676327   -0.6028824    0.6956628            1.2052258 0.56032344
-## 3  0.4828645    0.7749321   -1.3051041            0.4403668 1.09789483
+<pre><code>##      hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
+## 1 1.6790755    0.6661603   -0.8146708            0.4423675  0.9755845
+## 2 1.3229556   -0.9828055   -0.2940081           -0.6778910 -0.5879578
+## 3 0.4403683    1.1473081   -0.5402885            0.5296637 -0.4781025
 ##            X
-## 1 -0.2710014
-## 2  0.4868941
-## 3 -0.9522451</code></pre>
+## 1 -0.6536868
+## 2  1.0560019
+## 3  0.7178906</code></pre>
 <p>Efekt końcowy choć skuteczny, to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję <code>clean_names</code> pakietu <strong>janitor</strong> <span class="citation">(Firke <a href="#ref-R-janitor">2018</a>)</span>. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
 test_df <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># aby na stałe zmienić nazwy zmiennych trzeba podstawienia</span>
 <span class="st">    </span><span class="kw">clean_names</span>()</code></pre>
-<pre><code>##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1  0.2194082   -0.8648468     -0.3777212         0.4468966 0.09660082
-## 2 -1.0676327   -0.6028824      0.6956628         1.2052258 0.56032344
-## 3  0.4828645    0.7749321     -1.3051041         0.4403668 1.09789483
+<pre><code>##    h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
+## 1 1.6790755    0.6661603     -0.8146708         0.4423675  0.9755845
+## 2 1.3229556   -0.9828055     -0.2940081        -0.6778910 -0.5879578
+## 3 0.4403683    1.1473081     -0.5402885         0.5296637 -0.4781025
 ##            x
-## 1 -0.2710014
-## 2  0.4868941
-## 3 -0.9522451</code></pre>
+## 1 -0.6536868
+## 2  1.0560019
+## 3  0.7178906</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># przykładowe dane</span>
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">w1=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="ot">NA</span>),<span class="dt">w2=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="ot">NA</span>), <span class="dt">w3=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>,<span class="ot">NA</span>))
 x</code></pre>

@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-28">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -207,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
 <li class="chapter" data-level="8.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#dwie-kategorie-zmiennj-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennj grupującej</a></li>
+<li class="chapter" data-level="8.1.1" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
 <li class="chapter" data-level="8.1.2" data-path="analiza-dyskryminacyjna.html"><a href="analiza-dyskryminacyjna.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
 </ul></li>
@@ -243,8 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Analiza dyskryminacyjna (ang. <em>discriminant analysis</em>) jest grupą technik dyskryminacji obserwacji względem przynależności do klas. Część z nich należy do klasyfikatorów liniowych (choć nie zawsze w ścisłym sensie). Za autorów tej metody uważa się Fisher’a <span class="citation">(<a href="#ref-fisher1936">1936</a>)</span> i Welch’a <span class="citation">(<a href="#ref-welch1939">1939</a>)</span>. Kazdy z nich prezentował nieco inne podejscie do tematu klasyfikacji. Welch poszukiwał klasyfikacji minimalizującej prawdopodobieństwo błędnej klasyfikacji, znane jako <a href="bayes.html#bayes">klasyfikatory bayesowskie</a>. Podejście Fisher’a skupiało się raczej na porównaniu zmienności miedzygrupowej do zmienności wewnątrzgrupowej. Wychodząc z założenia, że iloraz tych wariancji powinien być stosunkowo duży przy różnych klasach, jeśli do ich opisu użyjemy odpowiednich zmiennych niezależnych. W istocie chodzi o znalezienie takiego wektora, w kierunku którego wspomniany iloraz wariancji jest największy.</p>
 <div id="liniowa-analiza-dyskryminacyjna-fishera" class="section level2">
 <h2><span class="header-section-number">8.1</span> Liniowa analiza dyskryminacyjna Fisher’a</h2>
-<div id="dwie-kategorie-zmiennj-grupujacej" class="section level3">
-<h3><span class="header-section-number">8.1.1</span> Dwie kategorie zmiennj grupującej</h3>
+<div id="dwie-kategorie-zmiennej-grupujacej" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Dwie kategorie zmiennej grupującej</h3>
 <p>Niech <span class="math inline">\(\boldsymbol D\)</span> będzie zbiorem zawierającym <span class="math inline">\(n\)</span> punktów <span class="math inline">\(\{\boldsymbol x_i, y_i\}\)</span>, gdzie <span class="math inline">\(\boldsymbol x_i\in \mathbb{R}^d\)</span>, a <span class="math inline">\(y_i\in \{c_1,\ldots,c_k\}\)</span>. Niech <span class="math inline">\(\boldsymbol D_i\)</span> oznacza podzbiór punktów zbioru <span class="math inline">\(\boldsymbol D\)</span>, które należą do klasy <span class="math inline">\(c_i\)</span>, czyli <span class="math inline">\(\boldsymbol D_i=\{\boldsymbol x_i|y_i=c_i\}\)</span> i niech <span class="math inline">\(|\boldsymbol D_i|=n_i\)</span>. Na początek załóżmy, że <span class="math inline">\(\boldsymbol D\)</span> składa się tylko z <span class="math inline">\(\boldsymbol D_1\)</span> i <span class="math inline">\(\boldsymbol D_2\)</span>.</p>
 <p>Niech <span class="math inline">\(\boldsymbol w\)</span> będzie wektorem jednostkowym (<span class="math inline">\(\boldsymbol w&#39;\boldsymbol w=1\)</span>), wówczas rzut ortogonalny punku <span class="math inline">\(\boldsymbol x_i\)</span> na wektor <span class="math inline">\(\boldsymbol w\)</span> można zapisać następująco
 <span class="math display">\[\begin{equation}
@@ -263,7 +263,7 @@ Rysunek 8.1: Rzut ortogonalny punktów w kierunku wektora <span class="math inli
 </div>
 <p>Każdy punkt należy do pewnej klasy, dlatego możemy wyliczyć
 <span class="math display" id="eq:m">\[\begin{align}
-    \boldsymbol m_1=&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1}a_i=\\
+    m_1=&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1}a_i=\\
     =&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol w&#39; \boldsymbol x_i=\\
     =&amp; \boldsymbol w&#39;\left(\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol x_i \right)=\\
     =&amp; \boldsymbol w&#39; \boldsymbol{\mu}_1,
@@ -275,7 +275,7 @@ gdzie <span class="math inline">\(\boldsymbol \mu_1\)</span> jest wektorem śred
     \max_{ \boldsymbol w}J(\boldsymbol w)=\frac{(m_1-M_2)^2}{ss_1^2+ss_2^2},
     \tag{8.2}
 \end{equation}\]</span>
-gdzie <span class="math inline">\(ss_j^2=\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=n_j\sigma_j^2.\)</span>$</p>
+gdzie <span class="math inline">\(ss_j^2=\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=n_j\sigma_j^2.\)</span></p>
 <p>Zauważmy, że licznik w <a href="analiza-dyskryminacyjna.html#eq:condFisher">(8.2)</a> da się zapisać jako
 <span class="math display">\[\begin{align}
     (m_1-m_2)^2=&amp; ( \boldsymbol w&#39;( \boldsymbol \mu_1- \boldsymbol \mu_2))^2=\\
@@ -308,8 +308,8 @@ Ostatecznie warunek Fisher’a przyjmuje postać
     \boldsymbol{B} \boldsymbol{w} = \lambda \boldsymbol{S} \boldsymbol{w},
     \tag{8.5}
 \end{equation}\]</span>
-gdzie <span class="math inline">\(\lambda=J(\boldsymbol{w})\)</span>. Maksimum <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> jest osiągane dla wektora <span class="math inline">\(\boldsymbol{w}\)</span> równego wektrowi własnemu odpowiadającemu największej wartości własnej macierzy <span class="math inline">\(\boldsymbol{S}\)</span>. Jeśli <span class="math inline">\(\boldsymbol{S}\)</span> nie jest osobliwa, to rozwiązanie <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> można przedstawić bez wykorzystania wartości i wektorów własnych.</p>
-<p>Poniważ <span class="math inline">\(\boldsymbol{B}=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}\)</span> jest macierzą <span class="math inline">\(d \times d\)</span> rzędu 1, to <span class="math inline">\(\boldsymbol{B}\boldsymbol{w}\)</span> jest punktem na kierunku wyznaczonym przez wektor <span class="math inline">\(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\)</span>, bo
+gdzie <span class="math inline">\(\lambda=J(\boldsymbol{w})\)</span>. Maksimum <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> jest osiągane dla wektora <span class="math inline">\(\boldsymbol{w}\)</span> równego wektrowi własnemu odpowiadającemu największej wartości własnej równania charkterystycznego <span class="math inline">\(|\boldsymbol{B}-\lambda\boldsymbol{S}|=0\)</span>. Jeśli <span class="math inline">\(\boldsymbol{S}\)</span> nie jest osobliwa, to rozwiązanie <a href="analiza-dyskryminacyjna.html#eq:condFisher3">(8.5)</a> otrzymujemy przez znalezienie największej wartości własnej macierzy <span class="math inline">\(\boldsymbol{B}\boldsymbol{S}^{-1}\)</span> lub bez wykorzystania wartości i wektorów własnych.</p>
+<p>Ponieważ <span class="math inline">\(\boldsymbol{B}=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}\)</span> jest macierzą <span class="math inline">\(d \times d\)</span> rzędu 1, to <span class="math inline">\(\boldsymbol{B}\boldsymbol{w}\)</span> jest punktem na kierunku wyznaczonym przez wektor <span class="math inline">\(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\)</span>, bo
 <span class="math display">\[\begin{align}
     \boldsymbol{B}\boldsymbol{w}=&amp; \left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
     =&amp;(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
@@ -334,11 +334,11 @@ Rysunek 8.2: Rzut ortogonalny w kierunku wektora <span class="math inline">\(\bo
 </div>
 <div id="k-kategorii-zmiennej-grupujacej" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</h3>
-<p>Uogólnieniem tej teorii na przypadek <span class="math inline">\(k\)</span> klas jest uwzględnienie <span class="math inline">\(k-1\)</span> funkcji dyskryminacyjnych. Zmienność wewnątrzgrupowa przyjmuje wówczas postać
+<p>Uogólnieniem tej teorii na przypadek <span class="math inline">\(k\)</span> klas otrzymujemy przez uwzględnienie <span class="math inline">\(k-1\)</span> funkcji dyskryminacyjnych. Zmienność wewnątrzgrupowa przyjmuje wówczas postać
 <span class="math display">\[\begin{equation}
     \boldsymbol{S}_W=\sum_{i=1}^k\boldsymbol{S}_i,
 \end{equation}\]</span>
-gdzie <span class="math inline">\(\boldsymbol{S}\)</span> jest zdefiniowane jak w <a href="analiza-dyskryminacyjna.html#eq:Sj">(8.3)</a>.
+gdzie <span class="math inline">\(\boldsymbol{S}_i\)</span> jest zdefiniowane jak w <a href="analiza-dyskryminacyjna.html#eq:Sj">(8.3)</a>.
 Niech średnia i rozrzut globalny będą dane wzorami
 <span class="math display">\[\begin{equation}
     \boldsymbol{m}=\frac{1}{n}\sum_{i=1}^kn_i\boldsymbol{m}_i,
@@ -359,7 +359,7 @@ Połączone wszystkie <span class="math inline">\(k-1\)</span> rzutów możemy z
 <span class="math display">\[\begin{equation}
     \boldsymbol{a}=\boldsymbol{W}&#39;\boldsymbol{x}.
 \end{equation}\]</span></p>
-<p>W nowej przestrzeni <span class="math inline">\(k-1\)</span>-wymirowej możemy zdefiniować
+<p>W nowej przestrzeni <span class="math inline">\(k-1\)</span>-wymiarowej możemy zdefiniować
 <span class="math display">\[\begin{equation}
     \tilde{\boldsymbol{m}}=\frac{1}{n}\sum_{i=1}^kn_i\tilde{\boldsymbol{m}}_i,
 \end{equation}\]</span>
@@ -384,10 +384,10 @@ Maksimum można znaleźć poprzez rozwiązanie równania charakterystycznego <sp
 dla każdego <span class="math inline">\(i\)</span>.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-50" class="example"><strong>Przykład 8.1  </strong></span>Dla danych ze zbioru <code>iris</code> przeprowadzimy analizę dyskryminacji. Implementację metody LDA znajdziemy w pakiecie <code>MASS</code> w postaci funkcji <code>lda</code>.
+<span id="exm:unnamed-chunk-1" class="example"><strong>Przykład 8.1  </strong></span>Dla danych ze zbioru <code>iris</code> przeprowadzimy analizę dyskryminacji. Implementację metody LDA znajdziemy w pakiecie <code>MASS</code> w postaci funkcji <code>lda</code>.
 </div>
 
-<p>Zaczynamy od standaryzacji zmiennych i podziału próby na uczącą i tesetową.</p>
+<p>Zaczynamy od standaryzacji zmiennych i podziału próby na uczącą i testową.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
 <span class="kw">library</span>(tidyverse)
 iris.std &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>
@@ -414,7 +414,7 @@ mod.lda<span class="op">$</span>prior</code></pre>
 ## Sepal.Width   0.4701094 -1.053135
 ## Petal.Length -4.0746585  1.488372
 ## Petal.Width  -2.5146178 -2.312201</code></pre>
-<p>Powyższa tabel zawiera współrzędne wektrów wyznaczających funkcje dyskryminacyjne. Na ich podstawie możemy określić, która z nich wpływa najmocniej na tworzenie się nowej przestrzeni.</p>
+<p>Powyższa tabela zawiera współrzędne wektrów wyznaczających funkcje dyskryminacyjne. Na ich podstawie możemy określić, która z nich wpływa najmocniej na tworzenie się nowej przestrzeni.</p>
 <p>Obiekt <code>svd</code> przechowuje pierwiastki z <span class="math inline">\(\lambda_i\)</span>, dlatego podnosząc je do kwadratu i dzieląc przez ich sumę otrzymamy udział poszczególnych zmiennych w dyskryminacji przypadków. Jak widać pierwsza funkcja dyskryminacyjna w zupełności by wystarczyła.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="kw">sum</span>(mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 0.994875091 0.005124909</code></pre>
@@ -442,8 +442,8 @@ tab</code></pre>
                  <span class="dt">pred =</span> pred.lda<span class="op">$</span>class) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2))<span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> pred, <span class="dt">shape =</span> obs))</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-58"></span>
-<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-58-1.png" alt="Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda" width="1056" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
+<img src="EksploracjaDanych_files/figure-html/unnamed-chunk-9-1.png" alt="Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda" width="672" />
 <p class="caption">
 Rysunek 8.3: Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda
 </p>
