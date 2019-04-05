@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-02">
+<meta name="date" content="2019-04-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -211,18 +211,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=I\)</span></a></li>
+<li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=\sigma^2I\)</span></a></li>
 <li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
 <li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
 <li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
 <li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
 <li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
-<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-warogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej warogodności (ML)</a></li>
+<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-wiarogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
 <li class="chapter" data-level="9.3" data-path="bayes.html"><a href="bayes.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>9.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
 <li class="chapter" data-level="9.4" data-path="bayes.html"><a href="bayes.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>9.4</b> Zalety i wady</a></li>
 </ul></li>
@@ -251,18 +251,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">7</span> Regresja logistyczna</h1>
 <div id="model-1" class="section level2">
 <h2><span class="header-section-number">7.1</span> Model</h2>
-<p>Regresja logisticzna (ang. <em>logistic regression</em>) jest techniką z rodziny klasyfikatorów liniowych z reprezentacją logistyczną, a formalnie należy do rodziny ugogólnionych modeli liniowych (GLM). Stosowana jest wówczas, gdy zmienna wynikowa posiada dwa stany (sukces i porażka), kodowane najczęściej za pomocą 1 i 0. W tej metodzie modelowane jest warunkowe prawdopobieństwo sukcesu za pomocą kombinacji liniowej predyktorów <span class="math inline">\(X\)</span>.</p>
+<p>Regresja logistyczna (ang. <em>logistic regression</em>) jest techniką z rodziny klasyfikatorów liniowych z reprezentacją logistyczną, a formalnie należy do rodziny uogólnionych modeli liniowych (GLM). Stosowana jest wówczas, gdy zmienna wynikowa posiada dwa stany (sukces i porażka), kodowane najczęściej za pomocą 1 i 0. W tej metodzie modelowane jest warunkowe prawdopodobieństwo sukcesu za pomocą kombinacji liniowej predyktorów <span class="math inline">\(X\)</span>.</p>
 <p>Ogólna postać modelu
 <span class="math display">\[\begin{align}
     Y\sim &amp;B(1, p)\\
     p(X)=&amp;\E(Y|X)=\frac{\exp(\beta X)}{1+\exp(\beta X)},
 \end{align}\]</span>
-gdzie <span class="math inline">\(B(1,p)\)</span> jest rozkładem dwumianowym o prawdopodobieństwie sukcesu <span class="math inline">\(p\)</span>, a <span class="math inline">\(\beta X\)</span> oznacza kombinację liniową parametrów modelu i wartości zmiennych niezależnych, przyjmując, że <span class="math inline">\(x_0=1\)</span>. Jako funkcji łączącej (czyli opisującej zwiazek między kombinacją liniową predyktorów i prawdopodobieństwem sukcesu) użyto <em>logitu</em>. Pozwala on na wygodną interpretację wyników w terminach szans.</p>
+gdzie <span class="math inline">\(B(1,p)\)</span> jest rozkładem dwumianowym o prawdopodobieństwie sukcesu <span class="math inline">\(p\)</span>, a <span class="math inline">\(\beta X\)</span> oznacza kombinację liniową parametrów modelu i wartości zmiennych niezależnych, przyjmując, że <span class="math inline">\(x_0=1\)</span>. Jako funkcji łączącej (czyli opisującej związek między kombinacją liniową predyktorów i prawdopodobieństwem sukcesu) użyto <em>logitu</em>. Pozwala on na wygodną interpretację wyników w terminach szans.</p>
 <p>Szansą (ang. <em>odds</em>) nazywamy stosunek prawdopodobieństwa sukcesu do prawdopodobieństwa porażki
 <span class="math display">\[\begin{equation}
     o = \frac{p}{1-p}.
 \end{equation}\]</span></p>
-<p>Ponieważ będziemy przyjmowali, że <span class="math inline">\(p\in (0,1)\)</span>, to <span class="math inline">\(o\in (0,\infty)\)</span>, a jej logartym należy do przedziału <span class="math inline">\((-\infty, \infty)\)</span>.</p>
+<p>Ponieważ będziemy przyjmowali, że <span class="math inline">\(p\in (0,1)\)</span>, to <span class="math inline">\(o\in (0,\infty)\)</span>, a jej logarytm należy do przedziału <span class="math inline">\((-\infty, \infty)\)</span>.</p>
 <p>Zatem logarytm szansy jest kombinacją liniową predyktorów
 <span class="math display">\[\begin{equation}
     \log\left[\frac{p(X)}{1-p(X)}\right]=\beta_0+\beta_1x_1+\ldots+\beta_kx_k.
@@ -292,7 +292,7 @@ gdzie wektor <span class="math inline">\(\beta\)</span> jest uwikłany w funkcji
     OR = \frac{p_1}{1-p_1}\frac{1-p_2}{p_2},
 \end{equation}\]</span>
 gdzie <span class="math inline">\(p_i\)</span> oznacza zajście sukcesu w <span class="math inline">\(i\)</span>-tej klasie.</p>
-<p>Interpretujemy go nastepująco:</p>
+<p>Interpretujemy go następująco:</p>
 <ul>
 <li>jeśli <span class="math inline">\(OR&gt;1\)</span> - to w pierwszej grupie zajście sukcesu jest bardziej prawdopodobne,</li>
 <li>jeśli <span class="math inline">\(OR&lt;1\)</span> - to w drugiej grupie zajście sukcesu jest bardziej prawdopodobne,</li>
@@ -343,7 +343,7 @@ mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span
 ## AIC: 1067.8
 ## 
 ## Number of Fisher Scoring iterations: 8</code></pre>
-<p>Tylko <code>income</code> nie ma żadnego wpływu na prawdopodobieństwo stanu <code>Yes</code> zmiennej <code>default</code>. Zmienna <code>balance</code> wpływa stymulująco na prawdopodobieństwo pojawienia się sukcesu. Natomiast jeśli badana osoba jest studentem (<code>studentYes</code>), to ma wpływ ograniczający na pojawienie się sukcesu. Chcąc porównać dwie grupy obserwacji, przykładowo studentów z niestudentami, możemy wykorzystać iloraz szans.</p>
+<p>Tylko <code>income</code> nie ma żadnego wpływu na prawdopodobieństwo stanu <code>Yes</code> zmiennej <code>default</code>. Zmienna <code>balance</code> wpływa stymulująco na prawdopodobieństwo pojawienia się sukcesu. Natomiast jeśli badana osoba jest studentem (<code>studentYes</code>), to ma wpływ ograniczający na pojawienie się sukcesu. Chcąc porównać dwie grupy obserwacji, przykładowo studentów z nie-studentami, możemy wykorzystać iloraz szans.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">cbind</span>(<span class="dt">OR =</span> <span class="kw">coef</span>(mod.logit), <span class="kw">confint</span>(mod.logit))) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">4</span>)</code></pre>
 <table>
@@ -382,8 +382,8 @@ mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span
 </tr>
 </tbody>
 </table>
-<p>Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na <code>Yes</code> w zmiennej <code>default</code> o około 40% (w stosunku do niestudentów). Natomiast wzrost zmiennej <code>balance</code> przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na <code>Yes</code> o około 0.6%.</p>
-<p>Chcąc przeprowadzić predykcję na podstwie modelu dla ustalonych wartości cech (np. <code>student = Yes</code>, <code>balance = $1000</code> i <code>income = $40000</code>) postępujemy następująco</p>
+<p>Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na <code>Yes</code> w zmiennej <code>default</code> o około 40% (w stosunku do nie-studentów). Natomiast wzrost zmiennej <code>balance</code> przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na <code>Yes</code> o około 0.6%.</p>
+<p>Chcąc przeprowadzić predykcję na podstawie modelu dla ustalonych wartości cech (np. <code>student = Yes</code>, <code>balance = $1000</code> i <code>income = $40000</code>) postępujemy następująco</p>
 <pre class="sourceCode r"><code class="sourceCode r">dt.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">student =</span> <span class="st">&quot;Yes&quot;</span>, <span class="dt">balance =</span> <span class="dv">1000</span>, <span class="dt">income =</span> <span class="dv">40000</span>)
 <span class="kw">predict</span>(mod.logit, <span class="dt">newdata =</span> dt.new, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre>
 <pre><code>##           1 
