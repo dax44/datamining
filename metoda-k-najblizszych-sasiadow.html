@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bibliografia | Eksploracja danych</title>
+  <title>10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bibliografia | Eksploracja danych" />
+  <meta property="og:title" content="10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografia | Eksploracja danych" />
+  <meta name="twitter:title" content="10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="uogolnione-modele-addytywne.html">
-
+<link rel="prev" href="bayes.html">
+<link rel="next" href="uogolnione-modele-addytywne.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -255,149 +255,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografia" class="section level1 unnumbered">
-<h1>Bibliografia</h1>
-
-<div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
+<div id="metoda-k-najblizszych-sasiadow" class="section level1">
+<h1><span class="header-section-number">10</span> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</h1>
+<p>Technika <span class="math inline">\(k\)</span> najbliższych sąsiadów (ang. <em><span class="math inline">\(k\)</span>-Nearest Neighbors</em>) przewiduję wartość zmiennej wynikowej na podstawie <span class="math inline">\(k\)</span> najbliższych obserwacji zbioru uczącego. W przeciwieństwie do wspomnianych wcześniej modeli liniowych, nie posiada ona jawnej formy i należy do klasy technik nazywanych czarnymi skrzynkami (ang. <em>black box</em>). Może być wykorzystywana, zarówno do zadań klasyfikacyjnych, jak i regresyjnych. W obu przypadkach predykcja dla nowych wartości predyktorów przebiega podobnie.</p>
+<p>Niech <span class="math inline">\(\boldsymbol x_0\)</span> będzie obserwacją, dla której poszukujemy wartości zmiennej wynikowej <span class="math inline">\(y_0\)</span>. Na podstawie zbioru obserwacji <span class="math inline">\(\boldsymbol x\in T\)</span> zbioru uczącego wyznacza się <span class="math inline">\(k\)</span> najbliższych sąsiadów<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>, gdzie <span class="math inline">\(k\)</span> jest z góry ustaloną wartością. Następnie, jeśli zadanie ma charakter klasyfikacyjny, to <span class="math inline">\(y_0\)</span> przypisuje się modę zmiennej wynikowej obserwacji będących <span class="math inline">\(k\)</span> najbliższymi sąsiadami. W przypadku zadań regresyjnych <span class="math inline">\(y_0\)</span> przypisuje się średnią lub medianę.</p>
+<p>Olbrzymie znaczenie dla wyników predykcji na podstawie metody <em>kNN</em> ma dobór metryki. Nie istnieje obiektywna technika wyboru najlepszej metryki, dlatego jej doboru dokonujemy metodą prób i błędów. Należy dodatkowo pamiętać, że wielkości mierzone <span class="math inline">\(\boldsymbol x\)</span> mogą się różnić zakresami zmienności, a co za tym idzie, mogą znacząco wpłynąć na mierzone odległości pomiędzy punktami. Dlatego zaleca się standaryzację zmiennych przed zastosowaniem metody <em>kNN</em>.</p>
+<p>Kolejnym parametrem, który ma znaczący wpływ na predykcję, jest liczba sąsiadów <span class="math inline">\(k\)</span>. Wybór zbyt małej liczby <span class="math inline">\(k\)</span> może doprowadzić do przeuczenia modelu jak to jest pokazane na rysunku <a href="metoda-k-najblizszych-sasiadow.html#fig:knn1">10.1</a></p>
+<div class="figure" style="text-align: center"><span id="fig:knn1"></span>
+<img src="EksploracjaDanych_files/figure-html/knn1-1.png" alt="Przykład klasyfikacji dla $k=1$" width="1056" />
+<p class="caption">
+Rysunek 10.1: Przykład klasyfikacji dla <span class="math inline">\(k=1\)</span>
+</p>
 </div>
-<div>
-<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
+<p>Z kolei zbyt duża liczba sąsiadów powoduje obciążenie wyników (patrz rysunek <a href="metoda-k-najblizszych-sasiadow.html#fig:knn2">10.2</a>)</p>
+<div class="figure" style="text-align: center"><span id="fig:knn2"></span>
+<img src="EksploracjaDanych_files/figure-html/knn2-1.png" alt="Przykład zastosowania 100 sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.2: Przykład zastosowania 100 sąsiadów
+</p>
 </div>
-<div>
-<p>———. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3). The Institute of Mathematical Statistics: 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
-</div>
-<div>
-<p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
-</div>
-<div>
-<p>Duda, Richard O., Peter E. Hart, and David G. Stork. 2001. <em>Pattern Classification</em>. Wiley.</p>
-</div>
-<div>
-<p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
-</div>
-<div>
-<p>Fisher, R. A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” <em>Annals of Eugenics</em> 7 (2): 179–88. <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</a>.</p>
-</div>
-<div>
-<p>Friedman, Jerome H. 1989. “Regularized Discriminant Analysis.” <em>Journal of the American Statistical Association</em> 84 (405): 165–75. <a href="https://doi.org/10.2307/2289860">https://doi.org/10.2307/2289860</a>.</p>
-</div>
-<div>
-<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
-</div>
-<div>
-<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
-</div>
-<div>
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3). Taylor &amp; Francis: 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
-</div>
-<div>
-<p>Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2018. <em>Caret: Classification and Regression Training</em>. <a href="https://CRAN.R-project.org/package=caret">https://CRAN.R-project.org/package=caret</a>.</p>
-</div>
-<div>
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-<div>
-<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
-</div>
-<div>
-<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div>
-<p>Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. <em>E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien</em>. <a href="https://CRAN.R-project.org/package=e1071">https://CRAN.R-project.org/package=e1071</a>.</p>
-</div>
-<div>
-<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
-</div>
-<div>
-<p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
-</div>
-<div>
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
-</div>
-<div>
-<p>Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. <em>VIM: Visualization and Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=VIM">https://CRAN.R-project.org/package=VIM</a>.</p>
-</div>
-<div>
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div>
-<p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for &quot;Data Mining with R&quot;</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
-</div>
-<div>
-<p>Trevor Hastie &amp; Robert Tibshirani. Original R port by Friedrich Leisch, S original by, Kurt Hornik, and Brian D. Ripley. 2017. <em>Mda: Mixture and Flexible Discriminant Analysis</em>. <a href="https://CRAN.R-project.org/package=mda">https://CRAN.R-project.org/package=mda</a>.</p>
-</div>
-<div>
-<p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. “KlaR Analyzing German Business Cycles.” In <em>Data Analysis and Decision Support</em>, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335–43. Berlin: Springer-Verlag.</p>
-</div>
-<div>
-<p>Welch, B. L. 1939. “Note on Discriminant Functions.” <em>Biometrika</em> 31 (1/2): 218–20. <a href="https://doi.org/10.2307/2334985">https://doi.org/10.2307/2334985</a>.</p>
-</div>
-<div>
-<p>Wood, S.N. 2017. <em>Generalized Additive Models: An Introduction with R</em>. 2nd ed. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-<div>
-<p>———. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
-</div>
-</div>
+<p>Dopiero dobór odpowiedniego <span class="math inline">\(k\)</span> daje model o stosunkowo niskiej wariancji i obciążeniu. Najczęściej liczby <span class="math inline">\(k\)</span> poszukujemy za pomocą próbkowania.</p>
+<div class="figure" style="text-align: center"><span id="fig:knn3"></span>
+<img src="EksploracjaDanych_files/figure-html/knn3-1.png" alt="Model z optymalną liczbą sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.3: Model z optymalną liczbą sąsiadów
+</p>
 </div>
 
+<div class="example">
+<p><span id="exm:knn_przklad1" class="example"><strong>(#exm:knn_przklad1) </strong></span>Klasyfikację z wykorzystaniem metody <em>kNN</em> przeprowadzimy na przykładzie danych zbioru <code>spam</code> pakietu <code>ElemStatLearn</code>. Metoda <em>kNN</em> ma wiele implementacji R-owych ale na potrzeby przykładu wykorzystamy funkcję <code>knn3</code> pakietu <code>caret</code>.</p>
+Najpierw dokonamy oszacowania optymalnego <span class="math inline">\(k\)</span>
+</div>
 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ElemStatLearn)
+<span class="kw">library</span>(tidyverse)
 
+spam.std &lt;-<span class="st"> </span>spam <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, scale)
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(spam), <span class="dt">size =</span> <span class="kw">nrow</span>(spam)<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)
+dt.ucz &lt;-<span class="st"> </span>spam.std[ind,]
+dt.test &lt;-<span class="st"> </span>spam.std[<span class="op">-</span>ind,]
 
+acc &lt;-<span class="st"> </span><span class="cf">function</span>(pred, obs){
+    tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred,obs)
+    acc &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))
+    acc
+}
 
+<span class="dv">1</span><span class="op">:</span><span class="dv">40</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">knn3</span>(spam<span class="op">~</span>., <span class="dt">data =</span> dt.ucz, <span class="dt">k =</span> .x)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">predict</span>(.x, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">map_dbl</span>(<span class="op">~</span><span class="kw">acc</span>(<span class="dt">pred =</span> .x, <span class="dt">obs =</span> dt.test<span class="op">$</span>spam)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">tibble</span>(<span class="dt">k =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(.), <span class="dt">acc=</span>.) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(k, acc))<span class="op">+</span>
+<span class="st">     </span><span class="kw">geom_line</span>()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:knnrys"></span>
+<img src="EksploracjaDanych_files/figure-html/knnrys-1.png" alt="Ocena jakości dopasowania modelu dla różnej liczby sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.4: Ocena jakości dopasowania modelu dla różnej liczby sąsiadów
+</p>
+</div>
+<p>Biorąc pod uwagę wykres <a href="metoda-k-najblizszych-sasiadow.html#fig:knnrys">10.4</a> można rozważać 1 lub 9 sąsiadów jako optymalne rozwiązanie, ponieważ wówczas poprawność klasyfikacji jest najwyższa. Proponuje unikać rozwiązania z 1 najbliższym sąsiadem ponieważ, będzie się ono charakteryzowało duża zmiennością. Wybór <span class="math inline">\(k=9\)</span> wydaje się być optymalny.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mod.knn &lt;-<span class="st"> </span><span class="kw">knn3</span>(spam<span class="op">~</span>., <span class="dt">data =</span> dt.ucz,
+                <span class="dt">k =</span> <span class="dv">9</span>)
+mod.knn</code></pre>
+<pre><code>## 9-nearest neighbor model
+## Training set outcome distribution:
+## 
+## email  spam 
+##  1872  1195</code></pre>
+<p>Predykcji dokonujemy w ten sam sposób co w innych modelach klasyfikacyjnych</p>
+<pre class="sourceCode r"><code class="sourceCode r">pred.knn.class &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)
+<span class="kw">head</span>(pred.knn.class)</code></pre>
+<pre><code>## [1] spam  email email spam  spam  email
+## Levels: email spam</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pred.knn &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test)
+<span class="kw">head</span>(pred.knn)</code></pre>
+<pre><code>##          email      spam
+## [1,] 0.0000000 1.0000000
+## [2,] 0.6666667 0.3333333
+## [3,] 0.5555556 0.4444444
+## [4,] 0.2222222 0.7777778
+## [5,] 0.0000000 1.0000000
+## [6,] 0.8888889 0.1111111</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.knn.class, dt.test<span class="op">$</span>spam))</code></pre>
+<pre><code>##               
+## pred.knn.class email spam
+##          email   863   88
+##          spam     53  530</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
+<pre><code>## [1] 0.9080834</code></pre>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>metrykę można wybierać dowolnie, choć najczęściej jest to metryka euklidesowa<a href="metoda-k-najblizszych-sasiadow.html#fnref19" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="uogolnione-modele-addytywne.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="bayes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="uogolnione-modele-addytywne.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

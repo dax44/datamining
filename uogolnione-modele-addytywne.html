@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bibliografia | Eksploracja danych</title>
+  <title>11 Uogólnione modele addytywne | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bibliografia | Eksploracja danych" />
+  <meta property="og:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografia | Eksploracja danych" />
+  <meta name="twitter:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="uogolnione-modele-addytywne.html">
-
+<link rel="prev" href="metoda-k-najblizszych-sasiadow.html">
+<link rel="next" href="bibliografia.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -255,149 +255,184 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografia" class="section level1 unnumbered">
-<h1>Bibliografia</h1>
+<div id="uogolnione-modele-addytywne" class="section level1">
+<h1><span class="header-section-number">11</span> Uogólnione modele addytywne</h1>
+<p>Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstacić kombinację liniową ich funkcji, czyli
+<span class="math display" id="eq:row111">\[\begin{equation}
+    \E(Y|X)=f(X) = \sum_{i=1}^M\beta_mh_m(X),
+    \tag{11.1}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(h_m:\mathbb{R}^d\to\mathbb{R}\)</span> nazywana często funkcją bazową (ang. <em>linear basis expansion</em>). Wówczas w zależności od postaci funkcji bazowej otrzymujemy modele z różnymi poziomami elastyczności:</p>
+<ul>
+<li>gdy <span class="math inline">\(h_m(X)=X_m,\ m=1,\ldots,M\)</span>, to otrzymujemy model liniowy;</li>
+<li>gdy <span class="math inline">\(h_m(X)=X_j^2\)</span> lub <span class="math inline">\(h_m(X)=X_jX_k\)</span>, to otrzymujemy struktury wielomianowe, charakteryzujące się większą elastycznością modelu;</li>
+<li>gdy <span class="math inline">\(h_m(X)=\log X_j\)</span> lub <span class="math inline">\(h_m(X)=\sqrt{X_j}\)</span>, to uzyskujemy nieliniowość czynników wchodzących w skład kombinacji liniowej <a href="uogolnione-modele-addytywne.html#eq:row111">(11.1)</a>;</li>
+<li>dopuszczalne są również kawałkami liniowe funkcje postaci <span class="math inline">\(h_m(X)= I(l_m\leq X_k &lt;u_m)\)</span>, gdzie <span class="math inline">\(I\)</span> jest funkcją charakterystyczną (ang. <em>indicator</em>) przedziału <span class="math inline">\([l_m,u_m)\)</span>.</li>
+</ul>
+<p>Zbiory wszystkich funkcji bazowych definiowanych w ten sposób tworzy słownik funkcji bazowych <span class="math inline">\(\mathcal{D}\)</span>. Aby kontrolować złożoność modeli, mając do dyspozycji tak zasobny słownik, wprowadza się następujące podejścia:</p>
+<ul>
+<li>ogranicza się klasę dostępnych funkcji bazowych
+<span class="math display">\[\begin{equation}
+  f(X) = \sum_{j=1}^df_j(X_j)=\sum_{j=1}^d\sum_{m=1}^{M_j}\beta_{jm}h_{jm}(X_j),
+\end{equation}\]</span></li>
+<li>włącza się do modelu jedynie te funkcje ze słownika <span class="math inline">\(\mathcal{D}\)</span>, które istotnie poprawiają dopasowanie modelu,</li>
+<li>używa się metod penalizowanych, czyli dopuszcza się stosowanie wszystkich funkcji bazowych ze słownika <span class="math inline">\(\mathcal{D}\)</span>, ale współczynniki przy nich stojące są ograniczane.</li>
+</ul>
+<div id="przypadek-jednowymiarowy" class="section level2">
+<h2><span class="header-section-number">11.1</span> Przypadek jednowymiarowy</h2>
+<p>Dla uproszczenia rozważań przyjmiemy, że <span class="math inline">\(X\)</span> jest jednowymiarowe.</p>
+<div class="figure" style="text-align: center"><span id="fig:spline1"></span>
+<img src="images/spline1.JPG" alt="Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej $\max(X-\xi_1,0)$"  />
+<p class="caption">
+Rysunek 11.1: Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej <span class="math inline">\(\max(X-\xi_1,0)\)</span>
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:spline2"></span>
+<img src="images/spline2.JPG" alt="Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości"  />
+<p class="caption">
+Rysunek 11.2: Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości
+</p>
+</div>
+<p>Przykładowo sześcienny splajn<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> dla dwóch punków węzłowych składa się z następujących funkcji bazowych</p>
+<p><span class="math display">\[\begin{gather}
+    h_1(X)=1,\quad h_3(X)=X^2,\quad h_5(X)=(X-\xi_1)_+^3\\
+    h_2(X)=X,\quad h_4(X)=X^3,\quad h_6(X)=(X-\xi_2)_+^3.
+\end{gather}\]</span></p>
+<p>Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdaża się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
+Naturalny splajn sześcienny zakłada liniowość modelu poza węzłami brzegowymi. Dla <span class="math inline">\(K\)</span> węzłów naturalny splajn sześcienny składa się z następujących funkcji bazowych</p>
+<p><span class="math display">\[\begin{gather}
+    N_1(X)=1,\quad N_2(X)=X,\quad N_{k+2}(X)=d_k(X)-d_{K-1}(X),
+\end{gather}\]</span>
+gdzie <span class="math inline">\(d_k(X)=\frac{(X-\xi_k)^3_+-(X-\xi_K)^3_+}{\xi_K-\xi_k}.\)</span></p>
+<p>Estymacji parametrów modelu dokonujemy metodą najmniejszych kwadratów, minimalizując
+<span class="math display">\[\begin{equation}
+    RSS(f,\lambda) = \sum_{i=1}^N(y_i-f(x_i))^2+\lambda\int(f&#39;&#39;(t))^2dt,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\lambda\)</span> jest parametrem wygładzania. Piersze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
+Dla naturalnego splajna
+<span class="math display">\[\begin{equation}
+    f(x)=\sum_{j=1}^NN_j(x)\beta_j
+\end{equation}\]</span>
+minimalizujemy
+<span class="math display">\[\begin{equation}
+    RSS(\beta, \lambda)=(\boldsymbol y -\boldsymbol N\beta)&#39;(\boldsymbol y-\boldsymbol N\beta)+\lambda\beta&#39;\boldsymbol \Omega \beta,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\{\boldsymbol N\}_{ij}= N_j(x_i)\)</span> i <span class="math inline">\(\{\boldsymbol \Omega\}_{jk}=\int N&#39;&#39;_j(t)N&#39;&#39;_k(t)dt\)</span>. Rozwiązaniem zaganienia minimalizacji <span class="math inline">\(RSS(\beta,\lambda)\)</span> jest
+<span class="math display">\[\begin{equation}
+    \hat{\beta}=(\boldsymbol N&#39;\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N&#39;\boldsymbol y.
+\end{equation}\]</span></p>
+</div>
+<div id="przypadek-wielowymiarowy" class="section level2">
+<h2><span class="header-section-number">11.2</span> Przypadek wielowymiarowy</h2>
+<p>W przypadku gdy <span class="math inline">\(X\in \mathbb{R}^d\)</span> poszukujemy takiej <span class="math inline">\(d\)</span>-wymiarowej regresji <span class="math inline">\(f(x)\)</span>, która będzie minimalizowała wyrażenie
+<span class="math display">\[\begin{equation}
+    \min_f\sum_{i=1}^N(y_i-f(x_i))^2+\lambda J(f),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(J\)</span> jest odpowiednią funkcją wyrażającą krzywoliniowość modelu. Dla <span class="math inline">\(X\in \mathbb{R}^2\)</span> przyjmuje postać
+<span class="math display">\[\begin{equation}
+    J(f)=\iint_{\mathbb{R}^2}\left[\left(\frac{\partial^2 f(x)}{\partial^2 x_1}\right)^2+2\left(\frac{\partial^2 f(x)}{\partial x_1\partial x_2}\right)^2+
+    \left(\frac{\partial^2 f(x)}{\partial^2 x_2}\right)^2\right]dx_1dx_2.
+\end{equation}\]</span>
+Rozwiązanie przyjmuje postać
+<span class="math display">\[\begin{equation}
+    f(x) = \beta_0+\beta&#39;x+\sum_{i=1}^N \alpha_ih_i(x),
+\end{equation}\]</span>
+gdzie $h_i(x)=||x-x_j||^2||x-x_j||</p>
+</div>
+<div id="uogolnione-modele-addytywne-1" class="section level2">
+<h2><span class="header-section-number">11.3</span> Uogólnione modele addytywne</h2>
+<p>Przez uogólnione modele addytywne (ang. <em>Generalized Additive Models</em>) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następującyc sposób
+<span class="math display">\[\begin{equation}
+    g(\E(Y|X))=g(\mu(X))=\alpha+f_1(X_1)+\dots+f_d(X_d),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(g\)</span> jest funkcją łączącą. Najczęściej stosowanymi funkcjami łączącymi są:</p>
+<ul>
+<li><span class="math inline">\(g(\mu)=\mu\)</span> - stosowana w modelach, gdy zmienna wynikowa ma rozkład normalny;</li>
+<li><span class="math inline">\(g(\mu)=logit\mu\)</span> - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;</li>
+<li><span class="math inline">\(g(\mu)=probit\mu\)</span> - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a <span class="math inline">\(\Phi^{-1}\)</span> oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;</li>
+<li><span class="math inline">\(g(\mu)=\log\mu\)</span> - stosowana, gdy zmienna wynikowa jest zmienną typu zliczeniowego (rozkład Poissona).</li>
+</ul>
+<div id="algorytm-uczenia-modelu-gam" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> Algorytm uczenia modelu GAM</h3>
+<p>Algorytm uczenia wstecznego (ang. <em>backfitting</em>) przebiega wg następujących kroków:</p>
+<ol style="list-style-type: decimal">
+<li>Ustalamy wstępne oszacowania na <span class="math inline">\(\alpha=\bar{y}\)</span> i <span class="math inline">\(\hat{f}_j=0\)</span>.</li>
+<li>Dla <span class="math inline">\(j=1,\ldots,d,1,\ldots,d,1,\ldots\)</span> powtarzamy szacowanie
+<span class="math display">\[\begin{align}
+ \hat{f}_j\leftarrow &amp;\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right],\\
+ \hat{f}_j\leftarrow &amp;\hat{f}_j-\frac{1}{N}\sum_{i=1}^N\hat{f}_j(x_{ij})
+\end{align}\]</span>
+dopóki <span class="math inline">\(\hat{f}_j\)</span> osiągnie zbieżność. Funkcja <span class="math inline">\(\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right]\)</span> jest jednowymiarowym sześciennym splajnem o <span class="math inline">\(N\)</span> węzłach. W jej miejsce można przyjąć również inne funkcje, takie jak: jednowymiarowe lokalne regresje wielomianowe (ang. <em>LOESS - locally estimated scatterplot smoothing</em>), regresje liniowe, wielomianowe.</li>
+</ol>
 
+<div class="example">
+<span id="exm:gam" class="example"><strong>Przykład 11.1  </strong></span>Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (<span class="math inline">\(O_3\)</span>) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję <code>gam</code> pakietu <code>mgcv</code> <span class="citation">(Wood <a href="#ref-wood2017">2017</a>)</span>.
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(faraway)
+<span class="kw">head</span>(ozone)</code></pre>
+<pre><code>##   O3   vh wind humidity temp  ibh dpg ibt vis doy
+## 1  3 5710    4       28   40 2693 -25  87 250  33
+## 2  5 5700    3       37   45  590 -24 128 100  34
+## 3  5 5760    3       51   54 1450  25 139  60  35
+## 4  6 5720    4       69   35 1568  15 121  60  36
+## 5  4 5790    6       19   45 2631 -33 123 100  37
+## 6  4 5790    3       25   55  554 -28 182 250  38</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mgcv)
+mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class="op">~</span><span class="kw">s</span>(temp, <span class="dt">bs =</span> <span class="st">&quot;cr&quot;</span>, <span class="dt">m =</span> <span class="dv">2</span>)<span class="op">+</span><span class="kw">s</span>(ibh)<span class="op">+</span><span class="kw">s</span>(ibt), <span class="dt">data =</span> ozone)
+<span class="kw">summary</span>(mod.gam)</code></pre>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## O3 ~ s(temp, bs = &quot;cr&quot;, m = 2) + s(ibh) + s(ibt)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  11.7758     0.2382   49.44   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##           edf Ref.df      F  p-value    
+## s(temp) 3.357  4.216 20.758 5.99e-16 ***
+## s(ibh)  4.171  5.072  7.344 1.37e-06 ***
+## s(ibt)  2.111  2.729  1.403    0.213    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.708   Deviance explained = 71.7%
+## GCV = 19.348  Scale est. = 18.724    n = 330</code></pre>
+<p>W powyższym modelu użyto splajnów jako funkcji <span class="math inline">\(f_i\)</span>. W przypadku zmiennej <code>temp</code> był to sześcienny splajn z regularyzacją w postaci ciągłości drugiej pochodnej, a pozostałe są prostymi splajnami. Dopasowanie modelu sięga 71.7% a wartość uogólnionego sprawdzianu krzyżowego 19.35.</p>
+<p>Poniższy wykres pokazuje rodzaje transformacji użyte przy dopasowaniu modelu.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
+<span class="kw">plot</span>(mod.gam, <span class="dt">shade =</span> T, <span class="dt">residuals =</span> T)</code></pre>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-85-1.png" width="1056" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre>
+
+</div>
+</div>
+</div>
+<h3>Bibliografia</h3>
 <div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-</div>
-<div>
-<p>Breiman, Leo. 1996. “Bagging Predictors.” <em>Machine Learning</em> 24 (2): 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.</p>
-</div>
-<div>
-<p>———. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3). The Institute of Mathematical Statistics: 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
-</div>
-<div>
-<p>Chan, Chung-hong, and Thomas J. Leeper. 2018. <em>Rio: A Swiss-Army Knife for Data I/O</em>. <a href="https://CRAN.R-project.org/package=rio">https://CRAN.R-project.org/package=rio</a>.</p>
-</div>
-<div>
-<p>Duda, Richard O., Peter E. Hart, and David G. Stork. 2001. <em>Pattern Classification</em>. Wiley.</p>
-</div>
-<div>
-<p>Firke, Sam. 2018. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
-</div>
-<div>
-<p>Fisher, R. A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” <em>Annals of Eugenics</em> 7 (2): 179–88. <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">https://doi.org/10.1111/j.1469-1809.1936.tb02137.x</a>.</p>
-</div>
-<div>
-<p>Friedman, Jerome H. 1989. “Regularized Discriminant Analysis.” <em>Journal of the American Statistical Association</em> 84 (405): 165–75. <a href="https://doi.org/10.2307/2289860">https://doi.org/10.2307/2289860</a>.</p>
-</div>
-<div>
-<p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
-</div>
-<div>
-<p>Ho, Tin Kam. 1995. “Random Decision Forests.” In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.</p>
-</div>
-<div>
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3). Taylor &amp; Francis: 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
-</div>
-<div>
-<p>Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2018. <em>Caret: Classification and Regression Training</em>. <a href="https://CRAN.R-project.org/package=caret">https://CRAN.R-project.org/package=caret</a>.</p>
-</div>
-<div>
-<p>Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. “Machine Learning and Data Mining Methods in Diabetes Research.” <em>Computational and Structural Biotechnology Journal</em> 15: 104–16.</p>
-</div>
-<div>
-<p>Kearns, M., and L. G. Valiant. 1989. “Crytographic Limitations on Learning Boolean Formulae and Finite Automata.” <em>Annual ACM Symposium on Theory of Computing</em>, 433. <a href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site">http://search.ebscohost.com/login.aspx?direct=true&amp;db=edb&amp;AN=73725380&amp;lang=pl&amp;site=eds-live&amp;scope=site</a>.</p>
-</div>
-<div>
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
-</div>
-<div>
-<p>Liaw, Andy, and Matthew Wiener. 2002. “Classification and Regression by randomForest.” <em>R News</em> 2 (3): 18–22. <a href="https://CRAN.R-project.org/doc/Rnews/">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div>
-<p>Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. <em>E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien</em>. <a href="https://CRAN.R-project.org/package=e1071">https://CRAN.R-project.org/package=e1071</a>.</p>
-</div>
-<div>
-<p>Peters, Andrea, and Torsten Hothorn. 2018. <em>Ipred: Improved Predictors</em>. <a href="https://CRAN.R-project.org/package=ipred">https://CRAN.R-project.org/package=ipred</a>.</p>
-</div>
-<div>
-<p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
-</div>
-<div>
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
-</div>
-<div>
-<p>Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. <em>VIM: Visualization and Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=VIM">https://CRAN.R-project.org/package=VIM</a>.</p>
-</div>
-<div>
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div>
-<p>Torgo, Luis. 2013. <em>DMwR: Functions and Data for &quot;Data Mining with R&quot;</em>. <a href="https://CRAN.R-project.org/package=DMwR">https://CRAN.R-project.org/package=DMwR</a>.</p>
-</div>
-<div>
-<p>Trevor Hastie &amp; Robert Tibshirani. Original R port by Friedrich Leisch, S original by, Kurt Hornik, and Brian D. Ripley. 2017. <em>Mda: Mixture and Flexible Discriminant Analysis</em>. <a href="https://CRAN.R-project.org/package=mda">https://CRAN.R-project.org/package=mda</a>.</p>
-</div>
-<div>
-<p>van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. “KlaR Analyzing German Business Cycles.” In <em>Data Analysis and Decision Support</em>, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335–43. Berlin: Springer-Verlag.</p>
-</div>
-<div>
-<p>Welch, B. L. 1939. “Note on Discriminant Functions.” <em>Biometrika</em> 31 (1/2): 218–20. <a href="https://doi.org/10.2307/2334985">https://doi.org/10.2307/2334985</a>.</p>
-</div>
-<div>
+<div id="ref-wood2017">
 <p>Wood, S.N. 2017. <em>Generalized Additive Models: An Introduction with R</em>. 2nd ed. Chapman; Hall/CRC.</p>
 </div>
-<div>
-<p>Xie, Yihui. 2018a. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
-<div>
-<p>———. 2018b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.</p>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>czyli funkcja łączona<a href="uogolnione-modele-addytywne.html#fnref20" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="uogolnione-modele-addytywne.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="metoda-k-najblizszych-sasiadow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
