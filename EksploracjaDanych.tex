@@ -28,8 +28,6 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{apalike}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -108,7 +106,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -124,7 +122,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-03-12}
+    \date{2019-04-16}
 
 %\usepackage[cp1250]{inputenc}
 %\usepackage{amsmath}
@@ -149,7 +147,7 @@
 \usepackage{bm}
 \usepackage{booktabs}
 \usepackage{fontspec}
-
+\usepackage{bm}
 
 \newcommand{\zb}[1]{\buildrel #1 \over \longrightarrow}
 \newcommand{\PP}{\mathrm{P}}
@@ -158,6 +156,8 @@
 \newcommand{\Cor}{\operatorname{Cor}}
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\logit}{\operatorname{logit}}
+\newcommand{\probit}{\operatorname{probit}}
 \newcommand{\row}[1]{\buildrel \text{#1} \over =}
 \newcommand{\pp}{\text{p.p.}}
 \newcommand{\wtt}{wtedy i tylko wtedy, gdy }
@@ -183,6 +183,22 @@
 \usepackage{makeidx}
 \makeindex
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Twierdzenie}[chapter]
+\newtheorem{lemma}{Lemat}[chapter]
+\newtheorem{corollary}{Wniosek}[chapter]
+\newtheorem{proposition}{Propozycja}[chapter]
+\newtheorem{conjecture}{Przypuszczenie}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definicja}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Przykład}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Ćwiczenie}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Uwaga}
+\newtheorem*{solution}{Rozwiązanie}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
@@ -198,7 +214,7 @@
 \section*{O książce}\label{o-ksiazce}}
 \addcontentsline{toc}{section}{O książce}
 
-Niniejsza książka powstała na bazie doświadczeń autora, a głównym jej celem jest przybliżenie czytelnikowi podstaw z dziedziny \emph{Data mining} studentom kierunku \emph{Matematyka} Politechniki Lubelskiej. Będzie łączyć w sobie zarówno treści teoretyczne związane z przedstawianymi etapami eksploracji danych i budową modeli, jak i praktyczne wskazówki dotczące budowy modeli w środowisku \textbf{R} \citep{R-base}. Podane zostaną również wskazówki, jak raportować wyniki analiz i jak dokonać właściwych ilustracji wyników. Bardzo użyteczny w napisaniu książki były pakiety programu R: \textbf{bookdown} \citep{R-bookdown}, \textbf{knitr} \citep{R-knitr} oraz pakiet \textbf{rmarkdown} \citep{R-rmarkdown}.
+Niniejsza książka powstała na bazie doświadczeń autora, a głównym jej celem jest przybliżenie czytelnikowi podstaw z dziedziny \emph{Data mining} studentom kierunku \emph{Matematyka} Politechniki Lubelskiej. Będzie łączyć w sobie zarówno treści teoretyczne związane z przedstawianymi etapami eksploracji danych i budową modeli, jak i praktyczne wskazówki dotczące budowy modeli w środowisku \textbf{R} (R Core Team \protect\hyperlink{ref-R-base}{2018}). Podane zostaną również wskazówki, jak raportować wyniki analiz i jak dokonać właściwych ilustracji wyników. Bardzo użyteczny w napisaniu książki były pakiety programu R: \textbf{bookdown} (Xie \protect\hyperlink{ref-R-bookdown}{2018}\protect\hyperlink{ref-R-bookdown}{a}), \textbf{knitr} (Xie \protect\hyperlink{ref-R-knitr}{2018}\protect\hyperlink{ref-R-knitr}{b}) oraz pakiet \textbf{rmarkdown} (Allaire et al. \protect\hyperlink{ref-R-rmarkdown}{2018}).
 
 \hypertarget{zakres-przedmiotu}{%
 \section*{Zakres przedmiotu}\label{zakres-przedmiotu}}
@@ -257,7 +273,7 @@ href=``\url{https://twitter.com/i/status/1097199751072690176}''\textgreater{}Fer
 \begin{figure}
 \centering
 \includegraphics{images/dm_stages.jpg}
-\caption{\label{fig:unnamed-chunk-2}Etapy eksploracji danych \citep{KAVAKIOTIS2017}}
+\caption{\label{fig:unnamed-chunk-2}Etapy eksploracji danych (Kavakiotis et al. \protect\hyperlink{ref-kavakiotis2017}{2017})}
 \end{figure}
 
 \begin{enumerate}
@@ -390,7 +406,7 @@ Ponieważ w pliku \texttt{dane1.xlsx} braki danych zostały zakodowane znakami \
 ## # ... with 140 more rows, and 1 more variable: Gatunki <chr>
 \end{verbatim}
 
-Istniej oczywiście jeszcze wiele innych fomatów danych, charakterystycznych dla programów, w których są traktowane jako domyślne.\footnote{do ich wczytywania stosujemy funkcje pakietu \texttt{foreign}} W szczególny sposób należy zwrócić uwagę na pliki o rozszerzeniu \texttt{RData} lub \texttt{rda}\footnote{oznaczają to samo} oraz pliki \texttt{rds}. Pliki \texttt{rda} służą do przechowywania obiektów programu \texttt{R}. Mogą to być pliki danych ale również obiekty graficzne (typu wyniki funkcji \texttt{ggplot}), modele (np. wynik funkcji \texttt{lm()}), zdefiniowane funkcje i wszystkie inne obiekty, które da się zapisać w środowisku \texttt{R}. Ponadto pliki \texttt{rda} pozawalają na zapisanie wilu obiektów w jednym pliku. Pliki o rozszerzeniu \texttt{rds} mają podobną funkcję z tym, że pozwalają na przechowywanie tylko jednego obiektu.
+Istniej oczywiście jeszcze wiele innych fomatów danych, charakterystycznych dla programów, w których są traktowane jako domyślne.\footnote{do ich wczytywania stosujemy funkcje pakietu \texttt{foreign}} W szczególny sposób należy zwrócić uwagę na pliki o rozszerzeniu \texttt{RData} lub \texttt{rda}\footnote{oznaczają to samo} oraz pliki \texttt{rds}. Pliki \texttt{rda} służą do przechowywania obiektów programu \texttt{R}. Mogą to być pliki danych ale również obiekty graficzne (typu wyniki funkcji \texttt{ggplot}), modele (np. wynik funkcji \texttt{lm()}), zdefiniowane funkcje i wszystkie inne obiekty, które da się zapisać w środowisku \texttt{R}. Ponadto pliki \texttt{rda} pozawalają na zapisanie wielu obiektów w jednym pliku. Pliki o rozszerzeniu \texttt{rds} mają podobną funkcję z tym, że pozwalają na przechowywanie tylko jednego obiektu.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -470,7 +486,7 @@ Zapisując obiekty jako oddzielne pliki, można przy wczytywaniu nadawać im naz
 ## # ... with 140 more rows, and 1 more variable: Gatunki <chr>
 \end{verbatim}
 
-Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą \texttt{R}. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tego poroblemu 😃
+Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą \texttt{R}. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tej niedogodności 😆
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -557,7 +573,7 @@ Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważn
 ## # ... with 140 more rows, and 1 more variable: Gatunki <chr>
 \end{verbatim}
 
-Lista możliwości jaką daje nam pakiet \texttt{rio} \citep{R-rio} jest niemal nieograniczona:\footnote{fragment pliku \texttt{help} funkcji \texttt{import}}
+Lista możliwości jaką daje nam pakiet \texttt{rio} (Chan and Leeper \protect\hyperlink{ref-R-rio}{2018}) jest niemal nieograniczona:\footnote{fragment pliku \texttt{help} funkcji \texttt{import}}
 
 \begin{itemize}
 \tightlist
@@ -631,10 +647,9 @@ Lista możliwości jaką daje nam pakiet \texttt{rio} \citep{R-rio} jest niemal 
   Google Sheets, as Comma-separated data (.csv)
 \end{itemize}
 
-\hypertarget{przyk1}{%
-\section{Przykład}\label{przyk1}}
-
-Poniższa ilustracja przedstawia fragment pliku danych \texttt{Analysis.txt} zawierającego pewne błędy, które należy naprawić na etapie importu danych. Po pierwsze brakuje w nim nazw zmiennych\footnote{choć nie widać tego na rysunku}. Poszczególne kolumny nazywają się następująco: \texttt{season}, \texttt{size}, \texttt{speed}, \texttt{mxPH}, \texttt{mnO2}, \texttt{Cl}, \texttt{NO3}, \texttt{NH4}, \texttt{oPO4}, \texttt{PO4}, \texttt{Chla}, \texttt{a1}, \texttt{a2}, \texttt{a3}, \texttt{a4}, \texttt{a5}, \texttt{a6}, \texttt{a7}. Naszym zadaniem jest import tego pliku z jednoczesną obsługą braków\footnote{braki danych są zakodowane przez XXXXXXX} oraz nadaniem nagłówków kolumn. Plik \texttt{Analisis.txt} jest umieszczony w kagalogu \texttt{data/}. Z racji, że plik dotyczy glonów, to dane zapiszemy pod nazwą \texttt{algae}.
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk1}{}{\label{exm:przyk1} }Poniższa ilustracja przedstawia fragment pliku danych \texttt{Analysis.txt} zawierającego pewne błędy, które należy naprawić na etapie importu danych. Po pierwsze brakuje w nim nazw zmiennych (choć nie widać tego na rysunku). Poszczególne kolumny nazywają się następująco: \texttt{season}, \texttt{size}, \texttt{speed}, \texttt{mxPH}, \texttt{mnO2}, \texttt{Cl}, \texttt{NO3}, \texttt{NH4}, \texttt{oPO4}, \texttt{PO4}, \texttt{Chla}, \texttt{a1}, \texttt{a2}, \texttt{a3}, \texttt{a4}, \texttt{a5}, \texttt{a6}, \texttt{a7}. Naszym zadaniem jest import tego pliku z jednoczesną obsługą braków (braki danych są zakodowane przez \texttt{XXXXXXX}) oraz nadaniem nagłówków kolumn. Plik \texttt{Analisis.txt} jest umieszczony w kagalogu \texttt{data/}. Z racji, że plik dotyczy glonów, to dane zapiszemy pod nazwą \texttt{algae}.
+\EndKnitrBlock{example}
 
 \begin{figure}
 \includegraphics[width=10.67in]{images/analalysi_foto} \caption{Fragment pliku danych Analisis.txt}\label{fig:foto}
@@ -727,9 +742,6 @@ Poniższa ilustracja przedstawia fragment pliku danych \texttt{Analysis.txt} zaw
 \hypertarget{przygotowanie-danych}{%
 \chapter{Przygotowanie danych}\label{przygotowanie-danych}}
 
-\hypertarget{korekta-zbioru-danych}{%
-\section{Korekta zbioru danych}\label{korekta-zbioru-danych}}
-
 Dane, które importujemy z zewnętrznego źródła najczęściej nie spełniają formatów obowiązujących w \textbf{R}. Często zmienne zawierają niedopuszczalne znaki szczególne, odstępy w nazwach, powtórzone nazwy kolumn, nazwy zmiennych zaczynające się od liczby, czy puste wiersze lub kolumny. Przed przystąpieniem do analizy zbioru należy rozważyć ewentualne poprawki nazw zmiennych, czy usunięcie pustych kolumn i wierszy. Niektórych czynności można dokonać już na etapie importu danych, stosując pewne pakiety oraz nowe funkcjonalności środowiska \textbf{RStudio}. W większości przypadków uchroni nas to od żmudnego przekształcania typów zmiennych. Oczywiście wszystkie te czynności czyszczenia danych można również dokonać już po imporcie danych, za pomocą odpowiednich komend \textbf{R}.
 
 \begin{Shaded}
@@ -743,14 +755,14 @@ Dane, które importujemy z zewnętrznego źródła najczęściej nie spełniają
 \end{Shaded}
 
 \begin{verbatim}
-##       hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)     abc@!*
-## 1 -0.1834474  -0.04911401   -0.7611087          -0.6148353 -0.2381648
-## 2  0.5731620  -1.19190572   -0.2526333          -0.0871343 -1.2182395
-## 3 -0.8269735   1.38788226    0.5258345          -1.4137135 -0.7305826
-##            
-## 1 0.4477863
-## 2 0.1775162
-## 3 0.7414897
+##        hIgHlo REPEAT VALUE REPEAT VALUE % successful (2009)      abc@!*
+## 1  0.62816036   -0.5201609    1.1043470           0.1738823 -0.08412172
+## 2 -0.28213680   -0.6262217   -0.1659695           1.2445501  1.15968770
+## 3  0.09870219   -0.6941247   -0.4375282           0.1012135  1.02700292
+##             
+## 1  2.3730675
+## 2  0.4643571
+## 3 -0.6335834
 \end{verbatim}
 
 \begin{Shaded}
@@ -762,17 +774,17 @@ Dane, które importujemy z zewnętrznego źródła najczęściej nie spełniają
 \end{Shaded}
 
 \begin{verbatim}
-##       hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.     abc...
-## 1 -0.1834474  -0.04911401   -0.7611087           -0.6148353 -0.2381648
-## 2  0.5731620  -1.19190572   -0.2526333           -0.0871343 -1.2182395
-## 3 -0.8269735   1.38788226    0.5258345           -1.4137135 -0.7305826
-##           X
-## 1 0.4477863
-## 2 0.1775162
-## 3 0.7414897
+##        hIgHlo REPEAT.VALUE REPEAT.VALUE X..successful..2009.      abc...
+## 1  0.62816036   -0.5201609    1.1043470            0.1738823 -0.08412172
+## 2 -0.28213680   -0.6262217   -0.1659695            1.2445501  1.15968770
+## 3  0.09870219   -0.6941247   -0.4375282            0.1012135  1.02700292
+##            X
+## 1  2.3730675
+## 2  0.4643571
+## 3 -0.6335834
 \end{verbatim}
 
-Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję \texttt{clean\_names} pakietu \textbf{janitor} \citep{R-janitor}. Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.
+Efekt końcowy choć skuteczny, to nie jest zadowalający. Czyszczenia nazw zmiennych można też dokonać stosując funkcję \texttt{clean\_names} pakietu \textbf{janitor} (Firke \protect\hyperlink{ref-R-janitor}{2018}). Pozwala on również na usuwanie pustych wierszy i kolumn, znajdowanie zduplikowanych rekordów, itp.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -783,14 +795,14 @@ Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmien
 \end{Shaded}
 
 \begin{verbatim}
-##     h_ig_hlo repeat_value repeat_value_2 x_successful_2009        abc
-## 1 -0.1834474  -0.04911401     -0.7611087        -0.6148353 -0.2381648
-## 2  0.5731620  -1.19190572     -0.2526333        -0.0871343 -1.2182395
-## 3 -0.8269735   1.38788226      0.5258345        -1.4137135 -0.7305826
-##           x
-## 1 0.4477863
-## 2 0.1775162
-## 3 0.7414897
+##      h_ig_hlo repeat_value repeat_value_2 x_successful_2009         abc
+## 1  0.62816036   -0.5201609      1.1043470         0.1738823 -0.08412172
+## 2 -0.28213680   -0.6262217     -0.1659695         1.2445501  1.15968770
+## 3  0.09870219   -0.6941247     -0.4375282         0.1012135  1.02700292
+##            x
+## 1  2.3730675
+## 2  0.4643571
+## 3 -0.6335834
 \end{verbatim}
 
 \begin{Shaded}
@@ -823,7 +835,7 @@ Efekt końcowy choć skuteczny to nie jest zadowalający. Czyszczenia nazw zmien
 \end{verbatim}
 
 \hypertarget{identyfikacja-brakow-danych}{%
-\subsection{Identyfikacja braków danych}\label{identyfikacja-brakow-danych}}
+\section{Identyfikacja braków danych}\label{identyfikacja-brakow-danych}}
 
 Zanim usuniemy jakiekolwiek braki w zbiorze, powinniśmy je najpierw zidentyfikować, określić ich charakter, a dopiero potem ewentualnie podjąć decyzję o uzupełnianiu braków.
 
@@ -948,7 +960,7 @@ Zanim usuniemy jakiekolwiek braki w zbiorze, powinniśmy je najpierw zidentyfiko
 ##   6   0
 \end{verbatim}
 
-Wiele ciekawych funkcji do eksploracji danych znajduje się w pakiecie \textbf{DMwR} \citep{R-DMwR}, który został przygotowany przy okazji publikacji książki \emph{Data Mining with R}.
+Wiele ciekawych funkcji do eksploracji danych znajduje się w pakiecie \textbf{DMwR} (Torgo \protect\hyperlink{ref-R-DMwR}{2013}), który został przygotowany przy okazji publikacji książki \emph{Data Mining with R}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1047,7 +1059,7 @@ Można też zbudować funkcję, która będzie usuwała braki danych wg naszego 
 ## [1] 14
 \end{verbatim}
 
-Bardzo ciekawym narzędziem do znajdowania braków danych jest funkcja \texttt{md.pattern} pakietu \textbf{mice} \citep{R-mice}. Wskazuje on ile braków występuje w ramach każdej zmiennej.
+Bardzo ciekawym narzędziem do znajdowania braków danych jest funkcja \texttt{md.pattern} pakietu \textbf{mice} (van Buuren and Groothuis-Oudshoorn \protect\hyperlink{ref-R-mice}{2018}). Wskazuje on ile braków występuje w ramach każdej zmiennej.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1088,7 +1100,7 @@ Bardzo ciekawym narzędziem do znajdowania braków danych jest funkcja \texttt{m
 \end{verbatim}
 
 \hypertarget{zastepowanie-brakow-danych}{%
-\subsection{Zastępowanie braków danych}\label{zastepowanie-brakow-danych}}
+\section{Zastępowanie braków danych}\label{zastepowanie-brakow-danych}}
 
 Zastępowanie braków danych (zwane także \emph{imputacją danych}) jest kolejnym etapem procesu przygotowania danych do analiz. Nie można jednak wyróżnić uniwersalnego sposobu zastępowania braków dla wszystkich możliwych sytuacji. Wśród statystyków panuje przekonanie, że w przypadku wystąpienia braków danych można zastosować trzy strategie:
 
@@ -1371,10 +1383,9 @@ Zalecenia doboru zmiennych są następujące:
 
 Ad 4-7. Decyzje podejmowane w tych punktach zależą istotnie od analizowanego zbioru i będą przedmiotem oddzielnych analiz w kontekście rozważanych zbiorów i zadań.
 
-\hypertarget{przyk21}{%
-\section{Przykład}\label{przyk21}}
-
-Dokonamy imputacji zbioru \texttt{airquality} z wykorzystaniem pakietów \textbf{mice} i \textbf{VIM} \citep{R-VIM}
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk21}{}{\label{exm:przyk21} }Dokonamy imputacji zbioru \texttt{airquality} z wykorzystaniem pakietów \textbf{mice} i \textbf{VIM} (Templ et al. \protect\hyperlink{ref-R-VIM}{2019})
+\EndKnitrBlock{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1635,7 +1646,7 @@ Model to narzędzie pozyskiwania wiedzy na podstawie zbioru uczącego. Nauczony 
 \hypertarget{jakosc-dopasowania-modelu}{%
 \subsection{Jakość dopasowania modelu}\label{jakosc-dopasowania-modelu}}
 
-Do oceny jakości dopasowania modelu wykorzystuje się, w zależności od zadania, wiele współczynników (np. dla zadań regresyjnych są to błąd średnio-kwadratowy - ang. \emph{Mean Square Error} a dla zadań klasyfikacyjnych - trafność - ang. \emph{Accuracy}). Możemy mówić dwóch rodzajach dopasowania modeli:
+Do oceny jakości dopasowania modelu wykorzystuje się, w zależności od zadania, wiele współczynników (np. dla zadań regresyjnych są to błąd średnio-kwadratowy - ang. \emph{Mean Square Error}, a dla zadań klasyfikacyjnych - trafność - ang. \emph{Accuracy}). Możemy mówić dwóch rodzajach dopasowania modeli:
 
 \begin{itemize}
 \tightlist
@@ -1676,12 +1687,12 @@ Bardzo szeroką gamę modeli nienadzorowanych stanowią metody analizy skupień.
 \emph{Drzewo decyzyjne}\footnote{wyglądem przypomina odwrócone drzewo, stąd nazwa} jest strukturą hierarchiczną przedstawiającą model klasyfikacyjny lub regresyjny. Stosowane są szczególnie często wówczas, gdy funkcyjna postać związku pomiędzy predyktorami a zmienną wynikową jest nieznana lub ciężka do ustalenia.
 Każde drzewo decyzyjne składa się z korzenia (ang. \emph{root}), węzłów (ang. \emph{nodes}) i liści (ang. \emph{leaves}). Korzeniem nazywamy początkowy węzeł drzewa, z którego poprzez podziały (ang. \emph{splits}) powstają kolejne węzły potomne. Końcowe węzły, które nie podlegają podziałom nazywamy liśćmi, a linie łączące węzły nazywamy gałęziami (ang. \emph{branches}).
 
-Jeśli drzewo służy do zadań klasyfikacyjnych, to liście zawierają informację o tym, która klasa w danym ciągu podziałów jest najbardziej prawdopodobna. Natomiast jeśli drzewo jest regresyjne, to liście zawierają warunkowe miary tendencji centralnej (najczęściej średnią) wartości zmiennej wynikowej. Warunek stanowi szereg podziałów doprowadzający do danego węzła terminalnego (liścia). W obu przypadkach (klasyfikacji i regresji) drzewo ``dąży'' do takiego podziału by kolejne węzły, a co za tym idzie również liście, były ja najbardziej jednorodne ze względu na zmienną wynikową.
+Jeśli drzewo służy do zadań klasyfikacyjnych, to liście zawierają informację o tym, która klasa w danym ciągu podziałów jest najbardziej prawdopodobna. Natomiast, jeśli drzewo jest regresyjne, to liście zawierają warunkowe miary tendencji centralnej (najczęściej średnią) wartości zmiennej wynikowej. Warunek stanowi szereg podziałów doprowadzający do danego węzła terminalnego (liścia). W obu przypadkach (klasyfikacji i regresji) drzewo ``dąży'' do takiego podziału by kolejne węzły, a co za tym idzie również liście, były ja najbardziej jednorodne ze względu na zmienną wynikową.
 
 \begin{figure}
 \centering
 \includegraphics{EksploracjaDanych_files/figure-latex/unnamed-chunk-11-1.pdf}
-\caption{\label{fig:unnamed-chunk-11}Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, a za razem sposób jego działania.}
+\caption{\label{fig:unnamed-chunk-11}Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, czyli sposób jego działania.}
 \end{figure}
 
 \hypertarget{wezy-i-gaezie}{%
@@ -1734,7 +1745,7 @@ Reguły podziału stosowane do skali ciągłej, to:
   \begin{equation}
   t(x) = \begin{cases}
     1, &\text{ gdy }a(x)\leq \nu\\
-    0, & \text{w przeciwnym przypadku}
+    0, & \text{w przeciwnym przypadku},
     \end{cases}
   \end{equation}
   gdzie \(\nu\in A\);
@@ -1826,7 +1837,7 @@ gdzie \(|\  |\) oznacza moc zbioru, a \(R_t\) zbiór wszystkich możliwych warto
         \bigtriangleup \operatorname{disp}_n(f|t)=\operatorname{disp}_n(f)-\sum_{r\in R_t}\frac{|T_{n,t=r}|}{|T_n|}\operatorname{disp}_{T_{n,t=r}}(f).
 \end{equation}
 
-Miarą heterogeniczności węzłów ze względu na zmienną wynikową (ang. \emph{impurity}) w drzewach klasyfikacyjnych, która pozwala na tworzenie kolejnych podziałów węzła, są najczęściej wskaźnik Gini'ego i entropia \citep{Breiman1984}.
+Miarą heterogeniczności węzłów ze względu na zmienną wynikową (ang. \emph{impurity}) w drzewach klasyfikacyjnych, która pozwala na tworzenie kolejnych podziałów węzła, są najczęściej wskaźnik Gini'ego i entropia (Breiman \protect\hyperlink{ref-breiman1998}{1998}).
 
 Entropią podzbioru uczącego w węźle \(\mathbf{n}\), wyznaczamy wg wzoru
 \begin{equation}
@@ -1978,8 +1989,9 @@ Drzewa decyzyjne wyjątkowo dobrze radzą sobie z obsługa zbiorów z brakami. S
   przegrywa jakością predykcji z innymi metodami nadzorowanego uczenia maszynowego.
 \end{itemize}
 
-\hypertarget{przyk41}{%
-\section{Przykład}\label{przyk41}}
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk41}{}{\label{exm:przyk41} }Przykładem zastosowania drzew decyzyjnych będzie klasyfikacja irysów na podstawie długości i szerokości kielicha i płatka.
+\EndKnitrBlock{example}
 
 Przykładem zastosowania drzew decyzyjnych będzie klasyfikacja irysów na podstawie długości i szerokości kielicha i płatka.
 
@@ -1993,8 +2005,7 @@ Przykładem zastosowania drzew decyzyjnych będzie klasyfikacja irysów na podst
 
 Każde zadanie ucznia maszynowego zaczynamy od czyszczenia danych i odpowiedniego ich przygotowania ale w tym przypadku skupimy się jedynie na budowie, optymalizacji i ewaluacji modelu.
 
-\hypertarget{podzia-zbioru-na-probe-uczaca-i-testowa}{%
-\subsection{Podział zbioru na próbę uczącą i testową}\label{podzia-zbioru-na-probe-uczaca-i-testowa}}
+\textbf{Podział zbioru na próbę uczącą i testową}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2030,10 +2041,9 @@ Każde zadanie ucznia maszynowego zaczynamy od czyszczenia danych i odpowiednieg
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
 \end{verbatim}
 
-\hypertarget{budowa-drzewa}{%
-\subsection{Budowa drzewa}\label{budowa-drzewa}}
+\textbf{Budowa drzewa}
 
-Budowy drzewa dokonujemy za pomocą funkcji \texttt{rpart} pakietu \textbf{rpart} \citep{R-rpart} stosując zapis formuły zależności. Drzewo zostanie zbudowane z uwzględnieniem kilku kryteriów zatrzymania:
+Budowy drzewa dokonujemy za pomocą funkcji \texttt{rpart} pakietu \textbf{rpart} (Therneau and Atkinson \protect\hyperlink{ref-R-rpart}{2018}) stosując zapis formuły zależności. Drzewo zostanie zbudowane z uwzględnieniem kilku kryteriów zatrzymania:
 
 \begin{itemize}
 \tightlist
@@ -2149,8 +2159,7 @@ Budowy drzewa dokonujemy za pomocą funkcji \texttt{rpart} pakietu \textbf{rpart
 
 Powyższy wykres przedstawia strukturę drzewa klasyfikacyjnego. Kolorami są oznaczone klasy, które w danym węźle dominują. Nasycenie barwy decyduje o sile tej dominacji. W każdym węźle podana jest klasa, do której najprawdopodobniej należą jego obserwacje. Ponadto podane są proporcje przynależności do klas zmiennej wynikowej oraz procent obserwacji zbioru uczącego należących do danego węzła. Pod każdym węzłem podana jest reguła podziału.
 
-\hypertarget{przycinanie-drzewa}{%
-\subsection{Przycinanie drzewa}\label{przycinanie-drzewa}}
+\textbf{Przycinanie drzewa}
 
 Zanim przystąpimy do przycinania drzewa należy sprawdzić, jakie są zdolności generalizacyjne modelu. Oceny tej dokonujemy najczęściej sprawdzając macierz klasyfikacji.
 
@@ -2345,8 +2354,7 @@ Przycięte drzewo wygląda następująco:
 \caption{\label{fig:unnamed-chunk-18}Drzewo klasyfikacyjne po przycięciu}
 \end{figure}
 
-\hypertarget{ocena-dopasowania-modelu}{%
-\subsection{Ocena dopasowania modelu}\label{ocena-dopasowania-modelu}}
+\textbf{Ocena dopasowania modelu}
 
 Na koniec budowy modelu należy sprawdzić jego jakość na zbiorze testowym.
 
@@ -2383,29 +2391,31 @@ Mimo przycięcia drzewa, klasyfikacja pozostaje na niezmienionym poziomie. Odset
 \hypertarget{inne-algorytmy-budowy-drzew-decyzyjnych-implementowane-w-r}{%
 \section{\texorpdfstring{Inne algorytmy budowy drzew decyzyjnych implementowane w \textbf{R}}{Inne algorytmy budowy drzew decyzyjnych implementowane w R}}\label{inne-algorytmy-budowy-drzew-decyzyjnych-implementowane-w-r}}
 
-Oprócz najbardziej znanego algorytmu CART implementowanego w postaci funkcji pakietu \textbf{rpart}, istnieją również inne algorytmy, które znalzały swoje implementacje w R. Są to:
+Oprócz najbardziej znanego algorytmu CART implementowanego w postaci funkcji pakietu \textbf{rpart}, istnieją również inne algorytmy, które znalazły swoje implementacje w R. Są to:
 
 \begin{itemize}
 \tightlist
 \item
-  \emph{CHAID}\footnote{Chi-square automatic interaction detection} - algorytm przeznaczony do budowy drzew klafyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności \(\chi^2\) Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki \(\chi^2\) jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie \textbf{CHAID}\footnote{brak w oficjalnej dystrybucji CRAN} (funkcja do tworzenia drzewa o tej samej nazwie \texttt{chaid}) \citep{R-CHAID}.
+  \emph{CHAID}\footnote{Chi-square automatic interaction detection} - algorytm przeznaczony do budowy drzew klasyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności \(\chi^2\) Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki \(\chi^2\) jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie \textbf{CHAID}\footnote{brak w oficjalnej dystrybucji CRAN} (funkcja do tworzenia drzewa o tej samej nazwie \texttt{chaid}) (Team \protect\hyperlink{ref-R-CHAID}{2015}).
 \item
-  \emph{Ctree}\footnote{Conditional Inference Trees} - algorytm zbliżony zasadą dzialania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu. Implementację R-ową można znaleźć w pakietach \textbf{party} \citep{R-party} lub \textbf{partykit} \citep{R-partykit} - funkcją do tworzenia modelu jest \texttt{ctree}.
+  \emph{Ctree}\footnote{Conditional Inference Trees} - algorytm zbliżony zasadą działania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu oraz tym, że może być zarówno drzewem klasyfikacyjnym jak i regresyjnym. Implementację R-ową można znaleźć w pakietach \textbf{party} (Hothorn, Hornik, and Zeileis \protect\hyperlink{ref-R-party}{2006}) lub \textbf{partykit} (Hothorn and Zeileis \protect\hyperlink{ref-R-partykit}{2015}) - funkcją do tworzenia modelu jest \texttt{ctree}.
 \item
-  \emph{C4.5} - algorytm stworzony przez \citet{quinlan1993} w oparciu, o również jego autorstwa, algorytm ID3. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz \protect\hyperlink{reguy-podziau}{Reguły podziału}). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie \textbf{RWeka} \citep{R-Rweka} - funkcja do budowy drzewa to \texttt{J48}.
+  \emph{C4.5} - algorytm stworzony przez Quinlan (\protect\hyperlink{ref-quinlan1993}{1993}) w oparciu, o również jego autorstwa, algorytm ID3. Służy jedynie do zadań klasyfikacyjnych. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz \protect\hyperlink{reguy-podziau}{Reguły podziału}). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie \textbf{RWeka} (Hornik, Buchta, and Zeileis \protect\hyperlink{ref-R-Rweka}{2009}) - funkcja do budowy drzewa to \texttt{J48}.
 \item
-  \emph{C5.0} - kolejny algorytm autorstwa \citet{R-C50} jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożności drzewa. Jest szybszy od poprzednika i pozwala na zastosowanie metody \emph{boosting}\footnote{budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować ``trudne'' przypadki}. Implementacja R-owa znajduje się w pakiecie \emph{C50}, a funkcja do budowy drzewa to \texttt{C5.0}.
+  \emph{C5.0} - kolejny algorytm autorstwa Kuhn and Quinlan (\protect\hyperlink{ref-R-C50}{2018}) jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożoności drzewa. Służy jedynie do zadań klasyfikacyjnych. Jest szybszy od poprzednika i pozwala na zastosowanie metody \emph{boosting}\footnote{budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować ``trudne'' przypadki}. Implementacja R-owa znajduje się w pakiecie \emph{C50}, a funkcja do budowy drzewa to \texttt{C5.0}.
 \end{itemize}
 
-\hypertarget{przyk42}{%
-\section{Przykład}\label{przyk42}}
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk42}{}{\label{exm:przyk42} }W celu porównania wyników klasyfikacji na podstawie drzew decyzyjnych o różnych algorytmach, zostaną nauczone modele w oparciu o funkcje \texttt{ctree}, \texttt{J48} i \texttt{C5.0} dla tego samego zestawu danych co w przykładzie wcześniejszym \ref{exm:przyk41}.
+\EndKnitrBlock{example}
 
-W celu porównania wyników klasyfikacji na podstawie drzew decyzyjnych o różnych algorytmach, zostaną nauczone modele w oparciu o funkcje \texttt{ctree}, \texttt{J48} i \texttt{C5.0} dla tego samego zestawu danych co w \protect\hyperlink{przyk41}{przykładzie wcześniejszym}.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Drzewo \texttt{ctree}}
+\end{itemize}
 
-\hypertarget{ctree}{%
-\subsection{\texorpdfstring{\texttt{ctree}}{ctree}}\label{ctree}}
-
-Na początek ustalamy parametry ograniczające rozrozt drzewa podobne jak w poprzednim przykładzie.
+Na początek ustalamy parametry ograniczające rozrost drzewa podobne jak w poprzednim przykładzie.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2466,12 +2476,15 @@ Wydaje się, że drzewo nie jest optymalne, ponieważ w węźle 6 obserwacje z g
 ##   virginica       0          1        15
 \end{verbatim}
 
-Dopiero ocena jakości klasyfikacji na podstawe próby testowej pokazuje, że model zbudowany za pomocą \texttt{ctree} daje podobną precyzję jak \texttt{rpart} przycięty.
+Dopiero ocena jakości klasyfikacji na podstawie próby testowej pokazuje, że model zbudowany za pomocą \texttt{ctree} daje podobną precyzję jak \texttt{rpart} przycięty.
 
-\hypertarget{j48}{%
-\subsection{\texorpdfstring{\texttt{J48}}{J48}}\label{j48}}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Drzewo \texttt{J48}}
+\end{itemize}
 
-W tym przypadku model sam poszukuje optymalnego rozwiazania przycinając się automatycznie.
+W tym przypadku model sam poszukuje optymalnego rozwiązania przycinając się automatycznie.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2560,8 +2573,11 @@ Podsumowanie dopasowania drzewa na próbie uczącej jest bardzo dobre, bo popraw
 
 Otrzymujemy identyczną macierz klasyfikacji jak w poprzednich przypadkach.
 
-\hypertarget{c50}{%
-\subsection{\texorpdfstring{\texttt{C50}}{C50}}\label{c50}}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Drzewo \texttt{C50}}
+\end{itemize}
 
 Tym razem również nie trzeba ustawiać parametrów drzewa, ponieważ algorytm działa tak aby zapobiec rozrostowi drzewa przy jednoczesnej wysokiej poprawności klasyfikacji.
 
@@ -2579,7 +2595,7 @@ Tym razem również nie trzeba ustawiać parametrów drzewa, ponieważ algorytm 
 ## C5.0.formula(formula = Species ~ ., data = dt.train)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Tue Mar 12 23:42:32 2019
+## C5.0 [Release 2.07 GPL Edition]      Tue Apr 16 12:14:35 2019
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -2656,19 +2672,19 @@ Dla pewności przeprowadzimy sprawdzenie na zbiorze testowym.
 \hypertarget{pochodne-drzew-decyzyjnych}{%
 \chapter{Pochodne drzew decyzyjnych}\label{pochodne-drzew-decyzyjnych}}
 
-Przykład zastosowania drzew decyzyjnych na zbiorze \texttt{iris} w poprzednich \protect\hyperlink{przyk41}{przykładach} może skłaniać do przypuszczenia, że drzewa decyzyjne zawsze dobrze radzą sobie z predykcją wartości wynikowej. Niestety w przykładach nieco bardziej skomplikowanych, gdzie chociażby klasy zmiennej wynikowej nie są tak wyraźnie separowalne, drzewa decyzjne wypadają gorzej w prównaniu z innymi modelami nadzorowanego uczenia maszynowego.
+Przykład zastosowania drzew decyzyjnych na zbiorze \texttt{iris} w poprzednich \protect\hyperlink{przyk41}{przykładach} może skłaniać do przypuszczenia, że drzewa decyzyjne zawsze dobrze radzą sobie z predykcją wartości wynikowej. Niestety w przykładach nieco bardziej skomplikowanych, gdzie chociażby klasy zmiennej wynikowej nie są tak wyraźnie separowalne, drzewa decyzyjne wypadają gorzej w porównaniu z innymi modelami nadzorowanego uczenia maszynowego.
 
-I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystrczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody \emph{bagging}, \emph{random forest} i \emph{boosting}\footnote{hyba tylko dla drógiej metody istniej dobre polskie tłumaczenie nazwy - las losowy}. Należy zaznaczyć, że metody zanjdują swoje zastosowanie również w innych modelach nadzorowanego ucznienia maszynowego.
+I tak u podstaw metod bazujących na prostych drzewach decyzyjnych stał pomysł, że skoro jedno drzewo nie ma wystarczających własności predykcyjnych, to może zastosowanie wielu drzew połączonych w pewien sposób poprawi je. Tak powstały metody \emph{bagging}, \emph{random forest} i \emph{boosting}\footnote{chyba tylko dla drugiej metody istniej dobre polskie tłumaczenie nazwy - las losowy}. Należy zaznaczyć, że metody znajdują swoje zastosowanie również w innych modelach nadzorowanego uczenia maszynowego.
 
 \hypertarget{bagging}{%
 \section{Bagging}\label{bagging}}
 
-Technika ta zostala wprowadzona przez \citet{Breiman1996} i ma na celu zmniejszenie wariancji modelu pojedynczego drzewa. Podobnie jak technika \emph{bootstrap}, w której statystyki są wyliczane na wielu próbach pobranych z tego samego rozkładu (próby), w metodzie bagging losuje się wiele prób ze zbioru uczącego (najczęściej poprzez wielokrotne losowanie próby o rozmiarze zbioru uczącego ze zwracaniem), a następnie dla każdej próby bootstrapowej buduje się drzewo. W ten sposób otrzymujemy \(B\) drzew decyzyjnych \(\hat{f}^1(x), \hat{f}^2(x),\ldots, \hat{f}^B(x)\). Na koniec poprzez uśrednienie otrzymujemy model charakteryzujący się większą precyzją
+Technika ta została wprowadzona przez Breiman (\protect\hyperlink{ref-breiman1996}{1996}) i ma na celu zmniejszenie wariancji modelu pojedynczego drzewa. Podobnie jak technika \emph{bootstrap}, w której statystyki są wyliczane na wielu próbach pobranych z tego samego rozkładu (próby), w metodzie bagging losuje się wiele prób ze zbioru uczącego (najczęściej poprzez wielokrotne losowanie próby o rozmiarze zbioru uczącego ze zwracaniem), a następnie dla każdej próby bootstrapowej buduje się drzewo. W ten sposób otrzymujemy \(B\) drzew decyzyjnych \(\hat{f}^1(x), \hat{f}^2(x),\ldots, \hat{f}^B(x)\). Na koniec poprzez uśrednienie otrzymujemy model charakteryzujący się większą precyzją
 \begin{equation}
     \hat{f}_{bag}(x)=\frac1B\sum_{b=1}^B\hat{f}^b(x).
 \end{equation}
 
-Ponieważ podczas budowy drzew na podstawie prób bootstrapowych nie kontrolujemy złożoności, to w rezultacie każde z drzew może charakteryzować się dużą wariancją. Poprzez uśrednianie wyników pojedynczych drzew otrzymujemy mniejsze obciążenie ale również przy dostatecznie dużej liczbie prób (\(B\) często liczy się w setkach, czy tysiącach) zmniejszamy wariancję ``średniej'' predykcji z drzew. Oczywiście metodę tą trzeba dostosować do zadań klasyfikacyjnych, ponieważ nie istnieje średnia klasyfikacji z wielu drzew. W miejsce śreniej stosuje się modę, czyli wartość dominującą.
+Ponieważ podczas budowy drzew na podstawie prób bootstrapowych nie kontrolujemy złożoności, to w rezultacie każde z drzew może charakteryzować się dużą wariancją. Poprzez uśrednianie wyników pojedynczych drzew otrzymujemy mniejsze obciążenie ale również przy dostatecznie dużej liczbie prób (\(B\) często liczy się w setkach, czy tysiącach) zmniejszamy wariancję ``średniej'' predykcji z drzew. Oczywiście metodę tą trzeba dostosować do zadań klasyfikacyjnych, ponieważ nie istnieje średnia klasyfikacji z wielu drzew. W miejsce średniej stosuje się modę, czyli wartość dominującą.
 
 Przyjrzyjmy się jak maszyna losuje obserwacje ze zwracaniem
 
@@ -2705,12 +2721,11 @@ Faktycznie uczenie modelu metodą bagging odbywa się średnio na 2/3 obserwacji
 
 Niewątpliwą zaletą drzew decyzyjnych była ich łatwa interpretacja. W przypadku metody bagging jest ona znacznie utrudniona, ponieważ jej wynik składa się z agregacji wielu drzew. Można natomiast ocenić ważność predyktorów (ang. \emph{variable importance}). I tak, przez obserwację spadku \(RSS\) dla baggingu regresyjnego przy zastosowaniu danego predyktora w podziałach drzewa i uśrednieniu wyniku otrzymamy wskaźnik ważności predyktora dużo lepszy niż dla pojedynczego drzewa. W przypadku baggingu klasyfikacyjnego w miejsce \(RSS\) stosujemy indeks Gini'ego.
 
-Implementacja R-owa metody bagging znajduje się w pakiecie \textbf{ipred}, a funkcja do budowy modelu nazywa się \texttt{bagging} \citep{R-ipred}. Można również stosować funkcję \texttt{randomForest} pakietu \textbf{randomForest} \citep{R-las} - powody takiego działania wyjaśnią się w podrodziale \protect\hyperlink{lasy-losowe}{Lasy losowe}.
+Implementacja R-owa metody bagging znajduje się w pakiecie \textbf{ipred}, a funkcja do budowy modelu nazywa się \texttt{bagging} (Peters and Hothorn \protect\hyperlink{ref-R-ipred}{2018}). Można również stosować funkcję \texttt{randomForest} pakietu \textbf{randomForest} (Liaw and Wiener \protect\hyperlink{ref-R-las}{2002}) - powody takiego działania wyjaśnią się w podrozdziale \protect\hyperlink{lasy-losowe}{Lasy losowe}.
 
-\hypertarget{przyk51}{%
-\subsection{Przykład}\label{przyk51}}
-
-Tym razem cel zadania jest regresyjny i polega na ustaleniu miary tendencji centralnej ceny mieszkań w Bostonie na podstwie zmiennych umieszczonych w zbiorze \texttt{Boston} pakietu \textbf{MASS} \citep{R-MASS}. Zmienną zależną będzie mediana cen mieszkań na przedmieściach Bostonu (\texttt{medv}).
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk51}{}{\label{exm:przyk51} }Tym razem cel zadania jest regresyjny i polega na ustaleniu miary tendencji centralnej ceny mieszkań w Bostonie na podstawie zmiennych umieszczonych w zbiorze \texttt{Boston} pakietu \textbf{MASS} (Venables and Ripley \protect\hyperlink{ref-R-MASS}{2002}). Zmienną zależną będzie mediana cen mieszkań na przedmieściach Bostonu (\texttt{medv}).
+\EndKnitrBlock{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3094,7 +3109,7 @@ Predykcja na podstawie modelu
 ## [1] 3.039308
 \end{verbatim}
 
-Zatem predykcja na podstwie modelu bagging jest nico lepsza niż z pojedynczego drzewa. Dodatkowo możemy ocenić ważność zmiennych użytych w budowie drzew.
+Zatem predykcja na podstawie modelu bagging jest nico lepsza niż z pojedynczego drzewa. Dodatkowo możemy ocenić ważność zmiennych użytych w budowie drzew.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3144,17 +3159,16 @@ Zatem predykcja na podstwie modelu bagging jest nico lepsza niż z pojedynczego 
 ##  6538.5039  1305.3786  1193.2073   853.4309   323.8576   242.3521
 \end{verbatim}
 
-W porównaniu do ważności zmiennych dla pojedynczego drzewa widać pewne rożnice.
+W porównaniu do ważności zmiennych dla pojedynczego drzewa widać pewne różnice.
 
 \hypertarget{lasy-losowe}{%
 \section{Lasy losowe}\label{lasy-losowe}}
 
-Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu \(m\) predyktorów spośród \(p\) dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów \citep{ho1995}. Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy \(m=\sqrt{p}\)). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczacego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrubut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji. Implementacja tej metody znajduje się w pakiecie \textbf{randomForest}.
+Lasy losowe są uogólnieniem metody bagging, polegającą na losowaniu dla każdego drzewa wchodzącego w skład lasu \(m\) predyktorów spośród \(p\) dostępnych, a następnie budowaniu drzew z wykorzystaniem tylko tych predyktorów (Ho \protect\hyperlink{ref-ho1995}{1995}). Dzięki temu za każdy razem drzewo jest budowane w oparciu o nowy zestaw cech (najczęściej przyjmujemy \(m=\sqrt{p}\)). W przypadku modeli bagging za każdym razem najsilniejszy predyktor wchodził w skład zbioru uczącego, a co za tym idzie również uczestniczył w tworzeniu reguł podziału. Wówczas wiele drzew zawierało reguły stosujące dany atrybut, a wtedy predykcje otrzymywane za pomocą drzew były skorelowane. Dlatego nawet duża liczba prób bootstrapowych nie zapewniała poprawy precyzji. Implementacja tej metody znajduje się w pakiecie \textbf{randomForest}.
 
-\hypertarget{przyk52}{%
-\subsection{Przykład}\label{przyk52}}
-
-Kontynuując poprzedni \protect\hyperlink{przyk51}{przykład} możemy zbudować las losowy aby przekonać się czy nastąpi poprawa predykcji zmiennej wynikowej.
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk52}{}{\label{exm:przyk52} }Kontynuując poprzedni przykład \ref{exm:przyk51} możemy zbudować las losowy aby przekonać się czy nastąpi poprawa predykcji zmiennej wynikowej.
+\EndKnitrBlock{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3175,7 +3189,7 @@ Kontynuując poprzedni \protect\hyperlink{przyk51}{przykład} możemy zbudować 
 ##                     % Var explained: 83.49
 \end{verbatim}
 
-Porownanie MSE na próbach uczących pomiędzy lasem losowym i modelem bagging wypada nieco na korzyść bagging.
+Porównanie MSE na próbach uczących pomiędzy lasem losowym i modelem bagging wypada nieco na korzyść bagging.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3201,7 +3215,7 @@ Ważność zmiennych również się nieco różni.
 \hypertarget{boosting}{%
 \section{Boosting}\label{boosting}}
 
-Rozważania na temat metody \emph{boosting} zaczeły się od pytań postawionych w publikacji \citet{Kearns1989}, czy da się na podstawie na podstawie zbioru słabych modeli stworzyć jeden dobry? Odpowiedzi pozytywnej na nie udzielili, najpierw \citet{Schapire1990}, a potem \citet{breiman1998}. W metodzie boosting nie stosuje się prób bootstrapowych ale odpowiednio modyfikuje się drzewo wyjściowe w kolejnych krokach na tym samym zbiorze uczącym. Algorytm dla drzewa regresyjnego jest następujący:
+Rozważania na temat metody \emph{boosting} zaczęły się od pytań postawionych w publikacji Kearns and Valiant (\protect\hyperlink{ref-kearns1989}{1989}), czy da się na podstawie na podstawie zbioru słabych modeli stworzyć jeden dobry? Odpowiedzi pozytywnej na nie udzielili, najpierw Schapire (\protect\hyperlink{ref-schapire1990}{1990}), a potem Breiman (\protect\hyperlink{ref-breiman1998}{1998}). W metodzie boosting nie stosuje się prób bootstrapowych ale odpowiednio modyfikuje się drzewo wyjściowe w kolejnych krokach na tym samym zbiorze uczącym. Algorytm dla drzewa regresyjnego jest następujący:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3215,11 +3229,11 @@ Rozważania na temat metody \emph{boosting} zaczeły się od pytań postawionych
   \def\labelenumii{\alph{enumii})}
   \tightlist
   \item
-    naucz drzewo \(\hat{f}^b\) o \(d\) regułach podziału (czyli \(d+1\) liściach) na zbiorze \$(X\_i, r\_i),
+    naucz drzewo \(\hat{f}^b\) o \(d\) regułach podziału (czyli \(d+1\) liściach) na zbiorze \((X_i, r_i)\),
   \item
-    zakutalizuj drzewo do nowej ``skurczonej'' wersji
+    zaktualizuj drzewo do nowej ``skurczonej'' wersji
     \begin{equation}
-     \hat{f}(x)\leftarrow \hat{f}(x)+\lambda\hat{h}^b(x),
+     \hat{f}(x)\leftarrow \hat{f}(x)+\lambda\hat{f}^b(x),
     \end{equation}
   \item
     zaktualizuj reszty
@@ -3234,7 +3248,7 @@ Rozważania na temat metody \emph{boosting} zaczeły się od pytań postawionych
   \end{equation}
 \end{enumerate}
 
-Uczenie drzew klasyfikacyjnego metoda boosting przebiega w podobny sposób. Wynik uczenia drzew metodą boosting zależy od trzech paramtrów:
+Uczenie drzew klasyfikacyjnego metoda boosting przebiega w podobny sposób. Wynik uczenia drzew metodą boosting zależy od trzech parametrów:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3247,9 +3261,11 @@ Uczenie drzew klasyfikacyjnego metoda boosting przebiega w podobny sposób. Wyni
   Liczby podziałów w drzewach \(d\), która decyduje o złożoności drzewa. Bywa, że nawet \(d=1\) daje dobre rezultaty, ponieważ model wówczas uczy się powoli.
 \end{enumerate}
 
-Implementację metody boosting można znaleźć w pakiecie \textbf{gbm} \citep{R-gbm}
+Implementację metody boosting można znaleźć w pakiecie \textbf{gbm} (Greenwell et al. \protect\hyperlink{ref-R-gbm}{2019})
 
-Metodę boosting zastosujemy do zadania predykcji ceny mieszkań na przedmieściach Bostonu. Dobór parametrów modelu będzie arbitralny, więc niekoniecznie model będzie najlepiej dopasowany.
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przyk53}{}{\label{exm:przyk53} }Metodę boosting zastosujemy do zadania predykcji ceny mieszkań na przedmieściach Bostonu. Dobór parametrów modelu będzie arbitralny, więc niekoniecznie model będzie najlepiej dopasowany.
+\EndKnitrBlock{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3309,9 +3325,2039 @@ Predykcja na podstawie metody boosting
 ## [1] 3.06509
 \end{verbatim}
 
-\(RMSE\) jest w tym przypadku mniejsze niż w lasach losowych ale nieco większe niż w metodzie bagging. Wszsystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.
+\(RMSE\) jest w tym przypadku mniejsze niż w lasach losowych ale nieco większe niż w metodzie bagging. Wszystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.
 
-\bibliography{book.bib,packages.bib}
+\hypertarget{klasyfikatory-liniowe}{%
+\chapter{Klasyfikatory liniowe}\label{klasyfikatory-liniowe}}
+
+Obszerną rodzinę klasyfikatorów stanowią modele liniowe (ang. \emph{linear classification models}). Klasyfikacji w tej rodzinie technik dokonuje się na podstawie modeli funkcji kombinacji liniowej predyktorów. Jest to ujęcie parametryczne, w którym klasyfikacji nowej wartości dokonujemy na podstawie atrybutów obserwacji i wektora parametrów. Uczenie na podstawie zestawu treningowego polega na oszacowaniu parametrów modelu. W odróżnieniu od metod nieparametrycznych postać modelu tym razem jest znana. Każdy klasyfikator liniowy skład się z funkcji wewnętrznej (ang. \emph{inner representation function}) i funkcji zewnętrznej (ang. \emph{outer representation function}).
+Pierwsza jest funkcją rzeczywistą parametrów modelu i wartości atrybutów obserwacji
+\begin{equation}
+    g(x) = F(\mathbf{a}(x),\mathbf{w})=\sum_{i=0}^pw_ia_i(x)=\mathbf{w}\circ \mathbf{a}(x),
+\end{equation}
+przyjmując, że \(a_0(x)=1\).
+
+Funkcja zewnętrzna przyporządkowuje binarnie klasy na podstawie wartości funkcji wewnętrznej. Istnieją dwa główne typy tych klasyfikacji:
+
+\begin{itemize}
+\tightlist
+\item
+  brzegowa - przyjmujemy, że funkcje wewnętrzne tworzą granice zbiorów obserwacji różnych klas,
+\item
+  probabilistyczna - bazująca na tym, że funkcje wewnętrzne mogą pośrednio wykazywać prawdopodobieństwo przynależności do danej klasy.
+\end{itemize}
+
+Pierwsza dzieli przestrzeń obserwacji za pomocą hiperpłaszczyzn na obszary jednorodne pod względem przynależności do klas. Druga jest próbą parametrycznej reprezentacji prawdopodobieństw przynależności do klas. Klasyfikacji na podstawie prawdopodobieństw można dokonać na różne sposoby, stosując:
+
+\begin{itemize}
+\tightlist
+\item
+  największe prawdopodobieństwo,
+\item
+  funkcję najmniejszego kosztu błędnej klasyfikacji,
+\item
+  krzywych ROC (ang. \emph{Receiver Operating Characteristic} - o tym później).
+\end{itemize}
+
+Podejście brzegowe lub probabilistyczne prowadzi najczęściej do dwóch typów reprezentacji funkcji zewnętrznej:
+
+\begin{itemize}
+\tightlist
+\item
+  reprezentacji progowej (ang. \emph{threshold representation}) - najczęściej przy podejściu brzegowym,
+\item
+  reprezentacji logistycznej (ang. \emph{logit representation}) - przy podejściu probabilistycznym.
+\end{itemize}
+
+\hypertarget{reprezentacja-progowa}{%
+\section{Reprezentacja progowa}\label{reprezentacja-progowa}}
+
+W przypadku klasyfikacji dwustanowej, dziedzina jest dzielona na dwa regiony (pozytywny i negatywny) poprzez porównanie funkcji zewnętrznej z wartością progową. Bez straty ogólności można sprawić, że będzie to wartość 0
+\begin{equation}
+    h(x)=H(g(x))= \begin{cases}
+        1, &\text{ jeśli } g(x)\geq 0\\
+        0, &\text{ w przeciwnym przypadku.}
+    \end{cases}
+\end{equation}
+Czasami używa się parametryzacji \(\{-1,1\}\).
+Przez porównanie \(g(x)\) z 0 definiuje się hiperpłaszczyznę w \(p\) wymiarowej przestrzeni, która rozdziela dziedzinę na regiony pozytywne i negatywne. W tym ujęciu mówimy o liniowej separowalności obserwacji różnych klas, jeśli istnieje hiperpłaszczyzna je rozdzielająca.
+
+\hypertarget{reprezentacja-logitowa}{%
+\section{Reprezentacja logitowa}\label{reprezentacja-logitowa}}
+
+Najbardziej popularną reprezentacją parametryczną stosowaną w klasyfikacji jest reprezentacja logitowa
+\begin{equation}
+    \P(y=1|x)=\frac{e^{g(x)}}{e^{g(x)}+1}.
+\end{equation}
+Wówczas \(g(x)\) nie reprezentuje bezpośrednio \(\P(y=1|x)\) ale jego logit
+\begin{equation}
+    g(x)=\logit(\P(y=1|x)),
+\end{equation}
+gdzie \(\logit(p)=\ln\frac{p}{1-p}\). Dlatego właściwa postać reprezentacji jest następująca
+\begin{equation}
+    \P(y=1|x)=\logit^{-1}(g(x)).
+\end{equation}
+W ten sposób reprezentacja logitowa jest równoważna reprezentacji progowej, ponieważ
+\begin{equation}
+    g(x)=\ln\frac{\P(y=1|x)}{1-\P(y=1|x)}=\ln\frac{\P(y=1|x)}{\P(y=0|x)}>0.
+\end{equation}
+Jednak zaletą reprezentacji logitowej, w porównaniu do progowej, jest to, że można wyznaczyć prawdopodobieństwa przynależności do obu klas. W przypadku klasyfikacji wielostanowej uczymy tyle funkcji \(h\) ile jest klas.
+
+\hypertarget{wady-klasyfikatorow-liniowych}{%
+\section{Wady klasyfikatorów liniowych}\label{wady-klasyfikatorow-liniowych}}
+
+\begin{itemize}
+\tightlist
+\item
+  tylko w przypadku prostych funkcji wewnętrznych jesteśmy w stanie ocenić wpływ poszczególnych predykorów na klasyfikację,
+\item
+  jakość predykcji zależy od doboru funkcji wewnętrznej (liniowa w ścisłym sensie jest najczęściej niewystarczająca),
+\item
+  nie jest w stanie klasyfikować poprawnie stanów (nie jest liniowo separowalna) w zagadnieniach typu XOR.
+\end{itemize}
+
+\hypertarget{regresja-logistyczna}{%
+\chapter{Regresja logistyczna}\label{regresja-logistyczna}}
+
+\hypertarget{model-1}{%
+\section{Model}\label{model-1}}
+
+Regresja logistyczna (ang. \emph{logistic regression}) jest techniką z rodziny klasyfikatorów liniowych z reprezentacją logistyczną, a formalnie należy do rodziny uogólnionych modeli liniowych (GLM). Stosowana jest wówczas, gdy zmienna wynikowa posiada dwa stany (sukces i porażka), kodowane najczęściej za pomocą 1 i 0. W tej metodzie modelowane jest warunkowe prawdopodobieństwo sukcesu za pomocą kombinacji liniowej predyktorów \(X\).
+
+Ogólna postać modelu
+\begin{align}
+    Y\sim &B(1, p)\\
+    p(X)=&\E(Y|X)=\frac{\exp(\beta X)}{1+\exp(\beta X)},
+\end{align}
+gdzie \(B(1,p)\) jest rozkładem dwumianowym o prawdopodobieństwie sukcesu \(p\), a \(\beta X\) oznacza kombinację liniową parametrów modelu i wartości zmiennych niezależnych, przyjmując, że \(x_0=1\). Jako funkcji łączącej (czyli opisującej związek między kombinacją liniową predyktorów i prawdopodobieństwem sukcesu) użyto \emph{logitu}. Pozwala on na wygodną interpretację wyników w terminach szans.
+
+Szansą (ang. \emph{odds}) nazywamy stosunek prawdopodobieństwa sukcesu do prawdopodobieństwa porażki
+\begin{equation}
+    o = \frac{p}{1-p}.
+\end{equation}
+
+Ponieważ będziemy przyjmowali, że \(p\in (0,1)\), to \(o\in (0,\infty)\), a jej logarytm należy do przedziału \((-\infty, \infty)\).
+
+Zatem logarytm szansy jest kombinacją liniową predyktorów
+\begin{equation}
+    \log\left[\frac{p(X)}{1-p(X)}\right]=\beta_0+\beta_1x_1+\ldots+\beta_dx_d.
+\end{equation}
+
+\hypertarget{estymacja-parametrow-modelu}{%
+\section{Estymacja parametrów modelu}\label{estymacja-parametrow-modelu}}
+
+Estymacji parametrów modelu logistycznego dokonujemy za pomocą metody największej wiarogodności. Funkcja wiarogodności w tym przypadku przyjmuje postać
+\begin{equation}
+    L(X_1,\ldots,X_n,\beta)=\prod_{i=1}^{n}p(X_i)^Y_i[1-p(X_i)]^{1-Y_i},
+\end{equation}
+gdzie wektor \(\beta\) jest uwikłany w funkcji \(p(X_i)\). Maksymalizacji dokonujemy raczej po nałożeniu na funkcję wiarogodności logarytmu, bo to ułatwia szukanie ekstremum.
+\begin{equation}
+    \log L(X_1,\ldots,X_n,\beta) = \sum_{i=1}^n(Y_i\log p(X_i)+(1-Y_i)\log(1-p(X_i))).
+\end{equation}
+
+\hypertarget{interpretacja}{%
+\section{Interpretacja}\label{interpretacja}}
+
+Interpretacja (lat. \emph{ceteris paribus} - ``inne takie samo'') poszczególnych parametrów modelu jest następująca:
+
+\begin{itemize}
+\tightlist
+\item
+  jeśli \(b_i>0\) - to zmienna \(x_i\) ma wpływ stymulujący pojawienie się sukcesu,
+\item
+  jeśli \(b_i<0\) - to zmienna \(x_i\) ma wpływ ograniczający pojawienie się sukcesu,
+\item
+  jeśli \(b_i=0\) - to zmienna \(x_i\) nie ma wpływu na pojawienie się sukcesu.
+\end{itemize}
+
+Iloraz szans (ang. \emph{odds ratio}) stosuje się w przypadku porównywania dwóch klas obserwacji. Jest on jak sama nazwa wskazuje ilorazem szans zajścia sukcesu w obu klasach
+\begin{equation}
+    OR = \frac{p_1}{1-p_1}\frac{1-p_2}{p_2},
+\end{equation}
+gdzie \(p_i\) oznacza zajście sukcesu w \(i\)-tej klasie.
+
+Interpretujemy go następująco:
+
+\begin{itemize}
+\tightlist
+\item
+  jeśli \(OR>1\) - to w pierwszej grupie zajście sukcesu jest bardziej prawdopodobne,
+\item
+  jeśli \(OR<1\) - to w drugiej grupie zajście sukcesu jest bardziej prawdopodobne,
+\item
+  jeśli \(OR=1\) - to w obu grupach zajście sukcesu jest jednakowo prawdopodobne.
+\end{itemize}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:logit}{}{\label{exm:logit} }Jako ilustrację działania regresji logistycznej użyjemy modelu dla danych ze zbioru \texttt{Default} pakietu \texttt{ISLR}.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ISLR)}
+\KeywordTok{head}\NormalTok{(Default)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559
+\end{verbatim}
+
+Zmienną zależną jest \texttt{default}, a pozostałe są predyktorami. najpierw dokonamy podziału próby na ucząca i testową, a następnie zbudujemy model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(Default), }\DataTypeTok{size =} \DecValTok{2}\OperatorTok{/}\DecValTok{3}\OperatorTok{*}\KeywordTok{nrow}\NormalTok{(Default))}
+\NormalTok{dt.ucz <-}\StringTok{ }\NormalTok{Default[ind,]}
+\NormalTok{dt.test <-}\StringTok{ }\NormalTok{Default[}\OperatorTok{-}\NormalTok{ind,]}
+\NormalTok{mod.logit <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(default}\OperatorTok{~}\NormalTok{., dt.ucz, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{))}
+\KeywordTok{summary}\NormalTok{(mod.logit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = default ~ ., family = binomial("logit"), data = dt.ucz)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4481  -0.1470  -0.0597  -0.0226   3.6966  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.085e+01  5.896e-01 -18.409   <2e-16 ***
+## studentYes  -4.970e-01  2.851e-01  -1.744   0.0812 .  
+## balance      5.604e-03  2.809e-04  19.949   <2e-16 ***
+## income       7.933e-06  9.652e-06   0.822   0.4112    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1906.5  on 6665  degrees of freedom
+## Residual deviance: 1059.8  on 6662  degrees of freedom
+## AIC: 1067.8
+## 
+## Number of Fisher Scoring iterations: 8
+\end{verbatim}
+
+Tylko \texttt{income} nie ma żadnego wpływu na prawdopodobieństwo stanu \texttt{Yes} zmiennej \texttt{default}. Zmienna \texttt{balance} wpływa stymulująco na prawdopodobieństwo pojawienia się sukcesu. Natomiast jeśli badana osoba jest studentem (\texttt{studentYes}), to ma wpływ ograniczający na pojawienie się sukcesu. Chcąc porównać dwie grupy obserwacji, przykładowo studentów z nie-studentami, możemy wykorzystać iloraz szans.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{exp}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{OR =} \KeywordTok{coef}\NormalTok{(mod.logit), }\KeywordTok{confint}\NormalTok{(mod.logit))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r}
+\hline
+  & OR & 2.5 \% & 97.5 \%\\
+\hline
+(Intercept) & 0.0000 & 0.0000 & 0.0001\\
+\hline
+studentYes & 0.6083 & 0.3485 & 1.0668\\
+\hline
+balance & 1.0056 & 1.0051 & 1.0062\\
+\hline
+income & 1.0000 & 1.0000 & 1.0000\\
+\hline
+\end{tabular}
+
+Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na \texttt{Yes} w zmiennej \texttt{default} o około 40\% (w stosunku do nie-studentów). Natomiast wzrost zmiennej \texttt{balance} przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na \texttt{Yes} o około 0.6\%.
+
+Chcąc przeprowadzić predykcję na podstawie modelu dla ustalonych wartości cech (np. \texttt{student\ =\ Yes}, \texttt{balance\ =\ \$1000} i \texttt{income\ =\ \$40000}) postępujemy następująco
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt.new <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{student =} \StringTok{"Yes"}\NormalTok{, }\DataTypeTok{balance =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{income =} \DecValTok{40000}\NormalTok{)}
+\KeywordTok{predict}\NormalTok{(mod.logit, }\DataTypeTok{newdata =}\NormalTok{ dt.new, }\DataTypeTok{type =} \StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           1 
+## 0.004367692
+\end{verbatim}
+
+Otrzymany wynik jest oszacowanym prawdopodobieństwem warunkowym wystąpienia sukcesu (\texttt{default\ =\ Yes}). Widać zatem, że poziomy badanych cech sprzyjają raczej porażce.
+
+Jeśli chcemy sprawdzić jakość klasyfikacji na zbiorze testowym, to musimy ustalić na jakim poziomie prawdopodobieństwa będziemy uznawać obserwację za sukces. W zależności od tego, na predykcji jakiego stanu zależy nam bardziej, możemy różnie dobierać ten próg (bez żadnych dodatkowych przesłanek najczęściej jest to 0.5).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.logit, }\DataTypeTok{newdata =}\NormalTok{ dt.test, }\DataTypeTok{type =} \StringTok{"response"}\NormalTok{)}
+\NormalTok{pred.class <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(pred }\OperatorTok{>}\StringTok{ }\FloatTok{0.5}\NormalTok{, }\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{)}
+\NormalTok{(tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred.class, dt.test}\OperatorTok{$}\NormalTok{default))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+## pred.class   No  Yes
+##        No  3204   76
+##        Yes   13   41
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(acc <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9733053
+\end{verbatim}
+
+Klasyfikacja na poziomie 97\% wskazuje na dobre dopasowanie modelu.
+
+\hypertarget{LDA}{%
+\chapter{Analiza dyskryminacyjna}\label{LDA}}
+
+Analiza dyskryminacyjna (ang. \emph{discriminant analysis}) jest grupą technik dyskryminacji obserwacji względem przynależności do klas. Część z nich należy do klasyfikatorów liniowych (choć nie zawsze w ścisłym sensie). Za autorów tej metody uważa się Fisher'a (\protect\hyperlink{ref-fisher1936}{1936}) i Welch'a (\protect\hyperlink{ref-welch1939}{1939}). Każdy z nich prezentował nieco inne podejście do tematu klasyfikacji. Welch poszukiwał klasyfikacji minimalizującej prawdopodobieństwo błędnej klasyfikacji, znane jako \protect\hyperlink{bayes}{klasyfikatory bayesowskie}. Podejście Fisher'a skupiało się raczej na porównaniu zmienności międzygrupowej do zmienności wewnątrzgrupowej. Wychodząc z założenia, że iloraz tych wariancji powinien być stosunkowo duży przy różnych klasach, jeśli do ich opisu użyjemy odpowiednich zmiennych niezależnych. W istocie chodzi o znalezienie takiego wektora, w kierunku którego wspomniany iloraz wariancji jest największy.
+
+\hypertarget{liniowa-analiza-dyskryminacyjna-fishera}{%
+\section{Liniowa analiza dyskryminacyjna Fisher'a}\label{liniowa-analiza-dyskryminacyjna-fishera}}
+
+\hypertarget{dwie-kategorie-zmiennej-grupujacej}{%
+\subsection{Dwie kategorie zmiennej grupującej}\label{dwie-kategorie-zmiennej-grupujacej}}
+
+Niech \(\boldsymbol D\) będzie zbiorem zawierającym \(n\) punktów \(\{\boldsymbol x_i, y_i\}\), gdzie \(\boldsymbol x_i\in \mathbb{R}^d\), a \(y_i\in \{c_1,\ldots,c_k\}\). Niech \(\boldsymbol D_i\) oznacza podzbiór punktów zbioru \(\boldsymbol D\), które należą do klasy \(c_i\), czyli \(\boldsymbol D_i=\{\boldsymbol x_i|y_i=c_i\}\) i niech \(|\boldsymbol D_i|=n_i\). Na początek załóżmy, że \(\boldsymbol D\) składa się tylko z \(\boldsymbol D_1\) i \(\boldsymbol D_2\).
+
+Niech \(\boldsymbol w\) będzie wektorem jednostkowym (\(\boldsymbol w'\boldsymbol w=1\)), wówczas rzut ortogonalny punku \(\boldsymbol x_i\) na wektor \(\boldsymbol w\) można zapisać następująco
+\begin{equation}
+    \tilde{\boldsymbol x}_i=\left(\frac{\boldsymbol w'\boldsymbol x_i}{\boldsymbol w'\boldsymbol w}\right)\boldsymbol w=(\boldsymbol w'\boldsymbol x_i)\boldsymbol w = a_i\boldsymbol w,
+\end{equation}
+gdzie \(a_i\) jest współrzędną punktu \(\tilde{\boldsymbol x}_i\) w kierunku wektora \(\boldsymbol w\), czyli
+\begin{equation}
+    a_i=\boldsymbol w'\boldsymbol x_i.
+\end{equation}
+Zatem \((a_1,\ldots,a_n)\) reprezentują odwzorowanie \(\mathbb{R}^d\) w \(\mathbb{R}\), czyli z \(d\)-wymiarowej przestrzeni w przestrzeń generowaną przez \(\boldsymbol w\).
+
+\begin{figure}
+
+{\centering \includegraphics[width=5.83in]{images/rzut} 
+
+}
+
+\caption{Rzut ortogonalny punktów w kierunku wektora $\boldsymbol w$}\label{fig:rzut}
+\end{figure}
+
+Każdy punkt należy do pewnej klasy, dlatego możemy wyliczyć
+\begin{align}
+    m_1=&\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1}a_i=\\
+    =&\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol w' \boldsymbol x_i=\\
+    =& \boldsymbol w'\left(\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol x_i \right)=\\
+    =& \boldsymbol w' \boldsymbol{\mu}_1,
+    \label{eq:m}
+\end{align}
+gdzie \(\boldsymbol \mu_1\) jest wektorem średnich punktów z \(\boldsymbol D_1\). W podobny sposób można policzyć \(m_2 = \boldsymbol w' \boldsymbol \mu_2\). Oznacza to, że średnia projekcji jest projekcją średnich.
+
+Rozsądnym wydaje się teraz poszukać takiego wektora, aby \(|m_1-m_2|\) była maksymalnie duża przy zachowaniu niezbyt dużej zmienności wewnątrz grup. Dlatego kryterium Fisher'a przyjmuje postać
+\begin{equation}
+    \max_{ \boldsymbol w}J(\boldsymbol w)=\frac{(m_1-M_2)^2}{ss_1^2+ss_2^2},
+    \label{eq:condFisher}
+\end{equation}
+gdzie \(ss_j^2=\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=n_j\sigma_j^2.\)
+
+Zauważmy, że licznik w \eqref{eq:condFisher} da się zapisać jako
+\begin{align}
+    (m_1-m_2)^2=& ( \boldsymbol w'( \boldsymbol \mu_1- \boldsymbol \mu_2))^2=\\
+    =& \boldsymbol w'((\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)') \boldsymbol w=\\
+    =& \boldsymbol w' \boldsymbol B \boldsymbol w
+\end{align}
+gdzie \(\boldsymbol B=(\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)'\) jest macierzą \(d\times d\).
+
+Ponadto
+\begin{align}
+    ss_j^2=&\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=\\
+    =&\sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol w' \boldsymbol x_i- \boldsymbol w' \boldsymbol\mu_j)^2=\\
+    =& \sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol{w}'( \boldsymbol{x}_i- \boldsymbol{\mu}_j))^2=\\
+    =& \boldsymbol{w}'\left(\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(\boldsymbol{x}_i-\boldsymbol \mu_j)(\boldsymbol x_i- \boldsymbol \mu_j)'\right) \boldsymbol{w}=\\
+    =& \boldsymbol{w}' \boldsymbol{S}_j \boldsymbol{w},
+    \label{eq:Sj}
+\end{align}
+gdzie \(\boldsymbol{S}_j=n_j \boldsymbol{\Sigma}_j\).
+Zatem mianownik \eqref{eq:condFisher} możemy zapisać jako
+\begin{equation}
+    ss_1^2+ss_2^2= \boldsymbol{w}'(\boldsymbol{S}_1+ \boldsymbol{S}_2) \boldsymbol{w}= \boldsymbol{w}' \boldsymbol{S} \boldsymbol{w},
+\end{equation}
+gdzie \(\boldsymbol{S}=\boldsymbol{S}_1+\boldsymbol{S}_2\).
+Ostatecznie warunek Fisher'a przyjmuje postać
+\begin{equation}
+    \max_{ \boldsymbol{w}}J( \boldsymbol{w})=\frac{ \boldsymbol{w}' \boldsymbol{B} \boldsymbol{w}}{ \boldsymbol{w}' \boldsymbol{S} \boldsymbol{w}}.
+    \label{eq:condFisher2}
+\end{equation}
+
+Różniczkując \eqref{eq:condFisher2} po \(\boldsymbol{w}\) otrzymamy warunek
+\begin{equation}
+    \boldsymbol{B} \boldsymbol{w} = \lambda \boldsymbol{S} \boldsymbol{w},
+    \label{eq:condFisher3}
+\end{equation}
+gdzie \(\lambda=J(\boldsymbol{w})\). Maksimum \eqref{eq:condFisher3} jest osiągane dla wektora \(\boldsymbol{w}\) równego wektorowi własnemu odpowiadającemu największej wartości własnej równania charakterystycznego \(|\boldsymbol{B}-\lambda\boldsymbol{S}|=0\). Jeśli \(\boldsymbol{S}\) nie jest osobliwa, to rozwiązanie \eqref{eq:condFisher3} otrzymujemy przez znalezienie największej wartości własnej macierzy \(\boldsymbol{B}\boldsymbol{S}^{-1}\) lub bez wykorzystania wartości i wektorów własnych.
+
+Ponieważ \(\boldsymbol{B}=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)'\right)\boldsymbol{w}\) jest macierzą \(d \times d\) rzędu 1, to \(\boldsymbol{B}\boldsymbol{w}\) jest punktem na kierunku wyznaczonym przez wektor \(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\), bo
+\begin{align}
+    \boldsymbol{B}\boldsymbol{w}=& \left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)'\right)\boldsymbol{w}=\\
+    =&(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)'\right)\boldsymbol{w}=\\
+    =& b(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2),
+\end{align}
+gdzie \(b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)'\boldsymbol{w}\) jest skalarem.
+
+Wówczas \eqref{eq:condFisher3} zapiszemy jako
+\begin{gather}
+    b(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2) = \lambda\boldsymbol{S}\boldsymbol{w}\\
+    \boldsymbol{w}= \frac{b}{\lambda}\boldsymbol{S}^{-1}(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)
+\end{gather}
+
+A ponieważ \(b/\lambda\) jest liczbą, to kierunek najlepszej dyskryminacji grup wyznacza wektor
+\begin{equation}
+    \boldsymbol{w}=\boldsymbol{S}^{-1}(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2).
+\end{equation}
+
+\begin{figure}
+
+{\centering \includegraphics{images/rzut2} 
+
+}
+
+\caption{Rzut ortogonalny w kierunku wektora $\boldsymbol{w}$, będącego najlepiej dyskryminującym obie grupy obserwacji}\label{fig:rzut2}
+\end{figure}
+
+\hypertarget{k-kategorii-zmiennej-grupujacej}{%
+\subsection{\texorpdfstring{\(k\)-kategorii zmiennej grupującej}{k-kategorii zmiennej grupującej}}\label{k-kategorii-zmiennej-grupujacej}}
+
+Uogólnieniem tej teorii na przypadek \(k\) klas otrzymujemy przez uwzględnienie \(k-1\) funkcji dyskryminacyjnych. Zmienność wewnątrzgrupowa przyjmuje wówczas postać
+\begin{equation}
+    \boldsymbol{S}_W=\sum_{i=1}^k\boldsymbol{S}_i,
+\end{equation}
+gdzie \(\boldsymbol{S}_i\) jest zdefiniowane jak w \eqref{eq:Sj}.
+Niech średnia i rozrzut globalny będą dane wzorami
+\begin{equation}
+    \boldsymbol{m}=\frac{1}{n}\sum_{i=1}^kn_i\boldsymbol{m}_i,
+\end{equation}
+\begin{equation}
+    \boldsymbol{S}_T=\sum_{j=1}^k\sum_{\boldsymbol{x}\in D_j}(\boldsymbol{x}-\boldsymbol{m})(\boldsymbol{x}-\boldsymbol{m})'
+\end{equation}
+gdzie \(\boldsymbol{m}_i\) jest określone jak w \eqref{eq:m}. Wtedy zmienność międzygrupową możemy wyrazić jako
+\begin{equation}
+    \boldsymbol{S}_B=\sum_{i=1}^kn_i(\boldsymbol{m}_i-\boldsymbol{m})(\boldsymbol{m}_i-\boldsymbol{m})',
+\end{equation}
+bo \(\boldsymbol{S}_T=\boldsymbol{S}_W+\boldsymbol{S}_B.\)
+Określamy projekcję \(d\)-wymiarowej przestrzeni na \(k-1\)-wymiarową przestrzeń za pomocą \(k-1\) funkcji dyskryminacyjnych postaci
+\begin{equation}
+    \boldsymbol{a}_j=\boldsymbol{w}_j'\boldsymbol{x}, \quad j=1,\ldots,k-1.
+\end{equation}
+Połączone wszystkie \(k-1\) rzutów możemy zapisać jako
+\begin{equation}
+    \boldsymbol{a}=\boldsymbol{W}'\boldsymbol{x}.
+\end{equation}
+
+W nowej przestrzeni \(k-1\)-wymiarowej możemy zdefiniować
+\begin{equation}
+    \tilde{\boldsymbol{m}}=\frac{1}{n}\sum_{i=1}^kn_i\tilde{\boldsymbol{m}}_i,
+\end{equation}
+gdzie \(\tilde{\boldsymbol{m}}_i= \frac{1}{n_i}\sum_{\boldsymbol{a}\in A_i}\boldsymbol{a}\), a \(A_i\) jest projekcją obiektów z \(i\)-tej klasy w kierunku wektora \(\boldsymbol{W}\).
+Dalej możemy zdefiniować zmienności miedzy- i wewnątrzgrupowe dla obiektów przekształconych przez \(\boldsymbol{W}\)
+\begin{align}
+    \tilde{\boldsymbol{S}}_W=&\sum_{i=1}^k\sum_{\boldsymbol{a}\in A_i}(\boldsymbol{a}-\tilde{\boldsymbol{m}})(\boldsymbol{a}-\tilde{\boldsymbol{m}})'\\
+    \tilde{\boldsymbol{S}}_B=&\sum_{i=1}^kn_i(\tilde{\boldsymbol{m}}_i-\tilde{\boldsymbol{m}})(\tilde{\boldsymbol{m}}_i-\tilde{\boldsymbol{m}})'.
+\end{align}
+Łatwo można zatem pokazać, że
+\begin{align}
+    \tilde{\boldsymbol{S}}_W = & \boldsymbol{W}'\boldsymbol{S}_W\boldsymbol{W}\\
+    \tilde{\boldsymbol{S}}_B = & \boldsymbol{W}'\boldsymbol{S}_B\boldsymbol{W}.
+\end{align}
+Ostatecznie warunek \eqref{eq:condFisher} w \(k\)-wymiarowym ujęciu można przedstawić jako
+\begin{equation}
+    \max_{\boldsymbol{W}}J(\boldsymbol{W})=\frac{\tilde{\boldsymbol{S}}_W}{\tilde{\boldsymbol{S}}_B}=\frac{\boldsymbol{W}'\boldsymbol{S}_W\boldsymbol{W}}{\boldsymbol{W}'\boldsymbol{S}_B\boldsymbol{W}}.
+\end{equation}
+Maksimum można znaleźć poprzez rozwiązanie równania charakterystycznego \begin{equation}
+    |\boldsymbol{S}_B-\lambda_i\boldsymbol{S}_W|=0
+\end{equation}
+dla każdego \(i\).
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:unnamed-chunk-51}{}{\label{exm:unnamed-chunk-51} }Dla danych ze zbioru \texttt{iris} przeprowadzimy analizę dyskryminacji. Implementację metody LDA znajdziemy w pakiecie \texttt{MASS} w postaci funkcji \texttt{lda}.
+\EndKnitrBlock{example}
+
+Zaczynamy od standaryzacji zmiennych i podziału próby na uczącą i testową.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MASS)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{iris.std <-}\StringTok{ }\NormalTok{iris }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate_if}\NormalTok{(is.numeric, scale)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(iris.std), }\DataTypeTok{size =} \DecValTok{100}\NormalTok{)}
+\NormalTok{dt.ucz <-}\StringTok{ }\NormalTok{iris.std[ind,]}
+\NormalTok{dt.test <-}\StringTok{ }\NormalTok{iris.std[}\OperatorTok{-}\NormalTok{ind,]}
+\end{Highlighting}
+\end{Shaded}
+
+Budowa modelu
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.lda <-}\StringTok{ }\KeywordTok{lda}\NormalTok{(Species}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ dt.ucz)}
+\NormalTok{mod.lda}\OperatorTok{$}\NormalTok{prior}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     setosa versicolor  virginica 
+##       0.36       0.31       0.33
+\end{verbatim}
+
+Prawdopodobieństwa \emph{a priori} przynależności do klas przyjęto na podstawie próby uczącej.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.lda}\OperatorTok{$}\NormalTok{means}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Sepal.Length Sepal.Width Petal.Length Petal.Width
+## setosa       -1.0251463   0.8690229    -1.294839  -1.2527443
+## versicolor    0.1619267  -0.5015842     0.316167   0.1786195
+## virginica     0.9174351  -0.2636338     1.046883   1.0504160
+\end{verbatim}
+
+W części \texttt{means} wyświetlone są średnie poszczególnych zmiennych niezależnych w podziale na grupy. Dzięki temu można określić położenia środków ciężkości poszczególnych klas w oryginalnej przestrzeni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.lda}\OperatorTok{$}\NormalTok{scaling}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                     LD1       LD2
+## Sepal.Length  1.0073378  0.211252
+## Sepal.Width   0.4701094 -1.053135
+## Petal.Length -4.0746585  1.488372
+## Petal.Width  -2.5146178 -2.312201
+\end{verbatim}
+
+Powyższa tabela zawiera współrzędne wektorów wyznaczających funkcje dyskryminacyjne. Na ich podstawie możemy określić, która z nich wpływa najmocniej na tworzenie się nowej przestrzeni.
+
+Obiekt \texttt{svd} przechowuje pierwiastki z \(\lambda_i\), dlatego podnosząc je do kwadratu i dzieląc przez ich sumę otrzymamy udział poszczególnych zmiennych w dyskryminacji przypadków. Jak widać pierwsza funkcja dyskryminacyjna w zupełności by wystarczyła.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.lda}\OperatorTok{$}\NormalTok{svd}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(mod.lda}\OperatorTok{$}\NormalTok{svd}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.994875091 0.005124909
+\end{verbatim}
+
+Klasyfikacja na podstawie modelu
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.lda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.lda, dt.test)}
+\end{Highlighting}
+\end{Shaded}
+
+Wynik predykcji przechowuje trzy rodzaje obiektów:
+
+\begin{itemize}
+\tightlist
+\item
+  klasy, które przypisał obiektom model (\texttt{class});
+\item
+  prawdopodobieństwa \emph{a posteriori} przynależności do klas na podstawie modelu (\texttt{posterior});
+\item
+  współrzędne w nowej przestrzeni LD1, LD2 (\texttt{x}).
+\end{itemize}
+
+Sprawdzenie jakości klasyfikacji
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.lda}\OperatorTok{$}\NormalTok{class, }\DataTypeTok{obs =}\NormalTok{ dt.test}\OperatorTok{$}\NormalTok{Species)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             obs
+## pred         setosa versicolor virginica
+##   setosa         14          0         0
+##   versicolor      0         18         0
+##   virginica       0          1        17
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.98
+\end{verbatim}
+
+Jak widać z powyższej tabeli model dobrze sobie radzi z klasyfikacją obiektów. Odsetek poprawnych klasyfikacji wynosi 98\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cbind.data.frame}\NormalTok{(}\DataTypeTok{obs =}\NormalTok{ dt.test}\OperatorTok{$}\NormalTok{Species,}
+\NormalTok{                 pred.lda}\OperatorTok{$}\NormalTok{x, }
+                 \DataTypeTok{pred =}\NormalTok{ pred.lda}\OperatorTok{$}\NormalTok{class) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ LD1, }\DataTypeTok{y =}\NormalTok{ LD2))}\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ pred, }\DataTypeTok{shape =}\NormalTok{ obs))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/unnamed-chunk-59-1} 
+
+}
+
+\caption{Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda}\label{fig:unnamed-chunk-59}
+\end{figure}
+
+\hypertarget{liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne}{%
+\section{Liniowa analiza dyskryminacyjna - podejście probabilistyczne}\label{liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne}}
+
+Jak wspomniano na wstępie (patrz rozdział \ref{LDA}), podejście prezentowane przez Welcha polegało na minimalizacji prawdopodobieństwa popełnienia błędu przy klasyfikacji. Cała rodzina klasyfikatorów Bayesa (patrz rozdział \ref{bayes}) polega na wyznaczeniu prawdopodobieństw \emph{a posteriori}, na podstawie których dokonuje się decyzji o klasyfikacji obiektów. Tym razem dodajemy również założenie, że zmienne niezależne \(\boldsymbol{x}=(\boldsymbol{x}_1,\ldots,\boldsymbol{x}_d)\) charakteryzują się wielowymiarowym rozkładem normalnym
+\begin{equation}
+    f(\boldsymbol{x}) = \frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\left[-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})'\boldsymbol{\Sigma}(\boldsymbol{x}-\boldsymbol{\mu})\right],
+    \label{eq:mnv}
+\end{equation}
+gdzie \(\boldsymbol{\mu}\) jest wektorem średnich \(\boldsymbol{x}\), a \(\boldsymbol{\Sigma}\) jest macierzą kowariancji \(\boldsymbol{x}\).
+
+\BeginKnitrBlock{remark}
+\iffalse{} {Uwaga. } \fi{}Liniowa kombinacja zmiennych losowych o normalnym rozkładzie łącznym ma również rozkład łączny normalny. W szczególności, jeśli \(A\) jest macierzą wymiaru \(d\times k\) i \(\boldsymbol{y} = A'\boldsymbol{x}\), to \(f(\boldsymbol{y})\sim N(A'\boldsymbol{\mu}, A'\boldsymbol{\Sigma}A)\). Odpowiednia forma macierzy przekształcenia \(A_w\), sprawia, że zmienne po transformacji charakteryzują się rozkładem normalnym łącznym o wariancji określonej przez \(I\). Jeśli \(\boldsymbol{\Phi}\) jest macierzą, której kolumny są ortonormalnymi wektorami własnymi macierzy \(\boldsymbol{\Sigma}\), a \(\boldsymbol{\Lambda}\) macierzą diagonalną wartości własnych, to transformacja \(A_w=\boldsymbol{\Phi}\boldsymbol{\Lambda}^{-1}\) przekształca \(\boldsymbol{x}\) w \(\boldsymbol{y}\sim N(A_w'\boldsymbol{\mu}, I)\).
+\EndKnitrBlock{remark}
+
+\begin{figure}
+
+{\centering \includegraphics{images/transform} 
+
+}
+
+\caption{Transformacje rozkładu normalnego łącznego. Źródło: @duda2001}\label{fig:trans}
+\end{figure}
+
+\BeginKnitrBlock{definition}
+\protect\hypertarget{def:unnamed-chunk-60}{}{\label{def:unnamed-chunk-60} }Niech \(g_i(\boldsymbol{x}),\ i=1,\ldots,k\) będzie pewną funkcją dyskryminacyjną, wówczas obiekt \(\boldsymbol{x}\) nalezy zaklasyfikować do grupy \(c_i\) jeśli spełniony jest warunek
+\begin{equation}
+    g_i(\boldsymbol{x})>g_j(\boldsymbol{x}), \quad j\neq i.
+\end{equation}
+\EndKnitrBlock{definition}
+
+W podejściu polegającym na minimalizacji prawdopodobieństwa błędnej klasyfikacji, przyjmuje się najczęściej, że
+\begin{equation}
+    g_i(\boldsymbol{x})=\P(c_i|\boldsymbol{x}),
+\end{equation}
+czyli jako prawdopodobieństwo a posteriori.
+Wszystkie trzy poniższe postaci funkcji dyskryminacyjnych są dopuszczalne i równoważne ze względu na rezultat grupowania
+\begin{align}
+    g_i(\boldsymbol{x})=&\P(c_i|\boldsymbol{x})=\frac{\P(\boldsymbol{x}|c_i)\P(c_i)}{\sum_{i=1}^k\P(\boldsymbol{x}|c_i)\P(c_i)},\\
+    g_i(\boldsymbol{x})=&\P(\boldsymbol{x}|c_i)\P(c_i),\\
+    g_i(\boldsymbol{x})=&\log\P(\boldsymbol{x}|c_i)+\log\P(c_i)
+    \label{eq:gi3}
+\end{align}
+W przypadku gdy \(\boldsymbol{x}|c_i\sim N(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)\), to na podstawie \eqref{eq:mnv} \(g_i\) danej jako \eqref{eq:gi3} przyjmuje postać
+\begin{equation}
+    g_i(\boldsymbol{x})=-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu}_i)'\boldsymbol{\Sigma}_i^{-1}(\boldsymbol{x}-\boldsymbol{\mu}_i)-\frac{d}{2}\log(2\pi)-\frac{1}{2}\log|\boldsymbol{\Sigma}_i|+\log\P(c_i).
+\end{equation}
+
+W kolejnych podrozdziałach przeanalizujemy trzy możliwe formy macierzy kowariancji.
+
+\hypertarget{przypI}{%
+\subsection{\texorpdfstring{Przypadek gdy \(\boldsymbol{\Sigma}_i=\sigma^2I\)}{Przypadek gdy \textbackslash{}boldsymbol\{\textbackslash{}Sigma\}\_i=\textbackslash{}sigma\^{}2I}}\label{przypI}}
+
+To najprostszy przypadek, zakładający niezależność zmiennych wchodzących w skład \(\boldsymbol x\), których wariancje są stałe \(\sigma^2\).
+Wówczas \(g_i\) przyjmuje postać
+\begin{equation}
+    g_i(\boldsymbol x)=-\frac{||\boldsymbol x-\boldsymbol \mu_i||^2}{2\sigma^2}+\log\P(c_i),
+    \label{eq:row88}
+\end{equation}
+gdzie \(||\cdot ||\) jest normą euklidesową.
+
+Rozpisując licznik równania \eqref{eq:row88} mamy
+\begin{equation}
+    ||\boldsymbol x-\boldsymbol \mu_i||^2=(\boldsymbol x-\boldsymbol \mu_i)'(\boldsymbol x-\boldsymbol \mu_i).
+\end{equation}
+Zatem
+\begin{equation}
+    g_i(\boldsymbol x)=-\frac{1}{2\sigma^2}[\boldsymbol x'\boldsymbol x-2\boldsymbol \mu_i'\boldsymbol x+\boldsymbol \mu_i'\boldsymbol \mu_i]+\log\P(c_i).
+\end{equation}
+A ponieważ \(\boldsymbol x'\boldsymbol x\) nie zależy do \(i\), to funkcję dyskryminacyjną możemy zapisać jako
+\begin{equation}
+    g_i(\boldsymbol x)=\boldsymbol w_i'\boldsymbol x+w_{i0},
+\end{equation}
+gdzie \(\boldsymbol w_i=\frac{1}{\sigma^2}\boldsymbol \mu_i\), a \(w_{i0}=\frac{-1}{2\sigma^2}\boldsymbol \mu_i'\boldsymbol \mu_i+\log\P(c_i).\)
+
+Na podstawie funkcji dyskryminacyjnych wyznaczamy hiperpłaszczyzny decyzyjne jako zbiory punktów dla których \(g_i(\boldsymbol x)=g_j(\boldsymbol x)\), gdzie \(g_i, g_j\) są największe. Możemy to zapisać w następujący sposób
+\begin{equation}
+    \boldsymbol w'(\boldsymbol x-\boldsymbol x_0)=0,
+    \label{eq:row89}
+\end{equation}
+gdzie
+\begin{equation}
+    \boldsymbol w = \boldsymbol \mu_i-\boldsymbol \mu_j,
+\end{equation}
+oraz
+\begin{equation}
+    \boldsymbol x_0 = \frac12(\boldsymbol \mu_i+\boldsymbol\mu_j)-\frac{\sigma^2}{||\boldsymbol \mu_i-\boldsymbol \mu_j||^2}\log\frac{\P(c_i)}{\P(c_j)}(\boldsymbol \mu_i-\boldsymbol \mu_j).
+\end{equation}
+
+Równanie \eqref{eq:row89} określa hiperpłaszczyznę przechodzącą przez \(\boldsymbol x_0\) i prostopadłą do \(\boldsymbol w\).
+
+\begin{figure}
+
+{\centering \includegraphics{images/dyskrym1} 
+
+}
+
+\caption{Dyskrymiancja hiperpłaszczyznami w sygucaji dwóch klas. Wykres po lewej, to ujęcie jednowymiarowe, wykresy po środu - ujęcie 2-wymiarowe i wykresy po prawej, to ujęcie 3-wymiarowe. Źródło: @duda2001}\label{fig:hiper}
+\end{figure}
+
+\hypertarget{przypSig}{%
+\subsection{\texorpdfstring{Przypadek gdy \(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)}{Przypadek gdy \textbackslash{}boldsymbol \textbackslash{}Sigma\_i=\textbackslash{}boldsymbol \textbackslash{}Sigma}}\label{przypSig}}
+
+Przypadek ten opisuje sytuację, gdy rozkłady \(\boldsymbol x\) są identyczne we wszystkich grupach ale zmienne w ich skład wchodzące nie są niezależne.
+W tym przypadku funkcje dyskryminacyjne przyjmują postać
+\begin{equation}
+    g_i(\boldsymbol x)=\frac12(\boldsymbol x-\boldsymbol \mu_i)'\boldsymbol\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu_i)+\log\P(c_i).
+    \label{eq:row810}
+\end{equation}
+Jeśli \(\P(c_i)\) są identyczne dla wszystkich klas, to można je pominąć we wzorze \eqref{eq:row810}. Metryka euklidesowa ze wzoru \eqref{eq:row88} została zastąpiona przez odległość Mahalonobis'a. Podobnie ja w przypadku gdy \(\boldsymbol \Sigma_i=\sigma^2I\), tak i teraz można uprościć \eqref{eq:row810} przez rozpisanie formy kwadratowej, aby otrzymać, że
+\begin{equation}
+    g_i(\boldsymbol x)=\boldsymbol w_i'\boldsymbol x+w_{i0},
+\end{equation}
+gdzie \(\boldsymbol w_i=\boldsymbol\Sigma^{-1}\boldsymbol \mu_i\), a \(w_{i0}=-\frac{1}{2}\boldsymbol \mu_i'\boldsymbol\Sigma^{-1}\boldsymbol \mu_i+\log\P(c_i).\)
+
+Ponieważ funkcje dyskryminacyjne są liniowe, to hiperpłaszczyzny są ograniczeniami obszarów obserwacji każdej z klas
+\begin{equation}
+    \boldsymbol w'(\boldsymbol x-\boldsymbol x_0)=0,
+    \label{eq:row812}
+\end{equation}
+gdzie
+\begin{equation}
+    \boldsymbol w = \boldsymbol\Sigma^{-1} (\boldsymbol \mu_i-\boldsymbol \mu_j),
+\end{equation}
+oraz
+\begin{equation}
+    \boldsymbol x_0 = \frac12(\boldsymbol \mu_i+\boldsymbol\mu_j)-\frac{\log[ \P(c_i)/\P(c_j)]}{(\boldsymbol x-\boldsymbol \mu_i)'\boldsymbol\Sigma^{-1}(\boldsymbol x-\boldsymbol \mu_i)}(\boldsymbol \mu_i-\boldsymbol \mu_j).
+\end{equation}
+Tym razem \(\boldsymbol{w}=\Sigma^{-1}(\boldsymbol \mu_i-\boldsymbol \mu_j)\) nie jest wektorem w kierunku \(\boldsymbol \mu_i-\boldsymbol \mu_j\), więc hiperpłaszczyzna rozdzielająca obiekty różnych klas nie jest prostopadła do wektora \(\boldsymbol \mu_i-\boldsymbol \mu_j\) ale przecina go w połowie (w punkcie \(\boldsymbol x_0\)).
+
+\begin{figure}
+
+{\centering \includegraphics{images/dyskrym2} 
+
+}
+
+\caption{Hiperpłaszczyzna rozdzielająca obszary innych klas może być przesunięta w kierunku bardziej prawdopodobnej klasy, jeśli prawdopodobieństwa a priori są różne. Źródło: @duda2001}\label{fig:hiper2}
+\end{figure}
+
+\hypertarget{przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci}{%
+\subsection{\texorpdfstring{Przypadek gdy \(\boldsymbol \Sigma_i\) jest dowolnej postaci}{Przypadek gdy \textbackslash{}boldsymbol \textbackslash{}Sigma\_i jest dowolnej postaci}}\label{przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci}}
+
+Jest to najbardziej ogólny przypadek, kiedy nie nakłada się żadnych ograniczeń na macierze kowariancji grupowych. Postać funkcji dyskryminacyjnych jest następująca
+\begin{equation}
+    g_i(\boldsymbol x)=\boldsymbol x'\boldsymbol W_i\boldsymbol x+\boldsymbol w_i'\boldsymbol x+w_{i0}
+    \label{eq:row813}
+\end{equation}
+gdzie
+\begin{align}
+    \boldsymbol W_i = &-\frac12 \boldsymbol\Sigma_i^{-1},\\
+    \boldsymbol w_i=& \boldsymbol\Sigma_i^{-1}\boldsymbol\mu_i,\\
+    w_{i0} = &-\frac12\boldsymbol\mu_i'\boldsymbol\Sigma_i^{-1}\boldsymbol\mu_i-\frac12\log|\boldsymbol\Sigma_i|+\log\P(c_i).
+\end{align}
+
+Ograniczenia w ten sposób budowane są hiperpowierzchniami (nie koniecznie hiperpłaszczyznami). W literaturze ta metoda znana jest pod nazwą kwadratowej analizy dyskryminacyjnej (ang. \emph{Quadratic Discriminant Analysis}).
+
+\begin{figure}
+
+{\centering \includegraphics{images/dyskrym3} 
+
+}
+
+\caption{Przykład zastosowania kwadratowej analizy dyskryminacyjnej. Pokazane są dopuszczalne postaci zbiorów ograniczających. Źródło: @duda2001}\label{fig:hiper3}
+\end{figure}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:caravan}{}{\label{exm:caravan} }Przeprowadzimy klasyfikację na podstawie zbioru \texttt{Smarket} pakietu \texttt{ILSR}. Dane zawierają kursy indeksu giełdowego S\&P500 w latach 2001-2005. Na podstawie wartości waloru z poprzednich 2 dni będziemy chcieli przewidzieć czy ruch w kolejnym okresie czasu będzie w górę czy w dół.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ISLR)}
+\KeywordTok{head}\NormalTok{(Smarket)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Year   Lag1   Lag2   Lag3   Lag4   Lag5 Volume  Today Direction
+## 1 2001  0.381 -0.192 -2.624 -1.055  5.010 1.1913  0.959        Up
+## 2 2001  0.959  0.381 -0.192 -2.624 -1.055 1.2965  1.032        Up
+## 3 2001  1.032  0.959  0.381 -0.192 -2.624 1.4112 -0.623      Down
+## 4 2001 -0.623  1.032  0.959  0.381 -0.192 1.2760  0.614        Up
+## 5 2001  0.614 -0.623  1.032  0.959  0.381 1.2057  0.213        Up
+## 6 2001  0.213  0.614 -0.623  1.032  0.959 1.3491  1.392        Up
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{dt.ucz <-}\StringTok{ }\NormalTok{Smarket }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate_if}\NormalTok{(is.numeric, scale) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{sample_frac}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\OperatorTok{/}\DecValTok{3}\NormalTok{) }
+\NormalTok{dt.test <-}\StringTok{ }\NormalTok{Smarket[}\OperatorTok{-}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(dt.ucz)),]}
+\NormalTok{mod.qda <-}\StringTok{ }\KeywordTok{qda}\NormalTok{(Direction}\OperatorTok{~}\NormalTok{Lag1}\OperatorTok{+}\NormalTok{Lag2, }\DataTypeTok{data =}\NormalTok{ dt.ucz)}
+\NormalTok{mod.qda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## qda(Direction ~ Lag1 + Lag2, data = dt.ucz)
+## 
+## Prior probabilities of groups:
+##      Down        Up 
+## 0.4789916 0.5210084 
+## 
+## Group means:
+##             Lag1         Lag2
+## Down  0.01064899 -0.006153307
+## Up   -0.08417078  0.030090639
+\end{verbatim}
+
+Ponieważ funkcje dyskryminacyjne mogą być nieliniowe, to podsumowanie modelu nie zawiera współczynników funkcji. Podsumowanie zawiera tylko prawdopodobieństwa a priori i średnie poszczególnych zmiennych niezależnych w klasach.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.qda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.qda, dt.test)}
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.qda}\OperatorTok{$}\NormalTok{class, dt.test}\OperatorTok{$}\NormalTok{Direction)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       
+## pred   Down  Up
+##   Down   10  17
+##   Up    171 219
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5491607
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(klaR)}
+\KeywordTok{partimat}\NormalTok{(Direction }\OperatorTok{~}\StringTok{ }\NormalTok{Lag1}\OperatorTok{+}\NormalTok{Lag2, }
+         \DataTypeTok{data =}\NormalTok{ dt.ucz,}
+         \DataTypeTok{method =} \StringTok{"qda"}\NormalTok{,}
+         \DataTypeTok{col.correct=}\StringTok{'blue'}\NormalTok{,}
+         \DataTypeTok{col.wrong=}\StringTok{'red'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/qda-1} 
+
+}
+
+\caption{Wykres klasyfikacji na podstawie QDA. Obserwacje zaznczone kolorem niebieskim są prawidłowo zaklasyfikowane, a czerwonym źle}\label{fig:qda}
+\end{figure}
+
+\hypertarget{analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow}{%
+\section{Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów}\label{analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow}}
+
+Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów (ang. \emph{Partial Least Squares Discriminant Analysis}) jest wykorzystywana szczególnie w sytuacjach gdy zestaw predyktorów zwiera zmienne silnie ze sobą skorelowane. Jak wiadomo z wcześniejszych rozważań, metody dyskryminacji obserwacji są mało odporne na nadmiarowość zmiennych niezależnych. Stąd powstał pomysł zastosowania połączenia LDA z PLS (Partial Least Squares), której celem jest redukcja wymiaru przestrzeni jednocześnie maksymalizując korelację zmiennych niezależnych ze zmienną wynikową.
+
+Parametrem, który jest kontrolowany podczas budowy modelu jest liczba ukrytych zmiennych. Metoda PLSDA ma kilka implementacji w R, ale najbardziej znana jest funkcja \texttt{plsda} z pakietu \texttt{caret} (Jed Wing et al. \protect\hyperlink{ref-kuhn}{2018}).
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:plsda}{}{\label{exm:plsda} }Kontynując poprzedni przykład przeprowadzimy klasyfikacje ruchu waloru korzystając z metody PLSDA. W przeciwieństwie do poprzednich funkcji \texttt{plsda} potrzebuje przekazania zbioru predyktorów i wektora zmiennej wynikowej oddzielnie, a nie za pomocą formuły. Doboru liczby zmiennych latentnych dokonamy arbitralnie.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caret)}
+\NormalTok{mod.plsda <-}\StringTok{ }\KeywordTok{plsda}\NormalTok{(dt.ucz[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{7}\OperatorTok{:}\DecValTok{9}\NormalTok{)],}
+                   \KeywordTok{as.factor}\NormalTok{(dt.ucz}\OperatorTok{$}\NormalTok{Direction), }
+                   \DataTypeTok{ncomp =} \DecValTok{2}\NormalTok{)}
+\NormalTok{mod.plsda}\OperatorTok{$}\NormalTok{loadings}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Loadings:
+##      Comp 1 Comp 2
+## Lag1 -0.712  0.450
+## Lag2  0.234  0.237
+## Lag3  0.647       
+## Lag4  0.158  0.519
+## Lag5         0.681
+## 
+##                Comp 1 Comp 2
+## SS loadings     1.008  1.001
+## Proportion Var  0.202  0.200
+## Cumulative Var  0.202  0.402
+\end{verbatim}
+
+Dwie ukryte zmienne użyte do redukcji wymiaru przestrzeni wyjaśniają około 40\% zmienności pierwotnych zmiennych. Ładunki (\texttt{Loadings}) pokazują kontrybucje poszczególnych zmiennych w tworzenie się zmiennych ukrytych.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.plsda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.plsda, dt.test[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{7}\OperatorTok{:}\DecValTok{9}\NormalTok{)])}
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred.plsda, dt.test}\OperatorTok{$}\NormalTok{Direction)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+## pred.plsda Down  Up
+##       Down   37  50
+##       Up    144 186
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5347722
+\end{verbatim}
+
+Ponieważ korelacje pomiędzy predyktorami w naszym przypadku nie były duże, to zastosowanie PLSDA nie poprawiło znacząco klasyfikacji w stosunku do metody QDA.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(dt.ucz[,}\DecValTok{2}\OperatorTok{:}\DecValTok{6}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Lag1         Lag2         Lag3        Lag4        Lag5
+## Lag1  1.000000000 -0.001713222  0.003820374  0.01583203  0.02504524
+## Lag2 -0.001713222  1.000000000 -0.046611448 -0.02069792 -0.04105822
+## Lag3  0.003820374 -0.046611448  1.000000000 -0.06142632 -0.03424691
+## Lag4  0.015832026 -0.020697920 -0.061426325  1.00000000 -0.07102928
+## Lag5  0.025045238 -0.041058218 -0.034246907 -0.07102928  1.00000000
+\end{verbatim}
+
+\hypertarget{regularyzowana-analiza-dyskryminacyjna}{%
+\section{Regularyzowana analiza dyskryminacyjna}\label{regularyzowana-analiza-dyskryminacyjna}}
+
+Regularyzowana analiza dyskryminacyjna (ang. \emph{Regularized Discriminant Analysis}) powstała jako technika równoważąca zalety i wady LDA i QDA. Ze względu na zdolności generalizacyjne model LDA jest lepszy od QDA (mniejsza wariancja modelu), ale jednocześnie QDA ma bardziej elastyczną postać hiperpowierzchni brzegowych rozdzielających obiekty różnych klas. Dlatego Friedman (\protect\hyperlink{ref-friedman1989}{1989}) wprowadził technikę będącą kompromisem pomiędzy LDA i QDA poprzez odpowiednie określenie macierzy kowariancji
+\begin{equation}
+    \tilde{\boldsymbol \Sigma}_i(\lambda) = \lambda\boldsymbol\Sigma_i + (1-\lambda)\boldsymbol\Sigma,
+\end{equation}
+gdzie \(\boldsymbol \Sigma_i\) jest macierzą kowariancji dla \(i\)-tej klasy, a \(\boldsymbol \Sigma\) jest uśrednioną macierzą kowariancji wszystkich klas. Zatem odpowiedni dobór parametru \(\lambda\) decyduje czy poszukujemy modelu prostszego (\(\lambda = 0\) odpowiada LDA), czy bardziej elastycznego (\(\lambda=1\) oznacza QDA).
+
+Dodatkowo metoda RDA pozwala na elastyczny wybór pomiędzy postaciami macierzy kowariancji wspólnej dla wszystkich klas \(\boldsymbol\Sigma\). Może ona być macierzą jednostkową, jak w przypadku \ref{przypI}, co oznacza niezależność predyktorów modelu, może też być jak w przypadku \ref{przypSig}, gdzie dopuszcza się korelacje między predyktorami. Dokonuje się tego przez odpowiedni dobór parametru \(\gamma\)
+\begin{equation}
+    \boldsymbol \Sigma(\gamma) = \gamma\boldsymbol \Sigma+(1-\gamma)\sigma^2I.
+\end{equation}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:rda}{}{\label{exm:rda} }Funkcja \texttt{rda} pakietu \texttt{klaR} jest implementacją powyższej metody. Ilustrają jej działania będzie klasyfikacja stanów z poprzedniego przykładu.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(klaR)}
+\NormalTok{mod.rda <-}\StringTok{ }\KeywordTok{rda}\NormalTok{(Direction}\OperatorTok{~}\NormalTok{Lag1}\OperatorTok{+}\NormalTok{Lag2}\OperatorTok{+}\NormalTok{Lag3}\OperatorTok{+}\NormalTok{Lag4}\OperatorTok{+}\NormalTok{Lag5, dt.ucz)}
+\NormalTok{mod.rda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: 
+## rda(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5, data = dt.ucz)
+## 
+## Regularization parameters: 
+##      gamma     lambda 
+## 0.33416870 0.03931045 
+## 
+## Prior probabilities of groups: 
+##      Down        Up 
+## 0.4789916 0.5210084 
+## 
+## Misclassification rate: 
+##        apparent: 43.337 %
+## cross-validated: 45.524 %
+\end{verbatim}
+
+Model został oszacowany z parametrami wyznaczonymi na podstawie sprawdzianu krzyżowego zastosowanego w funkcji \texttt{rda}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.rda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.rda, dt.test)}
+\NormalTok{(tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.rda}\OperatorTok{$}\NormalTok{class, dt.test}\OperatorTok{$}\NormalTok{Direction))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       
+## pred   Down  Up
+##   Down   19  30
+##   Up    162 206
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5395683
+\end{verbatim}
+
+Jakość klasyfikacji jest na zbliżonym poziomie jak przy poprzednich metodach.
+
+\hypertarget{analiza-dyskryminacyjna-mieszana}{%
+\section{Analiza dyskryminacyjna mieszana}\label{analiza-dyskryminacyjna-mieszana}}
+
+Liniowa analiza dyskryminacyjna zakładała, że średnie (centroidy) w klasach są różne ale macierz kowariancji wszystkich klas jest jednakowa. Analiza dyskryminacyjna mieszana (ang. \emph{Mixture Discriminant Analysis}) prezentuje jeszcze inne podejście ponieważ zakłada, że każda klasa może być charakteryzowana przez wiele wielowymiarowych rozkładów normalnych, których centroidy mogą się różnic, ale macierze kowariancji nie.
+
+Wówczas rozkład dla danej klasy jest mieszaniną rozkładów składowych, a funkcja dyskryminacyjna dla \(i\)-tej klasy przyjmuje postać
+\begin{equation}
+    g_i(\boldsymbol x)\propto \sum_{k=1}^{L_i}\phi_{ik}g_{ik}(\boldsymbol x),
+\end{equation}
+gdzie \(L_i\) jest liczbą rozkładów składających się na \(i\)-tą klasę, a \(\phi_{ik}\) jest współczynnikiem proporcji estymowanych w czasie uczenia modelu.
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:mda}{}{\label{exm:mda} }Funkcja \texttt{mda} pakietu \texttt{mda} (Trevor Hastie et al. \protect\hyperlink{ref-R-mda}{2017}) jest implementacją tej techniki w R. Jej zastosowanie pokażemy na przykładzie danych giełdowych z poprzedniego przykładu. Użyjemy domyślnych ustawień funkcji (trzy rozkłady dla każdej klasy).
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mda)}
+\NormalTok{mod.mda <-}\StringTok{ }\KeywordTok{mda}\NormalTok{(Direction}\OperatorTok{~}\NormalTok{Lag1}\OperatorTok{+}\NormalTok{Lag2}\OperatorTok{+}\NormalTok{Lag3}\OperatorTok{+}\NormalTok{Lag4}\OperatorTok{+}\NormalTok{Lag5, dt.ucz)}
+\NormalTok{mod.mda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## mda(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5, data = dt.ucz)
+## 
+## Dimension: 5 
+## 
+## Percent Between-Group Variance Explained:
+##     v1     v2     v3     v4     v5 
+##  48.45  88.33  94.80  99.68 100.00 
+## 
+## Degrees of Freedom (per dimension): 6 
+## 
+## Training Misclassification Error: 0.42737 ( N = 833 )
+## 
+## Deviance: 1134.453
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.mda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.mda, dt.test)}
+\NormalTok{(tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.mda, dt.test}\OperatorTok{$}\NormalTok{Direction))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       
+## pred   Down  Up
+##   Down   23  38
+##   Up    158 198
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.529976
+\end{verbatim}
+
+Kolejny raz model dyskryminacyjny charakteryzuje się podobną jakością klasyfikacji.
+
+\hypertarget{elastyczna-analiza-dyskryminacyjna}{%
+\section{Elastyczna analiza dyskryminacyjna}\label{elastyczna-analiza-dyskryminacyjna}}
+
+Zupełnie inne podejście w stosunku do wcześniejszych rozwiązań, prezentuje elastyczna analiza dyskryminacyjna (ang. \emph{Flexible Discriminant Analysis}) . Kodując klasy wynikowe jako zmienne dychotomiczne (dla każdej klasy jest odrębna zmienna wynikowa) dla każdej z nich budowanych jest \(k\) modeli regresji. Mogą to być modele regresji penalizowanej, jak regresja grzbietowa lub LASSO, modele regresji wielomianowej albo modele regresji sklejanej (MARS), o których będzie mowa w dalszej części tego opracowania.
+
+Przykładowo, jeśli modelem bazowym jest MARS, to funkcja dyskryminacyjna \(i\)-tej klasy może być postaci
+\begin{equation}
+    g_i(\boldsymbol x)=\beta_0+\beta_1h(1-x_1)+\beta_2h(x_2-1)+\beta_3h(1-x_3)+\beta_4h(x_1-1),
+\end{equation}
+gdzie \(h\) są tzw. funkcjami bazowymi postaci
+\begin{equation}
+    h(x)= \begin{cases}
+        x, & x> 0\\
+        0, & x\leq 0.
+    \end{cases}
+\end{equation}
+Klasyfikacji dokonujemy sprawdzając znak funkcji dyskryminacyjnej \(g_i\), jeśli jest dodatni, to funkcja przypisuje obiekt do klasy \(i\)-tej. W przeciwnym przypadku nie należy do tej klasy.
+
+\begin{figure}
+
+{\centering \includegraphics{images/fda} 
+
+}
+
+\caption{Przykład klasyfikacji dwustanowej za pomocą metody FDA}\label{fig:fda}
+\end{figure}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:przykFDA}{}{\label{exm:przykFDA} }Funkcja \texttt{fda} pakietu \texttt{mda} jest implementacją techniki FDA w R. Na postawie danych z poprzedniego przykładu zostanie przedstawiona zasada dziełania. Przyjmiemy domyślne ustawienia funkcji, z wyjątkiem metody estymacji modelu, jako którą przyjmiemy MARS.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.fda <-}\StringTok{ }\KeywordTok{fda}\NormalTok{(Direction}\OperatorTok{~}\NormalTok{Lag1}\OperatorTok{+}\NormalTok{Lag2, dt.ucz, }\DataTypeTok{method =}\NormalTok{ mars)}
+\NormalTok{mod.fda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## fda(formula = Direction ~ Lag1 + Lag2, data = dt.ucz, method = mars)
+## 
+## Dimension: 1 
+## 
+## Percent Between-Group Variance Explained:
+##  v1 
+## 100 
+## 
+## Training Misclassification Error: 0.43938 ( N = 833 )
+\end{verbatim}
+
+Ponieważ, zmienna wynikowa jest dwustanowa, to powstała tylko jedna funkcja dyskryminacyjna.
+Parametry modelu są następujące
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.fda}\OperatorTok{$}\NormalTok{fit}\OperatorTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]
+## [1,]  0.1129623
+## [2,] -0.5202437
+## [3,]  0.5462219
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.fda <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.fda, dt.test)}
+\NormalTok{(tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.fda, dt.test}\OperatorTok{$}\NormalTok{Direction))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       
+## pred   Down  Up
+##   Down  108 118
+##   Up     73 118
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5419664
+\end{verbatim}
+
+Jakość klasyfikacji jest tylko nieco lepsza niż w przypadku poprzednich metod.
+
+\hypertarget{bayes}{%
+\chapter{Klasyfikatory bayesowskie}\label{bayes}}
+
+Całą gamę klasyfikatorów opartych na twierdzeniu Bayesa nazywać będziemy bayesowskimi.
+\begin{equation}\label{bayes}
+        P(A|B)=\frac{P(A)P(B|A)}{P(B)},
+\end{equation}
+gdzie \(P(B)>0\).
+
+Bayesowskie reguły podejmowania decyzji dały podstawy takich metod jak:
+
+\begin{itemize}
+\tightlist
+\item
+  liniowa analiza dyskryminacyjna;
+\item
+  kwadratowa analiza dyskryminacyjna;
+\end{itemize}
+
+W ustaleniu klasyfikatora bayesowskiego będzie nam przyświecała cały czas ta sama reguła: \emph{jeśli znam wartości cech charakteryzujących badane obiekty oraz klasy do których należą (w próbie uczącej), to na ich podstawie mogę wyznaczyć miary prawdopodobieństw a posteriori, które pomogą mi w ustaleniu klasy do której należy nowy testowy element.}
+
+W dalszej części będziemy przyjmowali następujące oznaczenia:
+
+\begin{itemize}
+\tightlist
+\item
+  \(T\) - zbiór danych uczących (treningowych),
+\item
+  \(T^j\) - zbiór danych uczących dla których przyjęliśmy decyzję o przynależności do \(j\)-tej klasy,
+\item
+  \(T^j_{a_i=v}\) - zbiór danych uczących o wartości atrybutu \(a_i\) równej \(v\) i klasy \(j\)-tej,
+\item
+  \(\mathbb{H}\) - przestrzeń hipotez,
+\item
+  \(P(h|a_1=v_1, a_2=v_2,\ldots,a_p=v_p)\) - prawdopodobieństwo a posteriori, że prawdziwa jest hipoteza \(h\in \mathbb{H}\), jeśli znamy atrybuty obiektu,
+\item
+  \(P(h)\) - prawdopodobieństwo a priori zajścia hipotezy \(h\in \mathbb{H}\),
+\item
+  \(c\) - prawdziwy stan obiektu.
+\end{itemize}
+
+\hypertarget{klasyfikator-maximum-a-posteriori-map}{%
+\section{Klasyfikator maximum a posteriori (MAP)}\label{klasyfikator-maximum-a-posteriori-map}}
+
+Na podstawie wiedzy o atrybutach obiektu \(x\) podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą \(h_{MAP}\in \mathbb{H}\), która przyjmuje postać
+\begin{align}\label{MAP}
+        h_{MAP}=&\operatorname{arg}\max_{h\in \mathbb{H}}P(h|a_1=v_1, a_2=v_2,\ldots,a_p=v_p)\\
+            =& \operatorname{arg}\max_{h\in \mathbb{H}}P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h)\cdot P(h),
+\end{align}
+gdzie ostatnia równość wynika z twierdzenia Bayesa oraz faktu, że dla konkretnego obiektu \(x\) wielkości atrybutów nie zależą od postawionej hipotezy.
+
+\hypertarget{klasyfikator-najwiekszej-wiarogodnosci-ml}{%
+\section{Klasyfikator największej wiarogodności (ML)}\label{klasyfikator-najwiekszej-wiarogodnosci-ml}}
+
+Na podstawie wiedzy o atrybutach obiektu \(x\) podejmujemy decyzję o klasyfikacji tego obiektu zgodnie z hipotezą \(h_{ML}\in \mathbb{H}\), która przyjmuje postać
+\begin{equation}\label{ML}
+        h_{ML}=\operatorname{arg}\max_{h\in \mathbb{H}}P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h).
+\end{equation}
+
+\BeginKnitrBlock{remark}
+\iffalse{} {Uwaga. } \fi{}Obie wspomniane metody wymagają znajomości prawdopodobieństwa \(P(a_1=v_1,a_2=v_2,\ldots,a_p=v_p|h)\), ale różnią się podejściem do wiedzy o prawdopodobieństwach a priori. W metodzie MAP brana pod uwagę jest wiedza o prawdopodobieństwie przynależności do poszczególnych klas, a w ML nie. Dla klasyfikacji, w których prawdopodobieństwa przynależności do klas są takie same, klasyfikatory MAP i ML są równoważne.
+\EndKnitrBlock{remark}
+
+\hypertarget{naiwny-klasyfikator-bayesa-nb}{%
+\section[Naiwny klasyfikator Bayesa (NB)]{\texorpdfstring{Naiwny klasyfikator Bayesa (NB)\footnote{ang. \emph{Naive Bayes Classifier}}}{Naiwny klasyfikator Bayesa (NB)}}\label{naiwny-klasyfikator-bayesa-nb}}
+
+Największy problem w wyznaczeniu klasyfikatorów MAP i ML stanowi wyznaczenie rozkładu łącznego \(P(a_1=v_1, a_2=v_2,\ldots,a_p=v_p|h)\). W naiwnym klasyfikatorze Bayesa zakłada się niezależność warunkową poszczególnych atrybutów względem klasy do której ma należeń wg hipotezy obiekt. Założenie to często nie jest spełnione i stąd nazwa przymiotnik ``naiwny''.
+
+Definicja naiwnego klasyfikatora bayesowskiego różni się od klasyfikatora MAP tylko podejściem do prawdopodobieństwa a posteriori.
+\begin{equation}\label{naiwny_bayes}
+        h_{NB}=\operatorname{arg}\max_{h_j\in \mathbb{H}}P(h_j)\prod_{i=1}^{p}P(a_i=v_i|h_j),
+\end{equation}
+gdzie \(h_j\) oznacza hipotezę (decyzję), że badany obiekt należy do \(j\)-tej klasy.
+
+Oczywiście zarówno prawdopodobieństwo a priori jak i a posteriori są wyznaczane na podstawie próby, i tak prawdopodobieństwo a priori wynosi
+\begin{equation}\label{apriori}
+        P(h_j)=P_T(h_j)=\frac{|T^j|}{|T|}, 
+\end{equation}
+gdzie \(|A|\) oznacza moc zbioru \(A\).
+
+Natomiast prawdopodobieństwo a posteriori dla \(i\)-tego atrybutu wynosi
+\begin{equation}\label{aposteriori}
+        P(a_i=v_i|h_j)=P_{T^j}(a_i=v_i)=\frac{|T^j_{a_i=v_i}|}{|T^j|}.
+\end{equation}
+Na mocy powyższego możemy zauważyć, że jeżeli założenie o warunkowej niezależności jest spełnione, to klasyfikatory NB i MAP są równoważne.
+
+Chcąc przypisać klasę nowemu obiektowi powstaje problem praktyczny, polegający na tym, że dla pewnych konfiguracji atrybutów nie ma odpowiedników w nauczonym modelu. Powodem takiego stanu rzeczy jest fakt, że takie kombinacje nie wystąpiły w próbie uczącej.
+
+Istnieją dwa sposoby predykcji w takiej sytuacji:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \begin{equation}\label{pred1}
+           P(a_i=v_i|h_j)=
+           \begin{cases}
+               \frac{|T^j_{a_i=v_i}|}{|T^j|}, & T^j_{a_i=v_i}\neq \emptyset\\
+               \epsilon, & \text{w przeciwnym przypadku.}
+           \end{cases}
+   \end{equation}
+  W tym przypadku przyjmuje się, że \(\epsilon \ll 1/|T_j|\).
+\item
+  Drugi sposób wykorzystuje estymację z poprawką
+  \begin{equation}\label{pred2}
+       P(a_i=v_i|h_j)=\frac{|T^j_{a_i=v_i}|+mp}{|T^j|+mp},
+  \end{equation}
+  gdzie \(p\) oznacza prawdopodobieństwo a priori przyjęcia przez atrybut \(a\) wartości \(v\) (najczęściej \(p=1/|A|\), \(A\) - zbiór wszystkich możliwych wartości atrybutu \(a\)), \(m\) - waga (najczęściej \(m=|A|\)).
+\end{enumerate}
+
+W przypadku gdy atrybuty są mierzone na skali ciągłej najczęściej stosuje się dyskretyzację ich do zmiennych ze skali przedziałowej. Inna metoda stosowana w przypadku ciągłych atrybutów, to użycie gęstości \(g_i^j\) o rozkładzie normalnym w miejsce \(P(a_i=v_i|h_j)\). Przy czym do obliczenia parametrów rozkładu stosujemy wzory
+\begin{equation}\label{sred}
+        m_i^j=\frac{1}{|T^j|}\sum_{x\in T^j}a_i(x),
+\end{equation}
+oraz
+\begin{equation}\label{odch}
+        (s_i^j)^2=\frac{1}{|T^j|-1}\sum_{x\in T^j}(a_i(x)-m_i^j)^2.
+\end{equation}
+
+Obsługa braków danych przez naiwny klasyfikator Bayesa jest dość prosta i opiera się na liczeniu prawdopodobieństw a posteriori wyłącznie dla obiektów, których wartości atrybutów są znane. Dlatego prawdopodobieństwa warunkowe liczy się wg wzoru
+\begin{equation}\label{pr_war}
+        P(a_i=v_i|h_j)=\frac{|T^j_{a_i=v_i}|}{|T^j|-|T^j_{a_i=NA}|}.
+\end{equation}
+Jeśli brakujące dane nie niosą w sobie istotnych informacji dotyczących klasyfikacji obiektów, to naiwny klasyfikator Bayesa będzie działał poprawnie.
+
+Naiwny klasyfikator Bayesa jest implementowany w pakietach \textbf{e1071} (Meyer et al. \protect\hyperlink{ref-R-e1071}{2019}) i \textbf{klaR} (Weihs et al. \protect\hyperlink{ref-R-klaR}{2005}).
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:unnamed-chunk-74}{}{\label{exm:unnamed-chunk-74} }Przeprowadzimy klasyfikację dla zbioru \texttt{Titanic}. W przypadku funkcji z pakietu \texttt{e1071} nie potrzeba zamieniać tabeli na przypadki. W pakiecie \texttt{klaR} istnieje inna funkcja budująca klasyfikator Bayesa \texttt{NaiveBayes}, ale w tym przypadku jeśli zbiór jest w formie tabeli, to należy go zamienić na ramkę danych z oddzielnymi przypadkami.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(e1071)}
+\NormalTok{Titanic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , Age = Child, Survived = No
+## 
+##       Sex
+## Class  Male Female
+##   1st     0      0
+##   2nd     0      0
+##   3rd    35     17
+##   Crew    0      0
+## 
+## , , Age = Adult, Survived = No
+## 
+##       Sex
+## Class  Male Female
+##   1st   118      4
+##   2nd   154     13
+##   3rd   387     89
+##   Crew  670      3
+## 
+## , , Age = Child, Survived = Yes
+## 
+##       Sex
+## Class  Male Female
+##   1st     5      1
+##   2nd    11     13
+##   3rd    13     14
+##   Crew    0      0
+## 
+## , , Age = Adult, Survived = Yes
+## 
+##       Sex
+## Class  Male Female
+##   1st    57    140
+##   2nd    14     80
+##   3rd    75     76
+##   Crew  192     20
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nb <-}\StringTok{ }\KeywordTok{naiveBayes}\NormalTok{(Survived }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ Titanic)}
+\NormalTok{nb}\OperatorTok{$}\NormalTok{apriori}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Survived
+##   No  Yes 
+## 1490  711
+\end{verbatim}
+
+Poniższe tabele zawierają warunkowe prawdopodobieństwa przynależności do poszczególnych klas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nb}\OperatorTok{$}\NormalTok{tables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Class
+##         Class
+## Survived        1st        2nd        3rd       Crew
+##      No  0.08187919 0.11208054 0.35436242 0.45167785
+##      Yes 0.28551336 0.16596343 0.25035162 0.29817159
+## 
+## $Sex
+##         Sex
+## Survived       Male     Female
+##      No  0.91543624 0.08456376
+##      Yes 0.51617440 0.48382560
+## 
+## $Age
+##         Age
+## Survived      Child      Adult
+##      No  0.03489933 0.96510067
+##      Yes 0.08016878 0.91983122
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dane <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(Titanic)}
+\NormalTok{pred <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(nb, dane)}
+\NormalTok{pred}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] Yes No  No  No  Yes Yes Yes Yes No  No  No  No  Yes Yes Yes Yes Yes
+## [18] No  No  No  Yes Yes Yes Yes No  No  No  No  Yes Yes Yes Yes
+## Levels: No Yes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred, dane}\OperatorTok{$}\NormalTok{Survived)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      
+## pred  No Yes
+##   No   7   7
+##   Yes  9   9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+Naiwny klasyfikator spisał się bardzo słabo, ponieważ klasyfikacja na poziomie 0.5 jest taka jak przy rzucie monetą.
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:unnamed-chunk-78}{}{\label{exm:unnamed-chunk-78} }Przeprowadzimy klasyfikację gatunków irysów na podstawie szerokości i długości kielicha i płatka.
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(klaR)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{uczaca <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(iris), }\DecValTok{2}\OperatorTok{*}\KeywordTok{nrow}\NormalTok{(iris)}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\NormalTok{pr.ucz <-}\StringTok{ }\NormalTok{iris[uczaca,]}
+\NormalTok{pr.test <-}\StringTok{ }\NormalTok{iris[}\OperatorTok{-}\NormalTok{uczaca,]}
+\NormalTok{nb2 <-}\StringTok{ }\KeywordTok{NaiveBayes}\NormalTok{(Species}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ pr.ucz)}
+\NormalTok{nb2}\OperatorTok{$}\NormalTok{apriori}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## grouping
+##     setosa versicolor  virginica 
+##       0.36       0.31       0.33
+\end{verbatim}
+
+Prawdopodobieństwa a priori zostały oszacowane na podstawie próby uczącej. Poniższe tabele zawierają średnie i odchylenia standardowe zmiennych w poszczególnych klasach.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nb2}\OperatorTok{$}\NormalTok{tables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Sepal.Length
+##                [,1]      [,2]
+## setosa     4.994444 0.3438807
+## versicolor 5.977419 0.5613731
+## virginica  6.603030 0.7359029
+## 
+## $Sepal.Width
+##                [,1]      [,2]
+## setosa     3.436111 0.3586903
+## versicolor 2.838710 0.2996414
+## virginica  2.942424 0.3211603
+## 
+## $Petal.Length
+##                [,1]      [,2]
+## setosa     1.472222 0.1782632
+## versicolor 4.316129 0.4576001
+## virginica  5.606061 0.6269666
+## 
+## $Petal.Width
+##                 [,1]       [,2]
+## setosa     0.2444444 0.09394358
+## versicolor 1.3354839 0.18537959
+## virginica  2.0000000 0.25860201
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(nb2, }\DataTypeTok{newdata =}\NormalTok{ pr.test)}
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred}\OperatorTok{$}\NormalTok{class, pr.test}\OperatorTok{$}\NormalTok{Species)}
+\NormalTok{tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             
+##              setosa versicolor virginica
+##   setosa         14          0         0
+##   versicolor      0         18         1
+##   virginica       0          1        16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.96
+\end{verbatim}
+
+Klasyfikacja na podstawie modelu jest bardzo dobra (96\%).
+
+\hypertarget{zalety-i-wady-1}{%
+\section{Zalety i wady}\label{zalety-i-wady-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Zalety:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    prostota konstrukcji i prosty algorytm;
+  \item
+    jeśli jest spełnione założenie warunkowej niezależności, to ten klasyfikator działa szybciej i czasem lepiej niż inne metody klasyfikacji;
+  \item
+    nie potrzebuje dużych zbiorów danych do estymacji parametrów;
+  \end{itemize}
+\item
+  Wady:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    często nie spełnione założenie o warunkowej niezależności powoduje obciążenie wyników;
+  \item
+    brak możliwości wprowadzania interakcji efektów kilku zmiennych;
+  \item
+    potrzebuje założenia normalności warunkowych gęstości w przypadku ciągłych atrybutów;
+  \item
+    często istnieją lepsze klasyfikatory.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{metoda-k-najblizszych-sasiadow}{%
+\chapter{\texorpdfstring{Metoda \(k\) najbliższych sąsiadów}{Metoda k najbliższych sąsiadów}}\label{metoda-k-najblizszych-sasiadow}}
+
+Technika \(k\) najbliższych sąsiadów (ang. \emph{\(k\)-Nearest Neighbors}) przewiduje wartość zmiennej wynikowej na podstawie \(k\) najbliższych obserwacji zbioru uczącego. W przeciwieństwie do wspomnianych wcześniej modeli liniowych, nie posiada ona jawnej formy i należy do klasy technik nazywanych czarnymi skrzynkami (ang. \emph{black box}). Może być wykorzystywana, zarówno do zadań klasyfikacyjnych, jak i regresyjnych. W obu przypadkach predykcja dla nowych wartości predyktorów przebiega podobnie.
+
+Niech \(\boldsymbol x_0\) będzie obserwacją, dla której poszukujemy wartości zmiennej wynikowej \(y_0\). Na podstawie zbioru obserwacji \(\boldsymbol x\in T\) zbioru uczącego wyznacza się \(k\) najbliższych sąsiadów\footnote{metrykę można wybierać dowolnie, choć najczęściej jest to metryka euklidesowa}, gdzie \(k\) jest z góry ustaloną wartością. Następnie, jeśli zadanie ma charakter klasyfikacyjny, to \(y_0\) przypisuje się modę zmiennej wynikowej obserwacji będących \(k\) najbliższymi sąsiadami. W przypadku zadań regresyjnych \(y_0\) przypisuje się średnią lub medianę.
+
+Olbrzymie znaczenie dla wyników predykcji na podstawie metody \emph{kNN} ma dobór metryki. Nie istnieje obiektywna technika wyboru najlepszej metryki, dlatego jej doboru dokonujemy metodą prób i błędów. Należy dodatkowo pamiętać, że wielkości mierzone \(\boldsymbol x\) mogą się różnić zakresami zmienności, a co za tym idzie, mogą znacząco wpłynąć na mierzone odległości pomiędzy punktami. Dlatego zaleca się standaryzację zmiennych przed zastosowaniem metody \emph{kNN}.
+
+Kolejnym parametrem, który ma znaczący wpływ na predykcję, jest liczba sąsiadów \(k\). Wybór zbyt małej liczby \(k\) może doprowadzić do przeuczenia modelu jak to jest pokazane na rysunku \ref{fig:knn1}
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/knn1-1} 
+
+}
+
+\caption{Przykład klasyfikacji dla $k=1$}\label{fig:knn1}
+\end{figure}
+
+Z kolei zbyt duża liczba sąsiadów powoduje obciążenie wyników (patrz rysunek \ref{fig:knn2})
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/knn2-1} 
+
+}
+
+\caption{Przykład zastosowania 100 sąsiadów}\label{fig:knn2}
+\end{figure}
+
+Dopiero dobór odpowiedniego \(k\) daje model o stosunkowo niskiej wariancji i obciążeniu. Najczęściej liczby \(k\) poszukujemy za pomocą próbkowania.
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/knn3-1} 
+
+}
+
+\caption{Model z optymalną liczbą sąsiadów}\label{fig:knn3}
+\end{figure}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:knnprzklad1}{}{\label{exm:knnprzklad1} }Klasyfikację z wykorzystaniem metody \emph{kNN} przeprowadzimy na przykładzie danych zbioru \texttt{spam} pakietu \texttt{ElemStatLearn}. Metoda \emph{kNN} ma wiele implementacji R-owych ale na potrzeby przykładu wykorzystamy funkcję \texttt{knn3} pakietu \texttt{caret}.
+
+Najpierw dokonamy oszacowania optymalnego \(k\)
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ElemStatLearn)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{spam.std <-}\StringTok{ }\NormalTok{spam }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate_if}\NormalTok{(is.numeric, scale)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(spam), }\DataTypeTok{size =} \KeywordTok{nrow}\NormalTok{(spam)}\OperatorTok{*}\DecValTok{2}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\NormalTok{dt.ucz <-}\StringTok{ }\NormalTok{spam.std[ind,]}
+\NormalTok{dt.test <-}\StringTok{ }\NormalTok{spam.std[}\OperatorTok{-}\NormalTok{ind,]}
+
+\NormalTok{acc <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(pred, obs)\{}
+\NormalTok{    tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred,obs)}
+\NormalTok{    acc <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\NormalTok{    acc}
+\NormalTok{\}}
+
+\DecValTok{1}\OperatorTok{:}\DecValTok{40} \OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{map}\NormalTok{(}\OperatorTok{~}\KeywordTok{knn3}\NormalTok{(spam}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ dt.ucz, }\DataTypeTok{k =}\NormalTok{ .x)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{map}\NormalTok{(}\OperatorTok{~}\KeywordTok{predict}\NormalTok{(.x, }\DataTypeTok{newdata =}\NormalTok{ dt.test, }\DataTypeTok{type =} \StringTok{"class"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{map_dbl}\NormalTok{(}\OperatorTok{~}\KeywordTok{acc}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ .x, }\DataTypeTok{obs =}\NormalTok{ dt.test}\OperatorTok{$}\NormalTok{spam)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{k =} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(.), }\DataTypeTok{acc=}\NormalTok{.) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(k, acc))}\OperatorTok{+}
+\StringTok{     }\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{EksploracjaDanych_files/figure-latex/knnrys-1} 
+
+}
+
+\caption{Ocena jakości dopasowania modelu dla różnej liczby sąsiadów}\label{fig:knnrys}
+\end{figure}
+
+Biorąc pod uwagę wykres \ref{fig:knnrys} można rozważać 1 lub 9 sąsiadów jako optymalne rozwiązanie, ponieważ wówczas poprawność klasyfikacji jest najwyższa. Proponuje unikać rozwiązania z 1 najbliższym sąsiadem ponieważ, będzie się ono charakteryzowało duża zmiennością. Wybór \(k=9\) wydaje się być optymalny.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod.knn <-}\StringTok{ }\KeywordTok{knn3}\NormalTok{(spam}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ dt.ucz,}
+                \DataTypeTok{k =} \DecValTok{9}\NormalTok{)}
+\NormalTok{mod.knn}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 9-nearest neighbor model
+## Training set outcome distribution:
+## 
+## email  spam 
+##  1872  1195
+\end{verbatim}
+
+Predykcji dokonujemy w ten sam sposób co w innych modelach klasyfikacyjnych
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.knn.class <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.knn, }\DataTypeTok{newdata =}\NormalTok{ dt.test, }\DataTypeTok{type =} \StringTok{"class"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(pred.knn.class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] spam  email email spam  spam  email
+## Levels: email spam
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.knn <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mod.knn, }\DataTypeTok{newdata =}\NormalTok{ dt.test)}
+\KeywordTok{head}\NormalTok{(pred.knn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          email      spam
+## [1,] 0.0000000 1.0000000
+## [2,] 0.6666667 0.3333333
+## [3,] 0.5555556 0.4444444
+## [4,] 0.2222222 0.7777778
+## [5,] 0.0000000 1.0000000
+## [6,] 0.8888889 0.1111111
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(tab <-}\StringTok{ }\KeywordTok{table}\NormalTok{(pred.knn.class, dt.test}\OperatorTok{$}\NormalTok{spam))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               
+## pred.knn.class email spam
+##          email   863   88
+##          spam     53  530
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(tab)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9080834
+\end{verbatim}
+
+\hypertarget{uogolnione-modele-addytywne}{%
+\chapter{Uogólnione modele addytywne}\label{uogolnione-modele-addytywne}}
+
+Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstawić kombinację liniową ich funkcji, czyli
+\begin{equation}
+    \E(Y|X)=f(X) = \sum_{i=1}^M\beta_mh_m(X),
+    \label{eq:row111}
+\end{equation}
+gdzie \(h_m:\mathbb{R}^d\to\mathbb{R}\) nazywana często funkcją bazową (ang. \emph{linear basis expansion}). Wówczas w zależności od postaci funkcji bazowej otrzymujemy modele z różnymi poziomami elastyczności:
+
+\begin{itemize}
+\tightlist
+\item
+  gdy \(h_m(X)=X_m,\ m=1,\ldots,M\), to otrzymujemy model liniowy;
+\item
+  gdy \(h_m(X)=X_j^2\) lub \(h_m(X)=X_jX_k\), to otrzymujemy struktury wielomianowe, charakteryzujące się większą elastycznością modelu;
+\item
+  gdy \(h_m(X)=\log X_j\) lub \(h_m(X)=\sqrt{X_j}\), to uzyskujemy nieliniowość czynników wchodzących w skład kombinacji liniowej \eqref{eq:row111};
+\item
+  dopuszczalne są również kawałkami liniowe funkcje postaci \(h_m(X)= I(l_m\leq X_k <u_m)\), gdzie \(I\) jest funkcją charakterystyczną (ang. \emph{indicator}) przedziału \([l_m,u_m)\).
+\end{itemize}
+
+Zbiory wszystkich funkcji bazowych definiowanych w ten sposób tworzy słownik funkcji bazowych \(\mathcal{D}\). Aby kontrolować złożoność modeli, mając do dyspozycji tak zasobny słownik, wprowadza się następujące podejścia:
+
+\begin{itemize}
+\tightlist
+\item
+  ogranicza się klasę dostępnych funkcji bazowych
+  \begin{equation}
+    f(X) = \sum_{j=1}^df_j(X_j)=\sum_{j=1}^d\sum_{m=1}^{M_j}\beta_{jm}h_{jm}(X_j),
+  \end{equation}
+\item
+  włącza się do modelu jedynie te funkcje ze słownika \(\mathcal{D}\), które istotnie poprawiają dopasowanie modelu,
+\item
+  używa się metod penalizowanych, czyli dopuszcza się stosowanie wszystkich funkcji bazowych ze słownika \(\mathcal{D}\), ale współczynniki przy nich stojące są ograniczane.
+\end{itemize}
+
+\hypertarget{przypadek-jednowymiarowy}{%
+\section{Przypadek jednowymiarowy}\label{przypadek-jednowymiarowy}}
+
+Dla uproszczenia rozważań przyjmiemy, że \(X\) jest jednowymiarowe.
+
+\begin{figure}
+
+{\centering \includegraphics{images/spline1} 
+
+}
+
+\caption{Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej $\max(X-\xi_1,0)$}\label{fig:spline1}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{images/spline2} 
+
+}
+
+\caption{Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości}\label{fig:spline2}
+\end{figure}
+
+Przykładowo sześcienny splajn\footnote{czyli funkcja łączona} dla dwóch punków węzłowych składa się z następujących funkcji bazowych
+
+\begin{gather}
+    h_1(X)=1,\quad h_3(X)=X^2,\quad h_5(X)=(X-\xi_1)_+^3\\
+    h_2(X)=X,\quad h_4(X)=X^3,\quad h_6(X)=(X-\xi_2)_+^3.
+\end{gather}
+
+Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdarza się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
+Naturalny splajn sześcienny zakłada liniowość modelu poza węzłami brzegowymi. Dla \(K\) węzłów naturalny splajn sześcienny składa się z następujących funkcji bazowych
+
+\begin{gather}
+    N_1(X)=1,\quad N_2(X)=X,\quad N_{k+2}(X)=d_k(X)-d_{K-1}(X),
+\end{gather}
+gdzie \(d_k(X)=\frac{(X-\xi_k)^3_+-(X-\xi_K)^3_+}{\xi_K-\xi_k}.\)
+
+Estymacji parametrów modelu dokonujemy metodą najmniejszych kwadratów, minimalizując
+\begin{equation}
+    RSS(f,\lambda) = \sum_{i=1}^N(y_i-f(x_i))^2+\lambda\int(f''(t))^2dt,
+\end{equation}
+gdzie \(\lambda\) jest parametrem wygładzania. Pierwsze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
+Dla naturalnego splajna
+\begin{equation}
+    f(x)=\sum_{j=1}^NN_j(x)\beta_j
+\end{equation}
+minimalizujemy
+\begin{equation}
+    RSS(\beta, \lambda)=(\boldsymbol y -\boldsymbol N\beta)'(\boldsymbol y-\boldsymbol N\beta)+\lambda\beta'\boldsymbol \Omega \beta,
+\end{equation}
+gdzie \(\{\boldsymbol N\}_{ij}= N_j(x_i)\) i \(\{\boldsymbol \Omega\}_{jk}=\int N''_j(t)N''_k(t)dt\). Rozwiązaniem zaganienia minimalizacji \(RSS(\beta,\lambda)\) jest
+\begin{equation}
+    \hat{\beta}=((\boldsymbol N'\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N'\boldsymbol y.
+\end{equation}
+
+\hypertarget{przypadek-wielowymiarowy}{%
+\section{Przypadek wielowymiarowy}\label{przypadek-wielowymiarowy}}
+
+W przypadku gdy \(X\in \mathbb{R}^d\) poszukujemy takiej \(d\)-wymiarowej regresji \(f(x)\), która będzie minimalizowała wyrażenie
+\begin{equation}
+    \min_f\sum_{i=1}^N(y_i-f(x_i))^2+\lambda J(f),
+\end{equation}
+gdzie \(J\) jest odpowiednią funkcją wyrażającą krzywoliniowość modelu. Dla \(X\in \mathbb{R}^2\) przyjmuje postać
+\begin{equation}
+    J(f)=\iint_{\mathbb{R}^2}\left[\left(\frac{\partial^2 f(x)}{\partial^2 x_1}\right)^2+2\left(\frac{\partial^2 f(x)}{\partial x_1\partial x_2}\right)^2+
+    \left(\frac{\partial^2 f(x)}{\partial^2 x_2}\right)^2\right]dx_1dx_2.
+\end{equation}
+Rozwiązanie przyjmuje postać
+\begin{equation}
+    f(x) = \beta_0+\beta'x+\sum_{i=1}^N \alpha_ih_i(x),
+\end{equation}
+gdzie \(h_i(x)=||x-x_j||^2\log||x-x_j||\).
+
+\hypertarget{uogolnione-modele-addytywne-1}{%
+\section{Uogólnione modele addytywne}\label{uogolnione-modele-addytywne-1}}
+
+Przez uogólnione modele addytywne (ang. \emph{Generalized Additive Models}) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następujący sposób
+\begin{equation}
+    g(\E(Y|X))=g(\mu(X))=\alpha+f_1(X_1)+\dots+f_d(X_d),
+\end{equation}
+gdzie \(g\) jest funkcją łączącą. Najczęściej stosowanymi funkcjami łączącymi są:
+
+\begin{itemize}
+\tightlist
+\item
+  \(g(\mu)=\mu\) - stosowana w modelach, gdy zmienna wynikowa ma rozkład normalny;
+\item
+  \(g(\mu)=\logit\mu\) - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;
+\item
+  \(g(\mu)=\probit\mu\) - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a \(\Phi^{-1}\) oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;
+\item
+  \(g(\mu)=\log\mu\) - stosowana, gdy zmienna wynikowa jest zmienną typu zliczeniowego (rozkład Poissona).
+\end{itemize}
+
+\hypertarget{algorytm-uczenia-modelu-gam}{%
+\subsection{Algorytm uczenia modelu GAM}\label{algorytm-uczenia-modelu-gam}}
+
+Algorytm uczenia wstecznego (ang. \emph{backfitting}) przebiega wg następujących kroków:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ustalamy wstępne oszacowania na \(\alpha=\bar{y}\) i \(\hat{f}_j=0\).
+\item
+  Dla \(j=1,\ldots,d,1,\ldots,d,1,\ldots\) powtarzamy szacowanie
+  \begin{align}
+   \hat{f}_j\leftarrow &\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right],\\
+   \hat{f}_j\leftarrow &\hat{f}_j-\frac{1}{N}\sum_{i=1}^N\hat{f}_j(x_{ij})
+  \end{align}
+  dopóki \(\hat{f}_j\) osiągnie zbieżność. Funkcja \(\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right]\) jest jednowymiarowym sześciennym splajnem o \(N\) węzłach. W jej miejsce można przyjąć również inne funkcje, takie jak: jednowymiarowe lokalne regresje wielomianowe (ang. \emph{LOESS - locally estimated scatterplot smoothing}), regresje liniowe, wielomianowe.
+\end{enumerate}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:gam}{}{\label{exm:gam} }Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (\(O_3\)) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję \texttt{gam} pakietu \texttt{mgcv} (Wood \protect\hyperlink{ref-R-mgcv}{2003}).
+\EndKnitrBlock{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(faraway)}
+\KeywordTok{head}\NormalTok{(ozone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   O3   vh wind humidity temp  ibh dpg ibt vis doy
+## 1  3 5710    4       28   40 2693 -25  87 250  33
+## 2  5 5700    3       37   45  590 -24 128 100  34
+## 3  5 5760    3       51   54 1450  25 139  60  35
+## 4  6 5720    4       69   35 1568  15 121  60  36
+## 5  4 5790    6       19   45 2631 -33 123 100  37
+## 6  4 5790    3       25   55  554 -28 182 250  38
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mgcv)}
+\NormalTok{mod.gam <-}\StringTok{ }\KeywordTok{gam}\NormalTok{(O3}\OperatorTok{~}\KeywordTok{s}\NormalTok{(temp, }\DataTypeTok{bs =} \StringTok{"cr"}\NormalTok{, }\DataTypeTok{m =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}\KeywordTok{s}\NormalTok{(ibh)}\OperatorTok{+}\KeywordTok{s}\NormalTok{(ibt), }\DataTypeTok{data =}\NormalTok{ ozone)}
+\KeywordTok{summary}\NormalTok{(mod.gam)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## O3 ~ s(temp, bs = "cr", m = 2) + s(ibh) + s(ibt)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  11.7758     0.2382   49.44   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##           edf Ref.df      F  p-value    
+## s(temp) 3.357  4.216 20.758 5.99e-16 ***
+## s(ibh)  4.171  5.072  7.344 1.37e-06 ***
+## s(ibt)  2.111  2.729  1.403    0.213    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.708   Deviance explained = 71.7%
+## GCV = 19.348  Scale est. = 18.724    n = 330
+\end{verbatim}
+
+W powyższym modelu użyto splajnów jako funkcji \(f_i\). W przypadku zmiennej \texttt{temp} był to sześcienny splajn z regularyzacją w postaci ciągłości drugiej pochodnej, a pozostałe są prostymi splajnami. Dopasowanie modelu sięga 71.7\% a wartość uogólnionego sprawdzianu krzyżowego 19.35.
+
+Poniższy wykres pokazuje rodzaje transformacji użyte przy dopasowaniu modelu.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(mod.gam, }\DataTypeTok{shade =}\NormalTok{ T, }\DataTypeTok{residuals =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EksploracjaDanych_files/figure-latex/unnamed-chunk-85-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-R-rmarkdown}{}%
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2018. \emph{Rmarkdown: Dynamic Documents for R}. \url{https://CRAN.R-project.org/package=rmarkdown}.
+
+\leavevmode\hypertarget{ref-breiman1996}{}%
+Breiman, Leo. 1996. ``Bagging Predictors.'' \emph{Machine Learning} 24 (2): 123--40. \url{https://doi.org/10.1007/BF00058655}.
+
+\leavevmode\hypertarget{ref-breiman1998}{}%
+---------. 1998. ``Arcing Classifier (with Discussion and a Rejoinder by the Author).'' \emph{Ann. Statist.} 26 (3). The Institute of Mathematical Statistics: 801--49. \url{https://doi.org/10.1214/aos/1024691079}.
+
+\leavevmode\hypertarget{ref-R-rio}{}%
+Chan, Chung-hong, and Thomas J. Leeper. 2018. \emph{Rio: A Swiss-Army Knife for Data I/O}. \url{https://CRAN.R-project.org/package=rio}.
+
+\leavevmode\hypertarget{ref-R-janitor}{}%
+Firke, Sam. 2018. \emph{Janitor: Simple Tools for Examining and Cleaning Dirty Data}. \url{https://CRAN.R-project.org/package=janitor}.
+
+\leavevmode\hypertarget{ref-fisher1936}{}%
+Fisher, R. A. 1936. ``The Use of Multiple Measurements in Taxonomic Problems.'' \emph{Annals of Eugenics} 7 (2): 179--88. \url{https://doi.org/10.1111/j.1469-1809.1936.tb02137.x}.
+
+\leavevmode\hypertarget{ref-friedman1989}{}%
+Friedman, Jerome H. 1989. ``Regularized Discriminant Analysis.'' \emph{Journal of the American Statistical Association} 84 (405): 165--75. \url{https://doi.org/10.2307/2289860}.
+
+\leavevmode\hypertarget{ref-R-gbm}{}%
+Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. \emph{Gbm: Generalized Boosted Regression Models}. \url{https://CRAN.R-project.org/package=gbm}.
+
+\leavevmode\hypertarget{ref-ho1995}{}%
+Ho, Tin Kam. 1995. ``Random Decision Forests.'' In \emph{Proceedings of 3rd International Conference on Document Analysis and Recognition}, 1:278--82. IEEE.
+
+\leavevmode\hypertarget{ref-R-Rweka}{}%
+Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. ``Open-Source Machine Learning: R Meets Weka.'' \emph{Computational Statistics} 24 (2): 225--32. \url{https://doi.org/10.1007/s00180-008-0119-7}.
+
+\leavevmode\hypertarget{ref-R-party}{}%
+Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. ``Unbiased Recursive Partitioning: A Conditional Inference Framework.'' \emph{Journal of Computational and Graphical Statistics} 15 (3). Taylor \& Francis: 651--74. \url{https://doi.org/10.1198/106186006X133933}.
+
+\leavevmode\hypertarget{ref-R-partykit}{}%
+Hothorn, Torsten, and Achim Zeileis. 2015. ``Partykit: A Modular Toolkit for Recursive Partytioning in R.'' \emph{Journal of Machine Learning Research} 16: 3905--9. \url{http://jmlr.org/papers/v16/hothorn15a.html}.
+
+\leavevmode\hypertarget{ref-kuhn}{}%
+Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2018. \emph{Caret: Classification and Regression Training}. \url{https://CRAN.R-project.org/package=caret}.
+
+\leavevmode\hypertarget{ref-kavakiotis2017}{}%
+Kavakiotis, Ioannis, Olga Tsave, Athanasios Salifoglou, Nicos Maglaveras, Ioannis Vlahavas, and Ioanna Chouvarda. 2017. ``Machine Learning and Data Mining Methods in Diabetes Research.'' \emph{Computational and Structural Biotechnology Journal} 15: 104--16.
+
+\leavevmode\hypertarget{ref-kearns1989}{}%
+Kearns, M., and L. G. Valiant. 1989. ``Crytographic Limitations on Learning Boolean Formulae and Finite Automata.'' \emph{Annual ACM Symposium on Theory of Computing}, 433. \url{http://search.ebscohost.com/login.aspx?direct=true\&db=edb\&AN=73725380\&lang=pl\&site=eds-live\&scope=site}.
+
+\leavevmode\hypertarget{ref-R-C50}{}%
+Kuhn, Max, and Ross Quinlan. 2018. \emph{C50: C5.0 Decision Trees and Rule-Based Models}. \url{https://CRAN.R-project.org/package=C50}.
+
+\leavevmode\hypertarget{ref-R-las}{}%
+Liaw, Andy, and Matthew Wiener. 2002. ``Classification and Regression by randomForest.'' \emph{R News} 2 (3): 18--22. \url{https://CRAN.R-project.org/doc/Rnews/}.
+
+\leavevmode\hypertarget{ref-R-e1071}{}%
+Meyer, David, Evgenia Dimitriadou, Kurt Hornik, Andreas Weingessel, and Friedrich Leisch. 2019. \emph{E1071: Misc Functions of the Department of Statistics, Probability Theory Group (Formerly: E1071), Tu Wien}. \url{https://CRAN.R-project.org/package=e1071}.
+
+\leavevmode\hypertarget{ref-R-ipred}{}%
+Peters, Andrea, and Torsten Hothorn. 2018. \emph{Ipred: Improved Predictors}. \url{https://CRAN.R-project.org/package=ipred}.
+
+\leavevmode\hypertarget{ref-quinlan1993}{}%
+Quinlan, J Ross. 1993. \emph{C4. 5: Programs for Machine Learning}. Morgan Kaufmann.
+
+\leavevmode\hypertarget{ref-R-base}{}%
+R Core Team. 2018. \emph{R: A Language and Environment for Statistical Computing}. Vienna, Austria: R Foundation for Statistical Computing. \url{https://www.R-project.org/}.
+
+\leavevmode\hypertarget{ref-schapire1990}{}%
+Schapire, Robert E. 1990. ``The Strength of Weak Learnability.'' \emph{Machine Learning} 5 (2): 197--227. \url{https://doi.org/10.1007/BF00116037}.
+
+\leavevmode\hypertarget{ref-R-CHAID}{}%
+Team, The FoRt Student Project. 2015. \emph{CHAID: CHi-Squared Automated Interaction Detection}.
+
+\leavevmode\hypertarget{ref-R-VIM}{}%
+Templ, Matthias, Alexander Kowarik, Andreas Alfons, and Bernd Prantner. 2019. \emph{VIM: Visualization and Imputation of Missing Values}. \url{https://CRAN.R-project.org/package=VIM}.
+
+\leavevmode\hypertarget{ref-R-rpart}{}%
+Therneau, Terry, and Beth Atkinson. 2018. \emph{Rpart: Recursive Partitioning and Regression Trees}. \url{https://CRAN.R-project.org/package=rpart}.
+
+\leavevmode\hypertarget{ref-R-DMwR}{}%
+Torgo, Luis. 2013. \emph{DMwR: Functions and Data for "Data Mining with R"}. \url{https://CRAN.R-project.org/package=DMwR}.
+
+\leavevmode\hypertarget{ref-R-mda}{}%
+Trevor Hastie, S original by, Robert Tibshirani. Original R port by Friedrich Leisch, Kurt Hornik, and Brian D. Ripley. 2017. \emph{Mda: Mixture and Flexible Discriminant Analysis}. \url{https://CRAN.R-project.org/package=mda}.
+
+\leavevmode\hypertarget{ref-R-mice}{}%
+van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2018. \emph{Mice: Multivariate Imputation by Chained Equations}. \url{https://CRAN.R-project.org/package=mice}.
+
+\leavevmode\hypertarget{ref-R-MASS}{}%
+Venables, W. N., and B. D. Ripley. 2002. \emph{Modern Applied Statistics with S}. Fourth. New York: Springer. \url{http://www.stats.ox.ac.uk/pub/MASS4}.
+
+\leavevmode\hypertarget{ref-R-klaR}{}%
+Weihs, Claus, Uwe Ligges, Karsten Luebke, and Nils Raabe. 2005. ``KlaR Analyzing German Business Cycles.'' In \emph{Data Analysis and Decision Support}, edited by D. Baier, R. Decker, and L. Schmidt-Thieme, 335--43. Berlin: Springer-Verlag.
+
+\leavevmode\hypertarget{ref-welch1939}{}%
+Welch, B. L. 1939. ``Note on Discriminant Functions.'' \emph{Biometrika} 31 (1/2): 218--20. \url{https://doi.org/10.2307/2334985}.
+
+\leavevmode\hypertarget{ref-R-mgcv}{}%
+Wood, S. N. 2003. ``Thin-Plate Regression Splines.'' \emph{Journal of the Royal Statistical Society (B)} 65 (1): 95--114.
+
+\leavevmode\hypertarget{ref-R-bookdown}{}%
+Xie, Yihui. 2018a. \emph{Bookdown: Authoring Books and Technical Documents with R Markdown}. \url{https://CRAN.R-project.org/package=bookdown}.
+
+\leavevmode\hypertarget{ref-R-knitr}{}%
+---------. 2018b. \emph{Knitr: A General-Purpose Package for Dynamic Report Generation in R}. \url{https://CRAN.R-project.org/package=knitr}.
 
 
 \end{document}

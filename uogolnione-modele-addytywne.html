@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-04-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -257,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="uogolnione-modele-addytywne" class="section level1">
 <h1><span class="header-section-number">11</span> Uogólnione modele addytywne</h1>
-<p>Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstacić kombinację liniową ich funkcji, czyli
+<p>Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstawić kombinację liniową ich funkcji, czyli
 <span class="math display" id="eq:row111">\[\begin{equation}
     \E(Y|X)=f(X) = \sum_{i=1}^M\beta_mh_m(X),
     \tag{11.1}
@@ -293,12 +295,12 @@ Rysunek 11.1: Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres
 Rysunek 11.2: Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości
 </p>
 </div>
-<p>Przykładowo sześcienny splajn<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> dla dwóch punków węzłowych składa się z następujących funkcji bazowych</p>
+<p>Przykładowo sześcienny splajn<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> dla dwóch punków węzłowych składa się z następujących funkcji bazowych</p>
 <p><span class="math display">\[\begin{gather}
     h_1(X)=1,\quad h_3(X)=X^2,\quad h_5(X)=(X-\xi_1)_+^3\\
     h_2(X)=X,\quad h_4(X)=X^3,\quad h_6(X)=(X-\xi_2)_+^3.
 \end{gather}\]</span></p>
-<p>Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdaża się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
+<p>Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdarza się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
 Naturalny splajn sześcienny zakłada liniowość modelu poza węzłami brzegowymi. Dla <span class="math inline">\(K\)</span> węzłów naturalny splajn sześcienny składa się z następujących funkcji bazowych</p>
 <p><span class="math display">\[\begin{gather}
     N_1(X)=1,\quad N_2(X)=X,\quad N_{k+2}(X)=d_k(X)-d_{K-1}(X),
@@ -308,7 +310,7 @@ gdzie <span class="math inline">\(d_k(X)=\frac{(X-\xi_k)^3_+-(X-\xi_K)^3_+}{\xi_
 <span class="math display">\[\begin{equation}
     RSS(f,\lambda) = \sum_{i=1}^N(y_i-f(x_i))^2+\lambda\int(f&#39;&#39;(t))^2dt,
 \end{equation}\]</span>
-gdzie <span class="math inline">\(\lambda\)</span> jest parametrem wygładzania. Piersze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
+gdzie <span class="math inline">\(\lambda\)</span> jest parametrem wygładzania. Pierwsze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
 Dla naturalnego splajna
 <span class="math display">\[\begin{equation}
     f(x)=\sum_{j=1}^NN_j(x)\beta_j
@@ -319,7 +321,7 @@ minimalizujemy
 \end{equation}\]</span>
 gdzie <span class="math inline">\(\{\boldsymbol N\}_{ij}= N_j(x_i)\)</span> i <span class="math inline">\(\{\boldsymbol \Omega\}_{jk}=\int N&#39;&#39;_j(t)N&#39;&#39;_k(t)dt\)</span>. Rozwiązaniem zaganienia minimalizacji <span class="math inline">\(RSS(\beta,\lambda)\)</span> jest
 <span class="math display">\[\begin{equation}
-    \hat{\beta}=(\boldsymbol N&#39;\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N&#39;\boldsymbol y.
+    \hat{\beta}=((\boldsymbol N&#39;\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N&#39;\boldsymbol y.
 \end{equation}\]</span></p>
 </div>
 <div id="przypadek-wielowymiarowy" class="section level2">
@@ -337,19 +339,19 @@ Rozwiązanie przyjmuje postać
 <span class="math display">\[\begin{equation}
     f(x) = \beta_0+\beta&#39;x+\sum_{i=1}^N \alpha_ih_i(x),
 \end{equation}\]</span>
-gdzie $h_i(x)=||x-x_j||^2||x-x_j||</p>
+gdzie <span class="math inline">\(h_i(x)=||x-x_j||^2\log||x-x_j||\)</span>.</p>
 </div>
 <div id="uogolnione-modele-addytywne-1" class="section level2">
 <h2><span class="header-section-number">11.3</span> Uogólnione modele addytywne</h2>
-<p>Przez uogólnione modele addytywne (ang. <em>Generalized Additive Models</em>) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następującyc sposób
+<p>Przez uogólnione modele addytywne (ang. <em>Generalized Additive Models</em>) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następujący sposób
 <span class="math display">\[\begin{equation}
     g(\E(Y|X))=g(\mu(X))=\alpha+f_1(X_1)+\dots+f_d(X_d),
 \end{equation}\]</span>
 gdzie <span class="math inline">\(g\)</span> jest funkcją łączącą. Najczęściej stosowanymi funkcjami łączącymi są:</p>
 <ul>
 <li><span class="math inline">\(g(\mu)=\mu\)</span> - stosowana w modelach, gdy zmienna wynikowa ma rozkład normalny;</li>
-<li><span class="math inline">\(g(\mu)=logit\mu\)</span> - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;</li>
-<li><span class="math inline">\(g(\mu)=probit\mu\)</span> - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a <span class="math inline">\(\Phi^{-1}\)</span> oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;</li>
+<li><span class="math inline">\(g(\mu)=\logit\mu\)</span> - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;</li>
+<li><span class="math inline">\(g(\mu)=\probit\mu\)</span> - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a <span class="math inline">\(\Phi^{-1}\)</span> oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;</li>
 <li><span class="math inline">\(g(\mu)=\log\mu\)</span> - stosowana, gdy zmienna wynikowa jest zmienną typu zliczeniowego (rozkład Poissona).</li>
 </ul>
 <div id="algorytm-uczenia-modelu-gam" class="section level3">
@@ -366,7 +368,7 @@ dopóki <span class="math inline">\(\hat{f}_j\)</span> osiągnie zbieżność. F
 </ol>
 
 <div class="example">
-<span id="exm:gam" class="example"><strong>Przykład 11.1  </strong></span>Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (<span class="math inline">\(O_3\)</span>) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję <code>gam</code> pakietu <code>mgcv</code> <span class="citation">(Wood <a href="#ref-wood2017">2017</a>)</span>.
+<span id="exm:gam" class="example"><strong>Przykład 11.1  </strong></span>Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (<span class="math inline">\(O_3\)</span>) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję <code>gam</code> pakietu <code>mgcv</code> <span class="citation">(Wood <a href="#ref-R-mgcv">2003</a>)</span>.
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(faraway)
@@ -378,8 +380,10 @@ dopóki <span class="math inline">\(\hat{f}_j\)</span> osiągnie zbieżność. F
 ## 4  6 5720    4       69   35 1568  15 121  60  36
 ## 5  4 5790    6       19   45 2631 -33 123 100  37
 ## 6  4 5790    3       25   55  554 -28 182 250  38</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mgcv)
-mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class="op">~</span><span class="kw">s</span>(temp, <span class="dt">bs =</span> <span class="st">&quot;cr&quot;</span>, <span class="dt">m =</span> <span class="dv">2</span>)<span class="op">+</span><span class="kw">s</span>(ibh)<span class="op">+</span><span class="kw">s</span>(ibt), <span class="dt">data =</span> ozone)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mgcv)</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## This is mgcv 1.8-26. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class="op">~</span><span class="kw">s</span>(temp, <span class="dt">bs =</span> <span class="st">&quot;cr&quot;</span>, <span class="dt">m =</span> <span class="dv">2</span>)<span class="op">+</span><span class="kw">s</span>(ibh)<span class="op">+</span><span class="kw">s</span>(ibt), <span class="dt">data =</span> ozone)
 <span class="kw">summary</span>(mod.gam)</code></pre>
 <pre><code>## 
 ## Family: gaussian 
@@ -408,7 +412,7 @@ mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class=
 <p>Poniższy wykres pokazuje rodzaje transformacji użyte przy dopasowaniu modelu.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
 <span class="kw">plot</span>(mod.gam, <span class="dt">shade =</span> T, <span class="dt">residuals =</span> T)</code></pre>
-<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-85-1.png" width="1056" /></p>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre>
 
 </div>
@@ -416,14 +420,14 @@ mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class=
 </div>
 <h3>Bibliografia</h3>
 <div id="refs" class="references">
-<div id="ref-wood2017">
-<p>Wood, S.N. 2017. <em>Generalized Additive Models: An Introduction with R</em>. 2nd ed. Chapman; Hall/CRC.</p>
+<div id="ref-R-mgcv">
+<p>Wood, S. N. 2003. “Thin-Plate Regression Splines.” <em>Journal of the Royal Statistical Society (B)</em> 65 (1): 95–114.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="20">
-<li id="fn20"><p>czyli funkcja łączona<a href="uogolnione-modele-addytywne.html#fnref20" class="footnote-back">↩</a></p></li>
+<ol start="2">
+<li id="fn2"><p>czyli funkcja łączona<a href="uogolnione-modele-addytywne.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
