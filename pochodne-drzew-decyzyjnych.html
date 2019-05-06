@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -234,6 +236,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -277,9 +286,9 @@ m &lt;-<span class="st"> </span><span class="ot">NULL</span>
     m[i] &lt;-<span class="st"> </span><span class="kw">length</span>(y)
 }
 <span class="kw">mean</span>(n)<span class="op">/</span><span class="dv">500</span><span class="op">*</span><span class="dv">100</span></code></pre>
-<pre><code>## [1] 63.2574</code></pre>
+<pre><code>## [1] 63.2802</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(m)<span class="op">/</span><span class="dv">500</span><span class="op">*</span><span class="dv">100</span></code></pre>
-<pre><code>## [1] 36.7426</code></pre>
+<pre><code>## [1] 36.7198</code></pre>
 <p>Faktycznie uczenie modelu metodą bagging odbywa się średnio na 2/3 obserwacji zbioru uczącego wylosowanych do prób bootstrapowych, a pozostała 1/3 (ang. <em>out-of-bag</em>) jest wykorzystana do oceny jakości predykcji.</p>
 <p>Niewątpliwą zaletą drzew decyzyjnych była ich łatwa interpretacja. W przypadku metody bagging jest ona znacznie utrudniona, ponieważ jej wynik składa się z agregacji wielu drzew. Można natomiast ocenić ważność predyktorów (ang. <em>variable importance</em>). I tak, przez obserwację spadku <span class="math inline">\(RSS\)</span> dla baggingu regresyjnego przy zastosowaniu danego predyktora w podziałach drzewa i uśrednieniu wyniku otrzymamy wskaźnik ważności predyktora dużo lepszy niż dla pojedynczego drzewa. W przypadku baggingu klasyfikacyjnego w miejsce <span class="math inline">\(RSS\)</span> stosujemy indeks Gini’ego.</p>
 <p>Implementacja R-owa metody bagging znajduje się w pakiecie <strong>ipred</strong>, a funkcja do budowy modelu nazywa się <code>bagging</code> <span class="citation">(Peters and Hothorn <a href="#ref-R-ipred">2018</a>)</span>. Można również stosować funkcję <code>randomForest</code> pakietu <strong>randomForest</strong> <span class="citation">(Liaw and Wiener <a href="#ref-R-las">2002</a>)</span> - powody takiego działania wyjaśnią się w podrozdziale <a href="pochodne-drzew-decyzyjnych.html#lasy-losowe">Lasy losowe</a>.</p>
@@ -317,215 +326,177 @@ x &lt;-<span class="st"> </span><span class="kw">summary</span>(boston.rpart)</c
 ## rpart(formula = medv ~ ., data = boston.train)
 ##   n= 337 
 ## 
-##            CP nsplit rel error    xerror       xstd
-## 1  0.43506104      0 1.0000000 1.0037495 0.10496568
-## 2  0.21114710      1 0.5649390 0.6856438 0.07732133
-## 3  0.05641774      2 0.3537919 0.4393220 0.05974589
-## 4  0.04154842      3 0.2973741 0.3726563 0.05716622
-## 5  0.02707678      4 0.2558257 0.3520312 0.05569786
-## 6  0.01489117      5 0.2287489 0.3238915 0.05681943
-## 7  0.01202564      6 0.2138578 0.2922610 0.05311293
-## 8  0.01057622      7 0.2018321 0.2889364 0.05318206
-## 9  0.01031677      8 0.1912559 0.2838433 0.05152251
-## 10 0.01006729      9 0.1809391 0.2838187 0.05152098
-## 11 0.01000000     10 0.1708718 0.2815210 0.05152993
+##           CP nsplit rel error    xerror       xstd
+## 1 0.49839799      0 1.0000000 1.0086928 0.10259521
+## 2 0.15725128      1 0.5016020 0.5442932 0.06125724
+## 3 0.07485605      2 0.3443507 0.4031978 0.05139310
+## 4 0.03672387      3 0.2694947 0.3127794 0.04599170
+## 5 0.03552748      4 0.2327708 0.2974517 0.04560807
+## 6 0.01695185      5 0.1972433 0.2553208 0.04022970
+## 7 0.01422576      6 0.1802915 0.2713816 0.04099092
+## 8 0.01103490      7 0.1660657 0.2744789 0.04107777
+## 9 0.01000000      8 0.1550308 0.2720415 0.04119266
 ## 
 ## Variable importance
-##   lstat     nox   indus    crim     tax      rm     age     dis ptratio 
-##      24      13      13      13      11      10      10       2       2 
-##     rad   black 
-##       1       1 
+##      rm   lstat   indus ptratio    crim     age     nox     dis      zn 
+##      33      19       9       8       7       6       6       5       3 
+##     tax     rad    chas 
+##       2       1       1 
 ## 
-## Node number 1: 337 observations,    complexity param=0.435061
-##   mean=22.61157, MSE=79.33004 
-##   left son=2 (186 obs) right son=3 (151 obs)
+## Node number 1: 337 observations,    complexity param=0.498398
+##   mean=22.69792, MSE=79.32964 
+##   left son=2 (286 obs) right son=3 (51 obs)
 ##   Primary splits:
-##       lstat   &lt; 10.02    to the right, improve=0.4350610, (0 missing)
-##       rm      &lt; 6.8375   to the left,  improve=0.4305766, (0 missing)
-##       indus   &lt; 6.66     to the right, improve=0.2914821, (0 missing)
-##       ptratio &lt; 19.15    to the right, improve=0.2608119, (0 missing)
-##       nox     &lt; 0.5125   to the right, improve=0.2169607, (0 missing)
+##       rm      &lt; 6.92     to the left,  improve=0.4983980, (0 missing)
+##       lstat   &lt; 9.725    to the right, improve=0.4424796, (0 missing)
+##       indus   &lt; 6.66     to the right, improve=0.2796065, (0 missing)
+##       ptratio &lt; 19.65    to the right, improve=0.2600149, (0 missing)
+##       nox     &lt; 0.6695   to the right, improve=0.2346383, (0 missing)
 ##   Surrogate splits:
-##       indus &lt; 7.625    to the right, agree=0.846, adj=0.656, (0 split)
-##       nox   &lt; 0.519    to the right, agree=0.828, adj=0.616, (0 split)
-##       crim  &lt; 0.12995  to the right, agree=0.786, adj=0.523, (0 split)
-##       age   &lt; 63.9     to the right, agree=0.777, adj=0.503, (0 split)
-##       tax   &lt; 377      to the right, agree=0.769, adj=0.483, (0 split)
+##       ptratio &lt; 14.55    to the right, agree=0.884, adj=0.235, (0 split)
+##       lstat   &lt; 4.915    to the right, agree=0.878, adj=0.196, (0 split)
+##       zn      &lt; 87.5     to the left,  agree=0.864, adj=0.098, (0 split)
+##       indus   &lt; 1.605    to the right, agree=0.864, adj=0.098, (0 split)
+##       crim    &lt; 0.013355 to the right, agree=0.852, adj=0.020, (0 split)
 ## 
-## Node number 2: 186 observations,    complexity param=0.05641774
-##   mean=17.31828, MSE=19.86042 
-##   left son=4 (58 obs) right son=5 (128 obs)
+## Node number 2: 286 observations,    complexity param=0.1572513
+##   mean=20.04266, MSE=37.17489 
+##   left son=4 (114 obs) right son=5 (172 obs)
 ##   Primary splits:
-##       crim  &lt; 5.84803  to the right, improve=0.4083024, (0 missing)
-##       dis   &lt; 2.0754   to the left,  improve=0.3684093, (0 missing)
-##       lstat &lt; 14.405   to the right, improve=0.3516672, (0 missing)
-##       nox   &lt; 0.657    to the right, improve=0.3255969, (0 missing)
-##       age   &lt; 84.9     to the right, improve=0.2247741, (0 missing)
+##       lstat   &lt; 14.405   to the right, improve=0.3954065, (0 missing)
+##       nox     &lt; 0.6695   to the right, improve=0.3012249, (0 missing)
+##       crim    &lt; 8.37969  to the right, improve=0.2817286, (0 missing)
+##       ptratio &lt; 20.15    to the right, improve=0.2392532, (0 missing)
+##       dis     &lt; 2.4737   to the left,  improve=0.2295258, (0 missing)
 ##   Surrogate splits:
-##       rad   &lt; 16       to the right, agree=0.855, adj=0.534, (0 split)
-##       tax   &lt; 551.5    to the right, agree=0.839, adj=0.483, (0 split)
-##       nox   &lt; 0.657    to the right, agree=0.828, adj=0.448, (0 split)
-##       dis   &lt; 2.0754   to the left,  agree=0.801, adj=0.362, (0 split)
-##       lstat &lt; 19.055   to the right, agree=0.796, adj=0.345, (0 split)
+##       age   &lt; 84.3     to the right, agree=0.808, adj=0.518, (0 split)
+##       dis   &lt; 2.23935  to the left,  agree=0.773, adj=0.430, (0 split)
+##       crim  &lt; 4.067905 to the right, agree=0.762, adj=0.404, (0 split)
+##       nox   &lt; 0.5765   to the right, agree=0.762, adj=0.404, (0 split)
+##       indus &lt; 16.57    to the right, agree=0.759, adj=0.395, (0 split)
 ## 
-## Node number 3: 151 observations,    complexity param=0.2111471
-##   mean=29.13179, MSE=75.5574 
-##   left son=6 (120 obs) right son=7 (31 obs)
+## Node number 3: 51 observations,    complexity param=0.07485605
+##   mean=37.58824, MSE=54.4677 
+##   left son=6 (34 obs) right son=7 (17 obs)
 ##   Primary splits:
-##       rm      &lt; 7.127    to the left,  improve=0.4947648, (0 missing)
-##       lstat   &lt; 4.495    to the right, improve=0.4054324, (0 missing)
-##       nox     &lt; 0.574    to the left,  improve=0.1389706, (0 missing)
-##       ptratio &lt; 14.75    to the right, improve=0.1349232, (0 missing)
-##       age     &lt; 89.45    to the left,  improve=0.1133301, (0 missing)
+##       rm      &lt; 7.47     to the left,  improve=0.72041550, (0 missing)
+##       lstat   &lt; 3.99     to the right, improve=0.34223650, (0 missing)
+##       ptratio &lt; 15.05    to the right, improve=0.21227430, (0 missing)
+##       rad     &lt; 2.5      to the left,  improve=0.10053340, (0 missing)
+##       tax     &lt; 267      to the right, improve=0.07935891, (0 missing)
 ##   Surrogate splits:
-##       lstat   &lt; 3.21     to the right, agree=0.841, adj=0.226, (0 split)
-##       ptratio &lt; 14.15    to the right, agree=0.828, adj=0.161, (0 split)
-##       tax     &lt; 207      to the right, agree=0.808, adj=0.065, (0 split)
-##       nox     &lt; 0.639    to the left,  agree=0.801, adj=0.032, (0 split)
+##       lstat &lt; 3.99     to the right, agree=0.824, adj=0.471, (0 split)
+##       indus &lt; 1.215    to the right, agree=0.706, adj=0.118, (0 split)
+##       chas  &lt; 0.5      to the left,  agree=0.706, adj=0.118, (0 split)
+##       tax   &lt; 225      to the right, agree=0.706, adj=0.118, (0 split)
+##       crim  &lt; 1.3713   to the left,  agree=0.686, adj=0.059, (0 split)
 ## 
-## Node number 4: 58 observations
-##   mean=13.08793, MSE=14.14485 
-## 
-## Node number 5: 128 observations,    complexity param=0.01489117
-##   mean=19.23516, MSE=10.66681 
-##   left son=10 (61 obs) right son=11 (67 obs)
+## Node number 4: 114 observations,    complexity param=0.03552748
+##   mean=15.33333, MSE=21.50994 
+##   left son=8 (77 obs) right son=9 (37 obs)
 ##   Primary splits:
-##       lstat   &lt; 14.405   to the right, improve=0.2915760, (0 missing)
-##       dis     &lt; 1.99235  to the left,  improve=0.2280873, (0 missing)
-##       age     &lt; 84.15    to the right, improve=0.1950219, (0 missing)
-##       ptratio &lt; 20.95    to the right, improve=0.1349341, (0 missing)
-##       rm      &lt; 5.706    to the left,  improve=0.1194638, (0 missing)
+##       crim    &lt; 0.69916  to the right, improve=0.3873341, (0 missing)
+##       nox     &lt; 0.6615   to the right, improve=0.3541892, (0 missing)
+##       dis     &lt; 2.3497   to the left,  improve=0.3182514, (0 missing)
+##       ptratio &lt; 19.45    to the right, improve=0.3102781, (0 missing)
+##       tax     &lt; 567.5    to the right, improve=0.2823826, (0 missing)
 ##   Surrogate splits:
-##       age   &lt; 91.15    to the right, agree=0.758, adj=0.492, (0 split)
-##       dis   &lt; 2.0418   to the left,  agree=0.664, adj=0.295, (0 split)
-##       nox   &lt; 0.607    to the right, agree=0.633, adj=0.230, (0 split)
-##       indus &lt; 18.84    to the right, agree=0.625, adj=0.213, (0 split)
-##       rm    &lt; 5.703    to the left,  agree=0.617, adj=0.197, (0 split)
+##       ptratio &lt; 19.95    to the right, agree=0.895, adj=0.676, (0 split)
+##       indus   &lt; 14.345   to the right, agree=0.868, adj=0.595, (0 split)
+##       nox     &lt; 0.5825   to the right, agree=0.868, adj=0.595, (0 split)
+##       tax     &lt; 397      to the right, agree=0.868, adj=0.595, (0 split)
+##       rad     &lt; 16       to the right, agree=0.860, adj=0.568, (0 split)
 ## 
-## Node number 6: 120 observations,    complexity param=0.04154842
-##   mean=26.02417, MSE=34.39883 
-##   left son=12 (98 obs) right son=13 (22 obs)
+## Node number 5: 172 observations,    complexity param=0.03672387
+##   mean=23.16395, MSE=23.11579 
+##   left son=10 (82 obs) right son=11 (90 obs)
 ##   Primary splits:
-##       lstat &lt; 5.145    to the right, improve=0.2690898, (0 missing)
-##       dis   &lt; 2.0891   to the right, improve=0.2163813, (0 missing)
-##       rm    &lt; 6.543    to the left,  improve=0.2036454, (0 missing)
-##       age   &lt; 89.45    to the left,  improve=0.1796977, (0 missing)
-##       tax   &lt; 548      to the left,  improve=0.1751322, (0 missing)
+##       lstat   &lt; 9.645    to the right, improve=0.24693150, (0 missing)
+##       rm      &lt; 6.543    to the left,  improve=0.17749260, (0 missing)
+##       ptratio &lt; 17.85    to the right, improve=0.07815189, (0 missing)
+##       nox     &lt; 0.5125   to the right, improve=0.07760816, (0 missing)
+##       tax     &lt; 267.5    to the right, improve=0.07238020, (0 missing)
 ##   Surrogate splits:
-##       zn    &lt; 92.5     to the left,  agree=0.833, adj=0.091, (0 split)
-##       nox   &lt; 0.4035   to the right, agree=0.833, adj=0.091, (0 split)
-##       indus &lt; 1.495    to the right, agree=0.825, adj=0.045, (0 split)
-##       dis   &lt; 1.48495  to the right, agree=0.825, adj=0.045, (0 split)
+##       nox   &lt; 0.5125   to the right, agree=0.756, adj=0.488, (0 split)
+##       indus &lt; 7.625    to the right, agree=0.750, adj=0.476, (0 split)
+##       rm    &lt; 6.26     to the left,  agree=0.738, adj=0.451, (0 split)
+##       age   &lt; 65.25    to the right, agree=0.727, adj=0.427, (0 split)
+##       dis   &lt; 3.8824   to the left,  agree=0.709, adj=0.390, (0 split)
 ## 
-## Node number 7: 31 observations,    complexity param=0.02707678
-##   mean=41.16129, MSE=52.78882 
-##   left son=14 (11 obs) right son=15 (20 obs)
+## Node number 6: 34 observations
+##   mean=33.15882, MSE=13.41419 
+## 
+## Node number 7: 17 observations
+##   mean=46.44706, MSE=18.85661 
+## 
+## Node number 8: 77 observations,    complexity param=0.0110349
+##   mean=13.33247, MSE=15.64998 
+##   left son=16 (37 obs) right son=17 (40 obs)
 ##   Primary splits:
-##       rm      &lt; 7.437    to the left,  improve=0.4423448, (0 missing)
-##       lstat   &lt; 5.185    to the right, improve=0.3125696, (0 missing)
-##       ptratio &lt; 15.05    to the right, improve=0.1896089, (0 missing)
-##       black   &lt; 392.715  to the right, improve=0.1133472, (0 missing)
-##       age     &lt; 37.6     to the right, improve=0.0737298, (0 missing)
+##       lstat &lt; 20.1     to the right, improve=0.24481010, (0 missing)
+##       crim  &lt; 15.718   to the right, improve=0.23250740, (0 missing)
+##       dis   &lt; 2.0037   to the left,  improve=0.17113480, (0 missing)
+##       nox   &lt; 0.6615   to the right, improve=0.11757680, (0 missing)
+##       rm    &lt; 5.5675   to the left,  improve=0.09054612, (0 missing)
 ##   Surrogate splits:
-##       lstat &lt; 4.635    to the right, agree=0.774, adj=0.364, (0 split)
-##       indus &lt; 2.32     to the left,  agree=0.742, adj=0.273, (0 split)
-##       dis   &lt; 5.9736   to the right, agree=0.710, adj=0.182, (0 split)
-##       black &lt; 390.095  to the right, agree=0.710, adj=0.182, (0 split)
-##       crim  &lt; 0.10593  to the left,  agree=0.677, adj=0.091, (0 split)
+##       dis   &lt; 1.9733   to the left,  agree=0.792, adj=0.568, (0 split)
+##       rm    &lt; 5.632    to the left,  agree=0.727, adj=0.432, (0 split)
+##       age   &lt; 95.35    to the right, agree=0.675, adj=0.324, (0 split)
+##       crim  &lt; 9.08499  to the right, agree=0.662, adj=0.297, (0 split)
+##       black &lt; 396.295  to the right, agree=0.623, adj=0.216, (0 split)
 ## 
-## Node number 10: 61 observations
-##   mean=17.38689, MSE=8.122779 
+## Node number 9: 37 observations
+##   mean=19.4973, MSE=8.034858 
 ## 
-## Node number 11: 67 observations
-##   mean=20.91791, MSE=7.041172 
+## Node number 10: 82 observations
+##   mean=20.66098, MSE=6.55677 
 ## 
-## Node number 12: 98 observations,    complexity param=0.01202564
-##   mean=24.58265, MSE=20.9745 
-##   left son=24 (64 obs) right son=25 (34 obs)
+## Node number 11: 90 observations,    complexity param=0.01695185
+##   mean=25.44444, MSE=27.29425 
+##   left son=22 (83 obs) right son=23 (7 obs)
 ##   Primary splits:
-##       rm    &lt; 6.543    to the left,  improve=0.1564077, (0 missing)
-##       black &lt; 364.385  to the right, improve=0.1331323, (0 missing)
-##       age   &lt; 89.45    to the left,  improve=0.1241124, (0 missing)
-##       tax   &lt; 223.5    to the right, improve=0.1204819, (0 missing)
-##       dis   &lt; 4.46815  to the right, improve=0.1048755, (0 missing)
+##       age   &lt; 86.7     to the left,  improve=0.1844883, (0 missing)
+##       lstat &lt; 4.46     to the right, improve=0.1773076, (0 missing)
+##       dis   &lt; 3.0037   to the right, improve=0.1652768, (0 missing)
+##       crim  &lt; 0.628575 to the left,  improve=0.1203635, (0 missing)
+##       nox   &lt; 0.5585   to the left,  improve=0.1122403, (0 missing)
 ##   Surrogate splits:
-##       dis   &lt; 3.6589   to the right, agree=0.704, adj=0.147, (0 split)
-##       rad   &lt; 6.5      to the left,  agree=0.704, adj=0.147, (0 split)
-##       age   &lt; 68.9     to the left,  agree=0.694, adj=0.118, (0 split)
-##       indus &lt; 1.605    to the right, agree=0.673, adj=0.059, (0 split)
-##       nox   &lt; 0.4045   to the right, agree=0.673, adj=0.059, (0 split)
+##       nox     &lt; 0.5585   to the left,  agree=0.978, adj=0.714, (0 split)
+##       dis     &lt; 2.1491   to the right, agree=0.978, adj=0.714, (0 split)
+##       crim    &lt; 0.643205 to the left,  agree=0.967, adj=0.571, (0 split)
+##       indus   &lt; 16.57    to the left,  agree=0.956, adj=0.429, (0 split)
+##       ptratio &lt; 14.75    to the right, agree=0.956, adj=0.429, (0 split)
 ## 
-## Node number 13: 22 observations,    complexity param=0.01031677
-##   mean=32.44545, MSE=43.70884 
-##   left son=26 (15 obs) right son=27 (7 obs)
+## Node number 16: 37 observations
+##   mean=11.2973, MSE=10.14026 
+## 
+## Node number 17: 40 observations
+##   mean=15.215, MSE=13.37128 
+## 
+## Node number 22: 83 observations,    complexity param=0.01422576
+##   mean=24.79277, MSE=13.56694 
+##   left son=44 (55 obs) right son=45 (28 obs)
 ##   Primary splits:
-##       tax   &lt; 364      to the left,  improve=0.2868266, (0 missing)
-##       lstat &lt; 3.855    to the right, improve=0.2413545, (0 missing)
-##       age   &lt; 31.85    to the left,  improve=0.1598075, (0 missing)
-##       dis   &lt; 5.4085   to the right, improve=0.1258591, (0 missing)
-##       black &lt; 381.59   to the right, improve=0.1052855, (0 missing)
+##       rm      &lt; 6.543    to the left,  improve=0.3377388, (0 missing)
+##       lstat   &lt; 5.41     to the right, improve=0.2548210, (0 missing)
+##       tax     &lt; 267.5    to the right, improve=0.2210129, (0 missing)
+##       ptratio &lt; 18.05    to the right, improve=0.1394682, (0 missing)
+##       dis     &lt; 6.4889   to the right, improve=0.1125739, (0 missing)
 ##   Surrogate splits:
-##       crim  &lt; 2.6956   to the left,  agree=0.773, adj=0.286, (0 split)
-##       indus &lt; 14       to the left,  agree=0.773, adj=0.286, (0 split)
-##       nox   &lt; 0.5875   to the left,  agree=0.773, adj=0.286, (0 split)
-##       age   &lt; 89.65    to the left,  agree=0.773, adj=0.286, (0 split)
-##       dis   &lt; 2.3371   to the right, agree=0.773, adj=0.286, (0 split)
+##       lstat   &lt; 5.055    to the right, agree=0.783, adj=0.357, (0 split)
+##       ptratio &lt; 15.75    to the right, agree=0.723, adj=0.179, (0 split)
+##       crim    &lt; 0.39646  to the left,  agree=0.699, adj=0.107, (0 split)
+##       chas    &lt; 0.5      to the left,  agree=0.687, adj=0.071, (0 split)
+##       age     &lt; 74.15    to the left,  agree=0.687, adj=0.071, (0 split)
 ## 
-## Node number 14: 11 observations
-##   mean=34.64545, MSE=3.304298 
+## Node number 23: 7 observations
+##   mean=33.17143, MSE=125.3192 
 ## 
-## Node number 15: 20 observations,    complexity param=0.01057622
-##   mean=44.745, MSE=43.81147 
-##   left son=30 (12 obs) right son=31 (8 obs)
-##   Primary splits:
-##       ptratio &lt; 15.4     to the right, improve=0.3226860, (0 missing)
-##       rad     &lt; 6        to the right, improve=0.2170243, (0 missing)
-##       tax     &lt; 270      to the right, improve=0.1545997, (0 missing)
-##       age     &lt; 71.85    to the right, improve=0.1331209, (0 missing)
-##       zn      &lt; 10       to the left,  improve=0.1328727, (0 missing)
-##   Surrogate splits:
-##       zn   &lt; 10       to the left,  agree=0.80, adj=0.500, (0 split)
-##       nox  &lt; 0.541    to the left,  agree=0.80, adj=0.500, (0 split)
-##       age  &lt; 86.7     to the left,  agree=0.80, adj=0.500, (0 split)
-##       dis  &lt; 2.5813   to the right, agree=0.80, adj=0.500, (0 split)
-##       crim &lt; 0.45114  to the left,  agree=0.75, adj=0.375, (0 split)
+## Node number 44: 55 observations
+##   mean=23.26545, MSE=8.880443 
 ## 
-## Node number 24: 64 observations,    complexity param=0.01006729
-##   mean=23.2625, MSE=21.96891 
-##   left son=48 (57 obs) right son=49 (7 obs)
-##   Primary splits:
-##       indus &lt; 14.48    to the left,  improve=0.19142190, (0 missing)
-##       crim  &lt; 0.841845 to the left,  improve=0.17407590, (0 missing)
-##       black &lt; 374.635  to the right, improve=0.14590640, (0 missing)
-##       dis   &lt; 2.6499   to the right, improve=0.13374910, (0 missing)
-##       age   &lt; 79.85    to the left,  improve=0.08856433, (0 missing)
-##   Surrogate splits:
-##       crim  &lt; 1.163695 to the left,  agree=0.984, adj=0.857, (0 split)
-##       nox   &lt; 0.589    to the left,  agree=0.984, adj=0.857, (0 split)
-##       age   &lt; 84.35    to the left,  agree=0.984, adj=0.857, (0 split)
-##       dis   &lt; 2.28545  to the right, agree=0.969, adj=0.714, (0 split)
-##       black &lt; 361.635  to the right, agree=0.969, adj=0.714, (0 split)
-## 
-## Node number 25: 34 observations
-##   mean=27.06765, MSE=9.646894 
-## 
-## Node number 26: 15 observations
-##   mean=30.02667, MSE=14.56062 
-## 
-## Node number 27: 7 observations
-##   mean=37.62857, MSE=66.76776 
-## 
-## Node number 30: 12 observations
-##   mean=41.675, MSE=48.28521 
-## 
-## Node number 31: 8 observations
-##   mean=49.35, MSE=1.7575 
-## 
-## Node number 48: 57 observations
-##   mean=22.54386, MSE=10.87053 
-## 
-## Node number 49: 7 observations
-##   mean=29.11429, MSE=73.89265</code></pre>
+## Node number 45: 28 observations
+##   mean=27.79286, MSE=9.189949</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(boston.rpart)</code></pre>
 <div class="figure"><span id="fig:unnamed-chunk-32"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-32-1.png" alt="Drzewo regresyjne pełne" width="1056" />
@@ -540,27 +511,25 @@ Rysunek 5.1: Drzewo regresyjne pełne
 ## rpart(formula = medv ~ ., data = boston.train)
 ## 
 ## Variables actually used in tree construction:
-## [1] crim    indus   lstat   ptratio rm      tax    
+## [1] age   crim  lstat rm   
 ## 
 ## Root node error: 26734/337 = 79.33
 ## 
 ## n= 337 
 ## 
-##          CP nsplit rel error  xerror     xstd
-## 1  0.435061      0   1.00000 1.00375 0.104966
-## 2  0.211147      1   0.56494 0.68564 0.077321
-## 3  0.056418      2   0.35379 0.43932 0.059746
-## 4  0.041548      3   0.29737 0.37266 0.057166
-## 5  0.027077      4   0.25583 0.35203 0.055698
-## 6  0.014891      5   0.22875 0.32389 0.056819
-## 7  0.012026      6   0.21386 0.29226 0.053113
-## 8  0.010576      7   0.20183 0.28894 0.053182
-## 9  0.010317      8   0.19126 0.28384 0.051523
-## 10 0.010067      9   0.18094 0.28382 0.051521
-## 11 0.010000     10   0.17087 0.28152 0.051530</code></pre>
+##         CP nsplit rel error  xerror     xstd
+## 1 0.498398      0   1.00000 1.00869 0.102595
+## 2 0.157251      1   0.50160 0.54429 0.061257
+## 3 0.074856      2   0.34435 0.40320 0.051393
+## 4 0.036724      3   0.26949 0.31278 0.045992
+## 5 0.035527      4   0.23277 0.29745 0.045608
+## 6 0.016952      5   0.19724 0.25532 0.040230
+## 7 0.014226      6   0.18029 0.27138 0.040991
+## 8 0.011035      7   0.16607 0.27448 0.041078
+## 9 0.010000      8   0.15503 0.27204 0.041193</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(boston.rpart)</code></pre>
 <p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-33-1.png" width="1056" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">boston.rpart2 &lt;-<span class="st"> </span><span class="kw">prune</span>(boston.rpart, <span class="dt">cp =</span> <span class="fl">0.012026</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">boston.rpart2 &lt;-<span class="st"> </span><span class="kw">prune</span>(boston.rpart, <span class="dt">cp =</span> <span class="fl">0.016952</span>)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(boston.rpart2)</code></pre>
 <div class="figure"><span id="fig:unnamed-chunk-34"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-34-1.png" alt="Drzewo regresyjne przycięte" width="1056" />
@@ -572,7 +541,7 @@ Rysunek 5.2: Drzewo regresyjne przycięte
 <pre class="sourceCode r"><code class="sourceCode r">boston.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.rpart2, <span class="dt">newdata =</span> boston.test)
 rmse &lt;-<span class="st"> </span><span class="cf">function</span>(pred, obs) <span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">length</span>(pred)<span class="op">*</span><span class="kw">sum</span>((pred<span class="op">-</span>obs)<span class="op">^</span><span class="dv">2</span>))
 <span class="kw">rmse</span>(boston.pred, boston.test<span class="op">$</span>medv)</code></pre>
-<pre><code>## [1] 4.825862</code></pre>
+<pre><code>## [1] 5.830722</code></pre>
 <p>Teraz zbudujemy model metodą bagging.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
 boston.bag &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv<span class="op">~</span>., <span class="dt">data =</span> boston.train, 
@@ -585,12 +554,12 @@ boston.bag</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 13
 ## 
-##           Mean of squared residuals: 13.06701
-##                     % Var explained: 83.53</code></pre>
+##           Mean of squared residuals: 12.03374
+##                     % Var explained: 84.83</code></pre>
 <p>Predykcja na podstawie modelu</p>
 <pre class="sourceCode r"><code class="sourceCode r">boston.pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.bag, <span class="dt">newdata =</span> boston.test)
 <span class="kw">rmse</span>(boston.pred2, boston.test<span class="op">$</span>medv)</code></pre>
-<pre><code>## [1] 3.039308</code></pre>
+<pre><code>## [1] 4.359119</code></pre>
 <p>Zatem predykcja na podstawie modelu bagging jest nico lepsza niż z pojedynczego drzewa. Dodatkowo możemy ocenić ważność zmiennych użytych w budowie drzew.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(boston.bag)</code></pre>
 <div class="figure"><span id="fig:unnamed-chunk-38"></span>
@@ -601,24 +570,26 @@ Rysunek 5.3: Wykres ważności predyktorów
 </div>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">importance</span>(boston.bag)</code></pre>
 <pre><code>##         IncNodePurity
-## crim       1200.11828
-## zn           24.17836
-## indus       262.33396
-## chas         22.27133
-## nox         417.32236
-## rm         9102.58339
-## age         416.48170
-## dis        1494.79734
-## rad         171.92103
-## tax         403.66309
-## ptratio     411.88528
-## black       331.58495
-## lstat     12137.38999</code></pre>
+## crim       1335.62584
+## zn           21.35274
+## indus       134.28748
+## chas         24.07230
+## nox         423.26229
+## rm        15413.69291
+## age         380.78172
+## dis        1204.86690
+## rad          88.28151
+## tax         454.99800
+## ptratio     309.58412
+## black       216.15512
+## lstat      6217.95834</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>variable.importance</code></pre>
-<pre><code>##      lstat        nox      indus       crim        tax         rm 
-## 15197.8587  8683.8225  8325.2431  8074.7200  6991.0756  6768.5423 
-##        age        dis    ptratio        rad      black         zn 
-##  6538.5039  1305.3786  1193.2073   853.4309   323.8576   242.3521</code></pre>
+<pre><code>##          rm       lstat       indus     ptratio        crim         age 
+## 16276.30598  9170.91941  4427.10554  4039.00112  3412.53062  3170.82658 
+##         nox         dis          zn         tax         rad        chas 
+##  3063.70694  2681.24858  1306.29569   800.17910   539.07271   262.60146 
+##       black 
+##    63.78554</code></pre>
 <p>W porównaniu do ważności zmiennych dla pojedynczego drzewa widać pewne różnice.</p>
 </div>
 <div id="lasy-losowe" class="section level2">
@@ -638,12 +609,12 @@ boston.rf</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 4
 ## 
-##           Mean of squared residuals: 13.09902
-##                     % Var explained: 83.49</code></pre>
+##           Mean of squared residuals: 12.05123
+##                     % Var explained: 84.81</code></pre>
 <p>Porównanie MSE na próbach uczących pomiędzy lasem losowym i modelem bagging wypada nieco na korzyść bagging.</p>
 <pre class="sourceCode r"><code class="sourceCode r">boston.pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.rf, <span class="dt">newdata =</span> boston.test)
 <span class="kw">rmse</span>(boston.pred3, boston.test<span class="op">$</span>medv)</code></pre>
-<pre><code>## [1] 3.418302</code></pre>
+<pre><code>## [1] 3.79973</code></pre>
 <p>Ważność zmiennych również się nieco różni.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(boston.rf)</code></pre>
 <p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-41-1.png" width="1056" /></p>
@@ -696,25 +667,25 @@ boston.boost</code></pre>
 ## There were 13 predictors of which 13 had non-zero influence.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(boston.boost)</code></pre>
 <p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-43-1.png" width="1056" /></p>
-<pre><code>##             var     rel.inf
-## lstat     lstat 37.72235740
-## rm           rm 28.25340805
-## dis         dis  9.04378958
-## crim       crim  6.95484787
-## nox         nox  3.97210067
-## black     black  3.16250916
-## ptratio ptratio  3.03202030
-## age         age  2.35790500
-## chas       chas  1.97366108
-## tax         tax  1.67544858
-## indus     indus  1.22537648
-## rad         rad  0.57329299
-## zn           zn  0.05328283</code></pre>
+<pre><code>##             var    rel.inf
+## rm           rm 38.3955886
+## lstat     lstat 29.4805422
+## dis         dis  9.0886721
+## crim       crim  5.7399540
+## nox         nox  3.7754214
+## ptratio ptratio  3.2740541
+## black     black  3.1164954
+## age         age  2.9063950
+## tax         tax  1.8433918
+## chas       chas  0.9067974
+## indus     indus  0.7627923
+## rad         rad  0.5523485
+## zn           zn  0.1575472</code></pre>
 <p>Predykcja na podstawie metody boosting</p>
 <pre class="sourceCode r"><code class="sourceCode r">boston.pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(boston.boost, <span class="dt">newdata =</span> boston.test, <span class="dt">n.trees =</span> <span class="dv">5000</span>)
 <span class="kw">rmse</span>(boston.pred4, boston.test<span class="op">$</span>medv)</code></pre>
-<pre><code>## [1] 3.06509</code></pre>
-<p><span class="math inline">\(RMSE\)</span> jest w tym przypadku mniejsze niż w lasach losowych ale nieco większe niż w metodzie bagging. Wszystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.</p>
+<pre><code>## [1] 3.801233</code></pre>
+<p><span class="math inline">\(RMSE\)</span> jest w tym przypadku nieco większe niż w lasach losowych ale sporo mniejsze niż w metodzie bagging. Wszystkie metody wzmacnianych drzew dają wyniki lepsze niż pojedyncze drzewa.</p>
 
 </div>
 </div>
@@ -742,7 +713,7 @@ boston.boost</code></pre>
 <p>Schapire, Robert E. 1990. “The Strength of Weak Learnability.” <em>Machine Learning</em> 5 (2): 197–227. <a href="https://doi.org/10.1007/BF00116037">https://doi.org/10.1007/BF00116037</a>.</p>
 </div>
 <div id="ref-breiman1998">
-<p>Breiman, Leo. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3). The Institute of Mathematical Statistics: 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
+<p>Breiman, Leo. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3): 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
 </div>
 <div id="ref-R-gbm">
 <p>Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and GBM Developers. 2019. <em>Gbm: Generalized Boosted Regression Models</em>. <a href="https://CRAN.R-project.org/package=gbm">https://CRAN.R-project.org/package=gbm</a>.</p>
@@ -797,15 +768,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

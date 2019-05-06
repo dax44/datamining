@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -233,6 +235,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#uogolnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
@@ -443,43 +452,43 @@ nb2 &lt;-<span class="st"> </span><span class="kw">NaiveBayes</span>(Species<spa
 nb2<span class="op">$</span>apriori</code></pre>
 <pre><code>## grouping
 ##     setosa versicolor  virginica 
-##       0.36       0.31       0.33</code></pre>
+##       0.35       0.32       0.33</code></pre>
 <p>Prawdopodobieństwa a priori zostały oszacowane na podstawie próby uczącej. Poniższe tabele zawierają średnie i odchylenia standardowe zmiennych w poszczególnych klasach.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nb2<span class="op">$</span>tables</code></pre>
 <pre><code>## $Sepal.Length
 ##                [,1]      [,2]
-## setosa     4.994444 0.3438807
-## versicolor 5.977419 0.5613731
-## virginica  6.603030 0.7359029
+## setosa     4.982857 0.3485143
+## versicolor 6.003125 0.5462390
+## virginica  6.463636 0.5808497
 ## 
 ## $Sepal.Width
 ##                [,1]      [,2]
-## setosa     3.436111 0.3586903
-## versicolor 2.838710 0.2996414
-## virginica  2.942424 0.3211603
+## setosa     3.408571 0.3616721
+## versicolor 2.750000 0.3537814
+## virginica  2.960606 0.2838787
 ## 
 ## $Petal.Length
 ##                [,1]      [,2]
-## setosa     1.472222 0.1782632
-## versicolor 4.316129 0.4576001
-## virginica  5.606061 0.6269666
+## setosa     1.480000 0.1875539
+## versicolor 4.275000 0.4852668
+## virginica  5.460606 0.5225774
 ## 
 ## $Petal.Width
-##                 [,1]       [,2]
-## setosa     0.2444444 0.09394358
-## versicolor 1.3354839 0.18537959
-## virginica  2.0000000 0.25860201</code></pre>
+##                 [,1]      [,2]
+## setosa     0.2657143 0.1109925
+## versicolor 1.3437500 0.2198790
+## virginica  2.0151515 0.3123712</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(nb2, <span class="dt">newdata =</span> pr.test)
 tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred<span class="op">$</span>class, pr.test<span class="op">$</span>Species)
 tab</code></pre>
 <pre><code>##             
 ##              setosa versicolor virginica
-##   setosa         14          0         0
-##   versicolor      0         18         1
-##   virginica       0          1        16</code></pre>
+##   setosa         15          0         0
+##   versicolor      0         17         0
+##   virginica       0          1        17</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.96</code></pre>
-<p>Klasyfikacja na podstawie modelu jest bardzo dobra (96%).</p>
+<pre><code>## [1] 0.98</code></pre>
+<p>Klasyfikacja na podstawie modelu jest bardzo dobra (98%).</p>
 </div>
 <div id="zalety-i-wady-1" class="section level2">
 <h2><span class="header-section-number">9.4</span> Zalety i wady</h2>
@@ -559,15 +568,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

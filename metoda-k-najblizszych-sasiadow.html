@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-16">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -234,6 +236,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -258,25 +267,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="metoda-k-najblizszych-sasiadow" class="section level1">
 <h1><span class="header-section-number">10</span> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</h1>
 <p>Technika <span class="math inline">\(k\)</span> najbliższych sąsiadów (ang. <em><span class="math inline">\(k\)</span>-Nearest Neighbors</em>) przewiduje wartość zmiennej wynikowej na podstawie <span class="math inline">\(k\)</span> najbliższych obserwacji zbioru uczącego. W przeciwieństwie do wspomnianych wcześniej modeli liniowych, nie posiada ona jawnej formy i należy do klasy technik nazywanych czarnymi skrzynkami (ang. <em>black box</em>). Może być wykorzystywana, zarówno do zadań klasyfikacyjnych, jak i regresyjnych. W obu przypadkach predykcja dla nowych wartości predyktorów przebiega podobnie.</p>
-<p>Niech <span class="math inline">\(\boldsymbol x_0\)</span> będzie obserwacją, dla której poszukujemy wartości zmiennej wynikowej <span class="math inline">\(y_0\)</span>. Na podstawie zbioru obserwacji <span class="math inline">\(\boldsymbol x\in T\)</span> zbioru uczącego wyznacza się <span class="math inline">\(k\)</span> najbliższych sąsiadów<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, gdzie <span class="math inline">\(k\)</span> jest z góry ustaloną wartością. Następnie, jeśli zadanie ma charakter klasyfikacyjny, to <span class="math inline">\(y_0\)</span> przypisuje się modę zmiennej wynikowej obserwacji będących <span class="math inline">\(k\)</span> najbliższymi sąsiadami. W przypadku zadań regresyjnych <span class="math inline">\(y_0\)</span> przypisuje się średnią lub medianę.</p>
+<p>Niech <span class="math inline">\(\boldsymbol x_0\)</span> będzie obserwacją, dla której poszukujemy wartości zmiennej wynikowej <span class="math inline">\(y_0\)</span>. Na podstawie zbioru obserwacji <span class="math inline">\(\boldsymbol x\in T\)</span> zbioru uczącego wyznacza się <span class="math inline">\(k\)</span> najbliższych sąsiadów<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>, gdzie <span class="math inline">\(k\)</span> jest z góry ustaloną wartością. Następnie, jeśli zadanie ma charakter klasyfikacyjny, to <span class="math inline">\(y_0\)</span> przypisuje się modę zmiennej wynikowej obserwacji będących <span class="math inline">\(k\)</span> najbliższymi sąsiadami. W przypadku zadań regresyjnych <span class="math inline">\(y_0\)</span> przypisuje się średnią lub medianę.</p>
 <p>Olbrzymie znaczenie dla wyników predykcji na podstawie metody <em>kNN</em> ma dobór metryki. Nie istnieje obiektywna technika wyboru najlepszej metryki, dlatego jej doboru dokonujemy metodą prób i błędów. Należy dodatkowo pamiętać, że wielkości mierzone <span class="math inline">\(\boldsymbol x\)</span> mogą się różnić zakresami zmienności, a co za tym idzie, mogą znacząco wpłynąć na mierzone odległości pomiędzy punktami. Dlatego zaleca się standaryzację zmiennych przed zastosowaniem metody <em>kNN</em>.</p>
 <p>Kolejnym parametrem, który ma znaczący wpływ na predykcję, jest liczba sąsiadów <span class="math inline">\(k\)</span>. Wybór zbyt małej liczby <span class="math inline">\(k\)</span> może doprowadzić do przeuczenia modelu jak to jest pokazane na rysunku <a href="metoda-k-najblizszych-sasiadow.html#fig:knn1">10.1</a></p>
 <div class="figure" style="text-align: center"><span id="fig:knn1"></span>
-<img src="EksploracjaDanych_files/figure-html/knn1-1.png" alt="Przykład klasyfikacji dla $k=1$" width="672" />
+<img src="EksploracjaDanych_files/figure-html/knn1-1.png" alt="Przykład klasyfikacji dla $k=1$" width="1056" />
 <p class="caption">
 Rysunek 10.1: Przykład klasyfikacji dla <span class="math inline">\(k=1\)</span>
 </p>
 </div>
 <p>Z kolei zbyt duża liczba sąsiadów powoduje obciążenie wyników (patrz rysunek <a href="metoda-k-najblizszych-sasiadow.html#fig:knn2">10.2</a>)</p>
 <div class="figure" style="text-align: center"><span id="fig:knn2"></span>
-<img src="EksploracjaDanych_files/figure-html/knn2-1.png" alt="Przykład zastosowania 100 sąsiadów" width="672" />
+<img src="EksploracjaDanych_files/figure-html/knn2-1.png" alt="Przykład zastosowania 100 sąsiadów" width="1056" />
 <p class="caption">
 Rysunek 10.2: Przykład zastosowania 100 sąsiadów
 </p>
 </div>
 <p>Dopiero dobór odpowiedniego <span class="math inline">\(k\)</span> daje model o stosunkowo niskiej wariancji i obciążeniu. Najczęściej liczby <span class="math inline">\(k\)</span> poszukujemy za pomocą próbkowania.</p>
 <div class="figure" style="text-align: center"><span id="fig:knn3"></span>
-<img src="EksploracjaDanych_files/figure-html/knn3-1.png" alt="Model z optymalną liczbą sąsiadów" width="672" />
+<img src="EksploracjaDanych_files/figure-html/knn3-1.png" alt="Model z optymalną liczbą sąsiadów" width="1056" />
 <p class="caption">
 Rysunek 10.3: Model z optymalną liczbą sąsiadów
 </p>
@@ -311,47 +320,47 @@ acc &lt;-<span class="st"> </span><span class="cf">function</span>(pred, obs){
 <span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(k, acc))<span class="op">+</span>
 <span class="st">     </span><span class="kw">geom_line</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:knnrys"></span>
-<img src="EksploracjaDanych_files/figure-html/knnrys-1.png" alt="Ocena jakości dopasowania modelu dla różnej liczby sąsiadów" width="672" />
+<img src="EksploracjaDanych_files/figure-html/knnrys-1.png" alt="Ocena jakości dopasowania modelu dla różnej liczby sąsiadów" width="1056" />
 <p class="caption">
 Rysunek 10.4: Ocena jakości dopasowania modelu dla różnej liczby sąsiadów
 </p>
 </div>
-<p>Biorąc pod uwagę wykres <a href="metoda-k-najblizszych-sasiadow.html#fig:knnrys">10.4</a> można rozważać 1 lub 9 sąsiadów jako optymalne rozwiązanie, ponieważ wówczas poprawność klasyfikacji jest najwyższa. Proponuje unikać rozwiązania z 1 najbliższym sąsiadem ponieważ, będzie się ono charakteryzowało duża zmiennością. Wybór <span class="math inline">\(k=9\)</span> wydaje się być optymalny.</p>
+<p>Biorąc pod uwagę wykres <a href="metoda-k-najblizszych-sasiadow.html#fig:knnrys">10.4</a> można rozważać 3 lub 5 sąsiadów jako optymalne rozwiązanie, ponieważ wówczas poprawność klasyfikacji jest najwyższa. Proponuje unikać rozwiązania z 1 najbliższym sąsiadem ponieważ, będzie się ono charakteryzowało duża zmiennością. Wybór <span class="math inline">\(k=3\)</span> wydaje się być optymalny.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.knn &lt;-<span class="st"> </span><span class="kw">knn3</span>(spam<span class="op">~</span>., <span class="dt">data =</span> dt.ucz,
-                <span class="dt">k =</span> <span class="dv">9</span>)
+                <span class="dt">k =</span> <span class="dv">3</span>)
 mod.knn</code></pre>
-<pre><code>## 9-nearest neighbor model
+<pre><code>## 3-nearest neighbor model
 ## Training set outcome distribution:
 ## 
 ## email  spam 
-##  1872  1195</code></pre>
+##  1860  1207</code></pre>
 <p>Predykcji dokonujemy w ten sam sposób co w innych modelach klasyfikacyjnych</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred.knn.class &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)
 <span class="kw">head</span>(pred.knn.class)</code></pre>
-<pre><code>## [1] spam  email email spam  spam  email
+<pre><code>## [1] spam spam spam spam spam spam
 ## Levels: email spam</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pred.knn &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test)
 <span class="kw">head</span>(pred.knn)</code></pre>
 <pre><code>##          email      spam
 ## [1,] 0.0000000 1.0000000
-## [2,] 0.6666667 0.3333333
-## [3,] 0.5555556 0.4444444
-## [4,] 0.2222222 0.7777778
-## [5,] 0.0000000 1.0000000
-## [6,] 0.8888889 0.1111111</code></pre>
+## [2,] 0.3333333 0.6666667
+## [3,] 0.3333333 0.6666667
+## [4,] 0.0000000 1.0000000
+## [5,] 0.3333333 0.6666667
+## [6,] 0.0000000 1.0000000</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.knn.class, dt.test<span class="op">$</span>spam))</code></pre>
 <pre><code>##               
 ## pred.knn.class email spam
-##          email   863   88
-##          spam     53  530</code></pre>
+##          email   869   88
+##          spam     59  518</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.9080834</code></pre>
+<pre><code>## [1] 0.9041721</code></pre>
 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>metrykę można wybierać dowolnie, choć najczęściej jest to metryka euklidesowa<a href="metoda-k-najblizszych-sasiadow.html#fnref2" class="footnote-back">↩</a></p></li>
+<ol start="19">
+<li id="fn19"><p>metrykę można wybierać dowolnie, choć najczęściej jest to metryka euklidesowa<a href="metoda-k-najblizszych-sasiadow.html#fnref19" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -397,15 +406,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

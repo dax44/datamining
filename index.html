@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -234,6 +236,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -263,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Wydział Podstaw Techniki<br />
 Politechnika Lubelska</div><br><a class="author_email" href="mailto:#"><a href="mailto:d.majerek@pollub.pl" class="email">d.majerek@pollub.pl</a></a>
 </address>
-<p class="date"><em>2019-04-12</em></p>
+<p class="date"><em>2019-05-06</em></p>
 </div>
 <div id="wstep" class="section level1 unnumbered">
 <h1>Wstęp</h1>
@@ -299,7 +308,7 @@ href=“<a href="https://twitter.com/i/status/1091069356367200256" class="uri">h
 <li>i wiele innych</li>
 </ul>
 <div class="figure"><span id="fig:cluster1"></span>
-<img src="images/cluster1.jpg" alt="Przykład nienadzorowanego uczenia maszynowego.\  *Źródło:*https://analyticstraining.com/cluster-analysis-for-business/"  />
+<img src="images/cluster1.jpg" alt="Przykład nienadzorowanego uczenia maszynowego.\  *Źródło:*https://analyticstraining.com/cluster-analysis-for-business/" width="250" />
 <p class="caption">
 Rysunek .: Przykład nienadzorowanego uczenia maszynowego.  <em>Źródło:</em><a href="https://analyticstraining.com/cluster-analysis-for-business/" class="uri">https://analyticstraining.com/cluster-analysis-for-business/</a>
 </p>
@@ -313,7 +322,7 @@ href=“<a href="https://twitter.com/i/status/1097199751072690176" class="uri">h
 <div id="etapy-eksploracji-danych" class="section level2 unnumbered">
 <h2>Etapy eksploracji danych</h2>
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
-<img src="images/dm_stages.jpg" alt="Etapy eksploracji danych [@kavakiotis2017]"  />
+<img src="images/dm_stages.jpg" alt="Etapy eksploracji danych [@kavakiotis2017]" width="264" />
 <p class="caption">
 Rysunek .: Etapy eksploracji danych <span class="citation">(Kavakiotis et al. <a href="#ref-kavakiotis2017">2017</a>)</span>
 </p>
@@ -399,15 +408,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

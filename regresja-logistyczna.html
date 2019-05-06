@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -234,6 +236,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -333,22 +342,22 @@ mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.4481  -0.1470  -0.0597  -0.0226   3.6966  
+## -2.1913  -0.1410  -0.0537  -0.0192   3.7527  
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -1.085e+01  5.896e-01 -18.409   &lt;2e-16 ***
-## studentYes  -4.970e-01  2.851e-01  -1.744   0.0812 .  
-## balance      5.604e-03  2.809e-04  19.949   &lt;2e-16 ***
-## income       7.933e-06  9.652e-06   0.822   0.4112    
+## (Intercept) -1.128e+01  6.169e-01 -18.287   &lt;2e-16 ***
+## studentYes  -4.627e-01  2.862e-01  -1.617    0.106    
+## balance      5.830e-03  2.883e-04  20.221   &lt;2e-16 ***
+## income       9.460e-06  9.833e-06   0.962    0.336    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1906.5  on 6665  degrees of freedom
-## Residual deviance: 1059.8  on 6662  degrees of freedom
-## AIC: 1067.8
+##     Null deviance: 1967.2  on 6665  degrees of freedom
+## Residual deviance: 1046.5  on 6662  degrees of freedom
+## AIC: 1054.5
 ## 
 ## Number of Fisher Scoring iterations: 8</code></pre>
 <p>Tylko <code>income</code> nie ma żadnego wpływu na prawdopodobieństwo stanu <code>Yes</code> zmiennej <code>default</code>. Zmienna <code>balance</code> wpływa stymulująco na prawdopodobieństwo pojawienia się sukcesu. Natomiast jeśli badana osoba jest studentem (<code>studentYes</code>), to ma wpływ ograniczający na pojawienie się sukcesu. Chcąc porównać dwie grupy obserwacji, przykładowo studentów z nie-studentami, możemy wykorzystać iloraz szans.</p>
@@ -368,19 +377,19 @@ mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span
 <td>(Intercept)</td>
 <td align="right">0.0000</td>
 <td align="right">0.0000</td>
-<td align="right">0.0001</td>
+<td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td>studentYes</td>
-<td align="right">0.6083</td>
-<td align="right">0.3485</td>
-<td align="right">1.0668</td>
+<td align="right">0.6296</td>
+<td align="right">0.3598</td>
+<td align="right">1.1060</td>
 </tr>
 <tr class="odd">
 <td>balance</td>
-<td align="right">1.0056</td>
-<td align="right">1.0051</td>
-<td align="right">1.0062</td>
+<td align="right">1.0058</td>
+<td align="right">1.0053</td>
+<td align="right">1.0064</td>
 </tr>
 <tr class="even">
 <td>income</td>
@@ -390,12 +399,12 @@ mod.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(default<span
 </tr>
 </tbody>
 </table>
-<p>Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na <code>Yes</code> w zmiennej <code>default</code> o około 40% (w stosunku do nie-studentów). Natomiast wzrost zmiennej <code>balance</code> przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na <code>Yes</code> o około 0.6%.</p>
+<p>Z powyższej tabeli wynika, że bycie studentem zmniejsza szanse na <code>Yes</code> w zmiennej <code>default</code> o około 37% (w stosunku do nie-studentów). Natomiast wzrost zmiennej <code>balance</code> przy zachowaniu pozostałych zmiennych na tym samym poziomie skutkuje wzrostem szans na <code>Yes</code> o około 0.6%.</p>
 <p>Chcąc przeprowadzić predykcję na podstawie modelu dla ustalonych wartości cech (np. <code>student = Yes</code>, <code>balance = $1000</code> i <code>income = $40000</code>) postępujemy następująco</p>
 <pre class="sourceCode r"><code class="sourceCode r">dt.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">student =</span> <span class="st">&quot;Yes&quot;</span>, <span class="dt">balance =</span> <span class="dv">1000</span>, <span class="dt">income =</span> <span class="dv">40000</span>)
 <span class="kw">predict</span>(mod.logit, <span class="dt">newdata =</span> dt.new, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre>
 <pre><code>##           1 
-## 0.004367692</code></pre>
+## 0.003931398</code></pre>
 <p>Otrzymany wynik jest oszacowanym prawdopodobieństwem warunkowym wystąpienia sukcesu (<code>default = Yes</code>). Widać zatem, że poziomy badanych cech sprzyjają raczej porażce.</p>
 <p>Jeśli chcemy sprawdzić jakość klasyfikacji na zbiorze testowym, to musimy ustalić na jakim poziomie prawdopodobieństwa będziemy uznawać obserwację za sukces. W zależności od tego, na predykcji jakiego stanu zależy nam bardziej, możemy różnie dobierać ten próg (bez żadnych dodatkowych przesłanek najczęściej jest to 0.5).</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.logit, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
@@ -403,10 +412,10 @@ pred.class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pred <sp
 (tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.class, dt.test<span class="op">$</span>default))</code></pre>
 <pre><code>##           
 ## pred.class   No  Yes
-##        No  3204   76
-##        Yes   13   41</code></pre>
+##        No  3211   71
+##        Yes   15   37</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(acc &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab))))</code></pre>
-<pre><code>## [1] 0.9733053</code></pre>
+<pre><code>## [1] 0.9742052</code></pre>
 <p>Klasyfikacja na poziomie 97% wskazuje na dobre dopasowanie modelu.</p>
 
 </div>
@@ -454,15 +463,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

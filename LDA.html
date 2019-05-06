@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-04-12">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,9 @@ MathJax.Hub.Config({
         Var: '{\\mathrm{Var}}',
         Cor: '{\\mathrm{Cor}}',
         Cov: '{\\mathrm{Cov}}',
-        Tr: '{\\mathrm{Tr}}'
+        Tr: '{\\mathrm{Tr}}',
+        probit: '{\\mathrm{probit}}',
+        logit: '{\\mathrm{logit}}'
     },
 }
 });
@@ -81,7 +83,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -234,6 +236,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -262,14 +271,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Liniowa analiza dyskryminacyjna Fisher’a</h2>
 <div id="dwie-kategorie-zmiennej-grupujacej" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Dwie kategorie zmiennej grupującej</h3>
-<p>Niech <span class="math inline">\(\boldsymbol D\)</span> będzie zbiorem zawierającym <span class="math inline">\(n\)</span> punktów <span class="math inline">\(\{\boldsymbol x_i, y_i\}\)</span>, gdzie <span class="math inline">\(\boldsymbol x_i\in \mathbb{R}^d\)</span>, a <span class="math inline">\(y_i\in \{c_1,\ldots,c_k\}\)</span>. Niech <span class="math inline">\(\boldsymbol D_i\)</span> oznacza podzbiór punktów zbioru <span class="math inline">\(\boldsymbol D\)</span>, które należą do klasy <span class="math inline">\(c_i\)</span>, czyli <span class="math inline">\(\boldsymbol D_i=\{\boldsymbol x_i|y_i=c_i\}\)</span> i niech <span class="math inline">\(|\boldsymbol D_i|=n_i\)</span>. Na początek załóżmy, że <span class="math inline">\(\boldsymbol D\)</span> składa się tylko z <span class="math inline">\(\boldsymbol D_1\)</span> i <span class="math inline">\(\boldsymbol D_2\)</span>.</p>
+<p>Niech <span class="math inline">\(\boldsymbol D\)</span> będzie zbiorem zawierającym <span class="math inline">\(n\)</span> punktów <span class="math inline">\(\{\boldsymbol x, y\}\)</span>, gdzie <span class="math inline">\(\boldsymbol x\in \mathbb{R}^d\)</span>, a <span class="math inline">\(y\in \{c_1,\ldots,c_k\}\)</span>. Niech <span class="math inline">\(\boldsymbol D_i\)</span> oznacza podzbiór punktów zbioru <span class="math inline">\(\boldsymbol D\)</span>, które należą do klasy <span class="math inline">\(c_i\)</span>, czyli <span class="math inline">\(\boldsymbol D_i=\{\boldsymbol x|y=c_i\}\)</span> i niech <span class="math inline">\(|\boldsymbol D_i|=n_i\)</span>. Na początek załóżmy, że <span class="math inline">\(\boldsymbol D\)</span> składa się tylko z <span class="math inline">\(\boldsymbol D_1\)</span> i <span class="math inline">\(\boldsymbol D_2\)</span>.</p>
 <p>Niech <span class="math inline">\(\boldsymbol w\)</span> będzie wektorem jednostkowym (<span class="math inline">\(\boldsymbol w&#39;\boldsymbol w=1\)</span>), wówczas rzut ortogonalny punku <span class="math inline">\(\boldsymbol x_i\)</span> na wektor <span class="math inline">\(\boldsymbol w\)</span> można zapisać następująco
 <span class="math display">\[\begin{equation}
-    \tilde{\boldsymbol x}_i=\left(\frac{\boldsymbol w&#39;\boldsymbol x_i}{\boldsymbol w&#39;\boldsymbol w}\right)\boldsymbol w=(\boldsymbol w&#39;\boldsymbol x_i)\boldsymbol w = a_i\boldsymbol w,
+    \tilde{\boldsymbol x}=\left(\frac{\boldsymbol w&#39;\boldsymbol x}{\boldsymbol w&#39;\boldsymbol w}\right)\boldsymbol w=(\boldsymbol w&#39;\boldsymbol x)\boldsymbol w = a\boldsymbol w,
 \end{equation}\]</span>
-gdzie <span class="math inline">\(a_i\)</span> jest współrzędną punktu <span class="math inline">\(\tilde{\boldsymbol x}_i\)</span> w kierunku wektora <span class="math inline">\(\boldsymbol w\)</span>, czyli
+gdzie <span class="math inline">\(a\)</span> jest współrzędną punktu <span class="math inline">\(\tilde{\boldsymbol x}\)</span> w kierunku wektora <span class="math inline">\(\boldsymbol w\)</span>, czyli
 <span class="math display">\[\begin{equation}
-    a_i=\boldsymbol w&#39;\boldsymbol x_i.
+    a=\boldsymbol w&#39;\boldsymbol x.
 \end{equation}\]</span>
 Zatem <span class="math inline">\((a_1,\ldots,a_n)\)</span> reprezentują odwzorowanie <span class="math inline">\(\mathbb{R}^d\)</span> w <span class="math inline">\(\mathbb{R}\)</span>, czyli z <span class="math inline">\(d\)</span>-wymiarowej przestrzeni w przestrzeń generowaną przez <span class="math inline">\(\boldsymbol w\)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:rzut"></span>
@@ -280,32 +289,32 @@ Rysunek 8.1: Rzut ortogonalny punktów w kierunku wektora <span class="math inli
 </div>
 <p>Każdy punkt należy do pewnej klasy, dlatego możemy wyliczyć
 <span class="math display" id="eq:m">\[\begin{align}
-    m_1=&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1}a_i=\\
-    =&amp;\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol w&#39; \boldsymbol x_i=\\
-    =&amp; \boldsymbol w&#39;\left(\frac{1}{n_1}\sum_{ \boldsymbol x_i\in \boldsymbol D_1} \boldsymbol x_i \right)=\\
+    m_1=&amp;\frac{1}{n_1}\sum_{ \boldsymbol x\in \boldsymbol D_1}a=\\
+    =&amp;\frac{1}{n_1}\sum_{ \boldsymbol x\in \boldsymbol D_1} \boldsymbol w&#39; \boldsymbol x=\\
+    =&amp; \boldsymbol w&#39;\left(\frac{1}{n_1}\sum_{ \boldsymbol x\in \boldsymbol D_1} \boldsymbol x \right)=\\
     =&amp; \boldsymbol w&#39; \boldsymbol{\mu}_1,
     \tag{8.1}
 \end{align}\]</span>
 gdzie <span class="math inline">\(\boldsymbol \mu_1\)</span> jest wektorem średnich punktów z <span class="math inline">\(\boldsymbol D_1\)</span>. W podobny sposób można policzyć <span class="math inline">\(m_2 = \boldsymbol w&#39; \boldsymbol \mu_2\)</span>. Oznacza to, że średnia projekcji jest projekcją średnich.</p>
 <p>Rozsądnym wydaje się teraz poszukać takiego wektora, aby <span class="math inline">\(|m_1-m_2|\)</span> była maksymalnie duża przy zachowaniu niezbyt dużej zmienności wewnątrz grup. Dlatego kryterium Fisher’a przyjmuje postać
 <span class="math display" id="eq:condFisher">\[\begin{equation}
-    \max_{ \boldsymbol w}J(\boldsymbol w)=\frac{(m_1-M_2)^2}{ss_1^2+ss_2^2},
+    \max_{ \boldsymbol w}J(\boldsymbol w)=\frac{(m_1-m_2)^2}{ss_1^2+ss_2^2},
     \tag{8.2}
 \end{equation}\]</span>
-gdzie <span class="math inline">\(ss_j^2=\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=n_j\sigma_j^2.\)</span></p>
+gdzie <span class="math inline">\(ss_j^2=\sum_{ \boldsymbol x\in \boldsymbol D_j}(a-m_j)^2=n_j\sigma_j^2.\)</span></p>
 <p>Zauważmy, że licznik w <a href="LDA.html#eq:condFisher">(8.2)</a> da się zapisać jako
 <span class="math display">\[\begin{align}
     (m_1-m_2)^2=&amp; ( \boldsymbol w&#39;( \boldsymbol \mu_1- \boldsymbol \mu_2))^2=\\
-    =&amp; \boldsymbol w&#39;((\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)&#39;) \boldsymbol w=\\
+    =&amp; \boldsymbol w&#39;(\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)&#39;\boldsymbol w=\\
     =&amp; \boldsymbol w&#39; \boldsymbol B \boldsymbol w
 \end{align}\]</span>
 gdzie <span class="math inline">\(\boldsymbol B=(\boldsymbol \mu_1- \boldsymbol \mu_2)(\boldsymbol \mu_1- \boldsymbol \mu_2)&#39;\)</span> jest macierzą <span class="math inline">\(d\times d\)</span>.</p>
 <p>Ponadto
 <span class="math display" id="eq:Sj">\[\begin{align}
-    ss_j^2=&amp;\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(a_i-m_j)^2=\\
-    =&amp;\sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol w&#39; \boldsymbol x_i- \boldsymbol w&#39; \boldsymbol\mu_j)^2=\\
-    =&amp; \sum_{ \boldsymbol x_i\in \boldsymbol D_j}( \boldsymbol{w}&#39;( \boldsymbol{x}_i- \boldsymbol{\mu}_j))^2=\\
-    =&amp; \boldsymbol{w}&#39;\left(\sum_{ \boldsymbol x_i\in \boldsymbol D_j}(\boldsymbol{x}_i-\boldsymbol \mu_j)(\boldsymbol x_i- \boldsymbol \mu_j)&#39;\right) \boldsymbol{w}=\\
+    ss_j^2=&amp;\sum_{ \boldsymbol x\in \boldsymbol D_j}(a-m_j)^2=\\
+    =&amp;\sum_{ \boldsymbol x\in \boldsymbol D_j}( \boldsymbol w&#39; \boldsymbol x- \boldsymbol w&#39; \boldsymbol\mu_j)^2=\\
+    =&amp; \sum_{ \boldsymbol x\in \boldsymbol D_j}( \boldsymbol{w}&#39;( \boldsymbol{x}- \boldsymbol{\mu}_j))^2=\\
+    =&amp; \boldsymbol{w}&#39;\left(\sum_{ \boldsymbol x\in \boldsymbol D_j}(\boldsymbol{x}-\boldsymbol \mu_j)(\boldsymbol x- \boldsymbol \mu_j)&#39;\right) \boldsymbol{w}=\\
     =&amp; \boldsymbol{w}&#39; \boldsymbol{S}_j \boldsymbol{w},
     \tag{8.3}
 \end{align}\]</span>
@@ -320,16 +329,16 @@ Ostatecznie warunek Fisher’a przyjmuje postać
     \max_{ \boldsymbol{w}}J( \boldsymbol{w})=\frac{ \boldsymbol{w}&#39; \boldsymbol{B} \boldsymbol{w}}{ \boldsymbol{w}&#39; \boldsymbol{S} \boldsymbol{w}}.
     \tag{8.4}
 \end{equation}\]</span></p>
-<p>Różniczkując <a href="LDA.html#eq:condFisher2">(8.4)</a> po <span class="math inline">\(\boldsymbol{w}\)</span> otrzymamy warunek
+<p>Różniczkując <a href="LDA.html#eq:condFisher2">(8.4)</a> po <span class="math inline">\(\boldsymbol{w}\)</span> i przyrównując go do 0, otrzymamy warunek
 <span class="math display" id="eq:condFisher3">\[\begin{equation}
     \boldsymbol{B} \boldsymbol{w} = \lambda \boldsymbol{S} \boldsymbol{w},
     \tag{8.5}
 \end{equation}\]</span>
 gdzie <span class="math inline">\(\lambda=J(\boldsymbol{w})\)</span>. Maksimum <a href="LDA.html#eq:condFisher3">(8.5)</a> jest osiągane dla wektora <span class="math inline">\(\boldsymbol{w}\)</span> równego wektorowi własnemu odpowiadającemu największej wartości własnej równania charakterystycznego <span class="math inline">\(|\boldsymbol{B}-\lambda\boldsymbol{S}|=0\)</span>. Jeśli <span class="math inline">\(\boldsymbol{S}\)</span> nie jest osobliwa, to rozwiązanie <a href="LDA.html#eq:condFisher3">(8.5)</a> otrzymujemy przez znalezienie największej wartości własnej macierzy <span class="math inline">\(\boldsymbol{B}\boldsymbol{S}^{-1}\)</span> lub bez wykorzystania wartości i wektorów własnych.</p>
-<p>Ponieważ <span class="math inline">\(\boldsymbol{B}=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}\)</span> jest macierzą <span class="math inline">\(d \times d\)</span> rzędu 1, to <span class="math inline">\(\boldsymbol{B}\boldsymbol{w}\)</span> jest punktem na kierunku wyznaczonym przez wektor <span class="math inline">\(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\)</span>, bo
+<p>Ponieważ <span class="math inline">\(\boldsymbol{B}\boldsymbol w=\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}\)</span> jest macierzą <span class="math inline">\(d \times 1\)</span> rzędu 1, to <span class="math inline">\(\boldsymbol{B}\boldsymbol{w}\)</span> jest punktem na kierunku wyznaczonym przez wektor <span class="math inline">\(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\)</span>, bo
 <span class="math display">\[\begin{align}
     \boldsymbol{B}\boldsymbol{w}=&amp; \left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
-    =&amp;(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)\left((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\right)\boldsymbol{w}=\\
+    =&amp;(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)((\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\boldsymbol{w})=\\
     =&amp; b(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2),
 \end{align}\]</span>
 gdzie <span class="math inline">\(b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#39;\boldsymbol{w}\)</span> jest skalarem.</p>
@@ -343,7 +352,7 @@ gdzie <span class="math inline">\(b = (\boldsymbol{\mu}_1-\boldsymbol{\mu}_2)&#3
     \boldsymbol{w}=\boldsymbol{S}^{-1}(\boldsymbol{\mu}_1-\boldsymbol{\mu}_2).
 \end{equation}\]</span></p>
 <div class="figure" style="text-align: center"><span id="fig:rzut2"></span>
-<img src="images/rzut2.JPG" alt="Rzut ortogonalny w kierunku wektora $\boldsymbol{w}$, będącego najlepiej dyskryminującym obie grupy obserwacji"  />
+<img src="images/rzut2.JPG" alt="Rzut ortogonalny w kierunku wektora $\boldsymbol{w}$, będącego najlepiej dyskryminującym obie grupy obserwacji" width="578" />
 <p class="caption">
 Rysunek 8.2: Rzut ortogonalny w kierunku wektora <span class="math inline">\(\boldsymbol{w}\)</span>, będącego najlepiej dyskryminującym obie grupy obserwacji
 </p>
@@ -356,7 +365,7 @@ Rysunek 8.2: Rzut ortogonalny w kierunku wektora <span class="math inline">\(\bo
     \boldsymbol{S}_W=\sum_{i=1}^k\boldsymbol{S}_i,
 \end{equation}\]</span>
 gdzie <span class="math inline">\(\boldsymbol{S}_i\)</span> jest zdefiniowane jak w <a href="LDA.html#eq:Sj">(8.3)</a>.
-Niech średnia i rozrzut globalny będą dane wzorami
+Niech średnia i zmienność całkowita będą dane wzorami
 <span class="math display">\[\begin{equation}
     \boldsymbol{m}=\frac{1}{n}\sum_{i=1}^kn_i\boldsymbol{m}_i,
 \end{equation}\]</span>
@@ -370,7 +379,7 @@ gdzie <span class="math inline">\(\boldsymbol{m}_i\)</span> jest określone jak 
 bo <span class="math inline">\(\boldsymbol{S}_T=\boldsymbol{S}_W+\boldsymbol{S}_B.\)</span>
 Określamy projekcję <span class="math inline">\(d\)</span>-wymiarowej przestrzeni na <span class="math inline">\(k-1\)</span>-wymiarową przestrzeń za pomocą <span class="math inline">\(k-1\)</span> funkcji dyskryminacyjnych postaci
 <span class="math display">\[\begin{equation}
-    \boldsymbol{a}_j=\boldsymbol{w}_j&#39;\boldsymbol{x}, \quad j=1,\ldots,k-1.
+    a_j=\boldsymbol{w}_j&#39;\boldsymbol{x}, \quad j=1,\ldots,k-1.
 \end{equation}\]</span>
 Połączone wszystkie <span class="math inline">\(k-1\)</span> rzutów możemy zapisać jako
 <span class="math display">\[\begin{equation}
@@ -380,7 +389,7 @@ Połączone wszystkie <span class="math inline">\(k-1\)</span> rzutów możemy z
 <span class="math display">\[\begin{equation}
     \tilde{\boldsymbol{m}}=\frac{1}{n}\sum_{i=1}^kn_i\tilde{\boldsymbol{m}}_i,
 \end{equation}\]</span>
-gdzie <span class="math inline">\(\tilde{\boldsymbol{m}}_i= \frac{1}{n_i}\sum_{\boldsymbol{a}\in A_i}\boldsymbol{a}\)</span>, a <span class="math inline">\(A_i\)</span> jest projekcją obiektów z <span class="math inline">\(i\)</span>-tej klasy w kierunku wektora <span class="math inline">\(\boldsymbol{W}\)</span>.
+gdzie <span class="math inline">\(\tilde{\boldsymbol{m}}_i= \frac{1}{n_i}\sum_{\boldsymbol{a}\in A_i}\boldsymbol{a}\)</span>, a <span class="math inline">\(A_i\)</span> jest projekcją obiektów z <span class="math inline">\(i\)</span>-tej klasy na hiperpowierzchnię generowaną przez <span class="math inline">\(\boldsymbol{W}\)</span>.
 Dalej możemy zdefiniować zmienności miedzy- i wewnątrzgrupowe dla obiektów przekształconych przez <span class="math inline">\(\boldsymbol{W}\)</span>
 <span class="math display">\[\begin{align}
     \tilde{\boldsymbol{S}}_W=&amp;\sum_{i=1}^k\sum_{\boldsymbol{a}\in A_i}(\boldsymbol{a}-\tilde{\boldsymbol{m}})(\boldsymbol{a}-\tilde{\boldsymbol{m}})&#39;\\
@@ -409,7 +418,7 @@ dla każdego <span class="math inline">\(i\)</span>.</p>
 <span class="kw">library</span>(tidyverse)
 iris.std &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, scale)
-<span class="kw">set.seed</span>(<span class="dv">2019</span>)
+<span class="kw">set.seed</span>(<span class="dv">44</span>)
 ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(iris.std), <span class="dt">size =</span> <span class="dv">100</span>)
 dt.ucz &lt;-<span class="st"> </span>iris.std[ind,]
 dt.test &lt;-<span class="st"> </span>iris.std[<span class="op">-</span>ind,]</code></pre>
@@ -417,24 +426,24 @@ dt.test &lt;-<span class="st"> </span>iris.std[<span class="op">-</span>ind,]</c
 <pre class="sourceCode r"><code class="sourceCode r">mod.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.ucz)
 mod.lda<span class="op">$</span>prior</code></pre>
 <pre><code>##     setosa versicolor  virginica 
-##       0.36       0.31       0.33</code></pre>
+##       0.32       0.32       0.36</code></pre>
 <p>Prawdopodobieństwa <em>a priori</em> przynależności do klas przyjęto na podstawie próby uczącej.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>means</code></pre>
 <pre><code>##            Sepal.Length Sepal.Width Petal.Length Petal.Width
-## setosa       -1.0251463   0.8690229    -1.294839  -1.2527443
-## versicolor    0.1619267  -0.5015842     0.316167   0.1786195
-## virginica     0.9174351  -0.2636338     1.046883   1.0504160</code></pre>
+## setosa      -1.05240186   0.7790042   -1.2968064  -1.2536554
+## versicolor   0.04201557  -0.6764307    0.2521529   0.1607657
+## virginica    0.87352122  -0.2398799    1.0182730   1.0868584</code></pre>
 <p>W części <code>means</code> wyświetlone są średnie poszczególnych zmiennych niezależnych w podziale na grupy. Dzięki temu można określić położenia środków ciężkości poszczególnych klas w oryginalnej przestrzeni.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>scaling</code></pre>
-<pre><code>##                     LD1       LD2
-## Sepal.Length  1.0073378  0.211252
-## Sepal.Width   0.4701094 -1.053135
-## Petal.Length -4.0746585  1.488372
-## Petal.Width  -2.5146178 -2.312201</code></pre>
+<pre><code>##                     LD1         LD2
+## Sepal.Length  0.5884101  0.04738098
+## Sepal.Width   0.7566030 -0.97757574
+## Petal.Length -3.2910346  1.41170784
+## Petal.Width  -2.3799488 -1.95325155</code></pre>
 <p>Powyższa tabela zawiera współrzędne wektorów wyznaczających funkcje dyskryminacyjne. Na ich podstawie możemy określić, która z nich wpływa najmocniej na tworzenie się nowej przestrzeni.</p>
 <p>Obiekt <code>svd</code> przechowuje pierwiastki z <span class="math inline">\(\lambda_i\)</span>, dlatego podnosząc je do kwadratu i dzieląc przez ich sumę otrzymamy udział poszczególnych zmiennych w dyskryminacji przypadków. Jak widać pierwsza funkcja dyskryminacyjna w zupełności by wystarczyła.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="kw">sum</span>(mod.lda<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span>)</code></pre>
-<pre><code>## [1] 0.994875091 0.005124909</code></pre>
+<pre><code>## [1] 0.992052359 0.007947641</code></pre>
 <p>Klasyfikacja na podstawie modelu</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred.lda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda, dt.test)</code></pre>
 <p>Wynik predykcji przechowuje trzy rodzaje obiektów:</p>
@@ -448,17 +457,17 @@ mod.lda<span class="op">$</span>prior</code></pre>
 tab</code></pre>
 <pre><code>##             obs
 ## pred         setosa versicolor virginica
-##   setosa         14          0         0
-##   versicolor      0         18         0
-##   virginica       0          1        17</code></pre>
+##   setosa         18          0         0
+##   versicolor      0         17         1
+##   virginica       0          1        13</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.98</code></pre>
-<p>Jak widać z powyższej tabeli model dobrze sobie radzi z klasyfikacją obiektów. Odsetek poprawnych klasyfikacji wynosi 98%.</p>
+<pre><code>## [1] 0.96</code></pre>
+<p>Jak widać z powyższej tabeli model dobrze sobie radzi z klasyfikacją obiektów. Odsetek poprawnych klasyfikacji wynosi 96%.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cbind.data.frame</span>(<span class="dt">obs =</span> dt.test<span class="op">$</span>Species,
                  pred.lda<span class="op">$</span>x, 
                  <span class="dt">pred =</span> pred.lda<span class="op">$</span>class) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2))<span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> pred, <span class="dt">shape =</span> obs))</code></pre>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> pred, <span class="dt">shape =</span> obs), <span class="dt">size =</span> <span class="dv">2</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-59-1.png" alt="Klasyfikacja w przestrzeni LD1, LD2 na podstawie modelu mod.lda" width="1056" />
 <p class="caption">
@@ -481,14 +490,14 @@ gdzie <span class="math inline">\(\boldsymbol{\mu}\)</span> jest wektorem średn
 </div>
 
 <div class="figure" style="text-align: center"><span id="fig:trans"></span>
-<img src="images/transform.JPG" alt="Transformacje rozkładu normalnego łącznego. Źródło: @duda2001"  />
+<img src="images/transform.JPG" alt="Transformacje rozkładu normalnego łącznego. Źródło: @duda2001" width="434" />
 <p class="caption">
 Rysunek 8.4: Transformacje rozkładu normalnego łącznego. Źródło: <span class="citation">Duda, Hart, and Stork (<a href="#ref-duda2001">2001</a>)</span>
 </p>
 </div>
 
 <div class="definition">
-<span id="def:unnamed-chunk-60" class="definition"><strong>Definicja 8.1  </strong></span>Niech <span class="math inline">\(g_i(\boldsymbol{x}),\ i=1,\ldots,k\)</span> będzie pewną funkcją dyskryminacyjną, wówczas obiekt <span class="math inline">\(\boldsymbol{x}\)</span> nalezy zaklasyfikować do grupy <span class="math inline">\(c_i\)</span> jeśli spełniony jest warunek
+<span id="def:unnamed-chunk-60" class="definition"><strong>Definicja 8.1  </strong></span>Niech <span class="math inline">\(g_i(\boldsymbol{x}),\ i=1,\ldots,k\)</span> będą pewnymi funkcjami dyskryminacyjnymi. Wówczas obiekt <span class="math inline">\(\boldsymbol{x}\)</span> klasyfikujemy do grupy <span class="math inline">\(c_i\)</span> jeśli spełniony jest warunek
 <span class="math display">\[\begin{equation}
     g_i(\boldsymbol{x})&gt;g_j(\boldsymbol{x}), \quad j\neq i.
 \end{equation}\]</span>
@@ -548,7 +557,7 @@ oraz
 \end{equation}\]</span></p>
 <p>Równanie <a href="LDA.html#eq:row89">(8.9)</a> określa hiperpłaszczyznę przechodzącą przez <span class="math inline">\(\boldsymbol x_0\)</span> i prostopadłą do <span class="math inline">\(\boldsymbol w\)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:hiper"></span>
-<img src="images/dyskrym1.JPG" alt="Dyskrymiancja hiperpłaszczyznami w sygucaji dwóch klas. Wykres po lewej, to ujęcie jednowymiarowe, wykresy po środu - ujęcie 2-wymiarowe i wykresy po prawej, to ujęcie 3-wymiarowe. Źródło: @duda2001"  />
+<img src="images/dyskrym1.JPG" alt="Dyskrymiancja hiperpłaszczyznami w sygucaji dwóch klas. Wykres po lewej, to ujęcie jednowymiarowe, wykresy po środu - ujęcie 2-wymiarowe i wykresy po prawej, to ujęcie 3-wymiarowe. Źródło: @duda2001" width="621" />
 <p class="caption">
 Rysunek 8.5: Dyskrymiancja hiperpłaszczyznami w sygucaji dwóch klas. Wykres po lewej, to ujęcie jednowymiarowe, wykresy po środu - ujęcie 2-wymiarowe i wykresy po prawej, to ujęcie 3-wymiarowe. Źródło: <span class="citation">Duda, Hart, and Stork (<a href="#ref-duda2001">2001</a>)</span>
 </p>
@@ -582,7 +591,7 @@ oraz
 \end{equation}\]</span>
 Tym razem <span class="math inline">\(\boldsymbol{w}=\Sigma^{-1}(\boldsymbol \mu_i-\boldsymbol \mu_j)\)</span> nie jest wektorem w kierunku <span class="math inline">\(\boldsymbol \mu_i-\boldsymbol \mu_j\)</span>, więc hiperpłaszczyzna rozdzielająca obiekty różnych klas nie jest prostopadła do wektora <span class="math inline">\(\boldsymbol \mu_i-\boldsymbol \mu_j\)</span> ale przecina go w połowie (w punkcie <span class="math inline">\(\boldsymbol x_0\)</span>).</p>
 <div class="figure" style="text-align: center"><span id="fig:hiper2"></span>
-<img src="images/dyskrym2.JPG" alt="Hiperpłaszczyzna rozdzielająca obszary innych klas może być przesunięta w kierunku bardziej prawdopodobnej klasy, jeśli prawdopodobieństwa a priori są różne. Źródło: @duda2001"  />
+<img src="images/dyskrym2.JPG" alt="Hiperpłaszczyzna rozdzielająca obszary innych klas może być przesunięta w kierunku bardziej prawdopodobnej klasy, jeśli prawdopodobieństwa a priori są różne. Źródło: @duda2001" width="523" />
 <p class="caption">
 Rysunek 8.6: Hiperpłaszczyzna rozdzielająca obszary innych klas może być przesunięta w kierunku bardziej prawdopodobnej klasy, jeśli prawdopodobieństwa a priori są różne. Źródło: <span class="citation">Duda, Hart, and Stork (<a href="#ref-duda2001">2001</a>)</span>
 </p>
@@ -603,7 +612,7 @@ gdzie
 \end{align}\]</span></p>
 <p>Ograniczenia w ten sposób budowane są hiperpowierzchniami (nie koniecznie hiperpłaszczyznami). W literaturze ta metoda znana jest pod nazwą kwadratowej analizy dyskryminacyjnej (ang. <em>Quadratic Discriminant Analysis</em>).</p>
 <div class="figure" style="text-align: center"><span id="fig:hiper3"></span>
-<img src="images/dyskrym3.JPG" alt="Przykład zastosowania kwadratowej analizy dyskryminacyjnej. Pokazane są dopuszczalne postaci zbiorów ograniczających. Źródło: @duda2001"  />
+<img src="images/dyskrym3.JPG" alt="Przykład zastosowania kwadratowej analizy dyskryminacyjnej. Pokazane są dopuszczalne postaci zbiorów ograniczających. Źródło: @duda2001" width="610" />
 <p class="caption">
 Rysunek 8.7: Przykład zastosowania kwadratowej analizy dyskryminacyjnej. Pokazane są dopuszczalne postaci zbiorów ograniczających. Źródło: <span class="citation">Duda, Hart, and Stork (<a href="#ref-duda2001">2001</a>)</span>
 </p>
@@ -622,7 +631,7 @@ Rysunek 8.7: Przykład zastosowania kwadratowej analizy dyskryminacyjnej. Pokaza
 ## 4 2001 -0.623  1.032  0.959  0.381 -0.192 1.2760  0.614        Up
 ## 5 2001  0.614 -0.623  1.032  0.959  0.381 1.2057  0.213        Up
 ## 6 2001  0.213  0.614 -0.623  1.032  0.959 1.3491  1.392        Up</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2019</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">44</span>)
 dt.ucz &lt;-<span class="st"> </span>Smarket <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, scale) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">sample_frac</span>(<span class="dt">size =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>) 
@@ -634,22 +643,22 @@ mod.qda</code></pre>
 ## 
 ## Prior probabilities of groups:
 ##      Down        Up 
-## 0.4789916 0.5210084 
+## 0.4909964 0.5090036 
 ## 
 ## Group means:
-##             Lag1         Lag2
-## Down  0.01064899 -0.006153307
-## Up   -0.08417078  0.030090639</code></pre>
+##            Lag1        Lag2
+## Down  0.0328367  0.06722714
+## Up   -0.0671615 -0.08814914</code></pre>
 <p>Ponieważ funkcje dyskryminacyjne mogą być nieliniowe, to podsumowanie modelu nie zawiera współczynników funkcji. Podsumowanie zawiera tylko prawdopodobieństwa a priori i średnie poszczególnych zmiennych niezależnych w klasach.</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred.qda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.qda, dt.test)
 tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> pred.qda<span class="op">$</span>class, dt.test<span class="op">$</span>Direction)
 tab</code></pre>
 <pre><code>##       
 ## pred   Down  Up
-##   Down   10  17
-##   Up    171 219</code></pre>
+##   Down   42  34
+##   Up    139 202</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.5491607</code></pre>
+<pre><code>## [1] 0.5851319</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(klaR)
 <span class="kw">partimat</span>(Direction <span class="op">~</span><span class="st"> </span>Lag1<span class="op">+</span>Lag2, 
          <span class="dt">data =</span> dt.ucz,
@@ -681,34 +690,34 @@ mod.plsda<span class="op">$</span>loadings</code></pre>
 <pre><code>## 
 ## Loadings:
 ##      Comp 1 Comp 2
-## Lag1 -0.712  0.450
-## Lag2  0.234  0.237
-## Lag3  0.647       
-## Lag4  0.158  0.519
-## Lag5         0.681
+## Lag1 -0.548  0.375
+## Lag2 -0.805 -0.204
+## Lag3        -0.520
+## Lag4 -0.143  0.652
+## Lag5  0.186  0.351
 ## 
 ##                Comp 1 Comp 2
-## SS loadings     1.008  1.001
-## Proportion Var  0.202  0.200
-## Cumulative Var  0.202  0.402</code></pre>
+## SS loadings     1.004  1.001
+## Proportion Var  0.201  0.200
+## Cumulative Var  0.201  0.401</code></pre>
 <p>Dwie ukryte zmienne użyte do redukcji wymiaru przestrzeni wyjaśniają około 40% zmienności pierwotnych zmiennych. Ładunki (<code>Loadings</code>) pokazują kontrybucje poszczególnych zmiennych w tworzenie się zmiennych ukrytych.</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred.plsda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.plsda, dt.test[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>)])
 tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.plsda, dt.test<span class="op">$</span>Direction)
 tab</code></pre>
 <pre><code>##           
 ## pred.plsda Down  Up
-##       Down   37  50
-##       Up    144 186</code></pre>
+##       Down   87  97
+##       Up     94 139</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.5347722</code></pre>
-<p>Ponieważ korelacje pomiędzy predyktorami w naszym przypadku nie były duże, to zastosowanie PLSDA nie poprawiło znacząco klasyfikacji w stosunku do metody QDA.</p>
+<pre><code>## [1] 0.5419664</code></pre>
+<p>Ponieważ korelacje pomiędzy predyktorami w naszym przypadku nie były duże, to zastosowanie PLSDA nie poprawiło klasyfikacji w stosunku do metody QDA.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(dt.ucz[,<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>])</code></pre>
 <pre><code>##              Lag1         Lag2         Lag3        Lag4        Lag5
-## Lag1  1.000000000 -0.001713222  0.003820374  0.01583203  0.02504524
-## Lag2 -0.001713222  1.000000000 -0.046611448 -0.02069792 -0.04105822
-## Lag3  0.003820374 -0.046611448  1.000000000 -0.06142632 -0.03424691
-## Lag4  0.015832026 -0.020697920 -0.061426325  1.00000000 -0.07102928
-## Lag5  0.025045238 -0.041058218 -0.034246907 -0.07102928  1.00000000</code></pre>
+## Lag1  1.000000000 -0.003318026 -0.004329303  0.02574559  0.01831679
+## Lag2 -0.003318026  1.000000000 -0.057166931  0.01209305  0.02127975
+## Lag3 -0.004329303 -0.057166931  1.000000000  0.01574896 -0.07541592
+## Lag4  0.025745592  0.012093049  0.015748958  1.00000000 -0.04607207
+## Lag5  0.018316786  0.021279754 -0.075415921 -0.04607207  1.00000000</code></pre>
 </div>
 <div id="regularyzowana-analiza-dyskryminacyjna" class="section level2">
 <h2><span class="header-section-number">8.4</span> Regularyzowana analiza dyskryminacyjna</h2>
@@ -733,25 +742,25 @@ mod.rda</code></pre>
 ## rda(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5, data = dt.ucz)
 ## 
 ## Regularization parameters: 
-##      gamma     lambda 
-## 0.33416870 0.03931045 
+##       gamma      lambda 
+## 0.713621809 0.004013224 
 ## 
 ## Prior probabilities of groups: 
 ##      Down        Up 
-## 0.4789916 0.5210084 
+## 0.4909964 0.5090036 
 ## 
 ## Misclassification rate: 
-##        apparent: 43.337 %
-## cross-validated: 45.524 %</code></pre>
+##        apparent: 44.058 %
+## cross-validated: 46.482 %</code></pre>
 <p>Model został oszacowany z parametrami wyznaczonymi na podstawie sprawdzianu krzyżowego zastosowanego w funkcji <code>rda</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">pred.rda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rda, dt.test)
 (tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> pred.rda<span class="op">$</span>class, dt.test<span class="op">$</span>Direction))</code></pre>
 <pre><code>##       
 ## pred   Down  Up
-##   Down   19  30
-##   Up    162 206</code></pre>
+##   Down   24  31
+##   Up    157 205</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.5395683</code></pre>
+<pre><code>## [1] 0.5491607</code></pre>
 <p>Jakość klasyfikacji jest na zbliżonym poziomie jak przy poprzednich metodach.</p>
 </div>
 <div id="analiza-dyskryminacyjna-mieszana" class="section level2">
@@ -764,7 +773,7 @@ mod.rda</code></pre>
 gdzie <span class="math inline">\(L_i\)</span> jest liczbą rozkładów składających się na <span class="math inline">\(i\)</span>-tą klasę, a <span class="math inline">\(\phi_{ik}\)</span> jest współczynnikiem proporcji estymowanych w czasie uczenia modelu.</p>
 
 <div class="example">
-<span id="exm:mda" class="example"><strong>Przykład 8.5  </strong></span>Funkcja <code>mda</code> pakietu <code>mda</code> <span class="citation">(Trevor Hastie &amp; Robert Tibshirani. Original R port by Friedrich Leisch, Hornik, and Ripley. <a href="#ref-R-mda">2017</a>)</span> jest implementacją tej techniki w R. Jej zastosowanie pokażemy na przykładzie danych giełdowych z poprzedniego przykładu. Użyjemy domyślnych ustawień funkcji (trzy rozkłady dla każdej klasy).
+<span id="exm:mda" class="example"><strong>Przykład 8.5  </strong></span>Funkcja <code>mda</code> pakietu <code>mda</code> <span class="citation">(Trevor Hastie et al. <a href="#ref-R-mda">2017</a>)</span> jest implementacją tej techniki w R. Jej zastosowanie pokażemy na przykładzie danych giełdowych z poprzedniego przykładu. Użyjemy domyślnych ustawień funkcji (trzy rozkłady dla każdej klasy).
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mda)
@@ -777,21 +786,21 @@ mod.mda</code></pre>
 ## 
 ## Percent Between-Group Variance Explained:
 ##     v1     v2     v3     v4     v5 
-##  48.45  88.33  94.80  99.68 100.00 
+##  63.78  95.81  98.97  99.84 100.00 
 ## 
 ## Degrees of Freedom (per dimension): 6 
 ## 
-## Training Misclassification Error: 0.42737 ( N = 833 )
+## Training Misclassification Error: 0.43337 ( N = 833 )
 ## 
-## Deviance: 1134.453</code></pre>
+## Deviance: 1134.288</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pred.mda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.mda, dt.test)
 (tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> pred.mda, dt.test<span class="op">$</span>Direction))</code></pre>
 <pre><code>##       
 ## pred   Down  Up
-##   Down   23  38
-##   Up    158 198</code></pre>
+##   Down   38  46
+##   Up    143 190</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
-<pre><code>## [1] 0.529976</code></pre>
+<pre><code>## [1] 0.5467626</code></pre>
 <p>Kolejny raz model dyskryminacyjny charakteryzuje się podobną jakością klasyfikacji.</p>
 </div>
 <div id="elastyczna-analiza-dyskryminacyjna" class="section level2">
@@ -810,7 +819,7 @@ gdzie <span class="math inline">\(h\)</span> są tzw. funkcjami bazowymi postaci
 \end{equation}\]</span>
 Klasyfikacji dokonujemy sprawdzając znak funkcji dyskryminacyjnej <span class="math inline">\(g_i\)</span>, jeśli jest dodatni, to funkcja przypisuje obiekt do klasy <span class="math inline">\(i\)</span>-tej. W przeciwnym przypadku nie należy do tej klasy.</p>
 <div class="figure" style="text-align: center"><span id="fig:fda"></span>
-<img src="images/fda.JPG" alt="Przykład klasyfikacji dwustanowej za pomocą metody FDA"  />
+<img src="images/fda.JPG" alt="Przykład klasyfikacji dwustanowej za pomocą metody FDA" width="297" />
 <p class="caption">
 Rysunek 8.9: Przykład klasyfikacji dwustanowej za pomocą metody FDA
 </p>
@@ -820,7 +829,7 @@ Rysunek 8.9: Przykład klasyfikacji dwustanowej za pomocą metody FDA
 <span id="exm:przykFDA" class="example"><strong>Przykład 8.6  </strong></span>Funkcja <code>fda</code> pakietu <code>mda</code> jest implementacją techniki FDA w R. Na postawie danych z poprzedniego przykładu zostanie przedstawiona zasada dziełania. Przyjmiemy domyślne ustawienia funkcji, z wyjątkiem metody estymacji modelu, jako którą przyjmiemy MARS.
 </div>
 
-<pre class="sourceCode r"><code class="sourceCode r">mod.fda &lt;-<span class="st"> </span><span class="kw">fda</span>(Direction<span class="op">~</span>Lag1<span class="op">+</span>Lag2, dt.ucz, <span class="dt">method =</span> mars)
+<pre class="sourceCode r"><code class="sourceCode r">mod.fda &lt;-<span class="st"> </span><span class="kw">fda</span>(Direction <span class="op">~</span><span class="st"> </span>Lag1<span class="op">+</span>Lag2, dt.ucz, <span class="dt">method =</span> mars)
 mod.fda</code></pre>
 <pre><code>## Call:
 ## fda(formula = Direction ~ Lag1 + Lag2, data = dt.ucz, method = mars)
@@ -831,20 +840,19 @@ mod.fda</code></pre>
 ##  v1 
 ## 100 
 ## 
-## Training Misclassification Error: 0.43938 ( N = 833 )</code></pre>
+## Training Misclassification Error: 0.44418 ( N = 833 )</code></pre>
 <p>Ponieważ, zmienna wynikowa jest dwustanowa, to powstała tylko jedna funkcja dyskryminacyjna.
 Parametry modelu są następujące</p>
 <pre class="sourceCode r"><code class="sourceCode r">mod.fda<span class="op">$</span>fit<span class="op">$</span>coefficients</code></pre>
-<pre><code>##            [,1]
-## [1,]  0.1129623
-## [2,] -0.5202437
-## [3,]  0.5462219</code></pre>
+<pre><code>##             [,1]
+## [1,]  0.05846465
+## [2,] -0.17936208</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pred.fda &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.fda, dt.test)
 (tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> pred.fda, dt.test<span class="op">$</span>Direction))</code></pre>
 <pre><code>##       
 ## pred   Down  Up
-##   Down  108 118
-##   Up     73 118</code></pre>
+##   Down   40  50
+##   Up    141 186</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</code></pre>
 <pre><code>## [1] 0.5419664</code></pre>
 <p>Jakość klasyfikacji jest tylko nieco lepsza niż w przypadku poprzednich metod.</p>
@@ -869,7 +877,7 @@ Parametry modelu są następujące</p>
 <p>Friedman, Jerome H. 1989. “Regularized Discriminant Analysis.” <em>Journal of the American Statistical Association</em> 84 (405): 165–75. <a href="https://doi.org/10.2307/2289860">https://doi.org/10.2307/2289860</a>.</p>
 </div>
 <div id="ref-R-mda">
-<p>Trevor Hastie &amp; Robert Tibshirani. Original R port by Friedrich Leisch, S original by, Kurt Hornik, and Brian D. Ripley. 2017. <em>Mda: Mixture and Flexible Discriminant Analysis</em>. <a href="https://CRAN.R-project.org/package=mda">https://CRAN.R-project.org/package=mda</a>.</p>
+<p>Trevor Hastie, S original by, Robert Tibshirani. Original R port by Friedrich Leisch, Kurt Hornik, and Brian D. Ripley. 2017. <em>Mda: Mixture and Flexible Discriminant Analysis</em>. <a href="https://CRAN.R-project.org/package=mda">https://CRAN.R-project.org/package=mda</a>.</p>
 </div>
 </div>
             </section>
@@ -915,15 +923,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["EksploracjaDanych.pdf", "EksploracjaDanych.epub"],
+"download": ["EksploracjaDanych.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
 },
+"search": true,
 "toolbar": {
 "position": "fixed"
-},
-"search": true
+}
 });
 });
 </script>

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>11 Uogólnione modele addytywne | Eksploracja danych</title>
+  <title>12 Metoda wektorów nośnych | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
+  <meta property="og:title" content="12 Metoda wektorów nośnych | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
+  <meta name="twitter:title" content="12 Metoda wektorów nośnych | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="metoda-k-najblizszych-sasiadow.html">
-<link rel="next" href="metoda-wektorow-nosnych.html">
+<link rel="prev" href="uogolnione-modele-addytywne.html">
+<link rel="next" href="bibliografia.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -264,175 +264,191 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="uogolnione-modele-addytywne" class="section level1">
-<h1><span class="header-section-number">11</span> Uogólnione modele addytywne</h1>
-<p>Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstawić kombinację liniową ich funkcji, czyli
-<span class="math display" id="eq:row111">\[\begin{equation}
-    \E(Y|X)=f(X) = \sum_{i=1}^M\beta_mh_m(X),
-    \tag{11.1}
-\end{equation}\]</span>
-gdzie <span class="math inline">\(h_m:\mathbb{R}^d\to\mathbb{R}\)</span> nazywana często funkcją bazową (ang. <em>linear basis expansion</em>). Wówczas w zależności od postaci funkcji bazowej otrzymujemy modele z różnymi poziomami elastyczności:</p>
-<ul>
-<li>gdy <span class="math inline">\(h_m(X)=X_m,\ m=1,\ldots,M\)</span>, to otrzymujemy model liniowy;</li>
-<li>gdy <span class="math inline">\(h_m(X)=X_j^2\)</span> lub <span class="math inline">\(h_m(X)=X_jX_k\)</span>, to otrzymujemy struktury wielomianowe, charakteryzujące się większą elastycznością modelu;</li>
-<li>gdy <span class="math inline">\(h_m(X)=\log X_j\)</span> lub <span class="math inline">\(h_m(X)=\sqrt{X_j}\)</span>, to uzyskujemy nieliniowość czynników wchodzących w skład kombinacji liniowej <a href="uogolnione-modele-addytywne.html#eq:row111">(11.1)</a>;</li>
-<li>dopuszczalne są również kawałkami liniowe funkcje postaci <span class="math inline">\(h_m(X)= I(l_m\leq X_k &lt;u_m)\)</span>, gdzie <span class="math inline">\(I\)</span> jest funkcją charakterystyczną (ang. <em>indicator</em>) przedziału <span class="math inline">\([l_m,u_m)\)</span>.</li>
-</ul>
-<p>Zbiory wszystkich funkcji bazowych definiowanych w ten sposób tworzy słownik funkcji bazowych <span class="math inline">\(\mathcal{D}\)</span>. Aby kontrolować złożoność modeli, mając do dyspozycji tak zasobny słownik, wprowadza się następujące podejścia:</p>
-<ul>
-<li>ogranicza się klasę dostępnych funkcji bazowych
-<span class="math display">\[\begin{equation}
-  f(X) = \sum_{j=1}^df_j(X_j)=\sum_{j=1}^d\sum_{m=1}^{M_j}\beta_{jm}h_{jm}(X_j),
-\end{equation}\]</span></li>
-<li>włącza się do modelu jedynie te funkcje ze słownika <span class="math inline">\(\mathcal{D}\)</span>, które istotnie poprawiają dopasowanie modelu,</li>
-<li>używa się metod penalizowanych, czyli dopuszcza się stosowanie wszystkich funkcji bazowych ze słownika <span class="math inline">\(\mathcal{D}\)</span>, ale współczynniki przy nich stojące są ograniczane.</li>
-</ul>
-<div id="przypadek-jednowymiarowy" class="section level2">
-<h2><span class="header-section-number">11.1</span> Przypadek jednowymiarowy</h2>
-<p>Dla uproszczenia rozważań przyjmiemy, że <span class="math inline">\(X\)</span> jest jednowymiarowe.</p>
-<div class="figure" style="text-align: center"><span id="fig:spline1"></span>
-<img src="images/spline1.JPG" alt="Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej $\max(X-\xi_1,0)$" width="183" />
+<div id="metoda-wektorow-nosnych" class="section level1">
+<h1><span class="header-section-number">12</span> Metoda wektorów nośnych</h1>
+<div id="wprowadzenie" class="section level2">
+<h2><span class="header-section-number">12.1</span> Wprowadzenie</h2>
+<p><strong>Metoda wektorów nośnych</strong><a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> (ang. <em>Support Vector Machines</em>) to kolejna metoda klasyfikacji obserwacji na podstawie cech (atrybutów). Jest techniką z nauczycielem tzn., że w próbie uczącej występują zarówno cechy charakteryzujące badane obiekty jak i ich przynależność do klasy.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm1"></span>
+<img src="images/SVM_Example_of_Hyperplanes.png" alt="Przykład prostych separujących obiekty obu grup" width="356" />
 <p class="caption">
-Rysunek 11.1: Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej <span class="math inline">\(\max(X-\xi_1,0)\)</span>
+Rysunek 12.1: Przykład prostych separujących obiekty obu grup
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:spline2"></span>
-<img src="images/spline2.JPG" alt="Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości" width="178" />
+</div>
+<div id="definicja-modelu-dla-klas-liniowo-separowalnych" class="section level2">
+<h2><span class="header-section-number">12.2</span> Definicja modelu dla klas liniowo separowalnych</h2>
+<p>Istotą tej metody jest znalezienie wektorów nośnych, definiujących hiperpowierzchnie optymalnie separujące obiekty w homogeniczne grupy.</p>
+<p>Niech <span class="math inline">\(D\)</span> będzie zbiorem <span class="math inline">\(n\)</span> punktów w <span class="math inline">\(d\)</span>-wymiarowej przestrzeni określonych następująco <span class="math inline">\((\vec{x}_i, y_i)\)</span>, <span class="math inline">\(i=1,\ldots, d\)</span>, gdzie <span class="math inline">\(y_i\)</span> przyjmuje wartości -1 lub 1 w zależności od tego do której grupy należy (zakładamy istnienie tylko dwóch grup). Poszukujemy takiej hiperpłaszczyzny, która maksymalizuje margines pomiędzy punktami obu klas w przestrzeni cech <span class="math inline">\(\vec{x}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm2"></span>
+<img src="images/Svm_max_sep_hyperplane_with_margin.png" alt="Płaszczyzna najlepiej rozdzielająca obiekty obu grup (białe i czarne kropki) wraz z prostymi wyznaczającymi maksymalny margines separujący obie grupy" width="400" />
 <p class="caption">
-Rysunek 11.2: Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości
+Rysunek 12.2: Płaszczyzna najlepiej rozdzielająca obiekty obu grup (białe i czarne kropki) wraz z prostymi wyznaczającymi maksymalny margines separujący obie grupy
 </p>
 </div>
-<p>Przykładowo sześcienny splajn<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> dla dwóch punków węzłowych składa się z następujących funkcji bazowych</p>
-<p><span class="math display">\[\begin{gather}
-    h_1(X)=1,\quad h_3(X)=X^2,\quad h_5(X)=(X-\xi_1)_+^3\\
-    h_2(X)=X,\quad h_4(X)=X^3,\quad h_6(X)=(X-\xi_2)_+^3.
-\end{gather}\]</span></p>
-<p>Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdarza się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
-Naturalny splajn sześcienny zakłada liniowość modelu poza węzłami brzegowymi. Dla <span class="math inline">\(K\)</span> węzłów naturalny splajn sześcienny składa się z następujących funkcji bazowych</p>
-<p><span class="math display">\[\begin{gather}
-    N_1(X)=1,\quad N_2(X)=X,\quad N_{k+2}(X)=d_k(X)-d_{K-1}(X),
-\end{gather}\]</span>
-gdzie <span class="math inline">\(d_k(X)=\frac{(X-\xi_k)^3_+-(X-\xi_K)^3_+}{\xi_K-\xi_k}.\)</span></p>
-<p>Estymacji parametrów modelu dokonujemy metodą najmniejszych kwadratów, minimalizując
-<span class="math display">\[\begin{equation}
-    RSS(f,\lambda) = \sum_{i=1}^N(y_i-f(x_i))^2+\lambda\int(f&#39;&#39;(t))^2dt,
-\end{equation}\]</span>
-gdzie <span class="math inline">\(\lambda\)</span> jest parametrem wygładzania. Pierwsze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
-Dla naturalnego splajna
-<span class="math display">\[\begin{equation}
-    f(x)=\sum_{j=1}^NN_j(x)\beta_j
-\end{equation}\]</span>
-minimalizujemy
-<span class="math display">\[\begin{equation}
-    RSS(\beta, \lambda)=(\boldsymbol y -\boldsymbol N\beta)&#39;(\boldsymbol y-\boldsymbol N\beta)+\lambda\beta&#39;\boldsymbol \Omega \beta,
-\end{equation}\]</span>
-gdzie <span class="math inline">\(\{\boldsymbol N\}_{ij}= N_j(x_i)\)</span> i <span class="math inline">\(\{\boldsymbol \Omega\}_{jk}=\int N&#39;&#39;_j(t)N&#39;&#39;_k(t)dt\)</span>. Rozwiązaniem zaganienia minimalizacji <span class="math inline">\(RSS(\beta,\lambda)\)</span> jest
-<span class="math display">\[\begin{equation}
-    \hat{\beta}=((\boldsymbol N&#39;\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N&#39;\boldsymbol y.
+<p>Margines ten jest określany jako najmniejsza odległość pomiędzy hiperpłaszczyzną i elementami z każdej z grup. Dowolna hiperpłaszczyzna może być zapisana równaniem <span class="math inline">\(\vec{w}\vec{x}-b=0\)</span>, gdzie <span class="math inline">\(\vec{w}\)</span> jest wektorem normalnym do hiperpłaszczyzny. Jeśli dane są liniowo separowalne to, można wybrać takie dwie hiperpłaszczyzny, że odległość pomiędzy nimi jest największa. Równania tych hiperpłaszczyzn dane są wzorami
+<span class="math display" id="eq:hiper1">\[\begin{equation}
+    \vec{w}\vec{x}-b=1, \quad \vec{w}\vec{x}-b=-1
+    \tag{12.1}
 \end{equation}\]</span></p>
-</div>
-<div id="przypadek-wielowymiarowy" class="section level2">
-<h2><span class="header-section-number">11.2</span> Przypadek wielowymiarowy</h2>
-<p>W przypadku gdy <span class="math inline">\(X\in \mathbb{R}^d\)</span> poszukujemy takiej <span class="math inline">\(d\)</span>-wymiarowej regresji <span class="math inline">\(f(x)\)</span>, która będzie minimalizowała wyrażenie
-<span class="math display">\[\begin{equation}
-    \min_f\sum_{i=1}^N(y_i-f(x_i))^2+\lambda J(f),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(J\)</span> jest odpowiednią funkcją wyrażającą krzywoliniowość modelu. Dla <span class="math inline">\(X\in \mathbb{R}^2\)</span> przyjmuje postać
-<span class="math display">\[\begin{equation}
-    J(f)=\iint_{\mathbb{R}^2}\left[\left(\frac{\partial^2 f(x)}{\partial^2 x_1}\right)^2+2\left(\frac{\partial^2 f(x)}{\partial x_1\partial x_2}\right)^2+
-    \left(\frac{\partial^2 f(x)}{\partial^2 x_2}\right)^2\right]dx_1dx_2.
-\end{equation}\]</span>
-Rozwiązanie przyjmuje postać
-<span class="math display">\[\begin{equation}
-    f(x) = \beta_0+\beta&#39;x+\sum_{i=1}^N \alpha_ih_i(x),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(h_i(x)=||x-x_j||^2\log||x-x_j||\)</span>.</p>
-</div>
-<div id="uogolnione-modele-addytywne-1" class="section level2">
-<h2><span class="header-section-number">11.3</span> Uogólnione modele addytywne</h2>
-<p>Przez uogólnione modele addytywne (ang. <em>Generalized Additive Models</em>) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następujący sposób
-<span class="math display">\[\begin{equation}
-    g(\E(Y|X))=g(\mu(X))=\alpha+f_1(X_1)+\dots+f_d(X_d),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(g\)</span> jest funkcją łączącą. Najczęściej stosowanymi funkcjami łączącymi są:</p>
-<ul>
-<li><span class="math inline">\(g(\mu)=\mu\)</span> - stosowana w modelach, gdy zmienna wynikowa ma rozkład normalny;</li>
-<li><span class="math inline">\(g(\mu)=\logit\mu\)</span> - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;</li>
-<li><span class="math inline">\(g(\mu)=\probit\mu\)</span> - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a <span class="math inline">\(\Phi^{-1}\)</span> oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;</li>
-<li><span class="math inline">\(g(\mu)=\log\mu\)</span> - stosowana, gdy zmienna wynikowa jest zmienną typu zliczeniowego (rozkład Poissona).</li>
-</ul>
-<div id="algorytm-uczenia-modelu-gam" class="section level3">
-<h3><span class="header-section-number">11.3.1</span> Algorytm uczenia modelu GAM</h3>
-<p>Algorytm uczenia wstecznego (ang. <em>backfitting</em>) przebiega wg następujących kroków:</p>
-<ol style="list-style-type: decimal">
-<li>Ustalamy wstępne oszacowania na <span class="math inline">\(\alpha=\bar{y}\)</span> i <span class="math inline">\(\hat{f}_j=0\)</span>.</li>
-<li>Dla <span class="math inline">\(j=1,\ldots,d,1,\ldots,d,1,\ldots\)</span> powtarzamy szacowanie
-<span class="math display">\[\begin{align}
- \hat{f}_j\leftarrow &amp;\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right],\\
- \hat{f}_j\leftarrow &amp;\hat{f}_j-\frac{1}{N}\sum_{i=1}^N\hat{f}_j(x_{ij})
+<p>Odległość pomiędzy tymi hiperpłaszczyznami wynosi <span class="math inline">\(\tfrac{2}{\|\vec{w}\|}\)</span>. Zatem żeby zmaksymalizować odległość pomiędzy hiperpłaszczyznami (margines) musimy zminimalizować <span class="math inline">\(\tfrac{\|\vec{w}\|}{2}\)</span>.
+Dodatkowo, żeby nie pozwolić aby punkty wpadały do marginesu musimy nałożyć dodatkowe ograniczenia
+<span class="math display" id="eq:hiper2">\[\begin{align}
+    \vec{w}\vec{x}_i-b\geq&amp; 1, \quad   y_i=1\\
+    \vec{w}\vec{x}_i-b\leq&amp; -1, \quad y_i=-1
+    \tag{12.2}
 \end{align}\]</span>
-dopóki <span class="math inline">\(\hat{f}_j\)</span> osiągnie zbieżność. Funkcja <span class="math inline">\(\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right]\)</span> jest jednowymiarowym sześciennym splajnem o <span class="math inline">\(N\)</span> węzłach. W jej miejsce można przyjąć również inne funkcje, takie jak: jednowymiarowe lokalne regresje wielomianowe (ang. <em>LOESS - locally estimated scatterplot smoothing</em>), regresje liniowe, wielomianowe.</li>
-</ol>
+Co można zapisać prościej
+<span class="math display" id="eq:hiper3">\[\begin{equation}
+    y_i(\vec{w}\vec{x}_i-b)\geq 1,\quad 1\leq i\leq n.
+    \tag{12.3}
+\end{equation}\]</span>
+Zatem <span class="math inline">\(\vec{w}\)</span> i <span class="math inline">\(b\)</span> minimalizujące <span class="math inline">\(\|\vec{w}\|\)</span> przy jednoczesnym spełnieniu warunku  definiują klasyfikator postaci
+<span class="math display" id="eq:hiper4">\[\begin{equation}
+    \vec{x}\rightarrow \operatorname{sgn}(\vec{w}\vec{x}-b).
+    \tag{12.4}
+\end{equation}\]</span></p>
+<p>Z racji, że <span class="math inline">\(\|\vec{w}\|\)</span> jest określona jako pierwiastek sumy kwadratów poszczególnych współrzędnych wektora, to częściej w minimalizacji stosuje się <span class="math inline">\(\|\vec{w}\|^2\)</span>.</p>
+<p>Sformułowany powyżej problem należy do grupy optymalizacji funkcji kwadratowej przy liniowych ograniczeniach. Rozwiązuje się go metodą mnożników Lagrange’a.</p>
+<p>Minimalizujemy funkcję
+<span class="math display" id="eq:lagrange">\[\begin{equation}
+    L(w, b, \alpha) = \frac{1}{2}\|\vec{w}\|^2-\sum_{i=1}^{n}\alpha_i\big(y_i(\vec{w}\vec{x}_i-b)-1\big),
+    \tag{12.5}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\alpha_i\)</span> są mnożnikami Lagrange’a.</p>
+<p>Niestety rozwiązanie takiego równania różniczkując po <span class="math inline">\(\vec{w}\)</span> i <span class="math inline">\(b\)</span> i przyrównując do zera nie jest łatwe. Dlatego Karush-Kuhn Tucker wprowadzili ograniczenia na mnożniki <span class="math inline">\(\alpha_i\geq 0\)</span> oraz <span class="math inline">\(\alpha_i\big(y_i(\vec{w}\vec{x}_i-b)-1\big)=0\)</span>. Co w konsekwencji powoduje, że <span class="math inline">\(\alpha_i\)</span> są niezerowe jedynie dla wektorów nośnych, a dla pozostałych 0.</p>
+<p>Dalej jednak poszukiwanie rozwiązania zagadnienia minimalizacji funkcji <span class="math inline">\(L\)</span> ze względu na tak wiele parametrów może być uciążliwe. Wówczas stosuje się maksymalizację dualnej wersji<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>
+<span class="math display" id="eq:lagrange2">\[\begin{equation}
+    L_D(\alpha) = \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\vec{x}_i&#39;\vec{x}_j
+    \tag{12.6}
+\end{equation}\]</span>
+przy ograniczeniach <span class="math inline">\(\alpha_i\geq 0\)</span> i <span class="math inline">\(\sum_{i=1}^{n}\alpha_iy_i=0\)</span>.</p>
+<p>Rozwiązaniem powyższego zagadnienia jest
+<span class="math display" id="eq:lagrange4" id="eq:lagrange3">\[\begin{align}
+    \vec{w}=&amp;\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i,\tag{12.7}\\
+        b=&amp;y_i-\vec{w}\vec{x}_i,
+        \tag{12.8}
+\end{align}\]</span>
+a hiperpłaszczyzna decyzyjna
+<span class="math display" id="eq:hiper5">\[\begin{equation}
+\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i\vec{x}-b=0,
+\tag{12.9}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\vec{x}_i\)</span> są wektorami nośnymi ze zbioru uczącego, a <span class="math inline">\(\vec{x}\)</span> jest nowym wektorem dla którego przeprowadzamy klasyfikację.
+Należy również zauważyć, że im większa wartość <span class="math inline">\(\alpha_i\)</span>, tym większy wpływ wektora na granicę decyzyjną.</p>
+</div>
+<div id="definicja-modelu-dla-klas-nieliniowo-separowalnych" class="section level2">
+<h2><span class="header-section-number">12.3</span> Definicja modelu dla klas nieliniowo separowalnych</h2>
+<p>Niestety rzadko przestrzeń atrybutów jest liniowo separowalna. Stosuje się wówczas modyfikację powyższej metody przez wprowadzenie następującej funkcji straty
+<span class="math display" id="eq:strata1">\[\begin{equation}
+    \zeta_i=\max\big(0,1-y_i(\vec{w}\vec{x}_i-b)\big).
+    \tag{12.10}
+\end{equation}\]</span>
+Zauważmy, że <span class="math inline">\(\zeta_i\)</span> jest najmniejszą liczbą nieujemną spełniającą nierówność
+<span class="math display" id="eq:nier">\[\begin{equation}
+    y_i(\vec{w}\vec{x}_i-b)\geq 1-\zeta_i.
+    \tag{12.11}
+\end{equation}\]</span>
+Możemy ją interpretować tak, że jeśli warunek <a href="metoda-wektorow-nosnych.html#eq:hiper3">(12.3)</a> jest spełniony, czyli punkty leżą na zewnątrz marginesu (po właściwych stronach), to funkcja straty przyjmuje wartość 0. W przeciwnym przypadku wartość funkcji jest proporcjonalna do odległości od brzegu marginesu. Dlatego wystarczy zminimalizować wartość
+<span class="math display" id="eq:strata2">\[\begin{equation}
+    \frac{1}{n}\sum_{i=1}^{n}\zeta_i+\lambda\|\vec{w}\|^2,
+    \tag{12.12}
+\end{equation}\]</span>
+przy warunku <a href="metoda-wektorow-nosnych.html#eq:nier">(12.11)</a> i <span class="math inline">\(\zeta_i\geq 0\)</span> oraz gdzie <span class="math inline">\(\lambda\)</span> jest wagą kompromisu pomiędzy szerokością marginesu a zapewnieniem, że punkty leżą po właściwych stronach marginesu. Przy dostatecznie małych wartościach <span class="math inline">\(\lambda\)</span> i separowalności liniowej punktów przestrzeni atrybutów powyższy klasyfikator będzie się zachowywał podobnie jak <a href="metoda-wektorow-nosnych.html#eq:hiper4">(12.4)</a>.</p>
+<p>Rozwiązanie problemu minimalizacji funkcji straty określonej w <a href="metoda-wektorow-nosnych.html#eq:strata2">(12.12)</a> za pomocą dualnej wersji mnożników Lagrange’a sprowadza się do minimalizacji funkcji
+<span class="math display" id="eq:strata3">\[\begin{equation}
+    L(\alpha_i) = \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\vec{x}_i&#39;\vec{x}_j,
+\tag{12.13}  
+\end{equation}\]</span>
+przy warunkach
+<span class="math display" id="eq:nier2">\[\begin{equation}
+    \sum_{i=1}^{n}\alpha_iy_i=0,\quad 0\leq \alpha_i\leq \frac{1}{2n\lambda}.
+    \tag{12.14}
+\end{equation}\]</span>
+Wektor normalny do hiperpłaszczyzny jest postaci
+<span class="math display" id="eq:wagi2">\[\begin{equation}
+    \vec{w}=\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i,
+    \tag{12.15}
+\end{equation}\]</span>
+a parametr <span class="math inline">\(b\)</span> taki jak w <a href="metoda-wektorow-nosnych.html#eq:lagrange4">(12.8)</a>.</p>
+<p>Powyższy algorytm został przedstawiony przez Vapnika w 1963 roku jako klasyfikator liniowy ale dopiero po wprowadzeniu funkcji jądrowych przekształcających liniowy brzeg decyzyjny na nieliniowy, metoda ta zyskała w oczach statystyków.</p>
+</div>
+<div id="definicja-modelu-jadrowego" class="section level2">
+<h2><span class="header-section-number">12.4</span> Definicja modelu jądrowego</h2>
+<p>W roku 1992 Boser, Guyon i Vapnik wprowadzili pojęcie nieliniowego klasyfikatora opartego na metodzie wektorów nośnych, który było uogólnieniem techniki przedstawionej przez Vapnika w 1963 roku. Pozwala ona na nieliniowy kształt brzegu obszaru decyzyjnego.</p>
+<p>Zasada działania polega na znalezieniu takiego jądra przekształcenia (ang. <em>kernel</em>) <span class="math inline">\(\phi\)</span>, które odwzoruje przestrzeń <span class="math inline">\(d\)</span>-wymiarową w <span class="math inline">\(d&#39;\)</span>-wymiarową, gdzie <span class="math inline">\(d&#39;&gt;d\)</span> taką, że <span class="math inline">\(D_{\phi}=\{\phi(\vec{x}_i), y_i\}\)</span> jest możliwie jak najbardziej separowalna.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm3"></span>
+<img src="images/Kernel_Machine.png" alt="Przykład zastosowania takiego przekształcenia jądrowego aby z sytuacji braku liniowej separowalności do niej doprowadzić" width="484" />
+<p class="caption">
+Rysunek 12.3: Przykład zastosowania takiego przekształcenia jądrowego aby z sytuacji braku liniowej separowalności do niej doprowadzić
+</p>
+</div>
+<p>Dla funkcji jądrowej określonej wzorem <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\phi(\vec{x}_i)\phi(\vec{x}_j)\)</span> przeprowadzamy identyczne rozumowanie jak w przypadku liniowych brzegów obszarów decyzyjnych.
+Minimalizujemy zatem wyrażenie
+<span class="math display" id="eq:strata4">\[\begin{align}
+    L(\alpha_i) =&amp; \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\phi(\vec{x}_i)\phi(\vec{x}_j)\\
+        =&amp;\sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_jk(\vec{x}_i,\vec{x}_j),
+        \tag{12.16}
+\end{align}\]</span>
+przy warunkach
+<span class="math display" id="eq:nier3">\[\begin{equation}
+    \sum_{i=1}^{n}\alpha_iy_i=0,\quad 0\leq \alpha_i\leq \frac{1}{2n\lambda}.
+    \tag{12.17}
+\end{equation}\]</span>
+Rozwiązanie powyższego problemu są również podobne do ich liniowych odpowiedników
+<span class="math display" id="eq:wagi3">\[\begin{equation}
+    \vec{w}=\sum_{i=1}^{n}\alpha_iy_i\phi(\vec{x}_i),
+    \tag{12.18}
+\end{equation}\]</span>
+a parametr <span class="math inline">\(b=\vec{w}\phi(\vec{x}_i)-y_i\)</span>.</p>
+<p>Najczęściej stosowanymi funkcjami jądrowymi są:</p>
+<ul>
+<li>wielomianowa <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=(a\vec{x}_i&#39;\vec{x}_j+b)^q\)</span>,</li>
+<li>gaussowska <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\exp(-\gamma\|\vec{x}_i-\vec{x}_j\|^2)\)</span>,</li>
+<li>Laplace’a <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\exp(-\gamma\|\vec{x}_i-\vec{x}_j\|)\)</span>,</li>
+<li>hiperboliczna <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\tanh(\vec{x}_i&#39;\vec{x}_j+b)\)</span>,</li>
+<li>sigmoidalna <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\tanh(a\vec{x}_i&#39;\vec{x}_j+b)\)</span>,</li>
+<li>Bessel’a <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\frac{Bessel^n_{(\nu+1)}(\sigma\|\vec{x}_i-\vec{x}_j\|)}{(\|\vec{x}_i-\vec{x}_j\|)^{n(\nu+1)}}\)</span>,</li>
+<li>ANOVA <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\left(\sum_{k=1}^{n}\exp\big(-\sigma(x^k_i-x^k_j)^2\big)\right)^d\)</span>,</li>
+<li>sklejana dla jednowymiarowej przestrzeni <span class="math inline">\(k(x_i,x_j)=1+x_ix_j\min(x_i,x_j)-\frac{x_i+x_j}{2}\big(\min(x_i,x_j)\big)^2+\frac{(\min(x_i,x_j))^3}{3}\)</span>.</li>
+</ul>
+<p>W przypadku braku wiedzy o danych funkcja gaussowska, Laplace’a i Bessel’a są zalecane.</p>
+<p><strong>Przykłady obszarów zastosowań:</strong></p>
+<ul>
+<li>w kategoryzacji tekstu i hipertekstu;</li>
+<li>klasyfikacji obrazów - rezultaty eksperymentów pokazują, że SVM daje lepsze rezultaty niż inne techniki;</li>
+<li>rozpoznawanie obiektów 3D;</li>
+<li>odnajdowanie włamań do systemu;</li>
+<li>rozpoznawanie pisma ręcznego;</li>
+<li>odkrywanie ukrytych treści na zdjęciach;</li>
+<li>klasyfikacja protein;</li>
+<li>odnajdowanie sekwencji kodu genetycznego</li>
+<li>itp…</li>
+</ul>
+</div>
+<div id="zalety-i-wady-2" class="section level2">
+<h2><span class="header-section-number">12.5</span> Zalety i wady</h2>
+<p>Mocne strony:</p>
+<ul>
+<li>stopień skomplikowania nie jest zależny od wymiaru przestrzeni atrybutów;</li>
+<li>optymalny klasyfikator (znajduje minimum globalne);</li>
+<li>nie jest czuły na przetrenowanie;</li>
+<li>bardzo duża skuteczność w praktyce.</li>
+</ul>
+<p>Słabe strony:</p>
+<ul>
+<li>przy dużej ilości danych estymacja modelu może trwać długo;</li>
+<li>estymacja poprawnego modelu wymaga pewnej wiedzy;</li>
+<li>nie ma miejsca na wprowadzenie własnej wiedzy.</li>
+</ul>
 
-<div class="example">
-<span id="exm:gam" class="example"><strong>Przykład 11.1  </strong></span>Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (<span class="math inline">\(O_3\)</span>) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję <code>gam</code> pakietu <code>mgcv</code> <span class="citation">(Wood <a href="#ref-R-mgcv">2003</a>)</span>.
-</div>
-
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(faraway)
-<span class="kw">head</span>(ozone)</code></pre>
-<pre><code>##   O3   vh wind humidity temp  ibh dpg ibt vis doy
-## 1  3 5710    4       28   40 2693 -25  87 250  33
-## 2  5 5700    3       37   45  590 -24 128 100  34
-## 3  5 5760    3       51   54 1450  25 139  60  35
-## 4  6 5720    4       69   35 1568  15 121  60  36
-## 5  4 5790    6       19   45 2631 -33 123 100  37
-## 6  4 5790    3       25   55  554 -28 182 250  38</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mgcv)
-mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class="op">~</span><span class="kw">s</span>(temp, <span class="dt">bs =</span> <span class="st">&quot;cr&quot;</span>, <span class="dt">m =</span> <span class="dv">2</span>)<span class="op">+</span><span class="kw">s</span>(ibh)<span class="op">+</span><span class="kw">s</span>(ibt), <span class="dt">data =</span> ozone)
-<span class="kw">summary</span>(mod.gam)</code></pre>
-<pre><code>## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## O3 ~ s(temp, bs = &quot;cr&quot;, m = 2) + s(ibh) + s(ibt)
-## 
-## Parametric coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  11.7758     0.2382   49.44   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Approximate significance of smooth terms:
-##           edf Ref.df      F  p-value    
-## s(temp) 3.357  4.216 20.758 5.99e-16 ***
-## s(ibh)  4.171  5.072  7.344 1.37e-06 ***
-## s(ibt)  2.111  2.729  1.403    0.213    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## R-sq.(adj) =  0.708   Deviance explained = 71.7%
-## GCV = 19.348  Scale est. = 18.724    n = 330</code></pre>
-<p>W powyższym modelu użyto splajnów jako funkcji <span class="math inline">\(f_i\)</span>. W przypadku zmiennej <code>temp</code> był to sześcienny splajn z regularyzacją w postaci ciągłości drugiej pochodnej, a pozostałe są prostymi splajnami. Dopasowanie modelu sięga 71.7% a wartość uogólnionego sprawdzianu krzyżowego 19.35.</p>
-<p>Poniższy wykres pokazuje rodzaje transformacji użyte przy dopasowaniu modelu.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
-<span class="kw">plot</span>(mod.gam, <span class="dt">shade =</span> T, <span class="dt">residuals =</span> T)</code></pre>
-<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-85-1.png" width="1056" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre>
-
-</div>
-</div>
-</div>
-<h3>Bibliografia</h3>
-<div id="refs" class="references">
-<div id="ref-R-mgcv">
-<p>Wood, S. N. 2003. “Thin-Plate Regression Splines.” <em>Journal of the Royal Statistical Society (B)</em> 65 (1): 95–114.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="20">
-<li id="fn20"><p>czyli funkcja łączona<a href="uogolnione-modele-addytywne.html#fnref20" class="footnote-back">↩</a></p></li>
+<ol start="21">
+<li id="fn21"><p>lub podpierających<a href="metoda-wektorow-nosnych.html#fnref21" class="footnote-back">↩</a></p></li>
+<li id="fn22"><p>w przypadku przestrzeni wypukłej oba rozwiązania się pokrywają<a href="metoda-wektorow-nosnych.html#fnref22" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -440,8 +456,8 @@ mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class=
           </div>
         </div>
       </div>
-<a href="metoda-k-najblizszych-sasiadow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="metoda-wektorow-nosnych.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="uogolnione-modele-addytywne.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
