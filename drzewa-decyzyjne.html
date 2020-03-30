@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Drzewa decyzyjne | Eksploracja danych</title>
-  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Drzewa decyzyjne | Eksploracja danych" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2020-03-11" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="podzia-metod-data-mining.html">
-<link rel="next" href="pochodne-drzew-decyzyjnych.html">
+<link rel="prev" href="podzia-metod-data-mining.html"/>
+<link rel="next" href="pochodne-drzew-decyzyjnych.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,26 +68,27 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +97,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -146,46 +149,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-ksiazce"><i class="fa fa-check"></i>O książce</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-książce"><i class="fa fa-check"></i>O książce</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-przedmiotu"><i class="fa fa-check"></i>Zakres przedmiotu</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-technik-stosowanych-w-data-mining"><i class="fa fa-check"></i>Zakres technik stosowanych w data mining</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etapy-eksploracji-danych"><i class="fa fa-check"></i>Etapy eksploracji danych</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="roz1.html"><a href="roz1.html"><i class="fa fa-check"></i><b>1</b> Import danych</a></li>
 <li class="chapter" data-level="2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>2</b> Przygotowanie danych</a><ul>
-<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-brakow-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
-<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastepowanie-brakow-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
+<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-braków-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
+<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastępowanie-braków-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
 <li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
 <li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
 <li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
-<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
-<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-uczący"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
 <li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
-<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakość-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
 <li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
-<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujące"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
-<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
-<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
-<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
-<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#węzły-i-gałęzie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-reguł-podziału"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-ciągłej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-porządkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
 <li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
-<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguły-podziału"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
 <li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
-<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
-<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujące-błąd"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujące-błąd"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-względu-na-współczynnik-złożoności-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsługa-braków-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
 <li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
 <li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
 <li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
@@ -200,48 +203,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html"><i class="fa fa-check"></i><b>6</b> Klasyfikatory liniowe</a><ul>
 <li class="chapter" data-level="6.1" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-progowa"><i class="fa fa-check"></i><b>6.1</b> Reprezentacja progowa</a></li>
 <li class="chapter" data-level="6.2" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-logitowa"><i class="fa fa-check"></i><b>6.2</b> Reprezentacja logitowa</a></li>
-<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorow-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
+<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorów-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html"><i class="fa fa-check"></i><b>7</b> Regresja logistyczna</a><ul>
 <li class="chapter" data-level="7.1" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#model-1"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
-<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrów-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
 <li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="LDA.html"><a href="LDA.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
 <li class="chapter" data-level="8.1" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
-<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
+<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejście-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=\sigma^2I\)</span></a></li>
 <li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
 <li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metodą-częściowych-najmniejszych-kwadratów"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
 <li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
 <li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
 <li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
-<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-wiarogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
+<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-największej-wiarogodności-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
 <li class="chapter" data-level="9.3" data-path="bayes.html"><a href="bayes.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>9.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
 <li class="chapter" data-level="9.4" data-path="bayes.html"><a href="bayes.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>9.4</b> Zalety i wady</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metoda-k-najblizszych-sasiadow.html"><a href="metoda-k-najblizszych-sasiadow.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
-<li class="chapter" data-level="11" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
-<li class="chapter" data-level="11.2" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
-<li class="chapter" data-level="11.3" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#uogolnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
+<li class="chapter" data-level="10" data-path="metoda-k-najbli-szych-s-siadów.html"><a href="metoda-k-najbli-szych-s-siadów.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
+<li class="chapter" data-level="11" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
+<li class="chapter" data-level="11.2" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
+<li class="chapter" data-level="11.3" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#uogólnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
-<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
-<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
-<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
-<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
-<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-jądrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
@@ -275,7 +278,7 @@ Każde drzewo decyzyjne składa się z korzenia (ang. <em>root</em>), węzłów 
 Rysunek 4.1: Przykład działania drzewa regresyjnego. Wykes w lewym górnym rogu pokazuje prawdziwą zależność, wyres po prawej stronie jest ilustracją drzewa decyzyjnego, a wykres w lewym dolnym rogu pokazuje dyskretyzację przestrzeni dokonaną przez drzewo, czyli sposób jego działania.
 </p>
 </div>
-<div id="wezy-i-gaezie" class="section level2">
+<div id="węzły-i-gałęzie" class="section level2">
 <h2><span class="header-section-number">4.1</span> Węzły i gałęzie</h2>
 <p>Każdy podział rozdziela dziedzinę <span class="math inline">\(X\)</span> na dwa lub więcej podobszarów dziedziny i wówczas każda obserwacja węzła nadrzędnego jest przyporządkowana węzłom potomnym. Każdy odchodzący węzeł potomny jest połączony gałęzią, która to wiąże się ściśle z możliwymi wynikami podziału. Każdy <span class="math inline">\(\mathbf{n}\)</span>-ty węzeł można opisać jako podzbiór dziedziny w następujący sposób
 <span class="math display">\[\begin{equation}
@@ -287,10 +290,10 @@ gdzie <span class="math inline">\(t_1,t_2,\ldots,t_k\)</span> są podziałami, k
 \end{equation}\]</span>
 rozumiemy, że dokonano takiego ciągu podziałów zbioru <span class="math inline">\(S\)</span>, że jego wartości znalazły się w <span class="math inline">\(\mathbf{n}\)</span>-tym węźle.</p>
 </div>
-<div id="rodzaje-regu-podziau" class="section level2">
+<div id="rodzaje-reguł-podziału" class="section level2">
 <h2><span class="header-section-number">4.2</span> Rodzaje reguł podziału</h2>
 <p>Najczęściej występujące reguły podziału w drzewach decyzyjnych są jednowymiarowe, czyli warunek podziału jest generowany na podstawie jednego atrybutu. Istnieją podziały wielowymiarowe ale ze względu na złożoność obliczeniową są rzadziej stosowane.</p>
-<div id="podziay-dla-atrybutow-ze-skali-nominalnej" class="section level3">
+<div id="podziały-dla-atrybutów-ze-skali-nominalnej" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Podziały dla atrybutów ze skali nominalnej</h3>
 <p>Istnieją dwa typy reguł podziału dla skali nominalnej:</p>
 <ul>
@@ -305,7 +308,7 @@ rozumiemy, że dokonano takiego ciągu podziałów zbioru <span class="math inli
 gdzie <span class="math inline">\(\nu\in A\)</span> i <span class="math inline">\(A\)</span> jest zbiorem możliwych wartości <span class="math inline">\(a\)</span>. W tym przypadku podział jest dychotomiczny, albo obiekt ma wartość atrybutu równą <span class="math inline">\(\nu\)</span>, albo go nie ma.</li>
 </ul>
 </div>
-<div id="podziay-dla-atrybutow-ze-skali-ciagej" class="section level3">
+<div id="podziały-dla-atrybutów-ze-skali-ciągłej" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Podziały dla atrybutów ze skali ciągłej</h3>
 <p>Reguły podziału stosowane do skali ciągłej, to:</p>
 <ul>
@@ -329,7 +332,7 @@ gdzie <span class="math inline">\(\nu\in A\)</span>;</li>
 gdzie <span class="math inline">\(I_1,I_2,\ldots,I_k\subset A\)</span> stanowią rozłączny podział (przedziałami) przeciwdziedziny <span class="math inline">\(A\)</span>.</li>
 </ul>
 </div>
-<div id="podziay-dla-atrybutow-ze-skali-porzadkowej" class="section level3">
+<div id="podziały-dla-atrybutów-ze-skali-porządkowej" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Podziały dla atrybutów ze skali porządkowej</h3>
 <p>Podziały te mogą wykorzystywać oba wcześniej wspomniane typy, w zależności od potrzeb.</p>
 </div>
@@ -365,7 +368,7 @@ gdzie <span class="math inline">\(T_\mathbf{n}\)</span> oznaczają obserwacje zb
 <p>Warunki ujęte w pierwszych dwóch kryteriach mogą być nieco złagodzone, poprzez zatrzymanie podziałów wówczas, gdy prawdopodobieństwo przynależenia do pewnej klasy przekroczy ustalony próg lub gdy liczebność węzła spadnie poniżej ustalonej wartości.</p>
 <p>W literaturze tematu istnieje jeszcze jedno często stosowane kryterium zatrzymania oparte na wielkości drzewa. Węzeł potomny ustala się jako zamknięty, gdy długość ścieżki dojścia do nie go przekroczy ustaloną wartość.</p>
 </div>
-<div id="reguy-podziau" class="section level2">
+<div id="reguły-podziału" class="section level2">
 <h2><span class="header-section-number">4.5</span> Reguły podziału</h2>
 <p>Ważnym elementem algorytmu tworzenia drzewa regresyjnego jest <em>reguła podziału</em>. Dobierana jest w taki sposób aby zmaksymalizować zdolności generalizacyjne drzewa. Złożoność drzewa mierzona jest najczęściej przeciętną liczbą podziałów potrzebnych do dotarcia do liścia zaczynając od korzenia. Liście są najczęściej tworzone wówczas gdy dyspersja wartości wynikowej jest stosunkowo mała lub węzeł zawiera w miarę homogeniczne obserwacje ze względu na przynależność do klasy zmiennej wynikowej. W przypadku drzew regresyjnych zmienność na poziomie węzłów jest dobrą miarą służącą do definiowania podziału w węźle. I tak, jeśli pewien podział generuje nam stosunkowo małe dyspersje wartości docelowych w węzłach potomnych, to można ten podział uznać za właściwy. Jeśli <span class="math inline">\(T_n\)</span> oznacza zbiór rekordów należących do węzła <span class="math inline">\(n\)</span>, a <span class="math inline">\(T_{n,t=r}\)</span> są podzbiorami generowanymi przez podział <span class="math inline">\(r\)</span> w węzłach potomnych dla <span class="math inline">\(n\)</span>, to dyspersję wartości docelowej <span class="math inline">\(f\)</span> będziemy oznaczali następująco
 <span class="math display">\[\begin{equation}\label{dyspersja}
@@ -379,7 +382,7 @@ gdzie <span class="math inline">\(|\  |\)</span> oznacza moc zbioru, a <span cla
 <span class="math display">\[\begin{equation}\label{przyrost}
         \bigtriangleup \operatorname{disp}_n(f|t)=\operatorname{disp}_n(f)-\sum_{r\in R_t}\frac{|T_{n,t=r}|}{|T_n|}\operatorname{disp}_{T_{n,t=r}}(f).
 \end{equation}\]</span></p>
-<p>Miarą heterogeniczności węzłów ze względu na zmienną wynikową (ang. <em>impurity</em>) w drzewach klasyfikacyjnych, która pozwala na tworzenie kolejnych podziałów węzła, są najczęściej wskaźnik Gini’ego i entropia <span class="citation">(Breiman <a href="#ref-breiman1998">1998</a>)</span>.</p>
+<p>Miarą heterogeniczności węzłów ze względu na zmienną wynikową (ang. <em>impurity</em>) w drzewach klasyfikacyjnych, która pozwala na tworzenie kolejnych podziałów węzła, są najczęściej wskaźnik Gini’ego i entropia <span class="citation">(Breiman <a href="#ref-breiman1998" role="doc-biblioref">1998</a>)</span>.</p>
 <p>Entropią podzbioru uczącego w węźle <span class="math inline">\(\mathbf{n}\)</span>, wyznaczamy wg wzoru
 <span class="math display">\[\begin{equation}
 E_{T_{\mathbf{n}}}(c|t) = \sum_{x\in R_t} \frac{|T_{\mathbf{n}, t=r}|}{|T_{\mathbf{n}}|}E_{T_{\mathbf{n}, t=r}}(c),
@@ -409,7 +412,7 @@ Istnieje również jego odpowiednik dla indeksu Gini’ego. W obu przypadkach op
 <div id="przycinanie-drzewa-decyzyjnego" class="section level2">
 <h2><span class="header-section-number">4.6</span> Przycinanie drzewa decyzyjnego</h2>
 <p>Uczenie drzewa decyzyjnego wiąże się z ryzykiem przeuczenia modelu (podobnie jak to się ma w przypadku innych modeli predykcyjnych). Wcześniej przytoczone reguły zatrzymania (np. głębokość drzewa czy zatrzymanie przy osiągnięciu jednorodności na zadanym poziomie) pomagają kontrolować poziom generalizacji drzewa ale czasami będzie dodatkowo potrzebne przycięcie drzewa, czyli usunięcie pewnych podziałów, a co za tym idzie, również liści (węzłów).</p>
-<div id="przycinanie-redukujace-bad" class="section level3">
+<div id="przycinanie-redukujące-błąd" class="section level3">
 <h3><span class="header-section-number">4.6.1</span> Przycinanie redukujące błąd</h3>
 <p>Jedną ze strategii przycinania drzewa jest przycinanie redukujące błąd (ang. <em>reduced error pruning</em>). Polega ono na porównaniu błędów (najczęściej używana jest miara odsetka błędnych klasyfikacji lub MSE) liścia <span class="math inline">\(\mathbf{l}\)</span> i węzła do którego drzewo przycinamy <span class="math inline">\(\mathbf{n}\)</span> na całkiem nowym zbiorze uczącym <span class="math inline">\(R\)</span>. Niech <span class="math inline">\(e_R(\mathbf{l})\)</span> i <span class="math inline">\(e_R(\mathbf{n})\)</span> oznaczają odpowiednio błędy na zbiorze <span class="math inline">\(R\)</span> liścia i węzła. Przez błąd węzła rozumiemy błąd pod-drzewa o korzeniu <span class="math inline">\(\mathbf{n}\)</span>. Wówczas jeśli zachodzi warunek
 <span class="math display">\[\begin{equation}
@@ -417,7 +420,7 @@ Istnieje również jego odpowiednik dla indeksu Gini’ego. W obu przypadkach op
 \end{equation}\]</span>
 to zaleca się zastąpić węzeł <span class="math inline">\(\mathbf{n}\)</span> liściem <span class="math inline">\(\mathbf{l}\)</span>.</p>
 </div>
-<div id="przycinanie-minimalizujace-bad" class="section level3">
+<div id="przycinanie-minimalizujące-błąd" class="section level3">
 <h3><span class="header-section-number">4.6.2</span> Przycinanie minimalizujące błąd</h3>
 <p>Przycinanie minimalizujące błąd opiera się na spostrzeżeniu, że błąd drzewa przyciętego charakteryzuje się zbyt pesymistyczną oceną i dlatego wymaga korekty. Węzeł drzewa klasyfikacyjnego <span class="math inline">\(\mathbf{n}\)</span> zastępujemy liściem <span class="math inline">\(\mathbf{l}\)</span>, jeśli
 <span class="math display">\[\begin{equation}
@@ -455,7 +458,7 @@ Wówczas kryterium podcięcia można zapisać w następujący sposób
         \widehat{\operatorname{mse}}_T(\mathbf{l}) \leq \widehat{\operatorname{mse}}_T(\mathbf{n})
 \end{equation}\]</span></p>
 </div>
-<div id="przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa" class="section level3">
+<div id="przycinanie-ze-względu-na-współczynnik-złożoności-drzewa" class="section level3">
 <h3><span class="header-section-number">4.6.3</span> Przycinanie ze względu na współczynnik złożoności drzewa</h3>
 <p>Przycinanie ze względu na współczynnik złożoności drzewa (ang. <em>cost-complexity pruning</em>) polega na wprowadzeniu “kary” za zwiększoną złożoność drzewa. Drzewa klasyfikacyjne przycinamy gdy spełniony jest warunek
 <span class="math display">\[\begin{equation}
@@ -473,7 +476,7 @@ Wówczas kryterium podcięcia wygląda następująco
 \end{equation}\]</span></p>
 </div>
 </div>
-<div id="obsuga-brakow-danych" class="section level2">
+<div id="obsługa-braków-danych" class="section level2">
 <h2><span class="header-section-number">4.7</span> Obsługa braków danych</h2>
 <p>Drzewa decyzyjne wyjątkowo dobrze radzą sobie z obsługa zbiorów z brakami. Stosowane są głównie dwie strategie:</p>
 <ul>
@@ -507,23 +510,23 @@ Wówczas kryterium podcięcia wygląda następująco
 </div>
 
 <p>Przykładem zastosowania drzew decyzyjnych będzie klasyfikacja irysów na podstawie długości i szerokości kielicha i płatka.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse) 
-<span class="kw">library</span>(rpart) <span class="co"># pakiet do tworzenia drzew typu CART</span>
-<span class="kw">library</span>(rpart.plot) <span class="co"># pakiet do rysowania drzew</span></code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="drzewa-decyzyjne.html#cb97-1"></a><span class="kw">library</span>(tidyverse) </span>
+<span id="cb97-2"><a href="drzewa-decyzyjne.html#cb97-2"></a><span class="kw">library</span>(rpart) <span class="co"># pakiet do tworzenia drzew typu CART</span></span>
+<span id="cb97-3"><a href="drzewa-decyzyjne.html#cb97-3"></a><span class="kw">library</span>(rpart.plot) <span class="co"># pakiet do rysowania drzew</span></span></code></pre></div>
 <p>Każde zadanie ucznia maszynowego zaczynamy od czyszczenia danych i odpowiedniego ich przygotowania ale w tym przypadku skupimy się jedynie na budowie, optymalizacji i ewaluacji modelu.</p>
 <p><strong>Podział zbioru na próbę uczącą i testową</strong></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2019</span>)
-dt.train &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">sample_frac</span>(<span class="dt">size =</span> <span class="fl">0.7</span>)
-dt.test &lt;-<span class="st"> </span><span class="kw">setdiff</span>(iris, dt.train)
-<span class="kw">str</span>(dt.train)</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="drzewa-decyzyjne.html#cb98-1"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb98-2"><a href="drzewa-decyzyjne.html#cb98-2"></a>dt.train &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb98-3"><a href="drzewa-decyzyjne.html#cb98-3"></a><span class="st">    </span><span class="kw">sample_frac</span>(<span class="dt">size =</span> <span class="fl">0.7</span>)</span>
+<span id="cb98-4"><a href="drzewa-decyzyjne.html#cb98-4"></a>dt.test &lt;-<span class="st"> </span><span class="kw">setdiff</span>(iris, dt.train)</span>
+<span id="cb98-5"><a href="drzewa-decyzyjne.html#cb98-5"></a><span class="kw">str</span>(dt.train)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    105 obs. of  5 variables:
 ##  $ Sepal.Length: num  4.8 6.7 6.2 5.4 7.7 5 5.7 5 6.3 6.8 ...
 ##  $ Sepal.Width : num  3.4 3.3 2.2 3.9 2.6 2 3.8 3 3.4 3 ...
 ##  $ Petal.Length: num  1.9 5.7 4.5 1.3 6.9 3.5 1.7 1.6 5.6 5.5 ...
 ##  $ Petal.Width : num  0.2 2.1 1.5 0.4 2.3 1 0.3 0.2 2.4 2.1 ...
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 3 2 1 3 2 1 1 3 3 ...</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(dt.test)</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="drzewa-decyzyjne.html#cb100-1"></a><span class="kw">str</span>(dt.test)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    45 obs. of  5 variables:
 ##  $ Sepal.Length: num  4.4 5.4 4.8 4.3 5.7 5.1 5.2 5.2 5.2 4.9 ...
 ##  $ Sepal.Width : num  2.9 3.7 3 3 4.4 3.8 3.5 3.4 4.1 3.1 ...
@@ -531,17 +534,17 @@ dt.test &lt;-<span class="st"> </span><span class="kw">setdiff</span>(iris, dt.t
 ##  $ Petal.Width : num  0.2 0.2 0.1 0.1 0.4 0.3 0.2 0.2 0.1 0.2 ...
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p><strong>Budowa drzewa</strong></p>
-<p>Budowy drzewa dokonujemy za pomocą funkcji <code>rpart</code> pakietu <strong>rpart</strong> <span class="citation">(Therneau and Atkinson <a href="#ref-R-rpart">2018</a>)</span> stosując zapis formuły zależności. Drzewo zostanie zbudowane z uwzględnieniem kilku kryteriów zatrzymania:</p>
+<p>Budowy drzewa dokonujemy za pomocą funkcji <code>rpart</code> pakietu <strong>rpart</strong> <span class="citation">(Therneau and Atkinson <a href="#ref-R-rpart" role="doc-biblioref">2018</a>)</span> stosując zapis formuły zależności. Drzewo zostanie zbudowane z uwzględnieniem kilku kryteriów zatrzymania:</p>
 <ul>
 <li>minimalna liczebność węzła, który może zostać podzielony to 10 - ze względu na małą liczebność zbioru uczącego;</li>
 <li>minimalna liczebność liścia to 5 - aby nie dopuścić do przeuczenia modelu;</li>
 <li>maksymalna głębokość drzewa to 4 - aby nie dopuścić do przeuczenia modelu.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">mod.rpart &lt;-<span class="st"> </span><span class="kw">rpart</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train, 
-                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">10</span>,
-                                           <span class="dt">minbucket =</span> <span class="dv">5</span>,
-                                           <span class="dt">maxdepth =</span> <span class="dv">4</span>))
-<span class="kw">summary</span>(mod.rpart)</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="drzewa-decyzyjne.html#cb102-1"></a>mod.rpart &lt;-<span class="st"> </span><span class="kw">rpart</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train, </span>
+<span id="cb102-2"><a href="drzewa-decyzyjne.html#cb102-2"></a>                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">10</span>,</span>
+<span id="cb102-3"><a href="drzewa-decyzyjne.html#cb102-3"></a>                                           <span class="dt">minbucket =</span> <span class="dv">5</span>,</span>
+<span id="cb102-4"><a href="drzewa-decyzyjne.html#cb102-4"></a>                                           <span class="dt">maxdepth =</span> <span class="dv">4</span>))</span>
+<span id="cb102-5"><a href="drzewa-decyzyjne.html#cb102-5"></a><span class="kw">summary</span>(mod.rpart)</span></code></pre></div>
 <pre><code>## Call:
 ## rpart(formula = Species ~ ., data = dt.train, control = rpart.control(minsplit = 10, 
 ##     minbucket = 5, maxdepth = 4))
@@ -617,7 +620,7 @@ dt.test &lt;-<span class="st"> </span><span class="kw">setdiff</span>(iris, dt.t
 ##   predicted class=virginica   expected loss=0.3333333  P(node) =0.05714286
 ##     class counts:     0     2     4
 ##    probabilities: 0.000 0.333 0.667</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(mod.rpart)</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="drzewa-decyzyjne.html#cb104-1"></a><span class="kw">rpart.plot</span>(mod.rpart)</span></code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-15"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-15-1.png" alt="Obraz drzewa klasyfikacyjnego." width="1056" />
 <p class="caption">
@@ -627,9 +630,9 @@ Rysunek 4.2: Obraz drzewa klasyfikacyjnego.
 <p>Powyższy wykres przedstawia strukturę drzewa klasyfikacyjnego. Kolorami są oznaczone klasy, które w danym węźle dominują. Nasycenie barwy decyduje o sile tej dominacji. W każdym węźle podana jest klasa, do której najprawdopodobniej należą jego obserwacje. Ponadto podane są proporcje przynależności do klas zmiennej wynikowej oraz procent obserwacji zbioru uczącego należących do danego węzła. Pod każdym węzłem podana jest reguła podziału.</p>
 <p><strong>Przycinanie drzewa</strong></p>
 <p>Zanim przystąpimy do przycinania drzewa należy sprawdzić, jakie są zdolności generalizacyjne modelu. Oceny tej dokonujemy najczęściej sprawdzając macierz klasyfikacji.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pred.prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart, 
-                     <span class="dt">newdata =</span> dt.test)
-pred.prob[<span class="dv">10</span><span class="op">:</span><span class="dv">20</span>,]</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="drzewa-decyzyjne.html#cb105-1"></a>pred.prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart, </span>
+<span id="cb105-2"><a href="drzewa-decyzyjne.html#cb105-2"></a>                     <span class="dt">newdata =</span> dt.test)</span>
+<span id="cb105-3"><a href="drzewa-decyzyjne.html#cb105-3"></a>pred.prob[<span class="dv">10</span><span class="op">:</span><span class="dv">20</span>,]</span></code></pre></div>
 <pre><code>##    setosa versicolor  virginica
 ## 10      1  0.0000000 0.00000000
 ## 11      1  0.0000000 0.00000000
@@ -642,29 +645,27 @@ pred.prob[<span class="dv">10</span><span class="op">:</span><span class="dv">20
 ## 18      0  0.9677419 0.03225806
 ## 19      0  0.9677419 0.03225806
 ## 20      0  0.9677419 0.03225806</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">pred.class &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart, 
-                      <span class="dt">newdata =</span> dt.test,
-                      <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)
-pred.class</code></pre>
-<pre><code>##          1          2          3          4          5          6 
-##     setosa     setosa     setosa     setosa     setosa     setosa 
-##          7          8          9         10         11         12 
-##     setosa     setosa     setosa     setosa     setosa     setosa 
-##         13         14         15         16         17         18 
-##     setosa     setosa     setosa versicolor versicolor versicolor 
-##         19         20         21         22         23         24 
-## versicolor versicolor versicolor versicolor versicolor versicolor 
-##         25         26         27         28         29         30 
-## versicolor versicolor versicolor versicolor versicolor versicolor 
-##         31         32         33         34         35         36 
-## versicolor versicolor  virginica  virginica  virginica  virginica 
-##         37         38         39         40         41         42 
-##  virginica  virginica  virginica  virginica  virginica  virginica 
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="drzewa-decyzyjne.html#cb107-1"></a>pred.class &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart, </span>
+<span id="cb107-2"><a href="drzewa-decyzyjne.html#cb107-2"></a>                      <span class="dt">newdata =</span> dt.test,</span>
+<span id="cb107-3"><a href="drzewa-decyzyjne.html#cb107-3"></a>                      <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb107-4"><a href="drzewa-decyzyjne.html#cb107-4"></a>pred.class</span></code></pre></div>
+<pre><code>##          1          2          3          4          5          6          7 
+##     setosa     setosa     setosa     setosa     setosa     setosa     setosa 
+##          8          9         10         11         12         13         14 
+##     setosa     setosa     setosa     setosa     setosa     setosa     setosa 
+##         15         16         17         18         19         20         21 
+##     setosa versicolor versicolor versicolor versicolor versicolor versicolor 
+##         22         23         24         25         26         27         28 
+## versicolor versicolor versicolor versicolor versicolor versicolor versicolor 
+##         29         30         31         32         33         34         35 
+## versicolor versicolor versicolor versicolor  virginica  virginica  virginica 
+##         36         37         38         39         40         41         42 
+##  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
 ##         43         44         45 
 ##  virginica  virginica  virginica 
 ## Levels: setosa versicolor virginica</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred.class, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)
-tab</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="drzewa-decyzyjne.html#cb109-1"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred.class, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)</span>
+<span id="cb109-2"><a href="drzewa-decyzyjne.html#cb109-2"></a>tab</span></code></pre></div>
 <pre><code>##             obserwacja
 ## predykcja    setosa versicolor virginica
 ##   setosa         15          0         0
@@ -672,7 +673,7 @@ tab</code></pre>
 ##   virginica       0          0        13</code></pre>
 <p>Jak widać z powyższej tabeli, model całkiem dobrze radzi sobie z poprawną klasyfikacją obserwacji do odpowiednich kategorii.</p>
 <p>W dalszej kolejności sprawdzimy, czy nie jest konieczne przycięcie drzewa. Jednym z kryteriów przycinania drzewa jest przycinanie ze względu na złożoność drzewa. W tym przypadku jest wyrażony parametrem <code>cp</code>. Istnieje powszechnie stosowana reguła jednego odchylenia standardowego, która mówi, że drzewo należy przyciąć wówczas, gdy błąd oszacowany na podstawie sprawdzianu krzyżowego (<code>xerror</code>), pierwszy raz zejdzie poniżej poziomu wyznaczonego przez najniższą wartość błędu powiększonego o odchylenie standardowe tego błędu (<code>xstd</code>). Na podstawie poniższej tabeli można ustalić, że poziomem odcięcia jest wartość <span class="math inline">\(0.16176+0.046148=0.207908\)</span>. Pierwszy raz błąd przyjmuje wartość mniejszą od <span class="math inline">\(0.16176\)</span> po drugim podziale (<code>nsplit=2</code>). Temu poziomowi odpowiada <code>cp</code> o wartości <span class="math inline">\(0.029412\)</span> i to jest złożoność drzewa, którą powinniśmy przyjąć do przycięcia drzewa.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(mod.rpart)</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="drzewa-decyzyjne.html#cb111-1"></a><span class="kw">printcp</span>(mod.rpart)</span></code></pre></div>
 <pre><code>## 
 ## Classification tree:
 ## rpart(formula = Species ~ ., data = dt.train, control = rpart.control(minsplit = 10, 
@@ -690,7 +691,7 @@ tab</code></pre>
 ## 2 0.397059      1  0.485294 0.48529 0.069955
 ## 3 0.029412      2  0.088235 0.16176 0.046148
 ## 4 0.010000      3  0.058824 0.16176 0.046148</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(mod.rpart)</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="drzewa-decyzyjne.html#cb113-1"></a><span class="kw">plotcp</span>(mod.rpart)</span></code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-17"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-17-1.png" alt="Na wykresie błędów punkt odcięcia zaznaczony jest linią przerywaną" width="1056" />
 <p class="caption">
@@ -698,8 +699,8 @@ Rysunek 4.3: Na wykresie błędów punkt odcięcia zaznaczony jest linią przery
 </p>
 </div>
 <p>Przycięte drzewo wygląda następująco:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mod.rpart2 &lt;-<span class="st"> </span><span class="kw">prune</span>(mod.rpart, <span class="dt">cp =</span> <span class="fl">0.029412</span>)
-<span class="kw">summary</span>(mod.rpart2)</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="drzewa-decyzyjne.html#cb114-1"></a>mod.rpart2 &lt;-<span class="st"> </span><span class="kw">prune</span>(mod.rpart, <span class="dt">cp =</span> <span class="fl">0.029412</span>)</span>
+<span id="cb114-2"><a href="drzewa-decyzyjne.html#cb114-2"></a><span class="kw">summary</span>(mod.rpart2)</span></code></pre></div>
 <pre><code>## Call:
 ## rpart(formula = Species ~ ., data = dt.train, control = rpart.control(minsplit = 10, 
 ##     minbucket = 5, maxdepth = 4))
@@ -758,7 +759,7 @@ Rysunek 4.3: Na wykresie błędów punkt odcięcia zaznaczony jest linią przery
 ##   predicted class=virginica   expected loss=0.03030303  P(node) =0.3142857
 ##     class counts:     0     1    32
 ##    probabilities: 0.000 0.030 0.970</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(mod.rpart2)</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="drzewa-decyzyjne.html#cb116-1"></a><span class="kw">rpart.plot</span>(mod.rpart2)</span></code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-18"></span>
 <img src="EksploracjaDanych_files/figure-html/unnamed-chunk-18-1.png" alt="Drzewo klasyfikacyjne po przycięciu" width="1056" />
 <p class="caption">
@@ -767,18 +768,18 @@ Rysunek 4.4: Drzewo klasyfikacyjne po przycięciu
 </div>
 <p><strong>Ocena dopasowania modelu</strong></p>
 <p>Na koniec budowy modelu należy sprawdzić jego jakość na zbiorze testowym.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pred.class2 &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart2,
-                       <span class="dt">newdata =</span> dt.test,
-                       <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)
-tab2 &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred.class2, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)
-tab2</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="drzewa-decyzyjne.html#cb117-1"></a>pred.class2 &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.rpart2,</span>
+<span id="cb117-2"><a href="drzewa-decyzyjne.html#cb117-2"></a>                       <span class="dt">newdata =</span> dt.test,</span>
+<span id="cb117-3"><a href="drzewa-decyzyjne.html#cb117-3"></a>                       <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb117-4"><a href="drzewa-decyzyjne.html#cb117-4"></a>tab2 &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred.class2, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)</span>
+<span id="cb117-5"><a href="drzewa-decyzyjne.html#cb117-5"></a>tab2</span></code></pre></div>
 <pre><code>##             obserwacja
 ## predykcja    setosa versicolor virginica
 ##   setosa         15          0         0
 ##   versicolor      0         17         0
 ##   virginica       0          0        13</code></pre>
 <p>Mimo przycięcia drzewa, klasyfikacja pozostaje na niezmienionym poziomie. Odsetek poprawnych klasyfikacji możemy oszacować za pomocą</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">sum</span>(<span class="kw">diag</span>(tab2))<span class="op">/</span><span class="kw">sum</span>(tab2)<span class="op">*</span><span class="dv">100</span>,<span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="drzewa-decyzyjne.html#cb119-1"></a><span class="kw">round</span>(<span class="kw">sum</span>(<span class="kw">diag</span>(tab2))<span class="op">/</span><span class="kw">sum</span>(tab2)<span class="op">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
 </div>
 </div>
@@ -786,10 +787,10 @@ tab2</code></pre>
 <h2><span class="header-section-number">4.9</span> Inne algorytmy budowy drzew decyzyjnych implementowane w <strong>R</strong></h2>
 <p>Oprócz najbardziej znanego algorytmu CART implementowanego w postaci funkcji pakietu <strong>rpart</strong>, istnieją również inne algorytmy, które znalazły swoje implementacje w R. Są to:</p>
 <ul>
-<li><em>CHAID</em><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> - algorytm przeznaczony do budowy drzew klasyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności <span class="math inline">\(\chi^2\)</span> Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki <span class="math inline">\(\chi^2\)</span> jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie <strong>CHAID</strong><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> (funkcja do tworzenia drzewa o tej samej nazwie <code>chaid</code>) <span class="citation">(Team <a href="#ref-R-CHAID">2015</a>)</span>.</li>
-<li><em>Ctree</em><a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> - algorytm zbliżony zasadą działania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu oraz tym, że może być zarówno drzewem klasyfikacyjnym jak i regresyjnym. Implementację R-ową można znaleźć w pakietach <strong>party</strong> <span class="citation">(Hothorn, Hornik, and Zeileis <a href="#ref-R-party">2006</a>)</span> lub <strong>partykit</strong> <span class="citation">(Hothorn and Zeileis <a href="#ref-R-partykit">2015</a>)</span> - funkcją do tworzenia modelu jest <code>ctree</code>.</li>
-<li><em>C4.5</em> - algorytm stworzony przez <span class="citation">Quinlan (<a href="#ref-quinlan1993">1993</a>)</span> w oparciu, o również jego autorstwa, algorytm ID3. Służy jedynie do zadań klasyfikacyjnych. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz <a href="drzewa-decyzyjne.html#reguy-podziau">Reguły podziału</a>). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie <strong>RWeka</strong> <span class="citation">(Hornik, Buchta, and Zeileis <a href="#ref-R-Rweka">2009</a>)</span> - funkcja do budowy drzewa to <code>J48</code>.</li>
-<li><em>C5.0</em> - kolejny algorytm autorstwa <span class="citation">Kuhn and Quinlan (<a href="#ref-R-C50">2018</a>)</span> jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożoności drzewa. Służy jedynie do zadań klasyfikacyjnych. Jest szybszy od poprzednika i pozwala na zastosowanie metody <em>boosting</em><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Implementacja R-owa znajduje się w pakiecie <em>C50</em>, a funkcja do budowy drzewa to <code>C5.0</code>.</li>
+<li><em>CHAID</em><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> - algorytm przeznaczony do budowy drzew klasyfikacyjnych, gdzie zarówno zmienna wynikowa, jak i zmienne niezależne muszą być ze skali jakościowej. Główną różnicą w stosunku do drzew typu CART jest sposób budowy podziałów, oparty na teście niezależności <span class="math inline">\(\chi^2\)</span> Pearsona. Wyboru reguły podziału dokonuje się poprzez testowanie niezależności zmiennej niezależnej z predyktorami. Reguła o największej wartości statystyki <span class="math inline">\(\chi^2\)</span> jest stosowana w pierwszej kolejności. Implementacja tego algorytmu znajduje się w pakiecie <strong>CHAID</strong><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> (funkcja do tworzenia drzewa o tej samej nazwie <code>chaid</code>) <span class="citation">(Team <a href="#ref-R-CHAID" role="doc-biblioref">2015</a>)</span>.</li>
+<li><em>Ctree</em><a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> - algorytm zbliżony zasadą działania do CHAID, ponieważ również wykorzystuje testowanie do wyboru reguły podziału. Różni się jednak tym, że może być stosowany do zmiennych dowolnego typu oraz tym, że może być zarówno drzewem klasyfikacyjnym jak i regresyjnym. Implementację R-ową można znaleźć w pakietach <strong>party</strong> <span class="citation">(Hothorn, Hornik, and Zeileis <a href="#ref-R-party" role="doc-biblioref">2006</a>)</span> lub <strong>partykit</strong> <span class="citation">(Hothorn and Zeileis <a href="#ref-R-partykit" role="doc-biblioref">2015</a>)</span> - funkcją do tworzenia modelu jest <code>ctree</code>.</li>
+<li><em>C4.5</em> - algorytm stworzony przez <span class="citation">Quinlan (<a href="#ref-quinlan1993" role="doc-biblioref">1993</a>)</span> w oparciu, o również jego autorstwa, algorytm ID3. Służy jedynie do zadań klasyfikacyjnych. W dużym uproszczeniu, dobór reguł podziału odbywa się na podstawie przyrostu informacji (patrz <a href="drzewa-decyzyjne.html#reguły-podziału">Reguły podziału</a>). W przeciwieństwie do pierwotnego algorytmu ID3, C4.5 nie raczej nie przeucza drzew. Implementacja R-owa znajduje się w pakiecie <strong>RWeka</strong> <span class="citation">(Hornik, Buchta, and Zeileis <a href="#ref-R-Rweka" role="doc-biblioref">2009</a>)</span> - funkcja do budowy drzewa to <code>J48</code>.</li>
+<li><em>C5.0</em> - kolejny algorytm autorstwa <span class="citation">Kuhn and Quinlan (<a href="#ref-R-C50" role="doc-biblioref">2018</a>)</span> jest usprawnieniem algorytmu C4.5, generującym mniejsze drzewa automatycznie przycinane na podstawie złożoności drzewa. Służy jedynie do zadań klasyfikacyjnych. Jest szybszy od poprzednika i pozwala na zastosowanie metody <em>boosting</em><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Implementacja R-owa znajduje się w pakiecie <em>C50</em>, a funkcja do budowy drzewa to <code>C5.0</code>.</li>
 </ul>
 
 <div class="example">
@@ -800,12 +801,12 @@ tab2</code></pre>
 <li><strong>Drzewo <code>ctree</code></strong></li>
 </ul>
 <p>Na początek ustalamy parametry ograniczające rozrost drzewa podobne jak w poprzednim przykładzie.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(partykit)
-tree2 &lt;-<span class="st"> </span><span class="kw">ctree</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train,
-               <span class="dt">control =</span> <span class="kw">ctree_control</span>(<span class="dt">minsplit =</span> <span class="dv">10</span>,
-                                       <span class="dt">minbucket =</span> <span class="dv">5</span>,
-                                       <span class="dt">maxdepth =</span> <span class="dv">4</span>))
-tree2</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="drzewa-decyzyjne.html#cb121-1"></a><span class="kw">library</span>(partykit)</span>
+<span id="cb121-2"><a href="drzewa-decyzyjne.html#cb121-2"></a>tree2 &lt;-<span class="st"> </span><span class="kw">ctree</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train,</span>
+<span id="cb121-3"><a href="drzewa-decyzyjne.html#cb121-3"></a>               <span class="dt">control =</span> <span class="kw">ctree_control</span>(<span class="dt">minsplit =</span> <span class="dv">10</span>,</span>
+<span id="cb121-4"><a href="drzewa-decyzyjne.html#cb121-4"></a>                                       <span class="dt">minbucket =</span> <span class="dv">5</span>,</span>
+<span id="cb121-5"><a href="drzewa-decyzyjne.html#cb121-5"></a>                                       <span class="dt">maxdepth =</span> <span class="dv">4</span>))</span>
+<span id="cb121-6"><a href="drzewa-decyzyjne.html#cb121-6"></a>tree2</span></code></pre></div>
 <pre><code>## 
 ## Model formula:
 ## Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
@@ -821,7 +822,7 @@ tree2</code></pre>
 ## 
 ## Number of inner nodes:    3
 ## Number of terminal nodes: 4</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree2)</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="drzewa-decyzyjne.html#cb123-1"></a><span class="kw">plot</span>(tree2)</span></code></pre></div>
 <div class="figure"><span id="fig:ctree"></span>
 <img src="EksploracjaDanych_files/figure-html/ctree-1.png" alt="Wykres drzewa decyzyjnego zbudowanego metodą ctree" width="1152" />
 <p class="caption">
@@ -829,9 +830,9 @@ Rysunek 4.5: Wykres drzewa decyzyjnego zbudowanego metodą ctree
 </p>
 </div>
 <p>Wydaje się, że drzewo nie jest optymalne, ponieważ w węźle 6 obserwacje z grup <code>versicolor</code> i <code>virginica</code> są nieco pomieszane. Ostateczne oceny dokonujemy na podstawie próby testowej.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree2, <span class="dt">newdata =</span> dt.test)
-tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred2, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)
-tab</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="drzewa-decyzyjne.html#cb124-1"></a>pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree2, <span class="dt">newdata =</span> dt.test)</span>
+<span id="cb124-2"><a href="drzewa-decyzyjne.html#cb124-2"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred2, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)</span>
+<span id="cb124-3"><a href="drzewa-decyzyjne.html#cb124-3"></a>tab</span></code></pre></div>
 <pre><code>##             obserwacja
 ## predykcja    setosa versicolor virginica
 ##   setosa         15          0         0
@@ -842,9 +843,9 @@ tab</code></pre>
 <li><strong>Drzewo <code>J48</code></strong></li>
 </ul>
 <p>W tym przypadku model sam poszukuje optymalnego rozwiązania przycinając się automatycznie.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RWeka)
-tree3 &lt;-<span class="st"> </span><span class="kw">J48</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train)
-tree3</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="drzewa-decyzyjne.html#cb126-1"></a><span class="kw">library</span>(RWeka)</span>
+<span id="cb126-2"><a href="drzewa-decyzyjne.html#cb126-2"></a>tree3 &lt;-<span class="st"> </span><span class="kw">J48</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train)</span>
+<span id="cb126-3"><a href="drzewa-decyzyjne.html#cb126-3"></a>tree3</span></code></pre></div>
 <pre><code>## J48 pruned tree
 ## ------------------
 ## 
@@ -860,7 +861,7 @@ tree3</code></pre>
 ## Number of Leaves  :  5
 ## 
 ## Size of the tree :   9</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree3)</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="drzewa-decyzyjne.html#cb128-1"></a><span class="kw">plot</span>(tree3)</span></code></pre></div>
 <div class="figure"><span id="fig:J48"></span>
 <img src="EksploracjaDanych_files/figure-html/J48-1.png" alt="Wykres drzewa decyzyjnego zbudowanego metodą J48" width="1152" />
 <p class="caption">
@@ -868,7 +869,7 @@ Rysunek 4.6: Wykres drzewa decyzyjnego zbudowanego metodą J48
 </p>
 </div>
 <p>Drzewo jest nieco bardziej rozbudowane niż <code>tree2</code> i <code>mod.rpart2</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tree3)</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="drzewa-decyzyjne.html#cb129-1"></a><span class="kw">summary</span>(tree3)</span></code></pre></div>
 <pre><code>## 
 ## === Summary ===
 ## 
@@ -888,9 +889,9 @@ Rysunek 4.6: Wykres drzewa decyzyjnego zbudowanego metodą J48
 ##   0 32  1 |  b = versicolor
 ##   0  2 35 |  c = virginica</code></pre>
 <p>Podsumowanie dopasowania drzewa na próbie uczącej jest bardzo dobre, bo poprawnych klasyfikacji jest ponad 97%. Oceny dopasowania i tak dokonujemy na zbiorze testowym.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree3, <span class="dt">newdata =</span> dt.test)
-tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred3, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)
-tab</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="drzewa-decyzyjne.html#cb131-1"></a>pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree3, <span class="dt">newdata =</span> dt.test)</span>
+<span id="cb131-2"><a href="drzewa-decyzyjne.html#cb131-2"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred3, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)</span>
+<span id="cb131-3"><a href="drzewa-decyzyjne.html#cb131-3"></a>tab</span></code></pre></div>
 <pre><code>##             obserwacja
 ## predykcja    setosa versicolor virginica
 ##   setosa         15          0         0
@@ -901,15 +902,15 @@ tab</code></pre>
 <li><strong>Drzewo <code>C50</code></strong></li>
 </ul>
 <p>Tym razem również nie trzeba ustawiać parametrów drzewa, ponieważ algorytm działa tak aby zapobiec rozrostowi drzewa przy jednoczesnej wysokiej poprawności klasyfikacji.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(C50)
-tree4 &lt;-<span class="st"> </span><span class="kw">C5.0</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train)
-<span class="kw">summary</span>(tree4)</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="drzewa-decyzyjne.html#cb133-1"></a><span class="kw">library</span>(C50)</span>
+<span id="cb133-2"><a href="drzewa-decyzyjne.html#cb133-2"></a>tree4 &lt;-<span class="st"> </span><span class="kw">C5.0</span>(Species<span class="op">~</span>., <span class="dt">data =</span> dt.train)</span>
+<span id="cb133-3"><a href="drzewa-decyzyjne.html#cb133-3"></a><span class="kw">summary</span>(tree4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## C5.0.formula(formula = Species ~ ., data = dt.train)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Mon May 06 21:35:06 2019
+## C5.0 [Release 2.07 GPL Edition]      Wed Mar 11 21:31:20 2020
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome&#39;
@@ -950,7 +951,7 @@ tree4 &lt;-<span class="st"> </span><span class="kw">C5.0</span>(Species<span cl
 ## 
 ## Time: 0.0 secs</code></pre>
 <p>Otrzymujemy identyczne drzewo jak w przypadku zastosowania algorytmu <code>ctree</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree4)</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="drzewa-decyzyjne.html#cb135-1"></a><span class="kw">plot</span>(tree4)</span></code></pre></div>
 <div class="figure"><span id="fig:C50"></span>
 <img src="EksploracjaDanych_files/figure-html/C50-1.png" alt="Wykres drzewa decyzyjnego zbudowanego metodą C5.0" width="1152" />
 <p class="caption">
@@ -958,9 +959,9 @@ Rysunek 4.7: Wykres drzewa decyzyjnego zbudowanego metodą C5.0
 </p>
 </div>
 <p>Dla pewności przeprowadzimy sprawdzenie na zbiorze testowym.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree4, <span class="dt">newdata =</span> dt.test)
-tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred4, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)
-tab</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="drzewa-decyzyjne.html#cb136-1"></a>pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(tree4, <span class="dt">newdata =</span> dt.test)</span>
+<span id="cb136-2"><a href="drzewa-decyzyjne.html#cb136-2"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">predykcja =</span> pred4, <span class="dt">obserwacja =</span> dt.test<span class="op">$</span>Species)</span>
+<span id="cb136-3"><a href="drzewa-decyzyjne.html#cb136-3"></a>tab</span></code></pre></div>
 <pre><code>##             obserwacja
 ## predykcja    setosa versicolor virginica
 ##   setosa         15          0         0
@@ -974,11 +975,8 @@ tab</code></pre>
 <div id="ref-breiman1998">
 <p>Breiman, Leo. 1998. “Arcing Classifier (with Discussion and a Rejoinder by the Author).” <em>Ann. Statist.</em> 26 (3): 801–49. <a href="https://doi.org/10.1214/aos/1024691079">https://doi.org/10.1214/aos/1024691079</a>.</p>
 </div>
-<div id="ref-R-rpart">
-<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
-</div>
-<div id="ref-R-CHAID">
-<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
+<div id="ref-R-Rweka">
+<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
 </div>
 <div id="ref-R-party">
 <p>Hothorn, Torsten, Kurt Hornik, and Achim Zeileis. 2006. “Unbiased Recursive Partitioning: A Conditional Inference Framework.” <em>Journal of Computational and Graphical Statistics</em> 15 (3): 651–74. <a href="https://doi.org/10.1198/106186006X133933">https://doi.org/10.1198/106186006X133933</a>.</p>
@@ -986,25 +984,28 @@ tab</code></pre>
 <div id="ref-R-partykit">
 <p>Hothorn, Torsten, and Achim Zeileis. 2015. “Partykit: A Modular Toolkit for Recursive Partytioning in R.” <em>Journal of Machine Learning Research</em> 16: 3905–9. <a href="http://jmlr.org/papers/v16/hothorn15a.html">http://jmlr.org/papers/v16/hothorn15a.html</a>.</p>
 </div>
+<div id="ref-R-C50">
+<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
+</div>
 <div id="ref-quinlan1993">
 <p>Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Morgan Kaufmann.</p>
 </div>
-<div id="ref-R-Rweka">
-<p>Hornik, Kurt, Christian Buchta, and Achim Zeileis. 2009. “Open-Source Machine Learning: R Meets Weka.” <em>Computational Statistics</em> 24 (2): 225–32. <a href="https://doi.org/10.1007/s00180-008-0119-7">https://doi.org/10.1007/s00180-008-0119-7</a>.</p>
+<div id="ref-R-CHAID">
+<p>Team, The FoRt Student Project. 2015. <em>CHAID: CHi-Squared Automated Interaction Detection</em>.</p>
 </div>
-<div id="ref-R-C50">
-<p>Kuhn, Max, and Ross Quinlan. 2018. <em>C50: C5.0 Decision Trees and Rule-Based Models</em>. <a href="https://CRAN.R-project.org/package=C50">https://CRAN.R-project.org/package=C50</a>.</p>
+<div id="ref-R-rpart">
+<p>Therneau, Terry, and Beth Atkinson. 2018. <em>Rpart: Recursive Partitioning and Regression Trees</em>. <a href="https://CRAN.R-project.org/package=rpart">https://CRAN.R-project.org/package=rpart</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="11">
-<li id="fn11"><p>wyglądem przypomina odwrócone drzewo, stąd nazwa<a href="drzewa-decyzyjne.html#fnref11" class="footnote-back">↩</a></p></li>
-<li id="fn12"><p>prawie wszystkie są w jednej klasie<a href="drzewa-decyzyjne.html#fnref12" class="footnote-back">↩</a></p></li>
-<li id="fn13"><p>Chi-square automatic interaction detection<a href="drzewa-decyzyjne.html#fnref13" class="footnote-back">↩</a></p></li>
-<li id="fn14"><p>brak w oficjalnej dystrybucji CRAN<a href="drzewa-decyzyjne.html#fnref14" class="footnote-back">↩</a></p></li>
-<li id="fn15"><p>Conditional Inference Trees<a href="drzewa-decyzyjne.html#fnref15" class="footnote-back">↩</a></p></li>
-<li id="fn16"><p>budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować “trudne” przypadki<a href="drzewa-decyzyjne.html#fnref16" class="footnote-back">↩</a></p></li>
+<li id="fn11"><p>wyglądem przypomina odwrócone drzewo, stąd nazwa<a href="drzewa-decyzyjne.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>prawie wszystkie są w jednej klasie<a href="drzewa-decyzyjne.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>Chi-square automatic interaction detection<a href="drzewa-decyzyjne.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>brak w oficjalnej dystrybucji CRAN<a href="drzewa-decyzyjne.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>Conditional Inference Trees<a href="drzewa-decyzyjne.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>budowa klasyfikatora w oparciu o proces iteracyjny, w którym kolejne w kolejnych iteracjach budowane są proste drzewa i przypisywane są im wagi - im gorszy klasyfikator, tym większa waga - po to aby nauczyć drzewo klasyfikować “trudne” przypadki<a href="drzewa-decyzyjne.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -1018,11 +1019,13 @@ tab</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1030,12 +1033,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1047,6 +1050,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1070,8 +1077,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

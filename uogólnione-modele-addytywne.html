@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Klasyfikatory liniowe | Eksploracja danych</title>
+  <title>11 Uogólnione modele addytywne | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta property="og:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta name="twitter:title" content="11 Uogólnione modele addytywne | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pochodne-drzew-decyzyjnych.html"/>
-<link rel="next" href="regresja-logistyczna.html"/>
+<link rel="prev" href="metoda-k-najbli-szych-s-siadów.html"/>
+<link rel="next" href="metoda-wektorów-no-nych.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -267,79 +267,184 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="klasyfikatory-liniowe" class="section level1">
-<h1><span class="header-section-number">6</span> Klasyfikatory liniowe</h1>
-<p>Obszerną rodzinę klasyfikatorów stanowią modele liniowe (ang. <em>linear classification models</em>). Klasyfikacji w tej rodzinie technik dokonuje się na podstawie modeli funkcji kombinacji liniowej predyktorów. Jest to ujęcie parametryczne, w którym klasyfikacji nowej wartości dokonujemy na podstawie atrybutów obserwacji i wektora parametrów. Uczenie na podstawie zestawu treningowego polega na oszacowaniu parametrów modelu. W odróżnieniu od metod nieparametrycznych postać modelu tym razem jest znana. Każdy klasyfikator liniowy skład się z funkcji wewnętrznej (ang. <em>inner representation function</em>) i funkcji zewnętrznej (ang. <em>outer representation function</em>).
-Pierwsza jest funkcją rzeczywistą parametrów modelu i wartości atrybutów obserwacji
-<span class="math display">\[\begin{equation}
-    g(x) = F(\mathbf{a}(x),\mathbf{w})=\sum_{i=0}^pw_ia_i(x)=\mathbf{w}\circ \mathbf{a}(x),
+<div id="uogólnione-modele-addytywne" class="section level1">
+<h1><span class="header-section-number">11</span> Uogólnione modele addytywne</h1>
+<p>Modele liniowe, jako techniki klasyfikacji i regresji, mają niewątpliwą zaletę - jawna postać zależności pomiędzy predyktorami i zmienną wynikową. Często w rzeczywistości tak uproszczony model nie potrafi oddać złożoności natury badanego zjawiska. Dlatego powstał pomysł aby w miejsce kombinacji liniowej predyktorów wstawić kombinację liniową ich funkcji, czyli
+<span class="math display" id="eq:row111">\[\begin{equation}
+    \E(Y|X)=f(X) = \sum_{i=1}^M\beta_mh_m(X),
+    \tag{11.1}
 \end{equation}\]</span>
-przyjmując, że <span class="math inline">\(a_0(x)=1\)</span>.</p>
-<p>Funkcja zewnętrzna przyporządkowuje binarnie klasy na podstawie wartości funkcji wewnętrznej. Istnieją dwa główne typy tych klasyfikacji:</p>
+gdzie <span class="math inline">\(h_m:\mathbb{R}^d\to\mathbb{R}\)</span> nazywana często funkcją bazową (ang. <em>linear basis expansion</em>). Wówczas w zależności od postaci funkcji bazowej otrzymujemy modele z różnymi poziomami elastyczności:</p>
 <ul>
-<li>brzegowa - przyjmujemy, że funkcje wewnętrzne tworzą granice zbiorów obserwacji różnych klas,</li>
-<li>probabilistyczna - bazująca na tym, że funkcje wewnętrzne mogą pośrednio wykazywać prawdopodobieństwo przynależności do danej klasy.</li>
+<li>gdy <span class="math inline">\(h_m(X)=X_m,\ m=1,\ldots,M\)</span>, to otrzymujemy model liniowy;</li>
+<li>gdy <span class="math inline">\(h_m(X)=X_j^2\)</span> lub <span class="math inline">\(h_m(X)=X_jX_k\)</span>, to otrzymujemy struktury wielomianowe, charakteryzujące się większą elastycznością modelu;</li>
+<li>gdy <span class="math inline">\(h_m(X)=\log X_j\)</span> lub <span class="math inline">\(h_m(X)=\sqrt{X_j}\)</span>, to uzyskujemy nieliniowość czynników wchodzących w skład kombinacji liniowej <a href="uogólnione-modele-addytywne.html#eq:row111">(11.1)</a>;</li>
+<li>dopuszczalne są również kawałkami liniowe funkcje postaci <span class="math inline">\(h_m(X)= I(l_m\leq X_k &lt;u_m)\)</span>, gdzie <span class="math inline">\(I\)</span> jest funkcją charakterystyczną (ang. <em>indicator</em>) przedziału <span class="math inline">\([l_m,u_m)\)</span>.</li>
 </ul>
-<p>Pierwsza dzieli przestrzeń obserwacji za pomocą hiperpłaszczyzn na obszary jednorodne pod względem przynależności do klas. Druga jest próbą parametrycznej reprezentacji prawdopodobieństw przynależności do klas. Klasyfikacji na podstawie prawdopodobieństw można dokonać na różne sposoby, stosując:</p>
+<p>Zbiory wszystkich funkcji bazowych definiowanych w ten sposób tworzy słownik funkcji bazowych <span class="math inline">\(\mathcal{D}\)</span>. Aby kontrolować złożoność modeli, mając do dyspozycji tak zasobny słownik, wprowadza się następujące podejścia:</p>
 <ul>
-<li>największe prawdopodobieństwo,</li>
-<li>funkcję najmniejszego kosztu błędnej klasyfikacji,</li>
-<li>krzywych ROC (ang. <em>Receiver Operating Characteristic</em> - o tym później).</li>
-</ul>
-<p>Podejście brzegowe lub probabilistyczne prowadzi najczęściej do dwóch typów reprezentacji funkcji zewnętrznej:</p>
-<ul>
-<li>reprezentacji progowej (ang. <em>threshold representation</em>) - najczęściej przy podejściu brzegowym,</li>
-<li>reprezentacji logistycznej (ang. <em>logit representation</em>) - przy podejściu probabilistycznym.</li>
-</ul>
-<div id="reprezentacja-progowa" class="section level2">
-<h2><span class="header-section-number">6.1</span> Reprezentacja progowa</h2>
-<p>W przypadku klasyfikacji dwustanowej, dziedzina jest dzielona na dwa regiony (pozytywny i negatywny) poprzez porównanie funkcji zewnętrznej z wartością progową. Bez straty ogólności można sprawić, że będzie to wartość 0
+<li>ogranicza się klasę dostępnych funkcji bazowych
 <span class="math display">\[\begin{equation}
-    h(x)=H(g(x))= \begin{cases}
-        1, &amp;\text{ jeśli } g(x)\geq 0\\
-        0, &amp;\text{ w przeciwnym przypadku.}
-    \end{cases}
-\end{equation}\]</span>
-Czasami używa się parametryzacji <span class="math inline">\(\{-1,1\}\)</span>.
-Przez porównanie <span class="math inline">\(g(x)\)</span> z 0 definiuje się hiperpłaszczyznę w <span class="math inline">\(p\)</span> wymiarowej przestrzeni, która rozdziela dziedzinę na regiony pozytywne i negatywne. W tym ujęciu mówimy o liniowej separowalności obserwacji różnych klas, jeśli istnieje hiperpłaszczyzna je rozdzielająca.</p>
+  f(X) = \sum_{j=1}^df_j(X_j)=\sum_{j=1}^d\sum_{m=1}^{M_j}\beta_{jm}h_{jm}(X_j),
+\end{equation}\]</span></li>
+<li>włącza się do modelu jedynie te funkcje ze słownika <span class="math inline">\(\mathcal{D}\)</span>, które istotnie poprawiają dopasowanie modelu,</li>
+<li>używa się metod penalizowanych, czyli dopuszcza się stosowanie wszystkich funkcji bazowych ze słownika <span class="math inline">\(\mathcal{D}\)</span>, ale współczynniki przy nich stojące są ograniczane.</li>
+</ul>
+<div id="przypadek-jednowymiarowy" class="section level2">
+<h2><span class="header-section-number">11.1</span> Przypadek jednowymiarowy</h2>
+<p>Dla uproszczenia rozważań przyjmiemy, że <span class="math inline">\(X\)</span> jest jednowymiarowe.</p>
+<div class="figure" style="text-align: center"><span id="fig:spline1"></span>
+<img src="images/spline1.JPG" alt="Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej $\max(X-\xi_1,0)$" width="183" />
+<p class="caption">
+Rysunek 11.1: Przykładowe zastosowanie kilku rodzajów funkcji bazowych. Wykres w lewym górnym rogu powstał ze stałych na przedziałach, wykres w górnym prawym rogu powstał z liniowych funkcji bazowych na przedzialach, w lewym dolnym rogu model powstał również z liniowych funkcji bazowych na przedzialach ale z założeniem ciągłości, a prawym dolnym rogu powstał z zastosowania funcji bazowej <span class="math inline">\(\max(X-\xi_1,0)\)</span>
+</p>
 </div>
-<div id="reprezentacja-logitowa" class="section level2">
-<h2><span class="header-section-number">6.2</span> Reprezentacja logitowa</h2>
-<p>Najbardziej popularną reprezentacją parametryczną stosowaną w klasyfikacji jest reprezentacja logitowa
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\frac{e^{g(x)}}{e^{g(x)}+1}.
-\end{equation}\]</span>
-Wówczas <span class="math inline">\(g(x)\)</span> nie reprezentuje bezpośrednio <span class="math inline">\(\P(y=1|x)\)</span> ale jego logit
-<span class="math display">\[\begin{equation}
-    g(x)=\logit(\P(y=1|x)),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(\logit(p)=\ln\frac{p}{1-p}\)</span>. Dlatego właściwa postać reprezentacji jest następująca
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\logit^{-1}(g(x)).
-\end{equation}\]</span>
-W ten sposób reprezentacja logitowa jest równoważna reprezentacji progowej, ponieważ
-<span class="math display">\[\begin{equation}
-    g(x)=\ln\frac{\P(y=1|x)}{1-\P(y=1|x)}=\ln\frac{\P(y=1|x)}{\P(y=0|x)}&gt;0.
-\end{equation}\]</span>
-Jednak zaletą reprezentacji logitowej, w porównaniu do progowej, jest to, że można wyznaczyć prawdopodobieństwa przynależności do obu klas. W przypadku klasyfikacji wielostanowej uczymy tyle funkcji <span class="math inline">\(h\)</span> ile jest klas.</p>
+<div class="figure" style="text-align: center"><span id="fig:spline2"></span>
+<img src="images/spline2.JPG" alt="Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości" width="178" />
+<p class="caption">
+Rysunek 11.2: Kolejne wykresy przedstawiają coraz bardziej gładkie modele będące efektem dodawania wielomianów trzeciego stopnia na przedziałach. Na każdym kolejnym modelu mymuszone zostały silniejsze założenia dotyczące gładkości
+</p>
 </div>
-<div id="wady-klasyfikatorów-liniowych" class="section level2">
-<h2><span class="header-section-number">6.3</span> Wady klasyfikatorów liniowych</h2>
+<p>Przykładowo sześcienny splajn<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> dla dwóch punków węzłowych składa się z następujących funkcji bazowych</p>
+<p><span class="math display">\[\begin{gather}
+    h_1(X)=1,\quad h_3(X)=X^2,\quad h_5(X)=(X-\xi_1)_+^3\\
+    h_2(X)=X,\quad h_4(X)=X^3,\quad h_6(X)=(X-\xi_2)_+^3.
+\end{gather}\]</span></p>
+<p>Zachowanie wielomianów poza punktami węzłowymi jest czasami bardzo dziwne. Zdarza się, że charakteryzują się tam dużą zmiennością. Dlatego wprowadza się takie splajny aby w obszarach brzegowych zachowywały się przewidywalnie.
+Naturalny splajn sześcienny zakłada liniowość modelu poza węzłami brzegowymi. Dla <span class="math inline">\(K\)</span> węzłów naturalny splajn sześcienny składa się z następujących funkcji bazowych</p>
+<p><span class="math display">\[\begin{gather}
+    N_1(X)=1,\quad N_2(X)=X,\quad N_{k+2}(X)=d_k(X)-d_{K-1}(X),
+\end{gather}\]</span>
+gdzie <span class="math inline">\(d_k(X)=\frac{(X-\xi_k)^3_+-(X-\xi_K)^3_+}{\xi_K-\xi_k}.\)</span></p>
+<p>Estymacji parametrów modelu dokonujemy metodą najmniejszych kwadratów, minimalizując
+<span class="math display">\[\begin{equation}
+    RSS(f,\lambda) = \sum_{i=1}^N(y_i-f(x_i))^2+\lambda\int(f&#39;&#39;(t))^2dt,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\lambda\)</span> jest parametrem wygładzania. Pierwsze wyrażenie po prawej stronie to ocena dopasowania, a drugie to kara za krzywoliniowość.
+Dla naturalnego splajna
+<span class="math display">\[\begin{equation}
+    f(x)=\sum_{j=1}^NN_j(x)\beta_j
+\end{equation}\]</span>
+minimalizujemy
+<span class="math display">\[\begin{equation}
+    RSS(\beta, \lambda)=(\boldsymbol y -\boldsymbol N\beta)&#39;(\boldsymbol y-\boldsymbol N\beta)+\lambda\beta&#39;\boldsymbol \Omega \beta,
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\{\boldsymbol N\}_{ij}= N_j(x_i)\)</span> i <span class="math inline">\(\{\boldsymbol \Omega\}_{jk}=\int N&#39;&#39;_j(t)N&#39;&#39;_k(t)dt\)</span>. Rozwiązaniem zaganienia minimalizacji <span class="math inline">\(RSS(\beta,\lambda)\)</span> jest
+<span class="math display">\[\begin{equation}
+    \hat{\beta}=((\boldsymbol N&#39;\boldsymbol N)+\lambda\boldsymbol \Omega)^{-1}\boldsymbol N&#39;\boldsymbol y.
+\end{equation}\]</span></p>
+</div>
+<div id="przypadek-wielowymiarowy" class="section level2">
+<h2><span class="header-section-number">11.2</span> Przypadek wielowymiarowy</h2>
+<p>W przypadku gdy <span class="math inline">\(X\in \mathbb{R}^d\)</span> poszukujemy takiej <span class="math inline">\(d\)</span>-wymiarowej regresji <span class="math inline">\(f(x)\)</span>, która będzie minimalizowała wyrażenie
+<span class="math display">\[\begin{equation}
+    \min_f\sum_{i=1}^N(y_i-f(x_i))^2+\lambda J(f),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(J\)</span> jest odpowiednią funkcją wyrażającą krzywoliniowość modelu. Dla <span class="math inline">\(X\in \mathbb{R}^2\)</span> przyjmuje postać
+<span class="math display">\[\begin{equation}
+    J(f)=\iint_{\mathbb{R}^2}\left[\left(\frac{\partial^2 f(x)}{\partial^2 x_1}\right)^2+2\left(\frac{\partial^2 f(x)}{\partial x_1\partial x_2}\right)^2+
+    \left(\frac{\partial^2 f(x)}{\partial^2 x_2}\right)^2\right]dx_1dx_2.
+\end{equation}\]</span>
+Rozwiązanie przyjmuje postać
+<span class="math display">\[\begin{equation}
+    f(x) = \beta_0+\beta&#39;x+\sum_{i=1}^N \alpha_ih_i(x),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(h_i(x)=||x-x_j||^2\log||x-x_j||\)</span>.</p>
+</div>
+<div id="uogólnione-modele-addytywne-1" class="section level2">
+<h2><span class="header-section-number">11.3</span> Uogólnione modele addytywne</h2>
+<p>Przez uogólnione modele addytywne (ang. <em>Generalized Additive Models</em>) rozumiemy klasę modeli, które poprzez funkcję łączącą, opisują warunkową wartość zmiennej wynikowej w następujący sposób
+<span class="math display">\[\begin{equation}
+    g(\E(Y|X))=g(\mu(X))=\alpha+f_1(X_1)+\dots+f_d(X_d),
+\end{equation}\]</span>
+gdzie <span class="math inline">\(g\)</span> jest funkcją łączącą. Najczęściej stosowanymi funkcjami łączącymi są:</p>
 <ul>
-<li>tylko w przypadku prostych funkcji wewnętrznych jesteśmy w stanie ocenić wpływ poszczególnych predykorów na klasyfikację,</li>
-<li>jakość predykcji zależy od doboru funkcji wewnętrznej (liniowa w ścisłym sensie jest najczęściej niewystarczająca),</li>
-<li>nie jest w stanie klasyfikować poprawnie stanów (nie jest liniowo separowalna) w zagadnieniach typu XOR.</li>
+<li><span class="math inline">\(g(\mu)=\mu\)</span> - stosowana w modelach, gdy zmienna wynikowa ma rozkład normalny;</li>
+<li><span class="math inline">\(g(\mu)=\logit\mu\)</span> - stosowana, gdy zmienna wynikowa ma rozkład dwumianowy;</li>
+<li><span class="math inline">\(g(\mu)=\probit\mu\)</span> - stosowana również w przypadku gdy zmienna ma rozkład dwumianowy, a <span class="math inline">\(\Phi^{-1}\)</span> oznacza odwrotność dystrybuanty standaryzowanego rozkładu normalnego;</li>
+<li><span class="math inline">\(g(\mu)=\log\mu\)</span> - stosowana, gdy zmienna wynikowa jest zmienną typu zliczeniowego (rozkład Poissona).</li>
 </ul>
+<div id="algorytm-uczenia-modelu-gam" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> Algorytm uczenia modelu GAM</h3>
+<p>Algorytm uczenia wstecznego (ang. <em>backfitting</em>) przebiega wg następujących kroków:</p>
+<ol style="list-style-type: decimal">
+<li>Ustalamy wstępne oszacowania na <span class="math inline">\(\alpha=\bar{y}\)</span> i <span class="math inline">\(\hat{f}_j=0\)</span>.</li>
+<li>Dla <span class="math inline">\(j=1,\ldots,d,1,\ldots,d,1,\ldots\)</span> powtarzamy szacowanie
+<span class="math display">\[\begin{align}
+ \hat{f}_j\leftarrow &amp;\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right],\\
+ \hat{f}_j\leftarrow &amp;\hat{f}_j-\frac{1}{N}\sum_{i=1}^N\hat{f}_j(x_{ij})
+\end{align}\]</span>
+dopóki <span class="math inline">\(\hat{f}_j\)</span> osiągnie zbieżność. Funkcja <span class="math inline">\(\mathcal{S}_j\left[(y_i-\hat{\alpha}-\sum_{k\neq j}\hat{f}_k(x_{ik}))^N_1\right]\)</span> jest jednowymiarowym sześciennym splajnem o <span class="math inline">\(N\)</span> węzłach. W jej miejsce można przyjąć również inne funkcje, takie jak: jednowymiarowe lokalne regresje wielomianowe (ang. <em>LOESS - locally estimated scatterplot smoothing</em>), regresje liniowe, wielomianowe.</li>
+</ol>
+
+<div class="example">
+<span id="exm:gam" class="example"><strong>Przykład 11.1  </strong></span>Dla zilustrowania zasady działania uogólnionych modeli addytywnych przeprowadzimy analizę stężenia ozonu (<span class="math inline">\(O_3\)</span>) w zależności od wybranych parametrów meteorologicznych. Do zbudowania modelu GAM wykorzystamy funkcję <code>gam</code> pakietu <code>mgcv</code> <span class="citation">(Wood <a href="#ref-R-mgcv" role="doc-biblioref">2003</a>)</span>.
+</div>
+
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="uogólnione-modele-addytywne.html#cb269-1"></a><span class="kw">library</span>(faraway)</span>
+<span id="cb269-2"><a href="uogólnione-modele-addytywne.html#cb269-2"></a><span class="kw">head</span>(ozone)</span></code></pre></div>
+<pre><code>##   O3   vh wind humidity temp  ibh dpg ibt vis doy
+## 1  3 5710    4       28   40 2693 -25  87 250  33
+## 2  5 5700    3       37   45  590 -24 128 100  34
+## 3  5 5760    3       51   54 1450  25 139  60  35
+## 4  6 5720    4       69   35 1568  15 121  60  36
+## 5  4 5790    6       19   45 2631 -33 123 100  37
+## 6  4 5790    3       25   55  554 -28 182 250  38</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="uogólnione-modele-addytywne.html#cb271-1"></a><span class="kw">library</span>(mgcv)</span>
+<span id="cb271-2"><a href="uogólnione-modele-addytywne.html#cb271-2"></a>mod.gam &lt;-<span class="st"> </span><span class="kw">gam</span>(O3<span class="op">~</span><span class="kw">s</span>(temp, <span class="dt">bs =</span> <span class="st">&quot;cr&quot;</span>, <span class="dt">m =</span> <span class="dv">2</span>)<span class="op">+</span><span class="kw">s</span>(ibh)<span class="op">+</span><span class="kw">s</span>(ibt), <span class="dt">data =</span> ozone)</span>
+<span id="cb271-3"><a href="uogólnione-modele-addytywne.html#cb271-3"></a><span class="kw">summary</span>(mod.gam)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## O3 ~ s(temp, bs = &quot;cr&quot;, m = 2) + s(ibh) + s(ibt)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  11.7758     0.2382   49.44   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##           edf Ref.df      F  p-value    
+## s(temp) 3.357  4.216 20.758 5.99e-16 ***
+## s(ibh)  4.171  5.072  7.344 1.37e-06 ***
+## s(ibt)  2.111  2.729  1.403    0.213    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.708   Deviance explained = 71.7%
+## GCV = 19.348  Scale est. = 18.724    n = 330</code></pre>
+<p>W powyższym modelu użyto splajnów jako funkcji <span class="math inline">\(f_i\)</span>. W przypadku zmiennej <code>temp</code> był to sześcienny splajn z regularyzacją w postaci ciągłości drugiej pochodnej, a pozostałe są prostymi splajnami. Dopasowanie modelu sięga 71.7% a wartość uogólnionego sprawdzianu krzyżowego 19.35.</p>
+<p>Poniższy wykres pokazuje rodzaje transformacji użyte przy dopasowaniu modelu.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="uogólnione-modele-addytywne.html#cb273-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb273-2"><a href="uogólnione-modele-addytywne.html#cb273-2"></a><span class="kw">plot</span>(mod.gam, <span class="dt">shade =</span> T, <span class="dt">residuals =</span> T)</span></code></pre></div>
+<p><img src="EksploracjaDanych_files/figure-html/unnamed-chunk-85-1.png" width="1056" /></p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="uogólnione-modele-addytywne.html#cb274-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 
 </div>
+</div>
+</div>
+<h3>Bibliografia</h3>
+<div id="refs" class="references">
+<div id="ref-R-mgcv">
+<p>Wood, S. N. 2003. “Thin-Plate Regression Splines.” <em>Journal of the Royal Statistical Society (B)</em> 65 (1): 95–114.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>czyli funkcja łączona<a href="uogólnione-modele-addytywne.html#fnref20" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="pochodne-drzew-decyzyjnych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regresja-logistyczna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="metoda-k-najbli-szych-s-siadów.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="metoda-wektorów-no-nych.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

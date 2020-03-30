@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Podział metod data mining | Eksploracja danych</title>
-  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Podział metod data mining | Eksploracja danych" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2020-03-11" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="przygotowanie-danych.html">
-<link rel="next" href="drzewa-decyzyjne.html">
+<link rel="prev" href="przygotowanie-danych.html"/>
+<link rel="next" href="drzewa-decyzyjne.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,26 +68,27 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +97,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -146,46 +149,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-ksiazce"><i class="fa fa-check"></i>O książce</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-książce"><i class="fa fa-check"></i>O książce</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-przedmiotu"><i class="fa fa-check"></i>Zakres przedmiotu</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-technik-stosowanych-w-data-mining"><i class="fa fa-check"></i>Zakres technik stosowanych w data mining</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etapy-eksploracji-danych"><i class="fa fa-check"></i>Etapy eksploracji danych</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="roz1.html"><a href="roz1.html"><i class="fa fa-check"></i><b>1</b> Import danych</a></li>
 <li class="chapter" data-level="2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>2</b> Przygotowanie danych</a><ul>
-<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-brakow-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
-<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastepowanie-brakow-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
+<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-braków-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
+<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastępowanie-braków-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
 <li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
 <li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
 <li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
-<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
-<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-uczący"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
 <li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
-<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakość-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
 <li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
-<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujące"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
-<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
-<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
-<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
-<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#węzły-i-gałęzie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-reguł-podziału"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-ciągłej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-porządkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
 <li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
-<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguły-podziału"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
 <li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
-<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
-<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujące-błąd"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujące-błąd"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-względu-na-współczynnik-złożoności-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsługa-braków-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
 <li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
 <li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
 <li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
@@ -200,48 +203,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html"><i class="fa fa-check"></i><b>6</b> Klasyfikatory liniowe</a><ul>
 <li class="chapter" data-level="6.1" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-progowa"><i class="fa fa-check"></i><b>6.1</b> Reprezentacja progowa</a></li>
 <li class="chapter" data-level="6.2" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-logitowa"><i class="fa fa-check"></i><b>6.2</b> Reprezentacja logitowa</a></li>
-<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorow-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
+<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorów-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html"><i class="fa fa-check"></i><b>7</b> Regresja logistyczna</a><ul>
 <li class="chapter" data-level="7.1" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#model-1"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
-<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrów-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
 <li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="LDA.html"><a href="LDA.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
 <li class="chapter" data-level="8.1" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
-<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
+<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejście-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=\sigma^2I\)</span></a></li>
 <li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
 <li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metodą-częściowych-najmniejszych-kwadratów"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
 <li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
 <li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
 <li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
-<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-wiarogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
+<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-największej-wiarogodności-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
 <li class="chapter" data-level="9.3" data-path="bayes.html"><a href="bayes.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>9.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
 <li class="chapter" data-level="9.4" data-path="bayes.html"><a href="bayes.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>9.4</b> Zalety i wady</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metoda-k-najblizszych-sasiadow.html"><a href="metoda-k-najblizszych-sasiadow.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
-<li class="chapter" data-level="11" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
-<li class="chapter" data-level="11.2" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
-<li class="chapter" data-level="11.3" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#uogolnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
+<li class="chapter" data-level="10" data-path="metoda-k-najbli-szych-s-siadów.html"><a href="metoda-k-najbli-szych-s-siadów.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
+<li class="chapter" data-level="11" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
+<li class="chapter" data-level="11.2" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
+<li class="chapter" data-level="11.3" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#uogólnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
-<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
-<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
-<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
-<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
-<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-jądrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
@@ -264,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="podzia-metod-data-mining" class="section level1">
+<div id="podział-metod-data-mining" class="section level1">
 <h1><span class="header-section-number">3</span> Podział metod data mining</h1>
 <div id="rodzaje-wnioskowania" class="section level2">
 <h2><span class="header-section-number">3.1</span> Rodzaje wnioskowania</h2>
@@ -288,11 +291,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Często jeden z atrybutów spełnia specjalną rolę, ponieważ stanowi realizację cechy, którą traktujemy jako wyjściową (ang. <em>target value attribute</em>). W tym przypadku powiemy o <strong>nadzorowanym uczeniu maszynowym</strong>. Jeśli zmiennej wyjściowej nie ma dziedzinie, to mówimy o <strong>nienadzorowanym uczeniu maszynowym</strong>.</p>
 </div>
-<div id="zbior-uczacy" class="section level3">
+<div id="zbiór-uczący" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Zbiór uczący</h3>
 <p>Zbiorem uczącym <span class="math inline">\(T\)</span> (ang. <em>training set</em>) nazywamy podzbiór <span class="math inline">\(D\)</span> dziedziny <span class="math inline">\(X\)</span> (czyli <span class="math inline">\(T\subseteq D\subseteq X\)</span>), gdzie zbiór <span class="math inline">\(D\)</span> stanowi ogół dostępnych obserwacji z dziedziny <span class="math inline">\(X\)</span>. Zbiór uczący zawiera informacje dotyczące badanego zjawiska, na podstawie których, dokonuje się doboru modelu, selekcji cech istotnych z punktu widzenia własności predykcyjnych lub jakości klasyfikacji, budowy modelu oraz optymalizacji jego parametrów. W przypadku uczenia z nauczycielem (nadzorowanego) zbiór <span class="math inline">\(T\)</span> zawiera informację o wartościach atrybutów zmiennej wynikowej.</p>
 </div>
-<div id="zbior-testowy" class="section level3">
+<div id="zbiór-testowy" class="section level3">
 <h3><span class="header-section-number">3.1.5</span> Zbiór testowy</h3>
 <p>Zbiór testowy <span class="math inline">\(T&#39;\)</span> (ang. <em>test set</em>) będący dopełnieniem zbioru uczącego do zbioru <span class="math inline">\(D\)</span>, czyli <span class="math inline">\(T&#39;=D\setminus T\)</span>, stanowi zestaw danych służący do oceny poprawności modelu nadzorowanego. W przypadku metod nienadzorowanych raczej nie stosuje się zbiorów testowych.</p>
 </div>
@@ -300,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.6</span> Model</h3>
 <p>Model to narzędzie pozyskiwania wiedzy na podstawie zbioru uczącego. Nauczony model jest zbiorem reguł <span class="math inline">\(f\)</span>, którego zadaniem jest oszacowanie wielkości wartości wynikowej lub odpowiednia klasyfikacja obiektów. W zadaniu grupowania obiektów (ang. <em>clustering task</em>), celem modelu jest podanie grup możliwie najbardziej jednorodnych przy zadanym zestawie zmiennych oraz ustalonej liczbie skupień (czasami wyznaczenie liczby skupień jest również częścią zadania stawianego przed modelem).</p>
 </div>
-<div id="jakosc-dopasowania-modelu" class="section level3">
+<div id="jakość-dopasowania-modelu" class="section level3">
 <h3><span class="header-section-number">3.1.7</span> Jakość dopasowania modelu</h3>
 <p>Do oceny jakości dopasowania modelu wykorzystuje się, w zależności od zadania, wiele współczynników (np. dla zadań regresyjnych są to błąd średnio-kwadratowy - ang. <em>Mean Square Error</em>, a dla zadań klasyfikacyjnych - trafność - ang. <em>Accuracy</em>). Możemy mówić dwóch rodzajach dopasowania modeli:</p>
 <ul>
@@ -325,7 +328,7 @@ Rysunek 3.1: Przykłady niedoucznia (wykresy 1 i 4), poprawego modelu (2 i 5) i 
 <h2><span class="header-section-number">3.3</span> Modele klasyfikacyjne</h2>
 <p>Podobnie jak modele regresyjne, modele klasyfikacyjne należą do grupy metod nadzorowanego uczenia maszynowego. Ich zadaniem jest właściwa klasyfikacja obiektów na podstawie wielkości predyktorów. Odpowiedzią modelu jest zawsze cecha typu jakościowego, natomiast predyktory mogą mieć dowolny typ. Wyróżnia się klasyfikację dwu i wielostanową. Lista modeli realizujących klasyfikację binarną jest nieco dłuższa niż w przypadku modeli z wielostanową cechą wynikową. Proces uczenia modelu klasyfikacyjnego również opiera się na optymalizacji funkcji celu. Tym razem są to zupełnie inne miary jakości dopasowania (np. trafność, czyli odsetek poprawnych klasyfikacji).</p>
 </div>
-<div id="modele-grupujace" class="section level2">
+<div id="modele-grupujące" class="section level2">
 <h2><span class="header-section-number">3.4</span> Modele grupujące</h2>
 <p>Bardzo szeroką gamę modeli nienadzorowanych stanowią metody analizy skupień. Ich zadaniem jest grupowanie obiektów w możliwie najbardziej jednorodne grupy, na podstawie wartości atrybutów poddanych analizie. Ponieważ są to metody “bez nauczyciela”, to ocena ich przydatności ma nieco inny charakter i choć istnieją różne wskaźniki jakości grupowania, to trudno tu o obiektywne wskazanie najlepszego rozwiązania.</p>
 
@@ -342,11 +345,13 @@ Rysunek 3.1: Przykłady niedoucznia (wykresy 1 i 4), poprawego modelu (2 i 5) i 
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -354,12 +359,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -371,6 +376,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -394,8 +403,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Klasyfikatory liniowe | Eksploracja danych</title>
+  <title>10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta property="og:title" content="10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta name="twitter:title" content="10 Metoda \(k\) najbliższych sąsiadów | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pochodne-drzew-decyzyjnych.html"/>
-<link rel="next" href="regresja-logistyczna.html"/>
+<link rel="prev" href="bayes.html"/>
+<link rel="next" href="uogólnione-modele-addytywne.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -267,79 +267,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="klasyfikatory-liniowe" class="section level1">
-<h1><span class="header-section-number">6</span> Klasyfikatory liniowe</h1>
-<p>Obszerną rodzinę klasyfikatorów stanowią modele liniowe (ang. <em>linear classification models</em>). Klasyfikacji w tej rodzinie technik dokonuje się na podstawie modeli funkcji kombinacji liniowej predyktorów. Jest to ujęcie parametryczne, w którym klasyfikacji nowej wartości dokonujemy na podstawie atrybutów obserwacji i wektora parametrów. Uczenie na podstawie zestawu treningowego polega na oszacowaniu parametrów modelu. W odróżnieniu od metod nieparametrycznych postać modelu tym razem jest znana. Każdy klasyfikator liniowy skład się z funkcji wewnętrznej (ang. <em>inner representation function</em>) i funkcji zewnętrznej (ang. <em>outer representation function</em>).
-Pierwsza jest funkcją rzeczywistą parametrów modelu i wartości atrybutów obserwacji
-<span class="math display">\[\begin{equation}
-    g(x) = F(\mathbf{a}(x),\mathbf{w})=\sum_{i=0}^pw_ia_i(x)=\mathbf{w}\circ \mathbf{a}(x),
-\end{equation}\]</span>
-przyjmując, że <span class="math inline">\(a_0(x)=1\)</span>.</p>
-<p>Funkcja zewnętrzna przyporządkowuje binarnie klasy na podstawie wartości funkcji wewnętrznej. Istnieją dwa główne typy tych klasyfikacji:</p>
-<ul>
-<li>brzegowa - przyjmujemy, że funkcje wewnętrzne tworzą granice zbiorów obserwacji różnych klas,</li>
-<li>probabilistyczna - bazująca na tym, że funkcje wewnętrzne mogą pośrednio wykazywać prawdopodobieństwo przynależności do danej klasy.</li>
-</ul>
-<p>Pierwsza dzieli przestrzeń obserwacji za pomocą hiperpłaszczyzn na obszary jednorodne pod względem przynależności do klas. Druga jest próbą parametrycznej reprezentacji prawdopodobieństw przynależności do klas. Klasyfikacji na podstawie prawdopodobieństw można dokonać na różne sposoby, stosując:</p>
-<ul>
-<li>największe prawdopodobieństwo,</li>
-<li>funkcję najmniejszego kosztu błędnej klasyfikacji,</li>
-<li>krzywych ROC (ang. <em>Receiver Operating Characteristic</em> - o tym później).</li>
-</ul>
-<p>Podejście brzegowe lub probabilistyczne prowadzi najczęściej do dwóch typów reprezentacji funkcji zewnętrznej:</p>
-<ul>
-<li>reprezentacji progowej (ang. <em>threshold representation</em>) - najczęściej przy podejściu brzegowym,</li>
-<li>reprezentacji logistycznej (ang. <em>logit representation</em>) - przy podejściu probabilistycznym.</li>
-</ul>
-<div id="reprezentacja-progowa" class="section level2">
-<h2><span class="header-section-number">6.1</span> Reprezentacja progowa</h2>
-<p>W przypadku klasyfikacji dwustanowej, dziedzina jest dzielona na dwa regiony (pozytywny i negatywny) poprzez porównanie funkcji zewnętrznej z wartością progową. Bez straty ogólności można sprawić, że będzie to wartość 0
-<span class="math display">\[\begin{equation}
-    h(x)=H(g(x))= \begin{cases}
-        1, &amp;\text{ jeśli } g(x)\geq 0\\
-        0, &amp;\text{ w przeciwnym przypadku.}
-    \end{cases}
-\end{equation}\]</span>
-Czasami używa się parametryzacji <span class="math inline">\(\{-1,1\}\)</span>.
-Przez porównanie <span class="math inline">\(g(x)\)</span> z 0 definiuje się hiperpłaszczyznę w <span class="math inline">\(p\)</span> wymiarowej przestrzeni, która rozdziela dziedzinę na regiony pozytywne i negatywne. W tym ujęciu mówimy o liniowej separowalności obserwacji różnych klas, jeśli istnieje hiperpłaszczyzna je rozdzielająca.</p>
+<div id="metoda-k-najbliższych-sąsiadów" class="section level1">
+<h1><span class="header-section-number">10</span> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</h1>
+<p>Technika <span class="math inline">\(k\)</span> najbliższych sąsiadów (ang. <em><span class="math inline">\(k\)</span>-Nearest Neighbors</em>) przewiduje wartość zmiennej wynikowej na podstawie <span class="math inline">\(k\)</span> najbliższych obserwacji zbioru uczącego. W przeciwieństwie do wspomnianych wcześniej modeli liniowych, nie posiada ona jawnej formy i należy do klasy technik nazywanych czarnymi skrzynkami (ang. <em>black box</em>). Może być wykorzystywana, zarówno do zadań klasyfikacyjnych, jak i regresyjnych. W obu przypadkach predykcja dla nowych wartości predyktorów przebiega podobnie.</p>
+<p>Niech <span class="math inline">\(\boldsymbol x_0\)</span> będzie obserwacją, dla której poszukujemy wartości zmiennej wynikowej <span class="math inline">\(y_0\)</span>. Na podstawie zbioru obserwacji <span class="math inline">\(\boldsymbol x\in T\)</span> zbioru uczącego wyznacza się <span class="math inline">\(k\)</span> najbliższych sąsiadów<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>, gdzie <span class="math inline">\(k\)</span> jest z góry ustaloną wartością. Następnie, jeśli zadanie ma charakter klasyfikacyjny, to <span class="math inline">\(y_0\)</span> przypisuje się modę zmiennej wynikowej obserwacji będących <span class="math inline">\(k\)</span> najbliższymi sąsiadami. W przypadku zadań regresyjnych <span class="math inline">\(y_0\)</span> przypisuje się średnią lub medianę.</p>
+<p>Olbrzymie znaczenie dla wyników predykcji na podstawie metody <em>kNN</em> ma dobór metryki. Nie istnieje obiektywna technika wyboru najlepszej metryki, dlatego jej doboru dokonujemy metodą prób i błędów. Należy dodatkowo pamiętać, że wielkości mierzone <span class="math inline">\(\boldsymbol x\)</span> mogą się różnić zakresami zmienności, a co za tym idzie, mogą znacząco wpłynąć na mierzone odległości pomiędzy punktami. Dlatego zaleca się standaryzację zmiennych przed zastosowaniem metody <em>kNN</em>.</p>
+<p>Kolejnym parametrem, który ma znaczący wpływ na predykcję, jest liczba sąsiadów <span class="math inline">\(k\)</span>. Wybór zbyt małej liczby <span class="math inline">\(k\)</span> może doprowadzić do przeuczenia modelu jak to jest pokazane na rysunku <a href="metoda-k-najbli-szych-s-siadów.html#fig:knn1">10.1</a></p>
+<div class="figure" style="text-align: center"><span id="fig:knn1"></span>
+<img src="EksploracjaDanych_files/figure-html/knn1-1.png" alt="Przykład klasyfikacji dla $k=1$" width="1056" />
+<p class="caption">
+Rysunek 10.1: Przykład klasyfikacji dla <span class="math inline">\(k=1\)</span>
+</p>
 </div>
-<div id="reprezentacja-logitowa" class="section level2">
-<h2><span class="header-section-number">6.2</span> Reprezentacja logitowa</h2>
-<p>Najbardziej popularną reprezentacją parametryczną stosowaną w klasyfikacji jest reprezentacja logitowa
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\frac{e^{g(x)}}{e^{g(x)}+1}.
-\end{equation}\]</span>
-Wówczas <span class="math inline">\(g(x)\)</span> nie reprezentuje bezpośrednio <span class="math inline">\(\P(y=1|x)\)</span> ale jego logit
-<span class="math display">\[\begin{equation}
-    g(x)=\logit(\P(y=1|x)),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(\logit(p)=\ln\frac{p}{1-p}\)</span>. Dlatego właściwa postać reprezentacji jest następująca
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\logit^{-1}(g(x)).
-\end{equation}\]</span>
-W ten sposób reprezentacja logitowa jest równoważna reprezentacji progowej, ponieważ
-<span class="math display">\[\begin{equation}
-    g(x)=\ln\frac{\P(y=1|x)}{1-\P(y=1|x)}=\ln\frac{\P(y=1|x)}{\P(y=0|x)}&gt;0.
-\end{equation}\]</span>
-Jednak zaletą reprezentacji logitowej, w porównaniu do progowej, jest to, że można wyznaczyć prawdopodobieństwa przynależności do obu klas. W przypadku klasyfikacji wielostanowej uczymy tyle funkcji <span class="math inline">\(h\)</span> ile jest klas.</p>
+<p>Z kolei zbyt duża liczba sąsiadów powoduje obciążenie wyników (patrz rysunek <a href="metoda-k-najbli-szych-s-siadów.html#fig:knn2">10.2</a>)</p>
+<div class="figure" style="text-align: center"><span id="fig:knn2"></span>
+<img src="EksploracjaDanych_files/figure-html/knn2-1.png" alt="Przykład zastosowania 100 sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.2: Przykład zastosowania 100 sąsiadów
+</p>
 </div>
-<div id="wady-klasyfikatorów-liniowych" class="section level2">
-<h2><span class="header-section-number">6.3</span> Wady klasyfikatorów liniowych</h2>
-<ul>
-<li>tylko w przypadku prostych funkcji wewnętrznych jesteśmy w stanie ocenić wpływ poszczególnych predykorów na klasyfikację,</li>
-<li>jakość predykcji zależy od doboru funkcji wewnętrznej (liniowa w ścisłym sensie jest najczęściej niewystarczająca),</li>
-<li>nie jest w stanie klasyfikować poprawnie stanów (nie jest liniowo separowalna) w zagadnieniach typu XOR.</li>
-</ul>
+<p>Dopiero dobór odpowiedniego <span class="math inline">\(k\)</span> daje model o stosunkowo niskiej wariancji i obciążeniu. Najczęściej liczby <span class="math inline">\(k\)</span> poszukujemy za pomocą próbkowania.</p>
+<div class="figure" style="text-align: center"><span id="fig:knn3"></span>
+<img src="EksploracjaDanych_files/figure-html/knn3-1.png" alt="Model z optymalną liczbą sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.3: Model z optymalną liczbą sąsiadów
+</p>
+</div>
+
+<div class="example">
+<p><span id="exm:knnprzklad1" class="example"><strong>Przykład 10.1  </strong></span>Klasyfikację z wykorzystaniem metody <em>kNN</em> przeprowadzimy na przykładzie danych zbioru <code>spam</code> pakietu <code>ElemStatLearn</code>. Metoda <em>kNN</em> ma wiele implementacji R-owych ale na potrzeby przykładu wykorzystamy funkcję <code>knn3</code> pakietu <code>caret</code>.</p>
+Najpierw dokonamy oszacowania optymalnego <span class="math inline">\(k\)</span>
+</div>
+
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-1"></a><span class="kw">library</span>(ElemStatLearn)</span>
+<span id="cb258-2"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb258-3"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-3"></a></span>
+<span id="cb258-4"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-4"></a>spam.std &lt;-<span class="st"> </span>spam <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-5"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-5"></a><span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, scale)</span>
+<span id="cb258-6"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-6"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb258-7"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-7"></a>ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(spam), <span class="dt">size =</span> <span class="kw">nrow</span>(spam)<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb258-8"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-8"></a>dt.ucz &lt;-<span class="st"> </span>spam.std[ind,]</span>
+<span id="cb258-9"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-9"></a>dt.test &lt;-<span class="st"> </span>spam.std[<span class="op">-</span>ind,]</span>
+<span id="cb258-10"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-10"></a></span>
+<span id="cb258-11"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-11"></a>acc &lt;-<span class="st"> </span><span class="cf">function</span>(pred, obs){</span>
+<span id="cb258-12"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-12"></a>    tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred,obs)</span>
+<span id="cb258-13"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-13"></a>    acc &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</span>
+<span id="cb258-14"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-14"></a>    acc</span>
+<span id="cb258-15"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-15"></a>}</span>
+<span id="cb258-16"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-16"></a></span>
+<span id="cb258-17"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-17"></a><span class="dv">1</span><span class="op">:</span><span class="dv">40</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-18"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-18"></a><span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">knn3</span>(spam<span class="op">~</span>., <span class="dt">data =</span> dt.ucz, <span class="dt">k =</span> .x)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-19"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-19"></a><span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">predict</span>(.x, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-20"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-20"></a><span class="st">    </span><span class="kw">map_dbl</span>(<span class="op">~</span><span class="kw">acc</span>(<span class="dt">pred =</span> .x, <span class="dt">obs =</span> dt.test<span class="op">$</span>spam)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-21"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-21"></a><span class="st">    </span><span class="kw">tibble</span>(<span class="dt">k =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(.), <span class="dt">acc=</span>.) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb258-22"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-22"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(k, acc))<span class="op">+</span></span>
+<span id="cb258-23"><a href="metoda-k-najbli-szych-s-siadów.html#cb258-23"></a><span class="st">     </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:knnrys"></span>
+<img src="EksploracjaDanych_files/figure-html/knnrys-1.png" alt="Ocena jakości dopasowania modelu dla różnej liczby sąsiadów" width="1056" />
+<p class="caption">
+Rysunek 10.4: Ocena jakości dopasowania modelu dla różnej liczby sąsiadów
+</p>
+</div>
+<p>Biorąc pod uwagę wykres <a href="metoda-k-najbli-szych-s-siadów.html#fig:knnrys">10.4</a> można rozważać 3 lub 5 sąsiadów jako optymalne rozwiązanie, ponieważ wówczas poprawność klasyfikacji jest najwyższa. Proponuje unikać rozwiązania z 1 najbliższym sąsiadem ponieważ, będzie się ono charakteryzowało duża zmiennością. Wybór <span class="math inline">\(k=3\)</span> wydaje się być optymalny.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb259-1"></a>mod.knn &lt;-<span class="st"> </span><span class="kw">knn3</span>(spam<span class="op">~</span>., <span class="dt">data =</span> dt.ucz,</span>
+<span id="cb259-2"><a href="metoda-k-najbli-szych-s-siadów.html#cb259-2"></a>                <span class="dt">k =</span> <span class="dv">3</span>)</span>
+<span id="cb259-3"><a href="metoda-k-najbli-szych-s-siadów.html#cb259-3"></a>mod.knn</span></code></pre></div>
+<pre><code>## 3-nearest neighbor model
+## Training set outcome distribution:
+## 
+## email  spam 
+##  1860  1207</code></pre>
+<p>Predykcji dokonujemy w ten sam sposób co w innych modelach klasyfikacyjnych</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb261-1"></a>pred.knn.class &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb261-2"><a href="metoda-k-najbli-szych-s-siadów.html#cb261-2"></a><span class="kw">head</span>(pred.knn.class)</span></code></pre></div>
+<pre><code>## [1] spam spam spam spam spam spam
+## Levels: email spam</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb263-1"></a>pred.knn &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.knn, <span class="dt">newdata =</span> dt.test)</span>
+<span id="cb263-2"><a href="metoda-k-najbli-szych-s-siadów.html#cb263-2"></a><span class="kw">head</span>(pred.knn)</span></code></pre></div>
+<pre><code>##          email      spam
+## [1,] 0.0000000 1.0000000
+## [2,] 0.3333333 0.6666667
+## [3,] 0.3333333 0.6666667
+## [4,] 0.0000000 1.0000000
+## [5,] 0.3333333 0.6666667
+## [6,] 0.0000000 1.0000000</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb265-1"></a>(tab &lt;-<span class="st"> </span><span class="kw">table</span>(pred.knn.class, dt.test<span class="op">$</span>spam))</span></code></pre></div>
+<pre><code>##               
+## pred.knn.class email spam
+##          email   869   88
+##          spam     59  518</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="metoda-k-najbli-szych-s-siadów.html#cb267-1"></a><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">prop.table</span>(tab)))</span></code></pre></div>
+<pre><code>## [1] 0.9041721</code></pre>
 
 </div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>metrykę można wybierać dowolnie, choć najczęściej jest to metryka euklidesowa<a href="metoda-k-najbli-szych-s-siadów.html#fnref19" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="pochodne-drzew-decyzyjnych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regresja-logistyczna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bayes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="uogólnione-modele-addytywne.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

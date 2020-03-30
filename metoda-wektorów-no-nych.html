@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Klasyfikatory liniowe | Eksploracja danych</title>
+  <title>12 Metoda wektorów nośnych | Eksploracja danych</title>
   <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta property="og:title" content="12 Metoda wektorów nośnych | Eksploracja danych" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dax44.github.io/datamining/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dax44/datamining" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Klasyfikatory liniowe | Eksploracja danych" />
+  <meta name="twitter:title" content="12 Metoda wektorów nośnych | Eksploracja danych" />
   
   <meta name="twitter:description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pochodne-drzew-decyzyjnych.html"/>
-<link rel="next" href="regresja-logistyczna.html"/>
+<link rel="prev" href="uogólnione-modele-addytywne.html"/>
+<link rel="next" href="bibliografia.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -267,79 +267,200 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="klasyfikatory-liniowe" class="section level1">
-<h1><span class="header-section-number">6</span> Klasyfikatory liniowe</h1>
-<p>Obszerną rodzinę klasyfikatorów stanowią modele liniowe (ang. <em>linear classification models</em>). Klasyfikacji w tej rodzinie technik dokonuje się na podstawie modeli funkcji kombinacji liniowej predyktorów. Jest to ujęcie parametryczne, w którym klasyfikacji nowej wartości dokonujemy na podstawie atrybutów obserwacji i wektora parametrów. Uczenie na podstawie zestawu treningowego polega na oszacowaniu parametrów modelu. W odróżnieniu od metod nieparametrycznych postać modelu tym razem jest znana. Każdy klasyfikator liniowy skład się z funkcji wewnętrznej (ang. <em>inner representation function</em>) i funkcji zewnętrznej (ang. <em>outer representation function</em>).
-Pierwsza jest funkcją rzeczywistą parametrów modelu i wartości atrybutów obserwacji
-<span class="math display">\[\begin{equation}
-    g(x) = F(\mathbf{a}(x),\mathbf{w})=\sum_{i=0}^pw_ia_i(x)=\mathbf{w}\circ \mathbf{a}(x),
-\end{equation}\]</span>
-przyjmując, że <span class="math inline">\(a_0(x)=1\)</span>.</p>
-<p>Funkcja zewnętrzna przyporządkowuje binarnie klasy na podstawie wartości funkcji wewnętrznej. Istnieją dwa główne typy tych klasyfikacji:</p>
-<ul>
-<li>brzegowa - przyjmujemy, że funkcje wewnętrzne tworzą granice zbiorów obserwacji różnych klas,</li>
-<li>probabilistyczna - bazująca na tym, że funkcje wewnętrzne mogą pośrednio wykazywać prawdopodobieństwo przynależności do danej klasy.</li>
-</ul>
-<p>Pierwsza dzieli przestrzeń obserwacji za pomocą hiperpłaszczyzn na obszary jednorodne pod względem przynależności do klas. Druga jest próbą parametrycznej reprezentacji prawdopodobieństw przynależności do klas. Klasyfikacji na podstawie prawdopodobieństw można dokonać na różne sposoby, stosując:</p>
-<ul>
-<li>największe prawdopodobieństwo,</li>
-<li>funkcję najmniejszego kosztu błędnej klasyfikacji,</li>
-<li>krzywych ROC (ang. <em>Receiver Operating Characteristic</em> - o tym później).</li>
-</ul>
-<p>Podejście brzegowe lub probabilistyczne prowadzi najczęściej do dwóch typów reprezentacji funkcji zewnętrznej:</p>
-<ul>
-<li>reprezentacji progowej (ang. <em>threshold representation</em>) - najczęściej przy podejściu brzegowym,</li>
-<li>reprezentacji logistycznej (ang. <em>logit representation</em>) - przy podejściu probabilistycznym.</li>
-</ul>
-<div id="reprezentacja-progowa" class="section level2">
-<h2><span class="header-section-number">6.1</span> Reprezentacja progowa</h2>
-<p>W przypadku klasyfikacji dwustanowej, dziedzina jest dzielona na dwa regiony (pozytywny i negatywny) poprzez porównanie funkcji zewnętrznej z wartością progową. Bez straty ogólności można sprawić, że będzie to wartość 0
-<span class="math display">\[\begin{equation}
-    h(x)=H(g(x))= \begin{cases}
-        1, &amp;\text{ jeśli } g(x)\geq 0\\
-        0, &amp;\text{ w przeciwnym przypadku.}
-    \end{cases}
-\end{equation}\]</span>
-Czasami używa się parametryzacji <span class="math inline">\(\{-1,1\}\)</span>.
-Przez porównanie <span class="math inline">\(g(x)\)</span> z 0 definiuje się hiperpłaszczyznę w <span class="math inline">\(p\)</span> wymiarowej przestrzeni, która rozdziela dziedzinę na regiony pozytywne i negatywne. W tym ujęciu mówimy o liniowej separowalności obserwacji różnych klas, jeśli istnieje hiperpłaszczyzna je rozdzielająca.</p>
+<div id="metoda-wektorów-nośnych" class="section level1">
+<h1><span class="header-section-number">12</span> Metoda wektorów nośnych</h1>
+<div id="wprowadzenie" class="section level2">
+<h2><span class="header-section-number">12.1</span> Wprowadzenie</h2>
+<p><strong>Metoda wektorów nośnych</strong><a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> (ang. <em>Support Vector Machines</em>) to kolejna metoda klasyfikacji obserwacji na podstawie cech (atrybutów). Jest techniką z nauczycielem tzn., że w próbie uczącej występują zarówno cechy charakteryzujące badane obiekty jak i ich przynależność do klasy.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm1"></span>
+<img src="images/SVM_Example_of_Hyperplanes.png" alt="Przykład prostych separujących obiekty obu grup" width="356" />
+<p class="caption">
+Rysunek 12.1: Przykład prostych separujących obiekty obu grup
+</p>
 </div>
-<div id="reprezentacja-logitowa" class="section level2">
-<h2><span class="header-section-number">6.2</span> Reprezentacja logitowa</h2>
-<p>Najbardziej popularną reprezentacją parametryczną stosowaną w klasyfikacji jest reprezentacja logitowa
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\frac{e^{g(x)}}{e^{g(x)}+1}.
-\end{equation}\]</span>
-Wówczas <span class="math inline">\(g(x)\)</span> nie reprezentuje bezpośrednio <span class="math inline">\(\P(y=1|x)\)</span> ale jego logit
-<span class="math display">\[\begin{equation}
-    g(x)=\logit(\P(y=1|x)),
-\end{equation}\]</span>
-gdzie <span class="math inline">\(\logit(p)=\ln\frac{p}{1-p}\)</span>. Dlatego właściwa postać reprezentacji jest następująca
-<span class="math display">\[\begin{equation}
-    \P(y=1|x)=\logit^{-1}(g(x)).
-\end{equation}\]</span>
-W ten sposób reprezentacja logitowa jest równoważna reprezentacji progowej, ponieważ
-<span class="math display">\[\begin{equation}
-    g(x)=\ln\frac{\P(y=1|x)}{1-\P(y=1|x)}=\ln\frac{\P(y=1|x)}{\P(y=0|x)}&gt;0.
-\end{equation}\]</span>
-Jednak zaletą reprezentacji logitowej, w porównaniu do progowej, jest to, że można wyznaczyć prawdopodobieństwa przynależności do obu klas. W przypadku klasyfikacji wielostanowej uczymy tyle funkcji <span class="math inline">\(h\)</span> ile jest klas.</p>
 </div>
-<div id="wady-klasyfikatorów-liniowych" class="section level2">
-<h2><span class="header-section-number">6.3</span> Wady klasyfikatorów liniowych</h2>
+<div id="definicja-modelu-dla-klas-liniowo-separowalnych" class="section level2">
+<h2><span class="header-section-number">12.2</span> Definicja modelu dla klas liniowo separowalnych</h2>
+<p>Istotą tej metody jest znalezienie wektorów nośnych, definiujących hiperpowierzchnie optymalnie separujące obiekty w homogeniczne grupy.</p>
+<p>Niech <span class="math inline">\(D\)</span> będzie zbiorem <span class="math inline">\(n\)</span> punktów w <span class="math inline">\(d\)</span>-wymiarowej przestrzeni określonych następująco <span class="math inline">\((\vec{x}_i, y_i)\)</span>, <span class="math inline">\(i=1,\ldots, d\)</span>, gdzie <span class="math inline">\(y_i\)</span> przyjmuje wartości -1 lub 1 w zależności od tego do której grupy należy (zakładamy istnienie tylko dwóch grup). Poszukujemy takiej hiperpłaszczyzny, która maksymalizuje margines pomiędzy punktami obu klas w przestrzeni cech <span class="math inline">\(\vec{x}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm2"></span>
+<img src="images/Svm_max_sep_hyperplane_with_margin.png" alt="Płaszczyzna najlepiej rozdzielająca obiekty obu grup (białe i czarne kropki) wraz z prostymi wyznaczającymi maksymalny margines separujący obie grupy" width="400" />
+<p class="caption">
+Rysunek 12.2: Płaszczyzna najlepiej rozdzielająca obiekty obu grup (białe i czarne kropki) wraz z prostymi wyznaczającymi maksymalny margines separujący obie grupy
+</p>
+</div>
+<p>Margines ten jest określany jako najmniejsza odległość pomiędzy hiperpłaszczyzną i elementami z każdej z grup. Dowolna hiperpłaszczyzna może być zapisana równaniem <span class="math inline">\(\vec{w}\vec{x}-b=0\)</span>, gdzie <span class="math inline">\(\vec{w}\)</span> jest wektorem normalnym do hiperpłaszczyzny. Jeśli dane są liniowo separowalne to, można wybrać takie dwie hiperpłaszczyzny, że odległość pomiędzy nimi jest największa. Równania tych hiperpłaszczyzn dane są wzorami
+<span class="math display" id="eq:hiper1">\[\begin{equation}
+    \vec{w}\vec{x}-b=1, \quad \vec{w}\vec{x}-b=-1
+    \tag{12.1}
+\end{equation}\]</span></p>
+<p>Odległość pomiędzy tymi hiperpłaszczyznami wynosi <span class="math inline">\(\tfrac{2}{\|\vec{w}\|}\)</span>. Zatem żeby zmaksymalizować odległość pomiędzy hiperpłaszczyznami (margines) musimy zminimalizować <span class="math inline">\(\tfrac{\|\vec{w}\|}{2}\)</span>.
+Dodatkowo, żeby nie pozwolić aby punkty wpadały do marginesu musimy nałożyć dodatkowe ograniczenia
+<span class="math display" id="eq:hiper2">\[\begin{align}
+    \vec{w}\vec{x}_i-b\geq&amp; 1, \quad   y_i=1\\
+    \vec{w}\vec{x}_i-b\leq&amp; -1, \quad y_i=-1
+    \tag{12.2}
+\end{align}\]</span>
+Co można zapisać prościej
+<span class="math display" id="eq:hiper3">\[\begin{equation}
+    y_i(\vec{w}\vec{x}_i-b)\geq 1,\quad 1\leq i\leq n.
+    \tag{12.3}
+\end{equation}\]</span>
+Zatem <span class="math inline">\(\vec{w}\)</span> i <span class="math inline">\(b\)</span> minimalizujące <span class="math inline">\(\|\vec{w}\|\)</span> przy jednoczesnym spełnieniu warunku  definiują klasyfikator postaci
+<span class="math display" id="eq:hiper4">\[\begin{equation}
+    \vec{x}\rightarrow \operatorname{sgn}(\vec{w}\vec{x}-b).
+    \tag{12.4}
+\end{equation}\]</span></p>
+<p>Z racji, że <span class="math inline">\(\|\vec{w}\|\)</span> jest określona jako pierwiastek sumy kwadratów poszczególnych współrzędnych wektora, to częściej w minimalizacji stosuje się <span class="math inline">\(\|\vec{w}\|^2\)</span>.</p>
+<p>Sformułowany powyżej problem należy do grupy optymalizacji funkcji kwadratowej przy liniowych ograniczeniach. Rozwiązuje się go metodą mnożników Lagrange’a.</p>
+<p>Minimalizujemy funkcję
+<span class="math display" id="eq:lagrange">\[\begin{equation}
+    L(w, b, \alpha) = \frac{1}{2}\|\vec{w}\|^2-\sum_{i=1}^{n}\alpha_i\big(y_i(\vec{w}\vec{x}_i-b)-1\big),
+    \tag{12.5}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\alpha_i\)</span> są mnożnikami Lagrange’a.</p>
+<p>Niestety rozwiązanie takiego równania różniczkując po <span class="math inline">\(\vec{w}\)</span> i <span class="math inline">\(b\)</span> i przyrównując do zera nie jest łatwe. Dlatego Karush-Kuhn Tucker wprowadzili ograniczenia na mnożniki <span class="math inline">\(\alpha_i\geq 0\)</span> oraz <span class="math inline">\(\alpha_i\big(y_i(\vec{w}\vec{x}_i-b)-1\big)=0\)</span>. Co w konsekwencji powoduje, że <span class="math inline">\(\alpha_i\)</span> są niezerowe jedynie dla wektorów nośnych, a dla pozostałych 0.</p>
+<p>Dalej jednak poszukiwanie rozwiązania zagadnienia minimalizacji funkcji <span class="math inline">\(L\)</span> ze względu na tak wiele parametrów może być uciążliwe. Wówczas stosuje się maksymalizację dualnej wersji<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>
+<span class="math display" id="eq:lagrange2">\[\begin{equation}
+    L_D(\alpha) = \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\vec{x}_i&#39;\vec{x}_j
+    \tag{12.6}
+\end{equation}\]</span>
+przy ograniczeniach <span class="math inline">\(\alpha_i\geq 0\)</span> i <span class="math inline">\(\sum_{i=1}^{n}\alpha_iy_i=0\)</span>.</p>
+<p>Rozwiązaniem powyższego zagadnienia jest
+<span class="math display" id="eq:lagrange4" id="eq:lagrange3">\[\begin{align}
+    \vec{w}=&amp;\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i,\tag{12.7}\\
+        b=&amp;y_i-\vec{w}\vec{x}_i,
+        \tag{12.8}
+\end{align}\]</span>
+a hiperpłaszczyzna decyzyjna
+<span class="math display" id="eq:hiper5">\[\begin{equation}
+\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i\vec{x}-b=0,
+\tag{12.9}
+\end{equation}\]</span>
+gdzie <span class="math inline">\(\vec{x}_i\)</span> są wektorami nośnymi ze zbioru uczącego, a <span class="math inline">\(\vec{x}\)</span> jest nowym wektorem dla którego przeprowadzamy klasyfikację.
+Należy również zauważyć, że im większa wartość <span class="math inline">\(\alpha_i\)</span>, tym większy wpływ wektora na granicę decyzyjną.</p>
+</div>
+<div id="definicja-modelu-dla-klas-nieliniowo-separowalnych" class="section level2">
+<h2><span class="header-section-number">12.3</span> Definicja modelu dla klas nieliniowo separowalnych</h2>
+<p>Niestety rzadko przestrzeń atrybutów jest liniowo separowalna. Stosuje się wówczas modyfikację powyższej metody przez wprowadzenie następującej funkcji straty
+<span class="math display" id="eq:strata1">\[\begin{equation}
+    \zeta_i=\max\big(0,1-y_i(\vec{w}\vec{x}_i-b)\big).
+    \tag{12.10}
+\end{equation}\]</span>
+Zauważmy, że <span class="math inline">\(\zeta_i\)</span> jest najmniejszą liczbą nieujemną spełniającą nierówność
+<span class="math display" id="eq:nier">\[\begin{equation}
+    y_i(\vec{w}\vec{x}_i-b)\geq 1-\zeta_i.
+    \tag{12.11}
+\end{equation}\]</span>
+Możemy ją interpretować tak, że jeśli warunek <a href="metoda-wektorów-no-nych.html#eq:hiper3">(12.3)</a> jest spełniony, czyli punkty leżą na zewnątrz marginesu (po właściwych stronach), to funkcja straty przyjmuje wartość 0. W przeciwnym przypadku wartość funkcji jest proporcjonalna do odległości od brzegu marginesu. Dlatego wystarczy zminimalizować wartość
+<span class="math display" id="eq:strata2">\[\begin{equation}
+    \frac{1}{n}\sum_{i=1}^{n}\zeta_i+\lambda\|\vec{w}\|^2,
+    \tag{12.12}
+\end{equation}\]</span>
+przy warunku <a href="metoda-wektorów-no-nych.html#eq:nier">(12.11)</a> i <span class="math inline">\(\zeta_i\geq 0\)</span> oraz gdzie <span class="math inline">\(\lambda\)</span> jest wagą kompromisu pomiędzy szerokością marginesu a zapewnieniem, że punkty leżą po właściwych stronach marginesu. Przy dostatecznie małych wartościach <span class="math inline">\(\lambda\)</span> i separowalności liniowej punktów przestrzeni atrybutów powyższy klasyfikator będzie się zachowywał podobnie jak <a href="metoda-wektorów-no-nych.html#eq:hiper4">(12.4)</a>.</p>
+<p>Rozwiązanie problemu minimalizacji funkcji straty określonej w <a href="metoda-wektorów-no-nych.html#eq:strata2">(12.12)</a> za pomocą dualnej wersji mnożników Lagrange’a sprowadza się do minimalizacji funkcji
+<span class="math display" id="eq:strata3">\[\begin{equation}
+    L(\alpha_i) = \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\vec{x}_i&#39;\vec{x}_j,
+\tag{12.13}  
+\end{equation}\]</span>
+przy warunkach
+<span class="math display" id="eq:nier2">\[\begin{equation}
+    \sum_{i=1}^{n}\alpha_iy_i=0,\quad 0\leq \alpha_i\leq \frac{1}{2n\lambda}.
+    \tag{12.14}
+\end{equation}\]</span>
+Wektor normalny do hiperpłaszczyzny jest postaci
+<span class="math display" id="eq:wagi2">\[\begin{equation}
+    \vec{w}=\sum_{i=1}^{n}\alpha_iy_i\vec{x}_i,
+    \tag{12.15}
+\end{equation}\]</span>
+a parametr <span class="math inline">\(b\)</span> taki jak w <a href="metoda-wektorów-no-nych.html#eq:lagrange4">(12.8)</a>.</p>
+<p>Powyższy algorytm został przedstawiony przez Vapnika w 1963 roku jako klasyfikator liniowy ale dopiero po wprowadzeniu funkcji jądrowych przekształcających liniowy brzeg decyzyjny na nieliniowy, metoda ta zyskała w oczach statystyków.</p>
+</div>
+<div id="definicja-modelu-jądrowego" class="section level2">
+<h2><span class="header-section-number">12.4</span> Definicja modelu jądrowego</h2>
+<p>W roku 1992 Boser, Guyon i Vapnik wprowadzili pojęcie nieliniowego klasyfikatora opartego na metodzie wektorów nośnych, który było uogólnieniem techniki przedstawionej przez Vapnika w 1963 roku. Pozwala ona na nieliniowy kształt brzegu obszaru decyzyjnego.</p>
+<p>Zasada działania polega na znalezieniu takiego jądra przekształcenia (ang. <em>kernel</em>) <span class="math inline">\(\phi\)</span>, które odwzoruje przestrzeń <span class="math inline">\(d\)</span>-wymiarową w <span class="math inline">\(d&#39;\)</span>-wymiarową, gdzie <span class="math inline">\(d&#39;&gt;d\)</span> taką, że <span class="math inline">\(D_{\phi}=\{\phi(\vec{x}_i), y_i\}\)</span> jest możliwie jak najbardziej separowalna.</p>
+<div class="figure" style="text-align: center"><span id="fig:svm3"></span>
+<img src="images/Kernel_Machine.png" alt="Przykład zastosowania takiego przekształcenia jądrowego aby z sytuacji braku liniowej separowalności do niej doprowadzić" width="484" />
+<p class="caption">
+Rysunek 12.3: Przykład zastosowania takiego przekształcenia jądrowego aby z sytuacji braku liniowej separowalności do niej doprowadzić
+</p>
+</div>
+<p>Dla funkcji jądrowej określonej wzorem <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\phi(\vec{x}_i)\phi(\vec{x}_j)\)</span> przeprowadzamy identyczne rozumowanie jak w przypadku liniowych brzegów obszarów decyzyjnych.
+Minimalizujemy zatem wyrażenie
+<span class="math display" id="eq:strata4">\[\begin{align}
+    L(\alpha_i) =&amp; \sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_j\phi(\vec{x}_i)\phi(\vec{x}_j)\\
+        =&amp;\sum_{i=1}^{n}\alpha_i+\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_jy_iy_jk(\vec{x}_i,\vec{x}_j),
+        \tag{12.16}
+\end{align}\]</span>
+przy warunkach
+<span class="math display" id="eq:nier3">\[\begin{equation}
+    \sum_{i=1}^{n}\alpha_iy_i=0,\quad 0\leq \alpha_i\leq \frac{1}{2n\lambda}.
+    \tag{12.17}
+\end{equation}\]</span>
+Rozwiązanie powyższego problemu są również podobne do ich liniowych odpowiedników
+<span class="math display" id="eq:wagi3">\[\begin{equation}
+    \vec{w}=\sum_{i=1}^{n}\alpha_iy_i\phi(\vec{x}_i),
+    \tag{12.18}
+\end{equation}\]</span>
+a parametr <span class="math inline">\(b=\vec{w}\phi(\vec{x}_i)-y_i\)</span>.</p>
+<p>Najczęściej stosowanymi funkcjami jądrowymi są:</p>
 <ul>
-<li>tylko w przypadku prostych funkcji wewnętrznych jesteśmy w stanie ocenić wpływ poszczególnych predykorów na klasyfikację,</li>
-<li>jakość predykcji zależy od doboru funkcji wewnętrznej (liniowa w ścisłym sensie jest najczęściej niewystarczająca),</li>
-<li>nie jest w stanie klasyfikować poprawnie stanów (nie jest liniowo separowalna) w zagadnieniach typu XOR.</li>
+<li>wielomianowa <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=(a\vec{x}_i&#39;\vec{x}_j+b)^q\)</span>,</li>
+<li>gaussowska <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\exp(-\gamma\|\vec{x}_i-\vec{x}_j\|^2)\)</span>,</li>
+<li>Laplace’a <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\exp(-\gamma\|\vec{x}_i-\vec{x}_j\|)\)</span>,</li>
+<li>hiperboliczna <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\tanh(\vec{x}_i&#39;\vec{x}_j+b)\)</span>,</li>
+<li>sigmoidalna <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\tanh(a\vec{x}_i&#39;\vec{x}_j+b)\)</span>,</li>
+<li>Bessel’a <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\frac{Bessel^n_{(\nu+1)}(\sigma\|\vec{x}_i-\vec{x}_j\|)}{(\|\vec{x}_i-\vec{x}_j\|)^{n(\nu+1)}}\)</span>,</li>
+<li>ANOVA <span class="math inline">\(k(\vec{x}_i,\vec{x}_j)=\left(\sum_{k=1}^{n}\exp\big(-\sigma(x^k_i-x^k_j)^2\big)\right)^d\)</span>,</li>
+<li>sklejana dla jednowymiarowej przestrzeni <span class="math inline">\(k(x_i,x_j)=1+x_ix_j\min(x_i,x_j)-\frac{x_i+x_j}{2}\big(\min(x_i,x_j)\big)^2+\frac{(\min(x_i,x_j))^3}{3}\)</span>.</li>
+</ul>
+<p>W przypadku braku wiedzy o danych funkcja gaussowska, Laplace’a i Bessel’a są zalecane.</p>
+<p><strong>Przykłady obszarów zastosowań:</strong></p>
+<ul>
+<li>w kategoryzacji tekstu i hipertekstu;</li>
+<li>klasyfikacji obrazów - rezultaty eksperymentów pokazują, że SVM daje lepsze rezultaty niż inne techniki;</li>
+<li>rozpoznawanie obiektów 3D;</li>
+<li>odnajdowanie włamań do systemu;</li>
+<li>rozpoznawanie pisma ręcznego;</li>
+<li>odkrywanie ukrytych treści na zdjęciach;</li>
+<li>klasyfikacja protein;</li>
+<li>odnajdowanie sekwencji kodu genetycznego</li>
+<li>itp…</li>
+</ul>
+</div>
+<div id="zalety-i-wady-2" class="section level2">
+<h2><span class="header-section-number">12.5</span> Zalety i wady</h2>
+<p>Mocne strony:</p>
+<ul>
+<li>stopień skomplikowania nie jest zależny od wymiaru przestrzeni atrybutów;</li>
+<li>optymalny klasyfikator (znajduje minimum globalne);</li>
+<li>nie jest czuły na przetrenowanie;</li>
+<li>bardzo duża skuteczność w praktyce.</li>
+</ul>
+<p>Słabe strony:</p>
+<ul>
+<li>przy dużej ilości danych estymacja modelu może trwać długo;</li>
+<li>estymacja poprawnego modelu wymaga pewnej wiedzy;</li>
+<li>nie ma miejsca na wprowadzenie własnej wiedzy.</li>
 </ul>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="21">
+<li id="fn21"><p>lub podpierających<a href="metoda-wektorów-no-nych.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>w przypadku przestrzeni wypukłej oba rozwiązania się pokrywają<a href="metoda-wektorów-no-nych.html#fnref22" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="pochodne-drzew-decyzyjnych.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regresja-logistyczna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="uogólnione-modele-addytywne.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

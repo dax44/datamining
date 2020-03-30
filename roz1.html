@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Import danych | Eksploracja danych</title>
-  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Książka stanowi materiał źródłowy do przeprowadzenia przedmiotu Eksploracja Danych." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Import danych | Eksploracja danych" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2020-03-11" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="przygotowanie-danych.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="przygotowanie-danych.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,26 +68,27 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +97,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -146,46 +149,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-ksiazce"><i class="fa fa-check"></i>O książce</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#o-książce"><i class="fa fa-check"></i>O książce</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-przedmiotu"><i class="fa fa-check"></i>Zakres przedmiotu</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#zakres-technik-stosowanych-w-data-mining"><i class="fa fa-check"></i>Zakres technik stosowanych w data mining</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etapy-eksploracji-danych"><i class="fa fa-check"></i>Etapy eksploracji danych</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="roz1.html"><a href="roz1.html"><i class="fa fa-check"></i><b>1</b> Import danych</a></li>
 <li class="chapter" data-level="2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html"><i class="fa fa-check"></i><b>2</b> Przygotowanie danych</a><ul>
-<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-brakow-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
-<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastepowanie-brakow-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
+<li class="chapter" data-level="2.1" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#identyfikacja-braków-danych"><i class="fa fa-check"></i><b>2.1</b> Identyfikacja braków danych</a></li>
+<li class="chapter" data-level="2.2" data-path="przygotowanie-danych.html"><a href="przygotowanie-danych.html#zastępowanie-braków-danych"><i class="fa fa-check"></i><b>2.2</b> Zastępowanie braków danych</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html"><i class="fa fa-check"></i><b>3</b> Podział metod data mining</a><ul>
 <li class="chapter" data-level="3.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#rodzaje-wnioskowania"><i class="fa fa-check"></i><b>3.1</b> Rodzaje wnioskowania</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#dziedzina"><i class="fa fa-check"></i><b>3.1.1</b> Dziedzina</a></li>
 <li class="chapter" data-level="3.1.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#obserwacja"><i class="fa fa-check"></i><b>3.1.2</b> Obserwacja</a></li>
 <li class="chapter" data-level="3.1.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#atrybuty-obserwacji"><i class="fa fa-check"></i><b>3.1.3</b> Atrybuty obserwacji</a></li>
-<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-uczacy"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
-<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbior-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
+<li class="chapter" data-level="3.1.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-uczący"><i class="fa fa-check"></i><b>3.1.4</b> Zbiór uczący</a></li>
+<li class="chapter" data-level="3.1.5" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#zbiór-testowy"><i class="fa fa-check"></i><b>3.1.5</b> Zbiór testowy</a></li>
 <li class="chapter" data-level="3.1.6" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#model"><i class="fa fa-check"></i><b>3.1.6</b> Model</a></li>
-<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakosc-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
+<li class="chapter" data-level="3.1.7" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#jakość-dopasowania-modelu"><i class="fa fa-check"></i><b>3.1.7</b> Jakość dopasowania modelu</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-regresyjne"><i class="fa fa-check"></i><b>3.2</b> Modele regresyjne</a></li>
 <li class="chapter" data-level="3.3" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-klasyfikacyjne"><i class="fa fa-check"></i><b>3.3</b> Modele klasyfikacyjne</a></li>
-<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujace"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
+<li class="chapter" data-level="3.4" data-path="podzia-metod-data-mining.html"><a href="podzia-metod-data-mining.html#modele-grupujące"><i class="fa fa-check"></i><b>3.4</b> Modele grupujące</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html"><i class="fa fa-check"></i><b>4</b> Drzewa decyzyjne</a><ul>
-<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wezy-i-gaezie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
-<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-regu-podziau"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
-<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-ciagej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
-<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziay-dla-atrybutow-ze-skali-porzadkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
+<li class="chapter" data-level="4.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#węzły-i-gałęzie"><i class="fa fa-check"></i><b>4.1</b> Węzły i gałęzie</a></li>
+<li class="chapter" data-level="4.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#rodzaje-reguł-podziału"><i class="fa fa-check"></i><b>4.2</b> Rodzaje reguł podziału</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-nominalnej"><i class="fa fa-check"></i><b>4.2.1</b> Podziały dla atrybutów ze skali nominalnej</a></li>
+<li class="chapter" data-level="4.2.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-ciągłej"><i class="fa fa-check"></i><b>4.2.2</b> Podziały dla atrybutów ze skali ciągłej</a></li>
+<li class="chapter" data-level="4.2.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#podziały-dla-atrybutów-ze-skali-porządkowej"><i class="fa fa-check"></i><b>4.2.3</b> Podziały dla atrybutów ze skali porządkowej</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#algorytm-budowy-drzewa"><i class="fa fa-check"></i><b>4.3</b> Algorytm budowy drzewa</a></li>
 <li class="chapter" data-level="4.4" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#kryteria-zatrzymania"><i class="fa fa-check"></i><b>4.4</b> Kryteria zatrzymania</a></li>
-<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguy-podziau"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
+<li class="chapter" data-level="4.5" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#reguły-podziału"><i class="fa fa-check"></i><b>4.5</b> Reguły podziału</a></li>
 <li class="chapter" data-level="4.6" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-drzewa-decyzyjnego"><i class="fa fa-check"></i><b>4.6</b> Przycinanie drzewa decyzyjnego</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujace-bad"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
-<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujace-bad"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
-<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-wzgledu-na-wspoczynnik-zozonosci-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
+<li class="chapter" data-level="4.6.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-redukujące-błąd"><i class="fa fa-check"></i><b>4.6.1</b> Przycinanie redukujące błąd</a></li>
+<li class="chapter" data-level="4.6.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-minimalizujące-błąd"><i class="fa fa-check"></i><b>4.6.2</b> Przycinanie minimalizujące błąd</a></li>
+<li class="chapter" data-level="4.6.3" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#przycinanie-ze-względu-na-współczynnik-złożoności-drzewa"><i class="fa fa-check"></i><b>4.6.3</b> Przycinanie ze względu na współczynnik złożoności drzewa</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsuga-brakow-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
+<li class="chapter" data-level="4.7" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#obsługa-braków-danych"><i class="fa fa-check"></i><b>4.7</b> Obsługa braków danych</a></li>
 <li class="chapter" data-level="4.8" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety-i-wady"><i class="fa fa-check"></i><b>4.8</b> Zalety i wady</a><ul>
 <li class="chapter" data-level="4.8.1" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#zalety"><i class="fa fa-check"></i><b>4.8.1</b> Zalety</a></li>
 <li class="chapter" data-level="4.8.2" data-path="drzewa-decyzyjne.html"><a href="drzewa-decyzyjne.html#wady"><i class="fa fa-check"></i><b>4.8.2</b> Wady</a></li>
@@ -200,48 +203,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html"><i class="fa fa-check"></i><b>6</b> Klasyfikatory liniowe</a><ul>
 <li class="chapter" data-level="6.1" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-progowa"><i class="fa fa-check"></i><b>6.1</b> Reprezentacja progowa</a></li>
 <li class="chapter" data-level="6.2" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#reprezentacja-logitowa"><i class="fa fa-check"></i><b>6.2</b> Reprezentacja logitowa</a></li>
-<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorow-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
+<li class="chapter" data-level="6.3" data-path="klasyfikatory-liniowe.html"><a href="klasyfikatory-liniowe.html#wady-klasyfikatorów-liniowych"><i class="fa fa-check"></i><b>6.3</b> Wady klasyfikatorów liniowych</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html"><i class="fa fa-check"></i><b>7</b> Regresja logistyczna</a><ul>
 <li class="chapter" data-level="7.1" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#model-1"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
-<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrow-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
+<li class="chapter" data-level="7.2" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#estymacja-parametrów-modelu"><i class="fa fa-check"></i><b>7.2</b> Estymacja parametrów modelu</a></li>
 <li class="chapter" data-level="7.3" data-path="regresja-logistyczna.html"><a href="regresja-logistyczna.html#interpretacja"><i class="fa fa-check"></i><b>7.3</b> Interpretacja</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="LDA.html"><a href="LDA.html"><i class="fa fa-check"></i><b>8</b> Analiza dyskryminacyjna</a><ul>
 <li class="chapter" data-level="8.1" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna-fishera"><i class="fa fa-check"></i><b>8.1</b> Liniowa analiza dyskryminacyjna Fisher’a</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
-<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupujacej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.1" data-path="LDA.html"><a href="LDA.html#dwie-kategorie-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.1</b> Dwie kategorie zmiennej grupującej</a></li>
+<li class="chapter" data-level="8.1.2" data-path="LDA.html"><a href="LDA.html#k-kategorii-zmiennej-grupującej"><i class="fa fa-check"></i><b>8.1.2</b> <span class="math inline">\(k\)</span>-kategorii zmiennej grupującej</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejscie-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
+<li class="chapter" data-level="8.2" data-path="LDA.html"><a href="LDA.html#liniowa-analiza-dyskryminacyjna---podejście-probabilistyczne"><i class="fa fa-check"></i><b>8.2</b> Liniowa analiza dyskryminacyjna - podejście probabilistyczne</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="LDA.html"><a href="LDA.html#przypI"><i class="fa fa-check"></i><b>8.2.1</b> Przypadek gdy <span class="math inline">\(\boldsymbol{\Sigma}_i=\sigma^2I\)</span></a></li>
 <li class="chapter" data-level="8.2.2" data-path="LDA.html"><a href="LDA.html#przypSig"><i class="fa fa-check"></i><b>8.2.2</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i=\boldsymbol \Sigma\)</span></a></li>
 <li class="chapter" data-level="8.2.3" data-path="LDA.html"><a href="LDA.html#przypadek-gdy-boldsymbol-sigma_i-jest-dowolnej-postaci"><i class="fa fa-check"></i><b>8.2.3</b> Przypadek gdy <span class="math inline">\(\boldsymbol \Sigma_i\)</span> jest dowolnej postaci</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metoda-czesciowych-najmniejszych-kwadratow"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
+<li class="chapter" data-level="8.3" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-metodą-częściowych-najmniejszych-kwadratów"><i class="fa fa-check"></i><b>8.3</b> Analiza dyskryminacyjna metodą częściowych najmniejszych kwadratów</a></li>
 <li class="chapter" data-level="8.4" data-path="LDA.html"><a href="LDA.html#regularyzowana-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.4</b> Regularyzowana analiza dyskryminacyjna</a></li>
 <li class="chapter" data-level="8.5" data-path="LDA.html"><a href="LDA.html#analiza-dyskryminacyjna-mieszana"><i class="fa fa-check"></i><b>8.5</b> Analiza dyskryminacyjna mieszana</a></li>
 <li class="chapter" data-level="8.6" data-path="LDA.html"><a href="LDA.html#elastyczna-analiza-dyskryminacyjna"><i class="fa fa-check"></i><b>8.6</b> Elastyczna analiza dyskryminacyjna</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bayes.html"><a href="bayes.html"><i class="fa fa-check"></i><b>9</b> Klasyfikatory bayesowskie</a><ul>
 <li class="chapter" data-level="9.1" data-path="bayes.html"><a href="bayes.html#klasyfikator-maximum-a-posteriori-map"><i class="fa fa-check"></i><b>9.1</b> Klasyfikator maximum a posteriori (MAP)</a></li>
-<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-najwiekszej-wiarogodnosci-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
+<li class="chapter" data-level="9.2" data-path="bayes.html"><a href="bayes.html#klasyfikator-największej-wiarogodności-ml"><i class="fa fa-check"></i><b>9.2</b> Klasyfikator największej wiarogodności (ML)</a></li>
 <li class="chapter" data-level="9.3" data-path="bayes.html"><a href="bayes.html#naiwny-klasyfikator-bayesa-nb"><i class="fa fa-check"></i><b>9.3</b> Naiwny klasyfikator Bayesa (NB)</a></li>
 <li class="chapter" data-level="9.4" data-path="bayes.html"><a href="bayes.html#zalety-i-wady-1"><i class="fa fa-check"></i><b>9.4</b> Zalety i wady</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metoda-k-najblizszych-sasiadow.html"><a href="metoda-k-najblizszych-sasiadow.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
-<li class="chapter" data-level="11" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
-<li class="chapter" data-level="11.2" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
-<li class="chapter" data-level="11.3" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#uogolnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="uogolnione-modele-addytywne.html"><a href="uogolnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
+<li class="chapter" data-level="10" data-path="metoda-k-najbli-szych-s-siadów.html"><a href="metoda-k-najbli-szych-s-siadów.html"><i class="fa fa-check"></i><b>10</b> Metoda <span class="math inline">\(k\)</span> najbliższych sąsiadów</a></li>
+<li class="chapter" data-level="11" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html"><i class="fa fa-check"></i><b>11</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-jednowymiarowy"><i class="fa fa-check"></i><b>11.1</b> Przypadek jednowymiarowy</a></li>
+<li class="chapter" data-level="11.2" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#przypadek-wielowymiarowy"><i class="fa fa-check"></i><b>11.2</b> Przypadek wielowymiarowy</a></li>
+<li class="chapter" data-level="11.3" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#uogólnione-modele-addytywne-1"><i class="fa fa-check"></i><b>11.3</b> Uogólnione modele addytywne</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="uogólnione-modele-addytywne.html"><a href="uogólnione-modele-addytywne.html#algorytm-uczenia-modelu-gam"><i class="fa fa-check"></i><b>11.3.1</b> Algorytm uczenia modelu GAM</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
-<li class="chapter" data-level="12.1" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
-<li class="chapter" data-level="12.2" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
-<li class="chapter" data-level="12.3" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
-<li class="chapter" data-level="12.4" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#definicja-modelu-jadrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
-<li class="chapter" data-level="12.5" data-path="metoda-wektorow-nosnych.html"><a href="metoda-wektorow-nosnych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
+<li class="chapter" data-level="12" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html"><i class="fa fa-check"></i><b>12</b> Metoda wektorów nośnych</a><ul>
+<li class="chapter" data-level="12.1" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#wprowadzenie"><i class="fa fa-check"></i><b>12.1</b> Wprowadzenie</a></li>
+<li class="chapter" data-level="12.2" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-liniowo-separowalnych"><i class="fa fa-check"></i><b>12.2</b> Definicja modelu dla klas liniowo separowalnych</a></li>
+<li class="chapter" data-level="12.3" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-dla-klas-nieliniowo-separowalnych"><i class="fa fa-check"></i><b>12.3</b> Definicja modelu dla klas nieliniowo separowalnych</a></li>
+<li class="chapter" data-level="12.4" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#definicja-modelu-jądrowego"><i class="fa fa-check"></i><b>12.4</b> Definicja modelu jądrowego</a></li>
+<li class="chapter" data-level="12.5" data-path="metoda-wektorów-no-nych.html"><a href="metoda-wektorów-no-nych.html#zalety-i-wady-2"><i class="fa fa-check"></i><b>12.5</b> Zalety i wady</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografia.html"><a href="bibliografia.html"><i class="fa fa-check"></i>Bibliografia</a></li>
 <li class="divider"></li>
@@ -266,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="roz1" class="section level1">
 <h1><span class="header-section-number">1</span> Import danych</h1>
-<p>Środowisko <strong>R</strong> pozwala na import i export plików o różnych rozszerzeniach (<code>txt, csv, xls, xlsx, sav, xpt, dta</code>, itd.)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. W tym celu czasami trzeba zainstalować pakiety rozszerzające podstawowe możliwości R-a. Najnowsza<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> wersja programu <a href="https://www.rstudio.com">RStudio</a> (v. 1.1.463)<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> pozwala na wczytanie danych z popularnych źródeł za pomocą GUI.</p>
+<p>Środowisko <strong>R</strong> pozwala na import i export plików o różnych rozszerzeniach (<code>txt, csv, xls, xlsx, sav, xpt, dta</code>, itd.)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. W tym celu czasami trzeba zainstalować pakiety rozszerzające podstawowe możliwości R-a. Najnowsza<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> wersja programu <a href="https://www.rstudio.com">RStudio</a> (v. 1.1.463)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> pozwala na wczytanie danych z popularnych źródeł za pomocą GUI.</p>
 <div class="figure"><span id="fig:import1"></span>
 <img src="images/import.JPG" alt="Narzędzie do importu plików programu RStudio" width="458" />
 <p class="caption">
@@ -274,8 +277,9 @@ Rysunek 1.1: Narzędzie do importu plików programu RStudio
 </p>
 </div>
 <p>Jeśli dane są zapisane w trybie tekstowym (np. <code>txt</code>, <code>csv</code>), to wczytujemy je w następujący sposób</p>
-<pre class="sourceCode r"><code class="sourceCode r">dane1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/dane1.txt&quot;</span>, <span class="dt">header =</span> T)
-<span class="kw">head</span>(dane1)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="roz1.html#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="roz1.html#cb1-2"></a>dane1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/dane1.txt&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb1-3"><a href="roz1.html#cb1-3"></a><span class="kw">head</span>(dane1)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -283,8 +287,8 @@ Rysunek 1.1: Narzędzie do importu plików programu RStudio
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dane2 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/dane1.csv&quot;</span>, <span class="dt">header =</span> T)
-<span class="kw">head</span>(dane2)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="roz1.html#cb3-1"></a>dane2 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/dane1.csv&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb3-2"><a href="roz1.html#cb3-2"></a><span class="kw">head</span>(dane2)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -292,11 +296,11 @@ Rysunek 1.1: Narzędzie do importu plików programu RStudio
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># funkcja pakietu readr wczytuje plik jako ramkę danych w formacie tibble</span>
-<span class="co"># pakiet readr jest częsią większego pakietu tidyverse, </span>
-<span class="co"># który został wczytany wczsniej</span>
-dane3 &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;data/dane1.csv&quot;</span>)
-dane3</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="roz1.html#cb5-1"></a><span class="co"># funkcja pakietu readr wczytuje plik jako ramkę danych w formacie tibble</span></span>
+<span id="cb5-2"><a href="roz1.html#cb5-2"></a><span class="co"># pakiet readr jest częsią większego pakietu tidyverse, </span></span>
+<span id="cb5-3"><a href="roz1.html#cb5-3"></a><span class="co"># który został wczytany wczsniej</span></span>
+<span id="cb5-4"><a href="roz1.html#cb5-4"></a>dane3 &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;data/dane1.csv&quot;</span>)</span>
+<span id="cb5-5"><a href="roz1.html#cb5-5"></a>dane3</span></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
@@ -313,71 +317,71 @@ dane3</code></pre>
 ## # ... with 140 more rows</code></pre>
 <p>Jeśli dane są przechowywane w pliku Excel (np. <code>xlsx</code>), to importujemy je za pomocą funkcji <code>read_excel</code> pakietu <code>readxl</code>. Domyślnie jest wczytywany arkusz pierwszy ale jeśli zachodzi taka potrzeba, to można ustalić, który arkusz pliku Excel ma być wczytany za pomocą paramteru <code>sheet</code>, np. <code>sheet=3</code>, co oznacza, że zostanie wczytany trzeci arkusz pliku.</p>
 <div class="figure"><span id="fig:excel"></span>
-<img src="images/excel.JPG" alt="Fragment pliku Excel" width="204" />
+<img src="images/excel.JPG" alt="Fragment pliku Excel" width="561" />
 <p class="caption">
 Rysunek 1.2: Fragment pliku Excel
 </p>
 </div>
 <p>Ponieważ w pliku <code>dane1.xlsx</code> braki danych zostały zakodowane znakami <code>BD</code> oraz <code>-</code>, to należy ten fakt przekazać funkcji, aby poprawnie wczytać braki danych. W przeciwnym przypadku zmienne zawierające braki tak kodowane, będą wczytane jako zmienne znakowe.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-dane4 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/dane1.xlsx&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;BD&quot;</span>, <span class="st">&quot;-&quot;</span>))
-dane4</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="roz1.html#cb7-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb7-2"><a href="roz1.html#cb7-2"></a>dane4 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/dane1.xlsx&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;BD&quot;</span>, <span class="st">&quot;-&quot;</span>))</span>
+<span id="cb7-3"><a href="roz1.html#cb7-3"></a>dane4</span></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
-##    `Długość kielic~ `Szerokość kiel~ `Długość płatka` `Szerokość płat~
-##               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1              5.1              3.5              1.4              0.2
-##  2              4.9              3                1.4              0.2
-##  3              4.7              3.2              1.3              0.2
-##  4              4.6              3.1              1.5              0.2
-##  5              5                3.6              1.4              0.2
-##  6              5.4              3.9              1.7              0.4
-##  7             NA               NA                1.4              0.3
-##  8              5                3.4              1.5              0.2
-##  9              4.4              2.9              1.4              0.2
-## 10              4.9              3.1              1.5              0.1
-## # ... with 140 more rows, and 1 more variable: Gatunki &lt;chr&gt;</code></pre>
-<p>Istniej oczywiście jeszcze wiele innych fomatów danych, charakterystycznych dla programów, w których są traktowane jako domyślne.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> W szczególny sposób należy zwrócić uwagę na pliki o rozszerzeniu <code>RData</code> lub <code>rda</code><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> oraz pliki <code>rds</code>. Pliki <code>rda</code> służą do przechowywania obiektów programu <code>R</code>. Mogą to być pliki danych ale również obiekty graficzne (typu wyniki funkcji <code>ggplot</code>), modele (np. wynik funkcji <code>lm()</code>), zdefiniowane funkcje i wszystkie inne obiekty, które da się zapisać w środowisku <code>R</code>. Ponadto pliki <code>rda</code> pozawalają na zapisanie wielu obiektów w jednym pliku. Pliki o rozszerzeniu <code>rds</code> mają podobną funkcję z tym, że pozwalają na przechowywanie tylko jednego obiektu.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wszystkie wczytane wcześniej pliki zapisuje w jednym pliku</span>
-<span class="kw">save</span>(dane1, dane2, dane3, dane4, <span class="dt">file =</span> <span class="st">&quot;data/dane.rda&quot;</span>)
-<span class="co"># plik rda został zapisany</span>
-<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/&quot;</span>)</code></pre>
-<pre><code>## [1] &quot;algae.csv&quot;    &quot;Analysis.txt&quot; &quot;dane.rda&quot;     &quot;dane1.csv&quot;   
-## [5] &quot;dane1.txt&quot;    &quot;dane1.xlsx&quot;   &quot;dane4.rds&quot;    &quot;dane4.sav&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># usuwam dane ze środowiska R</span>
-<span class="kw">rm</span>(dane1, dane2, dane3, dane4)
-<span class="co"># sprawdzam co jest wczytane do R</span>
-<span class="kw">ls</span>()</code></pre>
+##    `Długość kielich~ `Szerokość kieli~ `Długość płatka` `Szerokość płat~ Gatunki
+##                &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  
+##  1               5.1               3.5              1.4              0.2 setosa 
+##  2               4.9               3                1.4              0.2 setosa 
+##  3               4.7               3.2              1.3              0.2 setosa 
+##  4               4.6               3.1              1.5              0.2 setosa 
+##  5               5                 3.6              1.4              0.2 setosa 
+##  6               5.4               3.9              1.7              0.4 setosa 
+##  7              NA                NA                1.4              0.3 setosa 
+##  8               5                 3.4              1.5              0.2 &lt;NA&gt;   
+##  9               4.4               2.9              1.4              0.2 setosa 
+## 10               4.9               3.1              1.5              0.1 setosa 
+## # ... with 140 more rows</code></pre>
+<p>Istniej oczywiście jeszcze wiele innych fomatów danych, charakterystycznych dla programów, w których są traktowane jako domyślne.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> W szczególny sposób należy zwrócić uwagę na pliki o rozszerzeniu <code>RData</code> lub <code>rda</code><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> oraz pliki <code>rds</code>. Pliki <code>rda</code> służą do przechowywania obiektów programu <code>R</code>. Mogą to być pliki danych ale również obiekty graficzne (typu wyniki funkcji <code>ggplot</code>), modele (np. wynik funkcji <code>lm()</code>), zdefiniowane funkcje i wszystkie inne obiekty, które da się zapisać w środowisku <code>R</code>. Ponadto pliki <code>rda</code> pozawalają na zapisanie wielu obiektów w jednym pliku. Pliki o rozszerzeniu <code>rds</code> mają podobną funkcję z tym, że pozwalają na przechowywanie tylko jednego obiektu.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="roz1.html#cb9-1"></a><span class="co"># wszystkie wczytane wcześniej pliki zapisuje w jednym pliku</span></span>
+<span id="cb9-2"><a href="roz1.html#cb9-2"></a><span class="kw">save</span>(dane1, dane2, dane3, dane4, <span class="dt">file =</span> <span class="st">&quot;data/dane.rda&quot;</span>)</span>
+<span id="cb9-3"><a href="roz1.html#cb9-3"></a><span class="co"># plik rda został zapisany</span></span>
+<span id="cb9-4"><a href="roz1.html#cb9-4"></a><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;algae.csv&quot;    &quot;Analysis.txt&quot; &quot;dane.rda&quot;     &quot;dane1.csv&quot;    &quot;dane1.txt&quot;   
+## [6] &quot;dane1.xlsx&quot;   &quot;dane4.rds&quot;    &quot;dane4.sav&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="roz1.html#cb11-1"></a><span class="co"># usuwam dane ze środowiska R</span></span>
+<span id="cb11-2"><a href="roz1.html#cb11-2"></a><span class="kw">rm</span>(dane1, dane2, dane3, dane4)</span>
+<span id="cb11-3"><a href="roz1.html#cb11-3"></a><span class="co"># sprawdzam co jest wczytane do R</span></span>
+<span id="cb11-4"><a href="roz1.html#cb11-4"></a><span class="kw">ls</span>()</span></code></pre></div>
 <pre><code>## character(0)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wczytuję plik rda</span>
-<span class="kw">load</span>(<span class="st">&quot;data/dane.rda&quot;</span>)
-<span class="co"># jeszcze raz sprawdzam co jest wczytane do R</span>
-<span class="kw">ls</span>()</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="roz1.html#cb13-1"></a><span class="co"># wczytuję plik rda</span></span>
+<span id="cb13-2"><a href="roz1.html#cb13-2"></a><span class="kw">load</span>(<span class="st">&quot;data/dane.rda&quot;</span>)</span>
+<span id="cb13-3"><a href="roz1.html#cb13-3"></a><span class="co"># jeszcze raz sprawdzam co jest wczytane do R</span></span>
+<span id="cb13-4"><a href="roz1.html#cb13-4"></a><span class="kw">ls</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;dane1&quot; &quot;dane2&quot; &quot;dane3&quot; &quot;dane4&quot;</code></pre>
 <p>Zapisując obiekty jako oddzielne pliki, można przy wczytywaniu nadawać im nazwy.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(dane1, dane2, dane3)
-<span class="kw">ls</span>()</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="roz1.html#cb15-1"></a><span class="kw">rm</span>(dane1, dane2, dane3)</span>
+<span id="cb15-2"><a href="roz1.html#cb15-2"></a><span class="kw">ls</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;dane4&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(dane4, <span class="dt">file =</span> <span class="st">&quot;data/dane4.rds&quot;</span>)
-nowe_dane &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/dane4.rds&quot;</span>)
-nowe_dane</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="roz1.html#cb17-1"></a><span class="kw">saveRDS</span>(dane4, <span class="dt">file =</span> <span class="st">&quot;data/dane4.rds&quot;</span>)</span>
+<span id="cb17-2"><a href="roz1.html#cb17-2"></a>nowe_dane &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/dane4.rds&quot;</span>)</span>
+<span id="cb17-3"><a href="roz1.html#cb17-3"></a>nowe_dane</span></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
-##    `Długość kielic~ `Szerokość kiel~ `Długość płatka` `Szerokość płat~
-##               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1              5.1              3.5              1.4              0.2
-##  2              4.9              3                1.4              0.2
-##  3              4.7              3.2              1.3              0.2
-##  4              4.6              3.1              1.5              0.2
-##  5              5                3.6              1.4              0.2
-##  6              5.4              3.9              1.7              0.4
-##  7             NA               NA                1.4              0.3
-##  8              5                3.4              1.5              0.2
-##  9              4.4              2.9              1.4              0.2
-## 10              4.9              3.1              1.5              0.1
-## # ... with 140 more rows, and 1 more variable: Gatunki &lt;chr&gt;</code></pre>
-<p>Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą <code>R</code>. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tej niedogodności 🙋</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rio)
-dane1 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.txt&quot;</span>)
-<span class="kw">head</span>(dane1)</code></pre>
+##    `Długość kielich~ `Szerokość kieli~ `Długość płatka` `Szerokość płat~ Gatunki
+##                &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  
+##  1               5.1               3.5              1.4              0.2 setosa 
+##  2               4.9               3                1.4              0.2 setosa 
+##  3               4.7               3.2              1.3              0.2 setosa 
+##  4               4.6               3.1              1.5              0.2 setosa 
+##  5               5                 3.6              1.4              0.2 setosa 
+##  6               5.4               3.9              1.7              0.4 setosa 
+##  7              NA                NA                1.4              0.3 setosa 
+##  8               5                 3.4              1.5              0.2 &lt;NA&gt;   
+##  9               4.4               2.9              1.4              0.2 setosa 
+## 10               4.9               3.1              1.5              0.1 setosa 
+## # ... with 140 more rows</code></pre>
+<p>Oprócz wielu zalet takiego sposobu importu i eksportu danych jest jedna poważna wada, pliki te można odczytać jedynie za pomocą <code>R</code>. Osobiście polecam stosować do importu i eksportu danych plików w takich formatach, które mogą przeczytać wszyscy. Jak dotąd widać do importu różnych formatów danych potrzebujemy różnych funkcji, czasami nawet z różnych pakietów. Istnieje rozwiązanie tej niedogodności 😆</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="roz1.html#cb19-1"></a><span class="kw">library</span>(rio)</span>
+<span id="cb19-2"><a href="roz1.html#cb19-2"></a>dane1 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.txt&quot;</span>)</span>
+<span id="cb19-3"><a href="roz1.html#cb19-3"></a><span class="kw">head</span>(dane1)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -385,10 +389,10 @@ dane1 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dane2 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.csv&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;,&quot;</span>)
-<span class="co"># dane1.csv miały , jako znak rozdzielający cechę i mantysę liczb</span>
-<span class="co"># dlatego włączamy parametr dec</span>
-<span class="kw">head</span>(dane2)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="roz1.html#cb21-1"></a>dane2 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.csv&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb21-2"><a href="roz1.html#cb21-2"></a><span class="co"># dane1.csv miały , jako znak rozdzielający cechę i mantysę liczb</span></span>
+<span id="cb21-3"><a href="roz1.html#cb21-3"></a><span class="co"># dlatego włączamy parametr dec</span></span>
+<span id="cb21-4"><a href="roz1.html#cb21-4"></a><span class="kw">head</span>(dane2)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -396,39 +400,32 @@ dane1 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dane3 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.xlsx&quot;</span>, <span class="dt">na=</span><span class="kw">c</span>(<span class="st">&quot;BD&quot;</span>,<span class="st">&quot;-&quot;</span>))
-<span class="kw">head</span>(dane3)</code></pre>
-<pre><code>##   Długość kielicha Szerokość kielicha Długość płatka Szerokość płatka
-## 1              5.1                3.5            1.4              0.2
-## 2              4.9                3.0            1.4              0.2
-## 3              4.7                3.2            1.3              0.2
-## 4              4.6                3.1            1.5              0.2
-## 5              5.0                3.6            1.4              0.2
-## 6              5.4                3.9            1.7              0.4
-##   Gatunki
-## 1  setosa
-## 2  setosa
-## 3  setosa
-## 4  setosa
-## 5  setosa
-## 6  setosa</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dane4 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane4.rds&quot;</span>)
-dane4</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="roz1.html#cb23-1"></a>dane3 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane1.xlsx&quot;</span>, <span class="dt">na=</span><span class="kw">c</span>(<span class="st">&quot;BD&quot;</span>,<span class="st">&quot;-&quot;</span>))</span>
+<span id="cb23-2"><a href="roz1.html#cb23-2"></a><span class="kw">head</span>(dane3)</span></code></pre></div>
+<pre><code>##   Długość kielicha Szerokość kielicha Długość płatka Szerokość płatka Gatunki
+## 1              5.1                3.5            1.4              0.2  setosa
+## 2              4.9                3.0            1.4              0.2  setosa
+## 3              4.7                3.2            1.3              0.2  setosa
+## 4              4.6                3.1            1.5              0.2  setosa
+## 5              5.0                3.6            1.4              0.2  setosa
+## 6              5.4                3.9            1.7              0.4  setosa</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="roz1.html#cb25-1"></a>dane4 &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;data/dane4.rds&quot;</span>)</span>
+<span id="cb25-2"><a href="roz1.html#cb25-2"></a>dane4</span></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
-##    `Długość kielic~ `Szerokość kiel~ `Długość płatka` `Szerokość płat~
-##               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1              5.1              3.5              1.4              0.2
-##  2              4.9              3                1.4              0.2
-##  3              4.7              3.2              1.3              0.2
-##  4              4.6              3.1              1.5              0.2
-##  5              5                3.6              1.4              0.2
-##  6              5.4              3.9              1.7              0.4
-##  7             NA               NA                1.4              0.3
-##  8              5                3.4              1.5              0.2
-##  9              4.4              2.9              1.4              0.2
-## 10              4.9              3.1              1.5              0.1
-## # ... with 140 more rows, and 1 more variable: Gatunki &lt;chr&gt;</code></pre>
-<p>Lista możliwości jaką daje nam pakiet <code>rio</code> <span class="citation">(Chan and Leeper <a href="#ref-R-rio">2018</a>)</span> jest niemal nieograniczona:<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+##    `Długość kielich~ `Szerokość kieli~ `Długość płatka` `Szerokość płat~ Gatunki
+##                &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  
+##  1               5.1               3.5              1.4              0.2 setosa 
+##  2               4.9               3                1.4              0.2 setosa 
+##  3               4.7               3.2              1.3              0.2 setosa 
+##  4               4.6               3.1              1.5              0.2 setosa 
+##  5               5                 3.6              1.4              0.2 setosa 
+##  6               5.4               3.9              1.7              0.4 setosa 
+##  7              NA                NA                1.4              0.3 setosa 
+##  8               5                 3.4              1.5              0.2 &lt;NA&gt;   
+##  9               4.4               2.9              1.4              0.2 setosa 
+## 10               4.9               3.1              1.5              0.1 setosa 
+## # ... with 140 more rows</code></pre>
+<p>Lista możliwości jaką daje nam pakiet <code>rio</code> <span class="citation">(Chan and Leeper <a href="#ref-R-rio" role="doc-biblioref">2018</a>)</span> jest niemal nieograniczona:<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <ul>
 <li>Comma-separated data (.csv), using fread or, if fread = FALSE, read.table with row.names = FALSE and stringsAsFactors = FALSE</li>
 <li>Pipe-separated data (.psv), using fread or, if fread = FALSE, read.table with sep = ‘|’, row.names = FALSE and stringsAsFactors = FALSE</li>
@@ -476,28 +473,28 @@ dane4</code></pre>
 Rysunek 1.3: Fragment pliku danych Analisis.txt
 </p>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r">algae &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&#39;data/Analysis.txt&#39;</span>, <span class="dt">header=</span>F, 
-                <span class="dt">dec=</span><span class="st">&#39;.&#39;</span>, 
-                <span class="dt">col.names=</span><span class="kw">c</span>(<span class="st">&#39;season&#39;</span>,<span class="st">&#39;size&#39;</span>,<span class="st">&#39;speed&#39;</span>,<span class="st">&#39;mxPH&#39;</span>,<span class="st">&#39;mnO2&#39;</span>,<span class="st">&#39;Cl&#39;</span>,
-                            <span class="st">&#39;NO3&#39;</span>,<span class="st">&#39;NH4&#39;</span>,<span class="st">&#39;oPO4&#39;</span>,<span class="st">&#39;PO4&#39;</span>,<span class="st">&#39;Chla&#39;</span>,<span class="st">&#39;a1&#39;</span>,<span class="st">&#39;a2&#39;</span>,
-                            <span class="st">&#39;a3&#39;</span>,<span class="st">&#39;a4&#39;</span>,<span class="st">&#39;a5&#39;</span>,<span class="st">&#39;a6&#39;</span>,<span class="st">&#39;a7&#39;</span>),
-                <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;XXXXXXX&#39;</span>))
-<span class="kw">head</span>(algae)</code></pre>
-<pre><code>##   season  size  speed mxPH mnO2     Cl    NO3     NH4    oPO4     PO4 Chla
-## 1 winter small medium 8.00  9.8 60.800  6.238 578.000 105.000 170.000 50.0
-## 2 spring small medium 8.35  8.0 57.750  1.288 370.000 428.750 558.750  1.3
-## 3 autumn small medium 8.10 11.4 40.020  5.330 346.667 125.667 187.057 15.6
-## 4 spring small medium 8.07  4.8 77.364  2.302  98.182  61.182 138.700  1.4
-## 5 autumn small medium 8.06  9.0 55.350 10.416 233.700  58.222  97.580 10.5
-## 6 winter small   high 8.25 13.1 65.750  9.248 430.000  18.250  56.667 28.4
-##     a1   a2   a3  a4   a5   a6  a7
-## 1  0.0  0.0  0.0 0.0 34.2  8.3 0.0
-## 2  1.4  7.6  4.8 1.9  6.7  0.0 2.1
-## 3  3.3 53.6  1.9 0.0  0.0  0.0 9.7
-## 4  3.1 41.0 18.9 0.0  1.4  0.0 1.4
-## 5  9.2  2.9  7.5 0.0  7.5  4.1 1.0
-## 6 15.1 14.6  1.4 0.0 22.5 12.6 2.9</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(algae)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="roz1.html#cb27-1"></a>algae &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&#39;data/Analysis.txt&#39;</span>, <span class="dt">header=</span>F, </span>
+<span id="cb27-2"><a href="roz1.html#cb27-2"></a>                <span class="dt">dec=</span><span class="st">&#39;.&#39;</span>, </span>
+<span id="cb27-3"><a href="roz1.html#cb27-3"></a>                <span class="dt">col.names=</span><span class="kw">c</span>(<span class="st">&#39;season&#39;</span>,<span class="st">&#39;size&#39;</span>,<span class="st">&#39;speed&#39;</span>,<span class="st">&#39;mxPH&#39;</span>,<span class="st">&#39;mnO2&#39;</span>,<span class="st">&#39;Cl&#39;</span>,</span>
+<span id="cb27-4"><a href="roz1.html#cb27-4"></a>                            <span class="st">&#39;NO3&#39;</span>,<span class="st">&#39;NH4&#39;</span>,<span class="st">&#39;oPO4&#39;</span>,<span class="st">&#39;PO4&#39;</span>,<span class="st">&#39;Chla&#39;</span>,<span class="st">&#39;a1&#39;</span>,<span class="st">&#39;a2&#39;</span>,</span>
+<span id="cb27-5"><a href="roz1.html#cb27-5"></a>                            <span class="st">&#39;a3&#39;</span>,<span class="st">&#39;a4&#39;</span>,<span class="st">&#39;a5&#39;</span>,<span class="st">&#39;a6&#39;</span>,<span class="st">&#39;a7&#39;</span>),</span>
+<span id="cb27-6"><a href="roz1.html#cb27-6"></a>                <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&#39;XXXXXXX&#39;</span>))</span>
+<span id="cb27-7"><a href="roz1.html#cb27-7"></a><span class="kw">head</span>(algae)</span></code></pre></div>
+<pre><code>##   season  size  speed mxPH mnO2     Cl    NO3     NH4    oPO4     PO4 Chla   a1
+## 1 winter small medium 8.00  9.8 60.800  6.238 578.000 105.000 170.000 50.0  0.0
+## 2 spring small medium 8.35  8.0 57.750  1.288 370.000 428.750 558.750  1.3  1.4
+## 3 autumn small medium 8.10 11.4 40.020  5.330 346.667 125.667 187.057 15.6  3.3
+## 4 spring small medium 8.07  4.8 77.364  2.302  98.182  61.182 138.700  1.4  3.1
+## 5 autumn small medium 8.06  9.0 55.350 10.416 233.700  58.222  97.580 10.5  9.2
+## 6 winter small   high 8.25 13.1 65.750  9.248 430.000  18.250  56.667 28.4 15.1
+##     a2   a3  a4   a5   a6  a7
+## 1  0.0  0.0 0.0 34.2  8.3 0.0
+## 2  7.6  4.8 1.9  6.7  0.0 2.1
+## 3 53.6  1.9 0.0  0.0  0.0 9.7
+## 4 41.0 18.9 0.0  1.4  0.0 1.4
+## 5  2.9  7.5 0.0  7.5  4.1 1.0
+## 6 14.6  1.4 0.0 22.5 12.6 2.9</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="roz1.html#cb29-1"></a><span class="kw">summary</span>(algae)</span></code></pre></div>
 <pre><code>##     season              size              speed                mxPH      
 ##  Length:200         Length:200         Length:200         Min.   :5.600  
 ##  Class :character   Class :character   Class :character   1st Qu.:7.700  
@@ -538,7 +535,7 @@ Rysunek 1.3: Fragment pliku danych Analisis.txt
 ##  3rd Qu.: 6.925   3rd Qu.: 2.400  
 ##  Max.   :77.600   Max.   :31.600  
 ## </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">export</span>(algae, <span class="dt">file =</span> <span class="st">&quot;data/algae.csv&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="roz1.html#cb31-1"></a><span class="kw">export</span>(algae, <span class="dt">file =</span> <span class="st">&quot;data/algae.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 <h3>Bibliografia</h3>
@@ -549,13 +546,13 @@ Rysunek 1.3: Fragment pliku danych Analisis.txt
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p>póki co nie jest mi znana funkcja pozwalająca na import plików programu Statistica<a href="roz1.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>na dzień 19.02.2019<a href="roz1.html#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>istnieją rownież nowsze wersje deweloperskie<a href="roz1.html#fnref5" class="footnote-back">↩</a></p></li>
-<li id="fn6"><p>do ich wczytywania stosujemy funkcje pakietu <code>foreign</code><a href="roz1.html#fnref6" class="footnote-back">↩</a></p></li>
-<li id="fn7"><p>oznaczają to samo<a href="roz1.html#fnref7" class="footnote-back">↩</a></p></li>
-<li id="fn8"><p>fragment pliku <code>help</code> funkcji <code>import</code><a href="roz1.html#fnref8" class="footnote-back">↩</a></p></li>
+<ol start="1">
+<li id="fn1"><p>póki co nie jest mi znana funkcja pozwalająca na import plików programu Statistica<a href="roz1.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>na dzień 19.02.2019<a href="roz1.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>istnieją rownież nowsze wersje deweloperskie<a href="roz1.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>do ich wczytywania stosujemy funkcje pakietu <code>foreign</code><a href="roz1.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>oznaczają to samo<a href="roz1.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>fragment pliku <code>help</code> funkcji <code>import</code><a href="roz1.html#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -569,11 +566,13 @@ Rysunek 1.3: Fragment pliku danych Analisis.txt
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -581,12 +580,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -598,6 +597,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -621,8 +624,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
